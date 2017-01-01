@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import editProfile from './edit-profile';
 import exportData from './export-data';
@@ -43,8 +43,9 @@ Meteor.methods({
         handleMethodException(exception);
       });
   },
-  'users.deleteAccount': function usersDeleteAccount() {
-    return deleteAccount({ userId: this.userId })
+  'users.deleteAccount': function usersDeleteAccount(userId) {
+    check(userId, Match.Maybe(String));
+    return deleteAccount({ userId: userId || this.userId })
       .then(response => response)
       .catch((exception) => {
         handleMethodException(exception);

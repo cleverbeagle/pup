@@ -1,3 +1,6 @@
+import '../../api/Admin/methods';
+import '../../api/Admin/server/publications';
+
 import '../../api/Documents/server/indexes';
 import '../../api/Documents/server/publications';
 

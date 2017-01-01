@@ -1,4 +1,5 @@
 const parseGoogleData = service => ({
+  service: 'Google',
   email: service.email,
   name: {
     first: service.given_name,
@@ -7,8 +8,9 @@ const parseGoogleData = service => ({
 });
 
 const parseGithubData = (profile, service) => {
-  const name = profile.name.split(' ');
+  const name = profile.name ? profile.name.split(' ') : ['', ''];
   return {
+    service: 'GitHub',
     email: service.email,
     name: {
       first: name[0],
@@ -18,6 +20,7 @@ const parseGithubData = (profile, service) => {
 };
 
 const parseFacebookData = service => ({
+  service: 'Facebook',
   email: service.email,
   name: {
     first: service.first_name,
@@ -32,7 +35,7 @@ const getDataForService = (options, services) => {
   return null;
 };
 
-export default (options, user) => {
+export default (options = { password: false }, user) => {
   const isOAuth = !options.password;
   const serviceData = isOAuth ? getDataForService(options, user.services) : null;
   return isOAuth ? serviceData : null;
