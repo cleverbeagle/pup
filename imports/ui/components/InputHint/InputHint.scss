@@ -1,0 +1,9 @@
+@import '../../stylesheets/colors';
+
+.InputHint {
+  display: block;
+  margin-top: 8px;
+  font-style: italic;
+  color: $gray-light;
+  font-size: 13px;
+}

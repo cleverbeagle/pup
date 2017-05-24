@@ -1,0 +1,77 @@
+{
+  "name": "pup",
+  "private": true,
+  "scripts": {
+    "start": "meteor --settings settings-development.json",
+    "test": "jest"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.20.0",
+    "jquery": "^2.2.4",
+    "jquery-validation": "^1.16.0",
+    "meteor-node-stubs": "~0.2.4",
+    "moment": "^2.18.1",
+    "prop-types": "^15.5.10",
+    "react": "^15.5.4",
+    "react-addons-pure-render-mixin": "^15.5.2",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.5.4",
+    "react-router-bootstrap": "^0.24.2",
+    "react-router-dom": "^4.1.1",
+    "simpl-schema": "^0.3.0"
+  },
+  "devDependencies": {
+    "babel-jest": "^20.0.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "enzyme": "^2.8.2",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-meteor": "^4.0.1",
+    "eslint-plugin-react": "^7.0.1",
+    "jest": "^20.0.3"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "plugins": [
+      "meteor",
+      "react"
+    ],
+    "extends": [
+      "airbnb",
+      "plugin:meteor/recommended",
+      "plugin:react/recommended"
+    ],
+    "env": {
+      "browser": true
+    },
+    "globals": {
+      "expect": false
+    },
+    "rules": {
+      "import/no-unresolved": 0,
+      "import/no-extraneous-dependencies": 0,
+      "import/extensions": 0,
+      "no-underscore-dangle": [
+        "error",
+        {
+          "allow": [
+            "_id",
+            "_ensureIndex",
+            "_verifyEmailToken",
+            "_resetPasswordToken",
+            "_name"
+          ]
+        }
+      ],
+      "class-methods-use-this": 0,
+      "react/jsx-filename-extension": 0
+    }
+  }
+}

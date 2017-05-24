@@ -1,0 +1,19 @@
+{
+  "public": {},
+  "private": {
+    "OAuth": {
+      "facebook": {
+        "clientId": "",
+        "secret": ""
+      },
+      "google": {
+        "clientId": "",
+        "secret": ""
+      },
+      "github": {
+        "clientId": "",
+        "secret": ""
+      }
+    }
+  }
+}

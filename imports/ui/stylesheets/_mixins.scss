@@ -1,0 +1,23 @@
+@mixin breakpoint($point) {
+  @if $point == desktop-large {
+    @media (min-width: 1200px) { @content; }
+  } @else if $point == desktop {
+    @media (min-width: 1024px) { @content; }
+  } @else if $point == tablet {
+    @media (min-width: 768px) { @content; }
+  } @else if $point == handheld-large {
+    @media (min-width: 480px) { @content; }
+  } @else {
+    @media (min-width: $point) { @content; }
+  }
+}
+
+@mixin ie {
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    @content;
+  }
+
+  @supports (-ms-accelerator:true) {
+    @content;
+  }
+}

@@ -1,0 +1,52 @@
+@import '../../stylesheets/colors';
+
+.OAuthLoginButton {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+  background: $gray-lighter;
+  border-radius: 3px;
+
+  i {
+    margin-right: 3px;
+    font-size: 18px;
+    position: relative;
+    top: 1px;
+  }
+
+  &.OAuthLoginButton-facebook {
+    background: $facebook;
+    color: #fff;
+
+    &:hover { background: darken($facebook, 5%); }
+  }
+
+  &.OAuthLoginButton-google {
+    background: $google;
+    color: #fff;
+
+    &:hover { background: darken($google, 5%); }
+  }
+
+  &.OAuthLoginButton-github {
+    background: $github;
+    color: #fff;
+
+    &:hover { background: darken($github, 5%); }
+  }
+
+  &:active {
+    position: relative;
+    top: 1px;
+  }
+
+  &:active,
+  &:focus {
+    outline: 0;
+  }
+}
+
+.OAuthLoginButton + .OAuthLoginButton {
+  margin-top: 10px;
+}
