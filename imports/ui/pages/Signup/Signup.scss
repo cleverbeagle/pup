@@ -1,11 +1,6 @@
-@import '../../stylesheets/mixins';
 @import '../../stylesheets/colors';
 
 .Signup {
-  .page-header {
-    margin-top: 0;
-  }
-
   form {
     position: relative;
     border-top: 1px solid $gray-lighter;
@@ -26,22 +21,6 @@
       margin-top: 25px;
       padding-top: 20px;
       border-top: 1px solid $gray-lighter;
-    }
-  }
-}
-
-@include breakpoint(tablet) {
-  .Signup {
-    .page-header {
-      margin-top: 10px;
-    }
-  }
-}
-
-@include breakpoint(desktop) {
-  .Signup {
-    .page-header {
-      margin-top: 20px;
     }
   }
 }

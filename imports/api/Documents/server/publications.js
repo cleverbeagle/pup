@@ -1,0 +1,17 @@
+import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
+import Documents from '../Documents';
+
+Meteor.publish('documents', function documentsView() {
+  return Documents.find({ owner: this.userId });
+});
+
+// Note: documents.view is also used when editing an existing document.
+Meteor.publish('documents.view', function documentsView(documentId) {
+  check(documentId, String);
+
+  const doc = Documents.find(documentId);
+  const isOwner = doc.fetch()[0].owner === this.userId;
+
+  return isOwner ? doc : this.ready();
+});

@@ -6,11 +6,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "@cleverbeagle/dates": "^0.2.0",
     "babel-runtime": "^6.20.0",
     "jquery": "^2.2.4",
     "jquery-validation": "^1.16.0",
     "meteor-node-stubs": "~0.2.4",
-    "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-addons-pure-render-mixin": "^15.5.2",
@@ -71,7 +71,8 @@
         }
       ],
       "class-methods-use-this": 0,
-      "react/jsx-filename-extension": 0
+      "react/jsx-filename-extension": 0,
+      "react/forbid-prop-types": 0
     }
   }
 }

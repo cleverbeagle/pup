@@ -56,7 +56,7 @@ OAuthLoginButton.defaultProps = {
 
 OAuthLoginButton.propTypes = {
   service: PropTypes.string.isRequired,
-  options: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  options: PropTypes.object,
   callback: PropTypes.func,
 };
 

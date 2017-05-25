@@ -149,7 +149,7 @@ class Signup extends React.Component {
 }
 
 Signup.propTypes = {
-  history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  history: PropTypes.object.isRequired,
 };
 
 export default Signup;

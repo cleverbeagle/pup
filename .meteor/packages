@@ -30,3 +30,5 @@ accounts-google
 themeteorchef:bert
 fortawesome:fontawesome
 aldeed:collection2-core
+audit-argument-checks
+ddp-rate-limiter

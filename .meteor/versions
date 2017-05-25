@@ -8,6 +8,7 @@ alanning:roles@1.2.16
 aldeed:collection2-core@1.2.0
 aldeed:simple-schema@1.5.3
 allow-deny@1.0.5
+audit-argument-checks@1.0.7
 autoupdate@1.3.12
 babel-compiler@6.18.2
 babel-runtime@1.0.1

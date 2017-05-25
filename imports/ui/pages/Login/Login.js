@@ -80,7 +80,10 @@ class Login extends React.Component {
               />
             </FormGroup>
             <FormGroup>
-              <ControlLabel>Password</ControlLabel>
+              <ControlLabel className="clearfix">
+                <span className="pull-left">Password</span>
+                <Link className="pull-right" to="/recover-password">Forgot password?</Link>
+              </ControlLabel>
               <input
                 type="password"
                 name="password"
@@ -100,7 +103,7 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  history: PropTypes.object.isRequired,
 };
 
 export default Login;
