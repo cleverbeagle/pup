@@ -6,6 +6,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 import OAuthLoginButton from '../../components/OAuthLoginButton/OAuthLoginButton';
 import InputHint from '../../components/InputHint/InputHint';
+import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
 import validate from '../../../modules/validate';
 
 import './Signup.scss';
@@ -138,9 +139,9 @@ class Signup extends React.Component {
               <InputHint>Use at least six characters.</InputHint>
             </FormGroup>
             <Button type="submit" bsStyle="success">Sign Up</Button>
-            <p className="HaveAnAccount">
-              Already have an account? <Link to="/login">Log In</Link>.
-            </p>
+            <AccountPageFooter>
+              <p>Already have an account? <Link to="/login">Log In</Link>.</p>
+            </AccountPageFooter>
           </form>
         </Col>
       </Row>

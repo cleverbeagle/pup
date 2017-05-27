@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import OAuthLoginButton from '../../components/OAuthLoginButton/OAuthLoginButton';
+import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
 import validate from '../../../modules/validate';
 
 import './Login.scss';
@@ -92,9 +93,9 @@ class Login extends React.Component {
               />
             </FormGroup>
             <Button type="submit" bsStyle="success">Log In</Button>
-            <p className="DontHaveAnAccount">
-              {'Don\'t have an account?'} <Link to="/signup">Sign Up</Link>.
-            </p>
+            <AccountPageFooter>
+              <p>{'Don\'t have an account?'} <Link to="/signup">Sign Up</Link>.</p>
+            </AccountPageFooter>
           </form>
         </Col>
       </Row>

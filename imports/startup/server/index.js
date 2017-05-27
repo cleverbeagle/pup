@@ -1,1 +1,2 @@
 import './api';
+import './fixtures';
