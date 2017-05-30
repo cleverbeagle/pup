@@ -46,6 +46,6 @@ Documents.schema = new SimpleSchema({
   },
 });
 
-// Documents.attachSchema(Documents.schema);
+Documents.attachSchema(Documents.schema);
 
 export default Documents;

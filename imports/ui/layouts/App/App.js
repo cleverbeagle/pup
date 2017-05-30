@@ -15,6 +15,7 @@ import ViewDocument from '../../pages/ViewDocument/ViewDocument';
 import EditDocument from '../../pages/EditDocument/EditDocument';
 import Signup from '../../pages/Signup/Signup';
 import Login from '../../pages/Login/Login';
+import Logout from '../../pages/Logout/Logout';
 import RecoverPassword from '../../pages/RecoverPassword/RecoverPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
@@ -34,6 +35,7 @@ const App = props => (
           <Authenticated exact path="/profile" component={Profile} {...props} />
           <Public path="/signup" component={Signup} {...props} />
           <Public path="/login" component={Login} {...props} />
+          <Public path="/logout" component={Logout} {...props} />
           <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
           <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
           <Route component={NotFound} />
@@ -47,17 +49,24 @@ App.propTypes = {
   loading: PropTypes.bool.isRequired,
 };
 
+const getUserName = name => ({
+  string: name,
+  object: `${name.first} ${name.last}`,
+}[typeof name]);
+
 export default createContainer(() => {
   const loggingIn = Meteor.loggingIn();
   const user = Meteor.user();
   const userId = Meteor.userId();
   const loading = !Roles.subscription.ready();
+  const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
+  const emailAddress = user && user.emails && user.emails[0].address;
 
   return {
     loading,
     loggingIn,
     authenticated: !loggingIn && !!userId,
-    name: user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : '',
+    name: name || emailAddress,
     roles: !loading && Roles.getRolesForUser(userId),
   };
 }, App);

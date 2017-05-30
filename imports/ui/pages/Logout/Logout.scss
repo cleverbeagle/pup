@@ -1,7 +1,7 @@
 @import '../../stylesheets/mixins';
 @import '../../stylesheets/colors';
 
-.Index {
+.Logout {
   padding: 20px;
   background: $cb-blue;
   text-align: center;
@@ -22,37 +22,36 @@
     color: lighten($cb-blue, 25%);
   }
 
-  > div {
+  ul {
+    list-style: none;
     display: inline-block;
+    padding: 0;
     margin: 10px 0 0;
+  }
 
-    .btn:first-child {
-      margin-right: 10px;
+  ul li {
+    float: left;
+    font-size: 28px;
+    line-height: 28px;
+
+    a {
+      color: #fff;
     }
 
-    .btn {
-      border: none;
-    }
-
-    .btn:last-child {
-      background: darken($cb-blue, 20%);
-      color: lighten($cb-blue, 30%);
-
-      &:hover {
-        color: #fff;
-      }
+    &:not(:last-child) {
+      margin-right: 15px;
     }
   }
 }
 
 @include breakpoint(tablet) {
-  .Index {
+  .Logout {
     padding: 30px;
   }
 }
 
 @include breakpoint(desktop) {
-  .Index {
+  .Logout {
     padding: 40px;
   }
 }

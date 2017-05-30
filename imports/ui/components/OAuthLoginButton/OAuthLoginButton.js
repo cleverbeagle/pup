@@ -5,58 +5,54 @@ import { Bert } from 'meteor/themeteorchef:bert';
 
 import './OAuthLoginButton.scss';
 
-const handleLogin = (service, options, callback) => {
-  const defaultOptions = {
+const handleLogin = (service, callback) => {
+  const options = {
     facebook: {
       requestPermissions: ['email'],
-      loginStyle: 'redirect',
+      loginStyle: 'popup',
+    },
+    github: {
+      requestPermissions: ['user:email'],
+      loginStyle: 'popup',
     },
     google: {
       requestPermissions: ['email'],
       requestOfflineToken: true,
-      loginStyle: 'redirect',
-    },
-    github: {
-      requestPermissions: ['user:email'],
-      loginStyle: 'redirect',
+      loginStyle: 'popup',
     },
   }[service];
 
-  const defaultCallback = (error) => {
-    if (error) Bert.alert(error.reason, 'danger');
-  };
-
   return {
     facebook: Meteor.loginWithFacebook,
-    google: Meteor.loginWithGoogle,
     github: Meteor.loginWithGithub,
-  }[service](options || defaultOptions, callback || defaultCallback);
+    google: Meteor.loginWithGoogle,
+  }[service](options, callback);
 };
 
 const serviceLabel = {
   facebook: <span><i className="fa fa-facebook" /> Log In with Facebook</span>,
-  google: <span><i className="fa fa-google" /> Log In with Google</span>,
   github: <span><i className="fa fa-github" /> Log In with GitHub</span>,
+  google: <span><i className="fa fa-google" /> Log In with Google</span>,
 };
 
-const OAuthLoginButton = ({ service, options, callback }) => (
+const OAuthLoginButton = ({ service, callback }) => (
   <button
     className={`OAuthLoginButton OAuthLoginButton-${service}`}
     type="button"
-    onClick={() => handleLogin(service, options, callback)}
+    onClick={() => handleLogin(service, callback)}
   >
     {serviceLabel[service]}
   </button>
 );
 
 OAuthLoginButton.defaultProps = {
-  options: PropTypes.object,
-  callback: PropTypes.func,
+  callback: (error) => {
+    if (error) Bert.alert(error.message, 'danger');
+  },
 };
 
 OAuthLoginButton.propTypes = {
   service: PropTypes.string.isRequired,
-  options: PropTypes.object,
   callback: PropTypes.func,
 };
 

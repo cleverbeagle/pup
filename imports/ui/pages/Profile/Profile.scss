@@ -1,0 +1,39 @@
+@import '../../stylesheets/colors';
+
+.OAuthProfile {
+  .LoggedInWith {
+    padding: 10px 20px;
+    border-radius: 3px;
+    color: #fff;
+
+    p {
+      margin: 0;
+    }
+
+    .ServiceIcon {
+      float: left;
+      width: auto;
+      margin-right: 15px;
+      height: 30px;
+      text-align: center;
+
+      i {
+        font-size: 30px;
+        position: relative;
+        top: 5px;
+      }
+    }
+
+    &.facebook {
+      background: $facebook;
+    }
+
+    &.github {
+      background: $github;
+    }
+
+    &.google {
+      background: $google;
+    }
+  }
+}

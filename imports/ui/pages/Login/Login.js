@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-import OAuthLoginButton from '../../components/OAuthLoginButton/OAuthLoginButton';
+import OAuthLoginButtons from '../../components/OAuthLoginButtons/OAuthLoginButtons';
 import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
 import validate from '../../../modules/validate';
-
-import './Login.scss';
 
 class Login extends React.Component {
   constructor(props) {
@@ -62,15 +60,16 @@ class Login extends React.Component {
           <h4 className="page-header">Log In</h4>
           <Row>
             <Col xs={12}>
-              <FormGroup className="OAuthLoginButtons">
-                <OAuthLoginButton service="facebook" />
-                <OAuthLoginButton service="google" />
-                <OAuthLoginButton service="github" />
-              </FormGroup>
+              <OAuthLoginButtons
+                services={['facebook', 'github', 'google']}
+                emailMessage={{
+                  offset: 100,
+                  text: 'Log In with an Email Address',
+                }}
+              />
             </Col>
           </Row>
           <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-            <p className="LoginWithEmail">Log In with an Email Address</p>
             <FormGroup>
               <ControlLabel>Email Address</ControlLabel>
               <input

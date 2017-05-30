@@ -86,7 +86,7 @@ class DocumentEditor extends React.Component {
 }
 
 DocumentEditor.defaultProps = {
-  doc: PropTypes.object,
+  doc: { title: '', body: '' },
 };
 
 DocumentEditor.propTypes = {

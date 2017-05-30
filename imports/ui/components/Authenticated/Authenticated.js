@@ -8,7 +8,7 @@ const Authenticated = ({ loggingIn, authenticated, component, ...rest }) => (
       if (loggingIn) return <div />;
       return authenticated ?
       (React.createElement(component, { ...props, loggingIn, authenticated })) :
-      (<Redirect to="/login" />);
+      (<Redirect to="/logout" />);
     }}
   />
 );

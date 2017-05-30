@@ -5,6 +5,7 @@ Meteor.publish('users.editProfile', function usersProfile() {
     fields: {
       emails: 1,
       profile: 1,
+      services: 1,
     },
   });
 });
