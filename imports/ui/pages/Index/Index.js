@@ -15,6 +15,9 @@ const Index = () => (
       <Button href="https://pup.cleverbeagle.com">Read the Docs</Button>
       <Button href="https://github.com/cleverbeagle/pup"><i className="fa fa-star" /> Star on GitHub</Button>
     </div>
+    <footer>
+      <p>Need help and want to stay accountable building your product? <a href="https://cleverbeagle.com?utm_source=pupappindex&utm_campaign=oss">Check out Clever Beagle</a>.</p>
+    </footer>
   </div>
 );
 

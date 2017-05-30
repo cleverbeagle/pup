@@ -1,0 +1,11 @@
+@import '../../stylesheets/mixins';
+
+.Page {
+  margin-bottom: 0px;
+}
+
+@include breakpoint(tablet) {
+  .Page {
+    margin-bottom: 30px;
+  }
+}

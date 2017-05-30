@@ -39,7 +39,9 @@ body {
       color: $gray-light;
     }
 
-    a:hover {
+    a:hover,
+    a:active,
+    a:focus {
       text-decoration: none;
       color: $gray;
     }

@@ -33,14 +33,23 @@
     .btn {
       border: none;
     }
+  }
 
-    .btn:last-child {
-      background: darken($cb-blue, 20%);
-      color: lighten($cb-blue, 30%);
+  footer {
+    margin: 20px -20px -20px;
+    border-top: 1px solid darken($cb-blue, 10%);
+    padding: 20px;
 
-      &:hover {
-        color: #fff;
-      }
+    p {
+      font-size: 14px;
+      line-height: 22px;
+      color: lighten($cb-blue, 35%);
+      margin: 0;
+    }
+
+    p a {
+      color: lighten($cb-blue, 35%);
+      text-decoration: underline;
     }
   }
 }
@@ -48,11 +57,19 @@
 @include breakpoint(tablet) {
   .Index {
     padding: 30px;
+
+    footer {
+      margin: 30px -30px -30px;
+    }
   }
 }
 
 @include breakpoint(desktop) {
   .Index {
     padding: 40px;
+
+    footer {
+      margin: 40px -40px -40px;
+    }
   }
 }

@@ -21,6 +21,8 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import NotFound from '../../pages/NotFound/NotFound';
 import Footer from '../../components/Footer/Footer';
+import Terms from '../../pages/Terms/Terms';
+import Privacy from '../../pages/Privacy/Privacy';
 
 import './App.scss';
 
@@ -41,6 +43,8 @@ const App = props => (
           <Public path="/logout" component={Logout} {...props} />
           <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
           <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
+          <Route name="terms" path="/terms" component={Terms} />
+          <Route name="privacy" path="/privacy" component={Privacy} />
           <Route component={NotFound} />
         </Switch>
       </Grid>
