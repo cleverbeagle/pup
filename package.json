@@ -6,7 +6,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@cleverbeagle/dates": "^0.2.0",
+    "@cleverbeagle/dates": "^0.4.0",
     "@cleverbeagle/seeder": "^1.1.0",
     "@cleverbeagle/strings": "^0.1.0",
     "babel-runtime": "^6.20.0",

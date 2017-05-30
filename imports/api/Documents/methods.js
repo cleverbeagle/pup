@@ -24,8 +24,9 @@ Meteor.methods({
     });
 
     try {
-      Documents.update(doc._id, { $set: doc });
-      return doc._id; // Return _id so we can redirect to document after update.
+      const documentId = doc._id;
+      Documents.update(documentId, { $set: doc });
+      return documentId; // Return _id so we can redirect to document after update.
     } catch (exception) {
       throw new Meteor.Error('500', exception);
     }

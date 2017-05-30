@@ -73,7 +73,6 @@ Documents.propTypes = {
 
 export default createContainer(() => {
   const subscription = Meteor.subscribe('documents');
-  console.log(DocumentsCollection.find().fetch());
   return {
     loading: !subscription.ready(),
     documents: DocumentsCollection.find().fetch(),

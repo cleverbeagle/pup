@@ -20,6 +20,9 @@ import RecoverPassword from '../../pages/RecoverPassword/RecoverPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import NotFound from '../../pages/NotFound/NotFound';
+import Footer from '../../components/Footer/Footer';
+
+import './App.scss';
 
 const App = props => (
   <Router>
@@ -41,6 +44,7 @@ const App = props => (
           <Route component={NotFound} />
         </Switch>
       </Grid>
+      <Footer />
     </div> : ''}
   </Router>
 );
