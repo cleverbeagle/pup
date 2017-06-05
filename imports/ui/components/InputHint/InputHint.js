@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './InputHint.scss';
+import './InputHint.css';
 
 const InputHint = ({ children }) => (
   <div className="InputHint">

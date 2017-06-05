@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
-import editProfile from '../../../modules/server/edit-profile';
+import editProfile from './edit-profile';
 import rateLimit from '../../../modules/rate-limit';
 
 Meteor.methods({

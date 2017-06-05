@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Documents from '../../../api/Documents/Documents';
 import NotFound from '../NotFound/NotFound';
+import Loading from '../../components/Loading/Loading';
 
 const handleRemove = (documentId, history) => {
   if (confirm('Are you sure? This is permanent!')) {
@@ -20,7 +21,7 @@ const handleRemove = (documentId, history) => {
   }
 };
 
-const ViewDocument = ({ doc, match, history }) => (doc ? (
+const renderDocument = (doc, match, history) => (doc ? (
   <div className="ViewDocument">
     <div className="page-header clearfix">
       <h4 className="pull-left">{ doc && doc.title }</h4>
@@ -37,7 +38,12 @@ const ViewDocument = ({ doc, match, history }) => (doc ? (
   </div>
 ) : <NotFound />);
 
+const ViewDocument = ({ loading, doc, match, history }) => (
+  !loading ? renderDocument(doc, match, history) : <Loading />
+);
+
 ViewDocument.propTypes = {
+  loading: PropTypes.bool.isRequired,
   doc: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,

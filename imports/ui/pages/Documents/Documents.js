@@ -7,6 +7,7 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Bert } from 'meteor/themeteorchef:bert';
 import DocumentsCollection from '../../../api/Documents/Documents';
+import Loading from '../../components/Loading/Loading';
 
 import './Documents.scss';
 
@@ -22,7 +23,7 @@ const handleRemove = (documentId) => {
   }
 };
 
-const Documents = ({ documents, match, history }) => (
+const Documents = ({ loading, documents, match, history }) => (!loading ? (
   <div className="Documents">
     <div className="page-header clearfix">
       <h4 className="pull-left">Documents</h4>
@@ -63,9 +64,10 @@ const Documents = ({ documents, match, history }) => (
       </tbody>
     </Table> : <Alert bsStyle="warning">No documents yet!</Alert>}
   </div>
-);
+) : <Loading />);
 
 Documents.propTypes = {
+  loading: PropTypes.bool.isRequired,
   documents: PropTypes.arrayOf(PropTypes.object).isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
