@@ -55,6 +55,6 @@ export default createContainer(({ match }) => {
 
   return {
     loading: !subscription.ready(),
-    doc: Documents.findOne(documentId),
+    doc: Documents.findOne(documentId) || {},
   };
 }, ViewDocument);
