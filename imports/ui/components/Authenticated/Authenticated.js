@@ -5,12 +5,11 @@ import { Route, Redirect } from 'react-router-dom';
 const Authenticated = ({ loggingIn, authenticated, component, ...rest }) => (
   <Route
     {...rest}
-    render={(props) => {
-      if (loggingIn) return <div />;
-      return authenticated ?
+    render={props => (
+      authenticated ?
       (React.createElement(component, { ...props, loggingIn, authenticated })) :
-      (<Redirect to="/logout" />);
-    }}
+      (<Redirect to="/logout" />)
+    )}
   />
 );
 
