@@ -44,7 +44,7 @@ const ViewDocument = ({ loading, doc, match, history }) => (
 
 ViewDocument.propTypes = {
   loading: PropTypes.bool.isRequired,
-  doc: PropTypes.object.isRequired,
+  doc: PropTypes.object,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
@@ -55,6 +55,6 @@ export default createContainer(({ match }) => {
 
   return {
     loading: !subscription.ready(),
-    doc: Documents.findOne(documentId) || {},
+    doc: Documents.findOne(documentId),
   };
 }, ViewDocument);
