@@ -1,18 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { DDPRateLimiter } from 'meteor/ddp-rate-limiter';
-import { _ } from 'meteor/underscore';
 
-const fetchMethodNames = methods => _.pluck(methods, 'name');
-
-const assignLimits = ({ methods, limit, timeRange }) => {
-  const methodNames = fetchMethodNames(methods);
-
+export default ({ methods, limit, timeRange }) => {
   if (Meteor.isServer) {
     DDPRateLimiter.addRule({
-      name(name) { return _.contains(methodNames, name); },
+      name(name) { return methods.indexOf(name) > -1; },
       connectionId() { return true; },
     }, limit, timeRange);
   }
 };
-
-export default function rateLimit(options) { return assignLimits(options); }

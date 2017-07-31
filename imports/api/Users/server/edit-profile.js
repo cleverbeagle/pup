@@ -1,4 +1,5 @@
 /* eslint-disable consistent-return */
+
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
@@ -6,6 +7,7 @@ let action;
 
 const updatePassword = (userId, newPassword) => {
   try {
+    throw new Meteor.Error('500', 'Testing failures.');
     Accounts.setPassword(userId, newPassword, { logout: false });
   } catch (exception) {
     action.reject(`[editProfile.updatePassword] ${exception}`);
@@ -31,12 +33,11 @@ const editProfile = ({ userId, profile }, promise) => {
 
     updateUser(userId, profile);
     if (profile.password) updatePassword(userId, profile.password);
-
-    action.resolve();
   } catch (exception) {
     action.reject(`[editProfile.handler] ${exception}`);
   }
 };
+
 
 export default options =>
 new Promise((resolve, reject) =>
