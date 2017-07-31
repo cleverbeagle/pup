@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
-import { capitalize } from '@cleverbeagle/strings';
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -117,7 +117,7 @@ class Profile extends React.Component {
       {Object.keys(user.services).map(service => (
         <div key={service} className={`LoggedInWith ${service}`}>
           <div className="ServiceIcon"><i className={`fa fa-${service === 'facebook' ? 'facebook-official' : service}`} /></div>
-          <p>{`You're logged in with ${capitalize(service)} using the email address ${user.services[service].email}.`}</p>
+          <p>{`You're logged in with ${_.capitalize(service)} using the email address ${user.services[service].email}.`}</p>
         </div>
       ))}
     </div>) : <div />;

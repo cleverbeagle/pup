@@ -8,12 +8,12 @@
   "dependencies": {
     "@cleverbeagle/dates": "^0.4.0",
     "@cleverbeagle/seeder": "^1.1.0",
-    "@cleverbeagle/strings": "^0.1.0",
     "babel-runtime": "^6.20.0",
     "bcrypt": "^1.0.2",
     "commonmark": "^0.27.0",
     "jquery": "^2.2.4",
     "jquery-validation": "^1.16.0",
+    "lodash": "^4.17.4",
     "meteor-node-stubs": "~0.2.4",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
