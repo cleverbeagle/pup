@@ -7,7 +7,6 @@ Meteor.methods({
   'users.editProfile': function usersEditProfile(profile) {
     check(profile, {
       emailAddress: String,
-      password: Match.Optional(Object),
       profile: {
         name: {
           first: String,
