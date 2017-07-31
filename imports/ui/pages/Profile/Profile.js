@@ -92,8 +92,6 @@ class Profile extends React.Component {
       },
     };
 
-    if (this.newPassword.value) profile.password = Accounts._hashPassword(this.newPassword.value);
-
     Meteor.call('users.editProfile', profile, (error) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
@@ -101,6 +99,17 @@ class Profile extends React.Component {
         Bert.alert('Profile updated!', 'success');
       }
     });
+
+    if (this.newPassword.value) {
+      Accounts.changePassword(this.currentPassword.value, this.newPassword.value, (error) => {
+        if (error) {
+          Bert.alert(error.reason, 'danger');
+        } else {
+          this.currentPassword.value = '';
+          this.newPassword.value = '';
+        }
+      });
+    }
   }
 
   renderOAuthUser(loading, user) {
