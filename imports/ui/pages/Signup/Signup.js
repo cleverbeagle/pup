@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 import OAuthLoginButtons from '../../components/OAuthLoginButtons/OAuthLoginButtons';
@@ -71,6 +72,7 @@ class Signup extends React.Component {
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
+        Meteor.call('users.sendVerificationEmail');
         Bert.alert('Welcome!', 'success');
         history.push('/documents');
       }

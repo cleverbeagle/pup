@@ -1,9 +1,13 @@
 import { Meteor } from 'meteor/meteor';
-import { check, Match } from 'meteor/check';
+import { check } from 'meteor/check';
+import { Accounts } from 'meteor/accounts-base';
 import editProfile from './edit-profile';
 import rateLimit from '../../../modules/rate-limit';
 
 Meteor.methods({
+  'users.sendVerificationEmail': function usersResendVerification() {
+    return Accounts.sendVerificationEmail(this.userId);
+  },
   'users.editProfile': function usersEditProfile(profile) {
     check(profile, {
       emailAddress: String,
@@ -25,6 +29,7 @@ Meteor.methods({
 
 rateLimit({
   methods: [
+    'users.resendVerification',
     'users.editProfile',
   ],
   limit: 5,
