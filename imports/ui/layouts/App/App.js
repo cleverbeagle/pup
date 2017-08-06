@@ -104,6 +104,6 @@ export default createContainer(() => {
     roles: !loading && Roles.getRolesForUser(userId),
     userId,
     emailAddress,
-    emailVerified: user ? user && user.emails && user.emails[0].verified : true,
+    emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,
   };
 }, App);
