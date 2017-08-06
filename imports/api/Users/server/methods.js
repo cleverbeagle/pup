@@ -29,7 +29,7 @@ Meteor.methods({
 
 rateLimit({
   methods: [
-    'users.resendVerification',
+    'users.sendVerificationEmail',
     'users.editProfile',
   ],
   limit: 5,
