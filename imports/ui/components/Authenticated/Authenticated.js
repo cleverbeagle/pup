@@ -9,7 +9,7 @@ const Authenticated = ({ loggingIn, authenticated, component, path, exact, ...re
     render={props => (
       authenticated ?
         (React.createElement(component, { ...props, ...rest, loggingIn, authenticated })) :
-        (<Redirect to="/logout" />)
+        (<Redirect to="/login" />)
     )}
   />
 );
