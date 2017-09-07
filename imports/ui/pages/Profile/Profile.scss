@@ -2,38 +2,45 @@
 
 .OAuthProfile {
   .LoggedInWith {
-    padding: 10px 20px;
+    padding: 20px;
     border-radius: 3px;
     color: #fff;
+    border: 1px solid $gray-lighter;
+    text-align: center;
+
+    img {
+      width: 100px;
+    }
+
+    &.github img {
+      width: 125px;
+    }
 
     p {
-      margin: 0;
+      margin: 20px 0 0 0;
+      color: $gray-light;
     }
 
-    .ServiceIcon {
-      float: left;
-      width: auto;
-      margin-right: 15px;
-      height: 30px;
-      text-align: center;
+    .btn {
+      margin-top: 20px;
 
-      i {
-        font-size: 30px;
-        position: relative;
-        top: 5px;
+      &.btn-facebook {
+        background: $facebook;
+        border-color: $facebook;
+        color: #fff;
       }
-    }
 
-    &.facebook {
-      background: $facebook;
-    }
+      &.btn-google {
+        background: $google;
+        border-color: $google;
+        color: #fff;
+      }
 
-    &.github {
-      background: $github;
-    }
-
-    &.google {
-      background: $google;
+      &.btn-github {
+        background: $github;
+        border-color: $github;
+        color: #fff;
+      }
     }
   }
 }
