@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Alert } from 'react-bootstrap';
+import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 
@@ -20,7 +21,7 @@ class VerifyEmail extends React.Component {
         setTimeout(() => {
           Bert.alert('All set, thanks!', 'success');
           history.push('/documents');
-        }, 2000);
+        }, 1500);
       }
     });
   }
