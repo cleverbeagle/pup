@@ -17,7 +17,7 @@ const handleLogin = (service, callback) => {
       loginStyle: 'popup',
     },
     google: {
-      requestPermissions: ['email'],
+      requestPermissions: ['email', 'profile'],
       requestOfflineToken: true,
       loginStyle: 'popup',
     },
