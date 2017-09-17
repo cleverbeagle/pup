@@ -1,0 +1,21 @@
+@import '../../stylesheets/colors';
+
+.VerifyEmailAlert {
+  .alert {
+    margin-bottom: 0;
+    padding: 0;
+    border-top: none;
+    border-bottom: 1px solid #e7e7e7;
+    background: #fff;
+    color: $gray-dark;
+    border-radius: 0;
+
+    p {
+      padding: 19px;
+    }
+
+    .btn {
+      padding: 0;
+    }
+  }
+}
