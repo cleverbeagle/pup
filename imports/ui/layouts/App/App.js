@@ -30,6 +30,8 @@ import Privacy from '../../pages/Privacy/Privacy';
 import ExamplePage from '../../pages/ExamplePage/ExamplePage';
 import VerifyEmailAlert from '../../components/VerifyEmailAlert/VerifyEmailAlert';
 
+import getUserName from '../../../modules/get-user-name';
+
 import './App.scss';
 
 const App = props => (
@@ -80,11 +82,6 @@ App.propTypes = {
   emailVerified: PropTypes.bool.isRequired,
   authenticated: PropTypes.bool.isRequired,
 };
-
-const getUserName = name => ({
-  string: name,
-  object: `${name.first} ${name.last}`,
-}[typeof name]);
 
 export default createContainer(() => {
   const loggingIn = Meteor.loggingIn();
