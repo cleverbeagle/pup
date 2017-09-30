@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 const Public = ({ loggingIn, authenticated, component, path, exact, ...rest }) => (
   <Route
-    parth={path}
+    path={path}
     exact={exact}
     render={props => (
       !authenticated ?
