@@ -66,6 +66,7 @@
       "import/no-unresolved": 0,
       "import/no-extraneous-dependencies": 0,
       "import/extensions": 0,
+      "max-len": 0,
       "no-underscore-dangle": [
         "error",
         {
