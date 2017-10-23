@@ -1,4 +1,3 @@
-import '../../api/Documents/methods';
 import '../../api/Documents/server/publications';
 
 import '../../api/OAuth/server/methods';
