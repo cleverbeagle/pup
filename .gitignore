@@ -2,3 +2,4 @@ node_modules
 settings-demo.json
 settings-staging.json
 settings-production.json
+.vscode
