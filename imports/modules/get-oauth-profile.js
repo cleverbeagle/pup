@@ -1,12 +1,10 @@
-const parseGoogleData = service => {
-  return {
-    email: service.email,
-    name: {
-      first: service.given_name,
-      last: service.family_name,
-    },
-  };
-};
+const parseGoogleData = service => ({
+  email: service.email,
+  name: {
+    first: service.given_name,
+    last: service.family_name,
+  },
+});
 
 const parseGithubData = (profile, service) => {
   const name = profile.name.split(' ');
@@ -19,20 +17,19 @@ const parseGithubData = (profile, service) => {
   };
 };
 
-const parseFacebookData = service => {
-  return {
-    email: service.email,
-    name: {
-      first: service.first_name,
-      last: service.last_name,
-    },
-  };
-};
+const parseFacebookData = service => ({
+  email: service.email,
+  name: {
+    first: service.first_name,
+    last: service.last_name,
+  },
+});
 
 const getDataForService = (profile, services) => {
   if (services.facebook) return parseFacebookData(services.facebook);
   if (services.github) return parseGithubData(profile, services.github);
   if (services.google) return parseGoogleData(services.google);
+  return null;
 };
 
 export default (options, user) => {
