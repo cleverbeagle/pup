@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ButtonToolbar, ButtonGroup, Button } from 'react-bootstrap';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Documents from '../../../api/Documents/Documents';
@@ -21,26 +21,28 @@ const handleRemove = (documentId, history) => {
   }
 };
 
-const renderDocument = (doc, match, history) => (doc ? (
-  <div className="ViewDocument">
-    <div className="page-header clearfix">
-      <h4 className="pull-left">{ doc && doc.title }</h4>
-      <ButtonToolbar className="pull-right">
-        <ButtonGroup bsSize="small">
-          <Button onClick={() => history.push(`${match.url}/edit`)}>Edit</Button>
-          <Button onClick={() => handleRemove(doc._id, history)} className="text-danger">
-            Delete
-          </Button>
-        </ButtonGroup>
-      </ButtonToolbar>
+const renderDocument = (doc, match, history) =>
+  (doc ? (
+    <div className="ViewDocument">
+      <div className="page-header clearfix">
+        <h4 className="pull-left">{doc && doc.title}</h4>
+        <ButtonToolbar className="pull-right">
+          <ButtonGroup bsSize="small">
+            <Button onClick={() => history.push(`${match.url}/edit`)}>Edit</Button>
+            <Button onClick={() => handleRemove(doc._id, history)} className="text-danger">
+              Delete
+            </Button>
+          </ButtonGroup>
+        </ButtonToolbar>
+      </div>
+      {doc && doc.body}
     </div>
-    { doc && doc.body }
-  </div>
-) : <NotFound />);
+  ) : (
+    <NotFound />
+  ));
 
-const ViewDocument = ({ loading, doc, match, history }) => (
-  !loading ? renderDocument(doc, match, history) : <Loading />
-);
+const ViewDocument = ({ loading, doc, match, history }) =>
+  (!loading ? renderDocument(doc, match, history) : <Loading />);
 
 ViewDocument.propTypes = {
   loading: PropTypes.bool.isRequired,
@@ -49,7 +51,14 @@ ViewDocument.propTypes = {
   history: PropTypes.object.isRequired,
 };
 
-export default createContainer(({ match }) => {
+ViewDocument.defaultProps = {
+  doc: {
+    title: null,
+    body: null,
+  },
+};
+
+export default withTracker(({ match }) => {
   const documentId = match.params._id;
   const subscription = Meteor.subscribe('documents.view', documentId);
 
@@ -57,4 +66,4 @@ export default createContainer(({ match }) => {
     loading: !subscription.ready(),
     doc: Documents.findOne(documentId),
   };
-}, ViewDocument);
+})(ViewDocument);

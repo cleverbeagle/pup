@@ -20,7 +20,7 @@ emailTemplates.verifyEmail = {
     return templateToHTML(getPrivateFile('email-templates/verify-email.html'), {
       applicationName: name,
       firstName: user.profile.name.first,
-      verifyUrl: url.replace('#/', '')
+      verifyUrl: url.replace('#/', ''),
     });
   },
   text(user, url) {
