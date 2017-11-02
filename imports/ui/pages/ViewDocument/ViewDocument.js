@@ -51,6 +51,13 @@ ViewDocument.propTypes = {
   history: PropTypes.object.isRequired,
 };
 
+ViewDocument.defaultProps = {
+  doc: {
+    title: null,
+    body: null,
+  },
+};
+
 export default withTracker(({ match }) => {
   const documentId = match.params._id;
   const subscription = Meteor.subscribe('documents.view', documentId);
