@@ -20,18 +20,15 @@ Meteor.methods({
     });
 
     return editProfile({ userId: this.userId, profile })
-    .then(response => response)
-    .catch((exception) => {
-      throw new Meteor.Error('500', exception);
-    });
+      .then(response => response)
+      .catch((exception) => {
+        throw new Meteor.Error('500', exception);
+      });
   },
 });
 
 rateLimit({
-  methods: [
-    'users.sendVerificationEmail',
-    'users.editProfile',
-  ],
+  methods: ['users.sendVerificationEmail', 'users.editProfile'],
   limit: 5,
   timeRange: 1000,
 });
