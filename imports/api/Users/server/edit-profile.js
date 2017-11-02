@@ -28,5 +28,4 @@ const editProfile = ({ userId, profile }, promise) => {
 };
 
 export default options =>
-new Promise((resolve, reject) =>
-editProfile(options, { resolve, reject }));
+  new Promise((resolve, reject) => editProfile(options, { resolve, reject }));
