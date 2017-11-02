@@ -6,11 +6,12 @@ const Authenticated = ({ loggingIn, authenticated, component, path, exact, ...re
   <Route
     path={path}
     exact={exact}
-    render={props => (
-      authenticated ?
-        (React.createElement(component, { ...props, ...rest, loggingIn, authenticated })) :
-        (<Redirect to="/login" />)
-    )}
+    render={props =>
+      (authenticated ? (
+        React.createElement(component, { ...props, ...rest, loggingIn, authenticated })
+      ) : (
+        <Redirect to="/login" />
+      ))}
   />
 );
 
@@ -18,6 +19,13 @@ Authenticated.propTypes = {
   loggingIn: PropTypes.bool.isRequired,
   authenticated: PropTypes.bool.isRequired,
   component: PropTypes.func.isRequired,
+  path: PropTypes.string,
+  exact: PropTypes.bool,
+};
+
+Authenticated.defaultProps = {
+  path: '',
+  exact: false,
 };
 
 export default Authenticated;
