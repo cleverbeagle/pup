@@ -35,6 +35,7 @@
     "enzyme": "^2.9.1",
     "eslint": "^4.6.0",
     "eslint-config-airbnb": "^15.1.0",
+    "eslint-import-resolver-meteor": "^0.4.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-meteor": "^4.1.4",
@@ -59,12 +60,16 @@
     "globals": {
       "expect": false
     },
+    "settings": {
+      "import/resolver": "meteor"
+    },
     "rules": {
       "import/no-unresolved": 0,
       "import/no-extraneous-dependencies": 0,
       "import/extensions": 0,
       "no-alert": 0,
       "no-console": 0,
+      "no-return-assign": ["error", "except-parens"],
       "no-underscore-dangle": [
         "error",
         {
