@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/no-href*/
+/* eslint-disable jsx-a11y/no-href */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -28,6 +28,8 @@ import Footer from '../../components/Footer/Footer';
 import Terms from '../../pages/Terms/Terms';
 import Privacy from '../../pages/Privacy/Privacy';
 import ExamplePage from '../../pages/ExamplePage/ExamplePage';
+
+import getUserName from '../../../modules/get-user-name';
 
 import './App.scss';
 
@@ -82,11 +84,6 @@ App.propTypes = {
   emailAddress: PropTypes.string,
   emailVerified: PropTypes.bool.isRequired,
 };
-
-const getUserName = name => ({
-  string: name,
-  object: `${name.first} ${name.last}`,
-}[typeof name]);
 
 export default createContainer(() => {
   const loggingIn = Meteor.loggingIn();
