@@ -1,5 +1,6 @@
 ## v.NEXT
 
+- Improve [#95](https://github.com/cleverbeagle/pup/issues/95). Migrate from `createContainer` method to `withTracker` for data containers.
 - Improve [#94](https://github.com/cleverbeagle/pup/issues/94). Bump Meteor to v1.6 and bump Atmosphere and NPM deps.
 - Improve [#53](https://github.com/cleverbeagle/pup/issues/53). Move method imports to be on both the client and the server to leverage Meteor's latency compensation by default.
 - Improve [#78](https://github.com/cleverbeagle/pup/issues/78). Deprecate `@cleverbeagle/dates` package in favor of a local file of date helpers. 
