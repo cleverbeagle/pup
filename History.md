@@ -1,15 +1,16 @@
 ## v.NEXT
 
-- Improve [#95](https://github.com/cleverbeagle/pup/issues/95). Migrate from `createContainer` method to `withTracker` for data containers.
+- Improve [#96](https://github.com/cleverbeagle/pup/issues/96). Fix miscellaneous ESLint errors (h/t [@cdolek](https://github.com/cdolek) for sniffing these out).
+- Improve [#95](https://github.com/cleverbeagle/pup/issues/95). Migrate from `createContainer` method to `withTracker` for data containers (h/t [@cdolek](https://github.com/cdolek) for sniffing these out).
 - Improve [#94](https://github.com/cleverbeagle/pup/issues/94). Bump Meteor to v1.6 and bump Atmosphere and NPM deps.
-- Improve [#53](https://github.com/cleverbeagle/pup/issues/53). Move method imports to be on both the client and the server to leverage Meteor's latency compensation by default.
-- Improve [#78](https://github.com/cleverbeagle/pup/issues/78). Deprecate `@cleverbeagle/dates` package in favor of a local file of date helpers. 
-- Improve [#79](https://github.com/cleverbeagle/pup/issues/79). Add `babel-plugin-lodash` to reduce footprint of Lodash to only methods that are used in the project.
-- Improve [#80](https://github.com/cleverbeagle/pup/issues/80). Add exception to disable `max-len` ESLint rule.
-- Improve [#60](https://github.com/cleverbeagle/pup/issues/60). Move to `babel-preset-env` from `babel-preset-es2015`.
-- Fix [#59](https://github.com/cleverbeagle/pup/issues/59). Fix ESLint throwing a tantrum about line endings on Windows.
-- Improve [#47](https://github.com/cleverbeagle/pup/issues/47). Move `getUserName()` function in `/imports/ui/layouts/App/App.js` into its own file.
-- Improve [#46](https://github.com/cleverbeagle/pup/issues/46). Move the resend verification email bar into its own component.
+- Improve [#53](https://github.com/cleverbeagle/pup/issues/53). Move method imports to be on both the client and the server to leverage Meteor's latency compensation by default (h/t [@zodern](https://github.com/zodern) for refactoring this).
+- Improve [#78](https://github.com/cleverbeagle/pup/issues/78). Deprecate `@cleverbeagle/dates` package in favor of a local file of date helpers (h/t [@zodern](https://github.com/zodern) for refactoring this). 
+- Improve [#79](https://github.com/cleverbeagle/pup/issues/79). Add `babel-plugin-lodash` to reduce footprint of Lodash to only methods that are used in the project (h/t [@ninjaPixel](https://github.com/ninjaPixel) for finding/implementing this).
+- Improve [#80](https://github.com/cleverbeagle/pup/issues/80). Add exception to disable `max-len` ESLint rule (h/t [@ninjaPixel](https://github.com/ninjaPixel) for implementing this).
+- Improve [#60](https://github.com/cleverbeagle/pup/issues/60). Move to `babel-preset-env` from `babel-preset-es2015` (h/t [@pilarArr](https://github.com/pilarArr) for implementing this).
+- Fix [#59](https://github.com/cleverbeagle/pup/issues/59). Fix ESLint throwing a tantrum about line endings on Windows (h/t [@pilarArr](https://github.com/pilarArr) for implementing this).
+- Improve [#47](https://github.com/cleverbeagle/pup/issues/47). Move `getUserName()` function in `/imports/ui/layouts/App/App.js` into its own file (h/t [@pilarArr](https://github.com/pilarArr) for implementing this).
+- Improve [#46](https://github.com/cleverbeagle/pup/issues/46). Move the resend verification email bar into its own component (h/t [@pilarArr](https://github.com/pilarArr) for implementing this).
 
 ## v1.2.2, September 30th, 2017
 
