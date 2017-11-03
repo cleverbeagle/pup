@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import Navigation from '../../components/Navigation/Navigation';
 import Authenticated from '../../components/Authenticated/Authenticated';
@@ -81,7 +81,7 @@ App.propTypes = {
   authenticated: PropTypes.bool.isRequired,
 };
 
-export default createContainer(() => {
+export default withTracker(() => {
   const loggingIn = Meteor.loggingIn();
   const user = Meteor.user();
   const userId = Meteor.userId();
@@ -99,4 +99,4 @@ export default createContainer(() => {
     emailAddress,
     emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,
   };
-}, App);
+})(App);
