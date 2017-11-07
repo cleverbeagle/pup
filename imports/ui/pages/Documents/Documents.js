@@ -23,46 +23,55 @@ const handleRemove = (documentId) => {
   }
 };
 
-const Documents = ({ loading, documents, match, history }) => (!loading ? (
+const Documents = ({
+  loading, documents, match, history,
+}) => (!loading ? (
   <div className="Documents">
     <div className="page-header clearfix">
       <h4 className="pull-left">Documents</h4>
       <Link className="btn btn-success pull-right" to={`${match.url}/new`}>Add Document</Link>
     </div>
-    {documents.length ? <Table responsive>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Last Updated</th>
-          <th>Created</th>
-          <th />
-          <th />
-        </tr>
-      </thead>
-      <tbody>
-        {documents.map(({ _id, title, createdAt, updatedAt }) => (
-          <tr key={_id}>
-            <td>{title}</td>
-            <td>{timeago(updatedAt)}</td>
-            <td>{monthDayYearAtTime(createdAt)}</td>
-            <td>
-              <Button
-                bsStyle="primary"
-                onClick={() => history.push(`${match.url}/${_id}`)}
-                block
-              >View</Button>
-            </td>
-            <td>
-              <Button
-                bsStyle="danger"
-                onClick={() => handleRemove(_id)}
-                block
-              >Delete</Button>
-            </td>
+    {documents.length ?
+      <Table responsive>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Last Updated</th>
+            <th>Created</th>
+            <th />
+            <th />
           </tr>
-        ))}
-      </tbody>
-    </Table> : <Alert bsStyle="warning">No documents yet!</Alert>}
+        </thead>
+        <tbody>
+          {documents.map(({
+            _id, title, createdAt, updatedAt,
+          }) => (
+            <tr key={_id}>
+              <td>{title}</td>
+              <td>{timeago(updatedAt)}</td>
+              <td>{monthDayYearAtTime(createdAt)}</td>
+              <td>
+                <Button
+                  bsStyle="primary"
+                  onClick={() => history.push(`${match.url}/${_id}`)}
+                  block
+                >
+                  View
+                </Button>
+              </td>
+              <td>
+                <Button
+                  bsStyle="danger"
+                  onClick={() => handleRemove(_id)}
+                  block
+                >
+                  Delete
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table> : <Alert bsStyle="warning">No documents yet!</Alert>}
   </div>
 ) : <Loading />);
 

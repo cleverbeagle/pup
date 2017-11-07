@@ -7,7 +7,7 @@ import templateToText from '../../../modules/server/handlebars-email-to-text';
 const name = 'Application Name';
 const email = '<support@application.com>';
 const from = `${name} ${email}`;
-const emailTemplates = Accounts.emailTemplates;
+const { emailTemplates } = Accounts;
 
 emailTemplates.siteName = name;
 emailTemplates.from = from;
@@ -20,7 +20,7 @@ emailTemplates.verifyEmail = {
     return templateToHTML(getPrivateFile('email-templates/verify-email.html'), {
       applicationName: name,
       firstName: user.profile.name.first,
-      verifyUrl: url.replace('#/', '')
+      verifyUrl: url.replace('#/', ''),
     });
   },
   text(user, url) {

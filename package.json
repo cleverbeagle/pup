@@ -39,6 +39,7 @@
     "enzyme": "^3.1.0",
     "eslint": "^4.10.0",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-import-resolver-meteor": "^0.4.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-meteor": "^4.1.6",
@@ -70,7 +71,15 @@
       "import/no-unresolved": 0,
       "import/no-extraneous-dependencies": 0,
       "import/extensions": 0,
+      "jsx-a11y/anchor-is-valid": ["error", {
+        "components": ["Link"],
+        "specialLink": ["to"]
+      }],
       "max-len": 0,
+      "no-alert": 0,
+      "no-console": 0,
+      "no-restricted-globals": 0,
+      "no-return-assign": ["error", "except-parens"],
       "no-underscore-dangle": [
         "error",
         {
@@ -86,6 +95,9 @@
       "class-methods-use-this": 0,
       "react/jsx-filename-extension": 0,
       "react/forbid-prop-types": 0
+    },
+    "settings": {
+      "import/resolver": "meteor"
     }
   }
 }

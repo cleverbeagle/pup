@@ -15,7 +15,9 @@ const sendEmail = (options, { resolve, reject }) => {
   }
 };
 
-export default ({ text, html, template, templateVars, ...rest }) => {
+export default ({
+  text, html, template, templateVars, ...rest
+}) => {
   if (text || html || template) {
     return new Promise((resolve, reject) => {
       sendEmail({

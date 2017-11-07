@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import sendEmail from '../../../modules/server/send-email';
 import getOAuthProfile from '../../../modules/get-oauth-profile';
 
@@ -19,7 +20,7 @@ export default (options, user) => {
       welcomeUrl: Meteor.absoluteUrl('documents'), // e.g., returns http://localhost:3000/documents
     },
   })
-  .catch((error) => {
-    throw new Meteor.Error('500', `${error}`);
-  });
+    .catch((error) => {
+      throw new Meteor.Error('500', `${error}`);
+    });
 };

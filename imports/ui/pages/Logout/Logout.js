@@ -1,4 +1,5 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import Icon from '../../components/Icon/Icon';
 
 import './Logout.scss';

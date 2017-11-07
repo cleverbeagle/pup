@@ -38,9 +38,15 @@ const renderDocument = (doc, match, history) => (doc ? (
   </div>
 ) : <NotFound />);
 
-const ViewDocument = ({ loading, doc, match, history }) => (
+const ViewDocument = ({
+  loading, doc, match, history,
+}) => (
   !loading ? renderDocument(doc, match, history) : <Loading />
 );
+
+ViewDocument.defaultProps = {
+  doc: null,
+};
 
 ViewDocument.propTypes = {
   loading: PropTypes.bool.isRequired,

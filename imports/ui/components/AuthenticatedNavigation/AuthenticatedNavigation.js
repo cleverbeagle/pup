@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import { Meteor } from 'meteor/meteor';
 
 const AuthenticatedNavigation = ({ name, history }) => (
   <div>
@@ -26,6 +25,7 @@ const AuthenticatedNavigation = ({ name, history }) => (
 
 AuthenticatedNavigation.propTypes = {
   name: PropTypes.string.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default withRouter(AuthenticatedNavigation);

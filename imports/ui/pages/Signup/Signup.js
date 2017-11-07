@@ -80,73 +80,75 @@ class Signup extends React.Component {
   }
 
   render() {
-    return (<div className="Signup">
-      <Row>
-        <Col xs={12} sm={6} md={5} lg={4}>
-          <h4 className="page-header">Sign Up</h4>
-          <Row>
-            <Col xs={12}>
-              <OAuthLoginButtons
-                services={['facebook', 'github', 'google']}
-                emailMessage={{
-                  offset: 97,
-                  text: 'Sign Up with an Email Address',
-                }}
-              />
-            </Col>
-          </Row>
-          <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+    return (
+      <div className="Signup">
+        <Row>
+          <Col xs={12} sm={6} md={5} lg={4}>
+            <h4 className="page-header">Sign Up</h4>
             <Row>
-              <Col xs={6}>
-                <FormGroup>
-                  <ControlLabel>First Name</ControlLabel>
-                  <input
-                    type="text"
-                    name="firstName"
-                    ref={firstName => (this.firstName = firstName)}
-                    className="form-control"
-                  />
-                </FormGroup>
-              </Col>
-              <Col xs={6}>
-                <FormGroup>
-                  <ControlLabel>Last Name</ControlLabel>
-                  <input
-                    type="text"
-                    name="lastName"
-                    ref={lastName => (this.lastName = lastName)}
-                    className="form-control"
-                  />
-                </FormGroup>
+              <Col xs={12}>
+                <OAuthLoginButtons
+                  services={['facebook', 'github', 'google']}
+                  emailMessage={{
+                    offset: 97,
+                    text: 'Sign Up with an Email Address',
+                  }}
+                />
               </Col>
             </Row>
-            <FormGroup>
-              <ControlLabel>Email Address</ControlLabel>
-              <input
-                type="email"
-                name="emailAddress"
-                ref={emailAddress => (this.emailAddress = emailAddress)}
-                className="form-control"
-              />
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Password</ControlLabel>
-              <input
-                type="password"
-                name="password"
-                ref={password => (this.password = password)}
-                className="form-control"
-              />
-              <InputHint>Use at least six characters.</InputHint>
-            </FormGroup>
-            <Button type="submit" bsStyle="success">Sign Up</Button>
-            <AccountPageFooter>
-              <p>Already have an account? <Link to="/login">Log In</Link>.</p>
-            </AccountPageFooter>
-          </form>
-        </Col>
-      </Row>
-    </div>);
+            <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+              <Row>
+                <Col xs={6}>
+                  <FormGroup>
+                    <ControlLabel>First Name</ControlLabel>
+                    <input
+                      type="text"
+                      name="firstName"
+                      ref={firstName => (this.firstName = firstName)}
+                      className="form-control"
+                    />
+                  </FormGroup>
+                </Col>
+                <Col xs={6}>
+                  <FormGroup>
+                    <ControlLabel>Last Name</ControlLabel>
+                    <input
+                      type="text"
+                      name="lastName"
+                      ref={lastName => (this.lastName = lastName)}
+                      className="form-control"
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <FormGroup>
+                <ControlLabel>Email Address</ControlLabel>
+                <input
+                  type="email"
+                  name="emailAddress"
+                  ref={emailAddress => (this.emailAddress = emailAddress)}
+                  className="form-control"
+                />
+              </FormGroup>
+              <FormGroup>
+                <ControlLabel>Password</ControlLabel>
+                <input
+                  type="password"
+                  name="password"
+                  ref={password => (this.password = password)}
+                  className="form-control"
+                />
+                <InputHint>Use at least six characters.</InputHint>
+              </FormGroup>
+              <Button type="submit" bsStyle="success">Sign Up</Button>
+              <AccountPageFooter>
+                <p>Already have an account? <Link to="/login">Log In</Link>.</p>
+              </AccountPageFooter>
+            </form>
+          </Col>
+        </Row>
+      </div>
+    );
   }
 }
 

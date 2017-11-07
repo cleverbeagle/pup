@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Alert } from 'react-bootstrap';
-import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 
@@ -27,11 +26,13 @@ class VerifyEmail extends React.Component {
   }
 
   render() {
-    return (<div className="VerifyEmail">
-      <Alert bsStyle={!this.state.error ? 'info' : 'danger'}>
-        {!this.state.error ? 'Verifying...' : this.state.error}
-      </Alert>
-    </div>);
+    return (
+      <div className="VerifyEmail">
+        <Alert bsStyle={!this.state.error ? 'info' : 'danger'}>
+          {!this.state.error ? 'Verifying...' : this.state.error}
+        </Alert>
+      </div>
+    );
   }
 }
 

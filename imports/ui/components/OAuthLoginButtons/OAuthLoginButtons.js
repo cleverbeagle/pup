@@ -10,9 +10,10 @@ import './OAuthLoginButtons.scss';
 const OAuthLoginButtons = ({ services, emailMessage }) => (services.length ? (
   <div className={`OAuthLoginButtons ${emailMessage ? 'WithEmailMessage' : ''}`}>
     {services.map(service => <OAuthLoginButton key={service} service={service} />)}
-    {emailMessage ? <p className="EmailMessage" style={{ marginLeft: `-${emailMessage.offset}px` }}>
-      {emailMessage.text}
-    </p> : ''}
+    {emailMessage ?
+      <p className="EmailMessage" style={{ marginLeft: `-${emailMessage.offset}px` }}>
+        {emailMessage.text}
+      </p> : ''}
   </div>
 ) : <div />);
 

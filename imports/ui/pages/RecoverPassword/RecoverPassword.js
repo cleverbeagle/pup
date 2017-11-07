@@ -48,31 +48,33 @@ class RecoverPassword extends React.Component {
   }
 
   render() {
-    return (<div className="RecoverPassword">
-      <Row>
-        <Col xs={12} sm={6} md={5} lg={4}>
-          <h4 className="page-header">Recover Password</h4>
-          <Alert bsStyle="info">
-            Enter your email address below to receive a link to reset your password.
-          </Alert>
-          <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-            <FormGroup>
-              <ControlLabel>Email Address</ControlLabel>
-              <input
-                type="email"
-                name="emailAddress"
-                ref={emailAddress => (this.emailAddress = emailAddress)}
-                className="form-control"
-              />
-            </FormGroup>
-            <Button type="submit" bsStyle="success">Recover Password</Button>
-            <AccountPageFooter>
-              <p>Remember your password? <Link to="/login">Log In</Link>.</p>
-            </AccountPageFooter>
-          </form>
-        </Col>
-      </Row>
-    </div>);
+    return (
+      <div className="RecoverPassword">
+        <Row>
+          <Col xs={12} sm={6} md={5} lg={4}>
+            <h4 className="page-header">Recover Password</h4>
+            <Alert bsStyle="info">
+              Enter your email address below to receive a link to reset your password.
+            </Alert>
+            <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+              <FormGroup>
+                <ControlLabel>Email Address</ControlLabel>
+                <input
+                  type="email"
+                  name="emailAddress"
+                  ref={emailAddress => (this.emailAddress = emailAddress)}
+                  className="form-control"
+                />
+              </FormGroup>
+              <Button type="submit" bsStyle="success">Recover Password</Button>
+              <AccountPageFooter>
+                <p>Remember your password? <Link to="/login">Log In</Link>.</p>
+              </AccountPageFooter>
+            </form>
+          </Col>
+        </Row>
+      </div>
+    );
   }
 }
 
