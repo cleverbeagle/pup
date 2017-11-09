@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/no-href*/
+/* eslint-disable jsx-a11y/no-href */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -28,23 +28,20 @@ import Footer from '../../components/Footer/Footer';
 import Terms from '../../pages/Terms/Terms';
 import Privacy from '../../pages/Privacy/Privacy';
 import ExamplePage from '../../pages/ExamplePage/ExamplePage';
+import VerifyEmailAlert from '../../components/VerifyEmailAlert/VerifyEmailAlert';
 
 import './App.scss';
-
-const handleResendVerificationEmail = (emailAddress) => {
-  Meteor.call('users.sendVerificationEmail', (error) => {
-    if (error) {
-      Bert.alert(error.reason, 'danger');
-    } else {
-      Bert.alert(`Check ${emailAddress} for a verification link!`, 'success');
-    }
-  });
-};
 
 const App = props => (
   <Router>
     {!props.loading ? <div className="App">
-      {props.userId && !props.emailVerified ? <Alert className="verify-email text-center"><p>Hey friend! Can you <strong>verify your email address</strong> ({props.emailAddress}) for us? <Button bsStyle="link" onClick={() => handleResendVerificationEmail(props.emailAddress)} href="#">Re-send verification email</Button></p></Alert> : ''}
+      {props.authenticated ?
+        <VerifyEmailAlert
+          userId={props.userId}
+          emailVerified={props.emailVerified}
+          emailAddress={props.emailAddress}
+        />
+        : ''}
       <Navigation {...props} />
       <Grid>
         <Switch>
@@ -81,6 +78,7 @@ App.propTypes = {
   userId: PropTypes.string,
   emailAddress: PropTypes.string,
   emailVerified: PropTypes.bool.isRequired,
+  authenticated: PropTypes.bool.isRequired,
 };
 
 const getUserName = name => ({
