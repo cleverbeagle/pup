@@ -13,7 +13,7 @@ const updateUser = (userId, { emailAddress, profile }) => {
       },
     });
   } catch (exception) {
-    action.reject(`[editProfile.updateUser] ${exception}`);
+    throw new Error(`[editProfile.updateUser] ${exception.message}`);
   }
 };
 
@@ -23,7 +23,7 @@ const editProfile = ({ userId, profile }, promise) => {
     updateUser(userId, profile);
     action.resolve();
   } catch (exception) {
-    action.reject(`[editProfile.handler] ${exception}`);
+    action.reject(exception.message);
   }
 };
 
