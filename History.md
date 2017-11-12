@@ -1,5 +1,6 @@
 ## v.NEXT
 
+- Improve [#48](https://github.com/cleverbeagle/pup/issues/48). Improve error handling in action methods so that they actual stop the Promise as soon as an error occurs.
 - Improve [#96](https://github.com/cleverbeagle/pup/issues/96). Fix miscellaneous ESLint errors (h/t [@cdolek](https://github.com/cdolek) for sniffing these out).
 - Improve [#95](https://github.com/cleverbeagle/pup/issues/95). Migrate from `createContainer` method to `withTracker` for data containers (h/t [@cdolek](https://github.com/cdolek) for sniffing these out).
 - Improve [#94](https://github.com/cleverbeagle/pup/issues/94). Bump Meteor to v1.6 and bump Atmosphere and NPM deps.
