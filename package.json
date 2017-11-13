@@ -30,8 +30,6 @@
     "simpl-schema": "^0.3.2"
   },
   "devDependencies": {
-    "babel-jest": "^20.0.3",
-    "babel-plugin-lodash": "^3.2.11",
     "babel-jest": "^21.2.0",
     "babel-plugin-lodash": "^3.2.11",
     "babel-preset-env": "^1.6.1",
@@ -71,15 +69,25 @@
       "import/no-unresolved": 0,
       "import/no-extraneous-dependencies": 0,
       "import/extensions": 0,
-      "jsx-a11y/anchor-is-valid": ["error", {
-        "components": ["Link"],
-        "specialLink": ["to"]
-      }],
+      "jsx-a11y/anchor-is-valid": [
+        "error",
+        {
+          "components": [
+            "Link"
+          ],
+          "specialLink": [
+            "to"
+          ]
+        }
+      ],
       "max-len": 0,
       "no-alert": 0,
       "no-console": 0,
       "no-restricted-globals": 0,
-      "no-return-assign": ["error", "except-parens"],
+      "no-return-assign": [
+        "error",
+        "except-parens"
+      ],
       "no-underscore-dangle": [
         "error",
         {
