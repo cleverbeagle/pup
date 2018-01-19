@@ -1,5 +1,13 @@
 ## v.NEXT
 
+- Add [#111](https://github.com/cleverbeagle/pup/issues/111). Basic data export functionality.
+- Add [#110](https://github.com/cleverbeagle/pup/issues/110). Ability for users to delete their accounts (and data).
+- Add [#109](https://github.com/cleverbeagle/pup/issues/109). Add redirect back to initial request after login.
+- Fix [#106](https://github.com/cleverbeagle/pup/issues/106). Fix missing `medium` link on `<Index />` component.
+- Add [#105](https://github.com/cleverbeagle/pup/issues/105). Add `staging` and `production` commands to `package.json`.
+- Fix [#104](https://github.com/cleverbeagle/pup/issues/104). Fix `onCreateUser` not applying default roles to new users.
+- Add [#69](https://github.com/cleverbeagle/pup/issues/69). Support for SSR with examples for dynamic data.
+
 ## v1.3.0, November 13th, 2017
 
 - Improve [#46](https://github.com/cleverbeagle/pup/issues/46). Move the resend verification email bar into its own component (h/t [@pilarArr](https://github.com/pilarArr) for implementing this).
