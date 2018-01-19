@@ -7,6 +7,7 @@
 - Add [#105](https://github.com/cleverbeagle/pup/issues/105). Add `staging` and `production` commands to `package.json`.
 - Fix [#104](https://github.com/cleverbeagle/pup/issues/104). Fix `onCreateUser` not applying default roles to new users.
 - Add [#69](https://github.com/cleverbeagle/pup/issues/69). Support for SSR with examples for dynamic data.
+- Add [#49](https://github.com/cleverbeagle/pup/issues/49). Add better handling for schema errors inside of Methods.
 
 ## v1.3.0, November 13th, 2017
 
