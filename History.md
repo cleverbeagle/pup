@@ -6,6 +6,7 @@
 - Fix [#106](https://github.com/cleverbeagle/pup/issues/106). Fix missing `medium` link on `<Index />` component.
 - Add [#105](https://github.com/cleverbeagle/pup/issues/105). Add `staging` and `production` commands to `package.json`.
 - Fix [#104](https://github.com/cleverbeagle/pup/issues/104). Fix `onCreateUser` not applying default roles to new users.
+- Improve [#81](https://github.com/cleverbeagle/pup/issues/81). Migrate to `styled-components` for CSS.
 - Add [#69](https://github.com/cleverbeagle/pup/issues/69). Support for SSR with examples for dynamic data.
 - Add [#49](https://github.com/cleverbeagle/pup/issues/49). Add better handling for schema errors inside of Methods.
 
