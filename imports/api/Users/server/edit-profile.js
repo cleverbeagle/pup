@@ -22,7 +22,7 @@ const updateUser = (userId, { emailAddress, profile }) => {
       },
     });
   } catch (exception) {
-    action.reject(`[editProfile.updateUser] ${exception}`);
+    throw new Error(`[editProfile.updateUser] ${exception.message}`);
   }
 };
 const editProfile = ({ userId, profile }, promise) => {
