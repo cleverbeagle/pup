@@ -1,22 +1,30 @@
 /* eslint-disable consistent-return */
 
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
+import _ from 'lodash';
 
 let action;
 
 const updateUser = (userId, { emailAddress, profile }) => {
+  const currentProfile = Meteor.users.findOne({ _id: userId });
+  const currentEmail = _.get(currentProfile, 'emails.0.address', '');
+
+  if (currentEmail.toLowerCase() !== emailAddress.toLowerCase()) {
+    Accounts.addEmail(userId, emailAddress);
+    Accounts.removeEmail(userId, currentEmail);
+  }
+
   try {
     Meteor.users.update(userId, {
       $set: {
-        'emails.0.address': emailAddress,
         profile,
       },
     });
   } catch (exception) {
-    throw new Error(`[editProfile.updateUser] ${exception.message}`);
+    action.reject(`[editProfile.updateUser] ${exception}`);
   }
 };
-
 const editProfile = ({ userId, profile }, promise) => {
   try {
     action = promise;
