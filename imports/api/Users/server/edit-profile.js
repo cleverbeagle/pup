@@ -25,6 +25,7 @@ const updateUser = (userId, { emailAddress, profile }) => {
     throw new Error(`[editProfile.updateUser] ${exception.message}`);
   }
 };
+
 const editProfile = ({ userId, profile }, promise) => {
   try {
     action = promise;
@@ -34,6 +35,7 @@ const editProfile = ({ userId, profile }, promise) => {
     action.reject(exception.message);
   }
 };
+
 
 export default options =>
   new Promise((resolve, reject) =>
