@@ -1,5 +1,6 @@
 ## v.NEXT
 
+- Improve [#114](https://github.com/cleverbeagle/pup/issues/114). Migrate profile updates to Accounts API. h/t [@ninjaPixel](https://github.com/ninjaPixel) for this one.
 - Add [#111](https://github.com/cleverbeagle/pup/issues/111). Basic data export functionality.
 - Add [#110](https://github.com/cleverbeagle/pup/issues/110). Ability for users to delete their accounts (and data).
 - Add [#109](https://github.com/cleverbeagle/pup/issues/109). Add redirect back to initial request after login.
