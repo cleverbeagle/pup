@@ -29,13 +29,13 @@ class RecoverPassword extends React.Component {
           email: 'Is this email address correct?',
         },
       },
-      submitHandler() { component.handleSubmit(); },
+      submitHandler() { component.handleSubmit(component.form); },
     });
   }
 
-  handleSubmit() {
+  handleSubmit(form) {
     const { history } = this.props;
-    const email = this.emailAddress.value;
+    const email = form.emailAddress.value;
 
     Accounts.forgotPassword({ email }, (error) => {
       if (error) {
@@ -62,7 +62,6 @@ class RecoverPassword extends React.Component {
                 <input
                   type="email"
                   name="emailAddress"
-                  ref={emailAddress => (this.emailAddress = emailAddress)}
                   className="form-control"
                 />
               </FormGroup>

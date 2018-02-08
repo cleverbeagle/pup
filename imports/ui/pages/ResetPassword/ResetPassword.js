@@ -36,15 +36,15 @@ class ResetPassword extends React.Component {
           equalTo: 'Hmm, your passwords don\'t match. Try again?',
         },
       },
-      submitHandler() { component.handleSubmit(); },
+      submitHandler() { component.handleSubmit(component.form); },
     });
   }
 
-  handleSubmit() {
+  handleSubmit(form) {
     const { match, history } = this.props;
     const { token } = match.params;
 
-    Accounts.resetPassword(token, this.newPassword.value, (error) => {
+    Accounts.resetPassword(token, form.newPassword.value, (error) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
@@ -69,7 +69,6 @@ class ResetPassword extends React.Component {
                 <input
                   type="password"
                   className="form-control"
-                  ref={newPassword => (this.newPassword = newPassword)}
                   name="newPassword"
                   placeholder="New Password"
                 />
@@ -79,7 +78,6 @@ class ResetPassword extends React.Component {
                 <input
                   type="password"
                   className="form-control"
-                  ref={repeatNewPassword => (this.repeatNewPassword = repeatNewPassword)}
                   name="repeatNewPassword"
                   placeholder="Repeat New Password"
                 />
