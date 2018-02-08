@@ -27,17 +27,17 @@ class DocumentEditor extends React.Component {
           required: 'This thneeds a body, please.',
         },
       },
-      submitHandler() { component.handleSubmit(); },
+      submitHandler() { component.handleSubmit(component.form); },
     });
   }
 
-  handleSubmit() {
+  handleSubmit(form) {
     const { history } = this.props;
     const existingDocument = this.props.doc && this.props.doc._id;
     const methodToCall = existingDocument ? 'documents.update' : 'documents.insert';
     const doc = {
-      title: this.title.value.trim(),
-      body: this.body.value.trim(),
+      title: form.title.value.trim(),
+      body: form.body.value.trim(),
     };
 
     if (existingDocument) doc._id = existingDocument;
@@ -64,7 +64,6 @@ class DocumentEditor extends React.Component {
             type="text"
             className="form-control"
             name="title"
-            ref={title => (this.title = title)}
             defaultValue={doc && doc.title}
             placeholder="Oh, The Places You'll Go!"
           />
@@ -74,7 +73,6 @@ class DocumentEditor extends React.Component {
           <textarea
             className="form-control"
             name="body"
-            ref={body => (this.body = body)}
             defaultValue={doc && doc.body}
             placeholder="Congratulations! Today is your day. You're off to Great Places! You're off and away!"
           />

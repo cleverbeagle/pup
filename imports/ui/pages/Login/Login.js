@@ -35,12 +35,12 @@ class Login extends React.Component {
           required: 'Need a password here.',
         },
       },
-      submitHandler() { component.handleSubmit(); },
+      submitHandler() { component.handleSubmit(component.form); },
     });
   }
 
-  handleSubmit() {
-    Meteor.loginWithPassword(this.emailAddress.value, this.password.value, (error) => {
+  handleSubmit(form) {
+    Meteor.loginWithPassword(form.emailAddress.value, form.password.value, (error) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
@@ -72,7 +72,6 @@ class Login extends React.Component {
                 <input
                   type="email"
                   name="emailAddress"
-                  ref={emailAddress => (this.emailAddress = emailAddress)}
                   className="form-control"
                 />
               </FormGroup>
@@ -84,7 +83,6 @@ class Login extends React.Component {
                 <input
                   type="password"
                   name="password"
-                  ref={password => (this.password = password)}
                   className="form-control"
                 />
               </FormGroup>

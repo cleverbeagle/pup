@@ -42,13 +42,13 @@ class Profile extends React.Component {
         currentPassword: {
           required() {
             // Only required if newPassword field has a value.
-            return component.newPassword.value.length > 0;
+            return component.form.newPassword.value.length > 0;
           },
         },
         newPassword: {
           required() {
             // Only required if currentPassword field has a value.
-            return component.currentPassword.value.length > 0;
+            return component.form.currentPassword.value.length > 0;
           },
         },
       },
@@ -70,7 +70,7 @@ class Profile extends React.Component {
           required: 'Need your new password if changing.',
         },
       },
-      submitHandler() { component.handleSubmit(); },
+      submitHandler() { component.handleSubmit(component.form); },
     });
   }
 
@@ -81,13 +81,13 @@ class Profile extends React.Component {
     return service === 'password' ? 'password' : 'oauth';
   }
 
-  handleSubmit() {
+  handleSubmit(form) {
     const profile = {
-      emailAddress: this.emailAddress.value,
+      emailAddress: form.emailAddress.value,
       profile: {
         name: {
-          first: this.firstName.value,
-          last: this.lastName.value,
+          first: form.firstName.value,
+          last: form.lastName.value,
         },
       },
     };
@@ -100,13 +100,13 @@ class Profile extends React.Component {
       }
     });
 
-    if (this.newPassword.value) {
-      Accounts.changePassword(this.currentPassword.value, this.newPassword.value, (error) => {
+    if (form.newPassword.value) {
+      Accounts.changePassword(form.currentPassword.value, form.newPassword.value, (error) => {
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
-          this.currentPassword.value = '';
-          this.newPassword.value = '';
+          form.currentPassword.value = '';
+          form.newPassword.value = '';
         }
       });
     }
@@ -146,7 +146,6 @@ class Profile extends React.Component {
                 type="text"
                 name="firstName"
                 defaultValue={user.profile.name.first}
-                ref={firstName => (this.firstName = firstName)}
                 className="form-control"
               />
             </FormGroup>
@@ -158,7 +157,6 @@ class Profile extends React.Component {
                 type="text"
                 name="lastName"
                 defaultValue={user.profile.name.last}
-                ref={lastName => (this.lastName = lastName)}
                 className="form-control"
               />
             </FormGroup>
@@ -170,7 +168,6 @@ class Profile extends React.Component {
             type="email"
             name="emailAddress"
             defaultValue={user.emails[0].address}
-            ref={emailAddress => (this.emailAddress = emailAddress)}
             className="form-control"
           />
         </FormGroup>
@@ -179,7 +176,6 @@ class Profile extends React.Component {
           <input
             type="password"
             name="currentPassword"
-            ref={currentPassword => (this.currentPassword = currentPassword)}
             className="form-control"
           />
         </FormGroup>
@@ -188,7 +184,6 @@ class Profile extends React.Component {
           <input
             type="password"
             name="newPassword"
-            ref={newPassword => (this.newPassword = newPassword)}
             className="form-control"
           />
           <InputHint>Use at least six characters.</InputHint>
