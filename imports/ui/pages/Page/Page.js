@@ -10,7 +10,9 @@ const Page = ({ title, subtitle, content }) => {
   return (
     <div className="Page">
       <PageHeader title={title} subtitle={subtitle} />
-      <ReactMarkdown source={content} />
+      <div className="Content">
+        <ReactMarkdown source={content} />
+      </div>
     </div>
   );
 };
