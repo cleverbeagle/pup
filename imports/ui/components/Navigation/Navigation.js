@@ -27,6 +27,7 @@ Navigation.defaultProps = {
 
 Navigation.propTypes = {
   authenticated: PropTypes.bool.isRequired,
+  name: PropTypes.string,
 };
 
 export default Navigation;

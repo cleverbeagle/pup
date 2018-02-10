@@ -42,7 +42,7 @@ class ResetPassword extends React.Component {
 
   handleSubmit() {
     const { match, history } = this.props;
-    const token = match.params.token;
+    const { token } = match.params;
 
     Accounts.resetPassword(token, this.newPassword.value, (error) => {
       if (error) {
@@ -54,40 +54,42 @@ class ResetPassword extends React.Component {
   }
 
   render() {
-    return (<div className="ResetPassword">
-      <Row>
-        <Col xs={12} sm={6} md={4}>
-          <h4 className="page-header">Reset Password</h4>
-          <Alert bsStyle="info">
-            To reset your password, enter a new one below. You will be logged in
-with your new password.
-          </Alert>
-          <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-            <FormGroup>
-              <ControlLabel>New Password</ControlLabel>
-              <input
-                type="password"
-                className="form-control"
-                ref={newPassword => (this.newPassword = newPassword)}
-                name="newPassword"
-                placeholder="New Password"
-              />
-            </FormGroup>
-            <FormGroup>
-              <ControlLabel>Repeat New Password</ControlLabel>
-              <input
-                type="password"
-                className="form-control"
-                ref={repeatNewPassword => (this.repeatNewPassword = repeatNewPassword)}
-                name="repeatNewPassword"
-                placeholder="Repeat New Password"
-              />
-            </FormGroup>
-            <Button type="submit" bsStyle="success">Reset Password &amp; Login</Button>
-          </form>
-        </Col>
-      </Row>
-    </div>);
+    return (
+      <div className="ResetPassword">
+        <Row>
+          <Col xs={12} sm={6} md={4}>
+            <h4 className="page-header">Reset Password</h4>
+            <Alert bsStyle="info">
+              To reset your password, enter a new one below. You will be logged in
+  with your new password.
+            </Alert>
+            <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+              <FormGroup>
+                <ControlLabel>New Password</ControlLabel>
+                <input
+                  type="password"
+                  className="form-control"
+                  ref={newPassword => (this.newPassword = newPassword)}
+                  name="newPassword"
+                  placeholder="New Password"
+                />
+              </FormGroup>
+              <FormGroup>
+                <ControlLabel>Repeat New Password</ControlLabel>
+                <input
+                  type="password"
+                  className="form-control"
+                  ref={repeatNewPassword => (this.repeatNewPassword = repeatNewPassword)}
+                  name="repeatNewPassword"
+                  placeholder="Repeat New Password"
+                />
+              </FormGroup>
+              <Button type="submit" bsStyle="success">Reset Password &amp; Login</Button>
+            </form>
+          </Col>
+        </Row>
+      </div>
+    );
   }
 }
 

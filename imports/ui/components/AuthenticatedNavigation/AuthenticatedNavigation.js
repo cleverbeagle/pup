@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import { Meteor } from 'meteor/meteor';
 
-const AuthenticatedNavigation = ({ name }) => (
+const AuthenticatedNavigation = ({ name, history }) => (
   <div>
     <Nav>
       <LinkContainer to="/documents">
@@ -17,7 +17,7 @@ const AuthenticatedNavigation = ({ name }) => (
           <NavItem eventKey={2.1} href="/profile">Profile</NavItem>
         </LinkContainer>
         <MenuItem divider />
-        <MenuItem eventKey={2.2} onClick={() => Meteor.logout()}>Logout</MenuItem>
+        <MenuItem eventKey={2.2} onClick={() => history.push('/logout')}>Logout</MenuItem>
       </NavDropdown>
     </Nav>
   </div>
@@ -25,6 +25,7 @@ const AuthenticatedNavigation = ({ name }) => (
 
 AuthenticatedNavigation.propTypes = {
   name: PropTypes.string.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
-export default AuthenticatedNavigation;
+export default withRouter(AuthenticatedNavigation);

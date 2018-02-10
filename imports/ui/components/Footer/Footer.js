@@ -1,7 +1,7 @@
 import React from 'react';
-import { year } from '@cleverbeagle/dates';
 import { Link } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
+import { year } from '../../../modules/dates';
 
 import './Footer.scss';
 
