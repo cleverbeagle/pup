@@ -3,6 +3,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
+import FileSaver from 'file-saver';
+import base64ToBlob from 'b64-to-blob';
 import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
@@ -10,6 +12,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { withTracker } from 'meteor/react-meteor-data';
 import InputHint from '../../components/InputHint/InputHint';
+import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
 import validate from '../../../modules/validate';
 
 import './Profile.scss';
@@ -75,6 +78,29 @@ class Profile extends React.Component {
     delete userToCheck.services.resume;
     const service = Object.keys(userToCheck.services)[0];
     return service === 'password' ? 'password' : 'oauth';
+  }
+
+  handleExportData(event) {
+    event.preventDefault();
+    Meteor.call('users.exportData', (error, exportData) => {
+      if (error) {
+        Bert.alert(error.reason, 'danger');
+      } else {
+        FileSaver.saveAs(base64ToBlob(exportData), `${Meteor.userId()}.zip`);
+      }
+    });
+  }
+
+  handleDeleteAccount() {
+    if (confirm('Are you sure? This will permanently delete your account and all of its data.')) {
+      Meteor.call('users.deleteAccount', (error) => {
+        if (error) {
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Bert.alert('Account deleted!', 'success');
+        }
+      });
+    }
   }
 
   handleSubmit(form) {
@@ -206,6 +232,12 @@ class Profile extends React.Component {
             <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
               {this.renderProfileForm(loading, user)}
             </form>
+            <AccountPageFooter>
+              <p><a href="#" onClick={this.handleExportData}>Export my data</a> – Download all of your documents as .txt files in a .zip</p>
+            </AccountPageFooter>
+            <AccountPageFooter>
+              <Button bsStyle="danger" onClick={this.handleDeleteAccount}>Delete My Account</Button>
+            </AccountPageFooter>
           </Col>
         </Row>
       </div>
