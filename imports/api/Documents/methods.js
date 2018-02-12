@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import Documents from './Documents';
+import handleMethodException from '../../modules/handle-method-exception';
 import rateLimit from '../../modules/rate-limit';
 
 Meteor.methods({
@@ -13,7 +14,7 @@ Meteor.methods({
     try {
       return Documents.insert({ owner: this.userId, ...doc });
     } catch (exception) {
-      throw new Meteor.Error('500', exception);
+      handleMethodException(exception);
     }
   },
   'documents.update': function documentsUpdate(doc) {
@@ -28,7 +29,7 @@ Meteor.methods({
       Documents.update(documentId, { $set: doc });
       return documentId; // Return _id so we can redirect to document after update.
     } catch (exception) {
-      throw new Meteor.Error('500', exception);
+      handleMethodException(exception);
     }
   },
   'documents.remove': function documentsRemove(documentId) {
@@ -37,7 +38,7 @@ Meteor.methods({
     try {
       return Documents.remove(documentId);
     } catch (exception) {
-      throw new Meteor.Error('500', exception);
+      handleMethodException(exception);
     }
   },
 });
