@@ -1,21 +1,21 @@
 /* eslint-disable consistent-return */
 
+import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import _ from 'lodash';
 
 let action;
 
 const updateUser = (userId, { emailAddress, profile }) => {
-  const currentProfile = Meteor.users.findOne({ _id: userId });
-  const currentEmail = _.get(currentProfile, 'emails.0.address', '');
-
-  if (currentEmail.toLowerCase() !== emailAddress.toLowerCase()) {
-    Accounts.addEmail(userId, emailAddress);
-    Accounts.removeEmail(userId, currentEmail);
-  }
-
   try {
+    const currentProfile = Meteor.users.findOne({ _id: userId });
+    const currentEmail = _.get(currentProfile, 'emails.0.address', '');
+
+    if (currentEmail.toLowerCase() !== emailAddress.toLowerCase()) {
+      Accounts.addEmail(userId, emailAddress);
+      Accounts.removeEmail(userId, currentEmail);
+    }
+
     Meteor.users.update(userId, {
       $set: {
         profile,
@@ -35,7 +35,6 @@ const editProfile = ({ userId, profile }, promise) => {
     action.reject(exception.message);
   }
 };
-
 
 export default options =>
   new Promise((resolve, reject) =>
