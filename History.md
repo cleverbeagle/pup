@@ -1,15 +1,21 @@
 ## v.NEXT
 
+- Improve [#81](https://github.com/cleverbeagle/pup/issues/81). Migrate to `styled-components` for CSS.
+- Add [#69](https://github.com/cleverbeagle/pup/issues/69). Support for SSR with examples for dynamic data.
+
+## v1.4.0, February 12th, 2018 (Unreleased)
+
+- Add [#119](https://github.com/cleverbeagle/pup/issues/119). Add examples of indexing MongoDB collections and module for simplifying process of defining indexes.
+- Improve [#117](https://github.com/cleverbeagle/pup/issues/117). Simplify form handling. h/t [@merlinpatt](https://github.com/merlinpatt) for this one.
 - Improve [#114](https://github.com/cleverbeagle/pup/issues/114). Migrate profile updates to Accounts API. h/t [@ninjaPixel](https://github.com/ninjaPixel) for this one.
+- Improve [#113](https://github.com/cleverbeagle/pup/issues/113). Simplify static pages implementation. h/t [@sw-yx](https://github.com/sw-yx) for this one.
 - Add [#111](https://github.com/cleverbeagle/pup/issues/111). Basic data export functionality.
 - Add [#110](https://github.com/cleverbeagle/pup/issues/110). Ability for users to delete their accounts (and data).
 - Add [#109](https://github.com/cleverbeagle/pup/issues/109). Add redirect back to initial request after login.
 - Fix [#106](https://github.com/cleverbeagle/pup/issues/106). Fix missing `medium` link on `<Index />` component.
 - Add [#105](https://github.com/cleverbeagle/pup/issues/105). Add `staging` and `production` commands to `package.json`.
 - Fix [#104](https://github.com/cleverbeagle/pup/issues/104). Fix `onCreateUser` not applying default roles to new users.
-- Improve [#81](https://github.com/cleverbeagle/pup/issues/81). Migrate to `styled-components` for CSS.
-- Add [#69](https://github.com/cleverbeagle/pup/issues/69). Support for SSR with examples for dynamic data.
-- Add [#49](https://github.com/cleverbeagle/pup/issues/49). Add better handling for schema errors inside of Methods.
+- Add [#49](https://github.com/cleverbeagle/pup/issues/49). Add better handling for schema errors inside of Methods. h/t to [@Bandit](https://github.com/Bandit) for the solution.
 
 ## v1.3.0, November 13th, 2017
 
