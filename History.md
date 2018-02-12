@@ -3,7 +3,7 @@
 - Improve [#81](https://github.com/cleverbeagle/pup/issues/81). Migrate to `styled-components` for CSS.
 - Add [#69](https://github.com/cleverbeagle/pup/issues/69). Support for SSR with examples for dynamic data.
 
-## v1.4.0, February 12th, 2018 (Unreleased)
+## v1.4.0, February 12th, 2018
 
 - Add [#119](https://github.com/cleverbeagle/pup/issues/119). Add examples of indexing MongoDB collections and module for simplifying process of defining indexes.
 - Improve [#117](https://github.com/cleverbeagle/pup/issues/117). Simplify form handling. h/t [@merlinpatt](https://github.com/merlinpatt) for this one.
