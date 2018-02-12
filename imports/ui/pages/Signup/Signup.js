@@ -1,4 +1,5 @@
 import React from 'react';
+import autoBind from 'react-autobind';
 import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -13,7 +14,7 @@ import validate from '../../../modules/validate';
 class Signup extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    autoBind(this);
   }
 
   componentDidMount() {

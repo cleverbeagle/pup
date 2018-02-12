@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import autoBind from 'react-autobind';
 import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
@@ -16,12 +17,7 @@ import './Profile.scss';
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-
-    this.getUserType = this.getUserType.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.renderOAuthUser = this.renderOAuthUser.bind(this);
-    this.renderPasswordUser = this.renderPasswordUser.bind(this);
-    this.renderProfileForm = this.renderProfileForm.bind(this);
+    autoBind(this);
   }
 
   componentDidMount() {

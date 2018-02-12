@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import Icon from '../../components/Icon/Icon';
 
@@ -6,7 +7,7 @@ import './Logout.scss';
 
 class Logout extends React.Component {
   componentDidMount() {
-    Meteor.logout();
+    Meteor.logout(() => this.props.setAfterLoginPath(null));
   }
 
   render() {
@@ -28,6 +29,8 @@ class Logout extends React.Component {
   }
 }
 
-Logout.propTypes = {};
+Logout.propTypes = {
+  setAfterLoginPath: PropTypes.func.isRequired,
+};
 
 export default Logout;

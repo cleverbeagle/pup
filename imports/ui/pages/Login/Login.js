@@ -1,4 +1,5 @@
 import React from 'react';
+import autoBind from 'react-autobind';
 import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
@@ -10,7 +11,7 @@ import validate from '../../../modules/validate';
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    autoBind(this);
   }
 
   componentDidMount() {

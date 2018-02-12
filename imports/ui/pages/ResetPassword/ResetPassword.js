@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import autoBind from 'react-autobind';
 import { Row, Col, Alert, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -8,7 +9,7 @@ import validate from '../../../modules/validate';
 class ResetPassword extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    autoBind(this);
   }
 
   componentDidMount() {

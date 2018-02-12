@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import autoBind from 'react-autobind';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
@@ -32,43 +33,58 @@ import getUserName from '../../../modules/get-user-name';
 
 import './App.scss';
 
-const App = props => (
-  <Router>
-    {!props.loading ? (
-      <div className="App">
-        {props.authenticated ?
-          <VerifyEmailAlert
-            userId={props.userId}
-            emailVerified={props.emailVerified}
-            emailAddress={props.emailAddress}
-          />
-          : ''}
-        <Navigation {...props} />
-        <Grid>
-          <Switch>
-            <Route exact name="index" path="/" component={Index} />
-            <Authenticated exact path="/documents" component={Documents} {...props} />
-            <Authenticated exact path="/documents/new" component={NewDocument} {...props} />
-            <Authenticated exact path="/documents/:_id" component={ViewDocument} {...props} />
-            <Authenticated exact path="/documents/:_id/edit" component={EditDocument} {...props} />
-            <Authenticated exact path="/profile" component={Profile} {...props} />
-            <Public path="/signup" component={Signup} {...props} />
-            <Public path="/login" component={Login} {...props} />
-            <Route path="/logout" component={Logout} {...props} />
-            <Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
-            <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
-            <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
-            <Route name="terms" path="/terms" component={Terms} />
-            <Route name="privacy" path="/privacy" component={Privacy} />
-            <Route name="examplePage" path="/example-page" component={ExamplePage} />
-            <Route component={NotFound} />
-          </Switch>
-        </Grid>
-        <Footer />
-      </div>
-    ) : ''}
-  </Router>
-);
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { afterLoginPath: null };
+    autoBind(this);
+  }
+
+  setAfterLoginPath(afterLoginPath) {
+    this.setState({ afterLoginPath });
+  }
+
+  render() {
+    const { props, state, setAfterLoginPath } = this;
+    return (
+      <Router>
+        {!props.loading ? (
+          <div className="App">
+            {props.authenticated ?
+              <VerifyEmailAlert
+                userId={props.userId}
+                emailVerified={props.emailVerified}
+                emailAddress={props.emailAddress}
+              />
+              : ''}
+            <Navigation {...props} {...state} />
+            <Grid>
+              <Switch>
+                <Route exact name="index" path="/" component={Index} />
+                <Authenticated exact path="/documents" component={Documents} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+                <Authenticated exact path="/documents/new" component={NewDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+                <Authenticated exact path="/documents/:_id" component={ViewDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+                <Authenticated exact path="/documents/:_id/edit" component={EditDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+                <Authenticated exact path="/profile" component={Profile} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+                <Public path="/signup" component={Signup} {...props} {...state} />
+                <Public path="/login" component={Login} {...props} {...state} />
+                <Route path="/logout" render={routeProps => <Logout {...routeProps} setAfterLoginPath={setAfterLoginPath} />} {...props} {...state} />
+                <Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
+                <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
+                <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
+                <Route name="terms" path="/terms" component={Terms} />
+                <Route name="privacy" path="/privacy" component={Privacy} />
+                <Route name="examplePage" path="/example-page" component={ExamplePage} />
+                <Route component={NotFound} />
+              </Switch>
+            </Grid>
+            <Footer />
+          </div>
+        ) : ''}
+      </Router>
+    );
+  }
+}
 
 App.defaultProps = {
   userId: '',
