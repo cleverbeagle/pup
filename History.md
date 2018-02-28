@@ -2,6 +2,7 @@
 
 - Improve [#81](https://github.com/cleverbeagle/pup/issues/81). Migrate to `styled-components` for CSS.
 - Add [#69](https://github.com/cleverbeagle/pup/issues/69). Support for SSR with examples for dynamic data.
+- Add [#103](https://github.com/cleverbeagle/pup/issues/103). i18n support with example language file (Spanish?)
 
 ## v1.4.0, February 12th, 2018
 
