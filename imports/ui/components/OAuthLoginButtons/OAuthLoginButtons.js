@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { ReactiveVar } from 'meteor/reactive-var';
+import styled from 'styled-components';
 import OAuthLoginButton from '../OAuthLoginButton/OAuthLoginButton';
 
-import './OAuthLoginButtons.scss';
-
-const OAuthLoginButtons = ({ services, emailMessage }) => (services.length ? (
-  <div className={`OAuthLoginButtons ${emailMessage ? 'WithEmailMessage' : ''}`}>
+const OAuthLoginButtons = ({ className, services, emailMessage }) => (services.length ? (
+  <div className={`${className} ${emailMessage ? 'WithEmailMessage' : ''}`}>
     {services.map(service => <OAuthLoginButton key={service} service={service} />)}
     {emailMessage ?
       <p className="EmailMessage" style={{ marginLeft: `-${emailMessage.offset}px` }}>
@@ -17,7 +16,27 @@ const OAuthLoginButtons = ({ services, emailMessage }) => (services.length ? (
   </div>
 ) : <div />);
 
+const StyledOAuthLoginButtons = styled(OAuthLoginButtons)`
+  margin-bottom: 25px;
+
+  &.WithEmailMessage {
+    position: relative;
+    border-bottom: 1px solid ${props => props.theme.colors.grayLighter};
+    padding-bottom: 30px;
+
+    .EmailMessage {
+      display: inline-block;
+      background: #fff;
+      padding: 0 10px;
+      position: absolute;
+      bottom: -19px;
+      left: 50%;
+    }
+  }
+`;
+
 OAuthLoginButtons.propTypes = {
+  className: PropTypes.node.isRequired,
   services: PropTypes.array.isRequired,
   emailMessage: PropTypes.object.isRequired,
 };
@@ -40,4 +59,4 @@ export default withTracker(({ services }) => {
   return {
     services: verifiedServices.get(),
   };
-})(OAuthLoginButtons);
+})(StyledOAuthLoginButtons);
