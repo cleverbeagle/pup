@@ -15,7 +15,9 @@ const handleResendVerificationEmail = (emailAddress) => {
   });
 };
 
-const VerifyEmailAlert = ({ className, userId, emailVerified, emailAddress }) => (
+const VerifyEmailAlert = ({
+  className, userId, emailVerified, emailAddress,
+}) => (
   userId && !emailVerified ? (
     <div className={className}>
       <Alert className="verify-email text-center">

@@ -3,10 +3,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import ReactMarkdown from 'react-markdown';
 import media from '../../stylesheets/style-utils';
 
 const Content = ({ className, content }) => (
-  <div className={className} dangerouslySetInnerHTML={{ __html: content }} />
+  <div className={className}>
+    <ReactMarkdown source={content} />
+  </div>
 );
 
 const StyledContent = styled(Content)`
@@ -14,6 +17,7 @@ const StyledContent = styled(Content)`
   margin: 0 auto;
   font-size: 16px;
   line-height: 22px;
+  overflow: scroll;
 
   h1,
   h2,

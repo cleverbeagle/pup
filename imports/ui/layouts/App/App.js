@@ -8,7 +8,7 @@ import { Grid } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components';
 import Navigation from '../../components/Navigation/Navigation';
 import Authenticated from '../../components/Authenticated/Authenticated';
 import Public from '../../components/Public/Public';
@@ -33,8 +33,6 @@ import VerifyEmailAlert from '../../components/VerifyEmailAlert/VerifyEmailAlert
 import getUserName from '../../../modules/get-user-name';
 import theme from '../../stylesheets/theme';
 
-import './App.scss';
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -52,7 +50,7 @@ class App extends React.Component {
       <ThemeProvider theme={theme}>
         <Router>
           {!props.loading ? (
-            <div className="App">
+            <div className={props.className}>
               {props.authenticated ?
                 <VerifyEmailAlert
                   userId={props.userId}
@@ -95,6 +93,12 @@ App.defaultProps = {
   emailAddress: '',
 };
 
+const StyledApp = styled(App)`
+  > .container {
+    margin-bottom: 20px;
+  }
+`;
+
 App.propTypes = {
   loading: PropTypes.bool.isRequired,
   userId: PropTypes.string,
@@ -121,4 +125,4 @@ export default withTracker(() => {
     emailAddress,
     emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,
   };
-})(App);
+})(StyledApp);
