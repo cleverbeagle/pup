@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 import FileSaver from 'file-saver';
 import base64ToBlob from 'b64-to-blob';
-import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Row, Col, ControlLabel, Button } from 'react-bootstrap';
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
@@ -14,6 +14,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import styled from 'styled-components';
 import InputHint from '../../components/InputHint/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
+import FormGroup from '../../components/FormGroup';
 import validate from '../../../modules/validate';
 
 class Profile extends React.Component {

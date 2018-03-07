@@ -16,6 +16,7 @@ const StyledPageHeader = styled(PageHeader)`
   border-bottom: 1px solid ${props => props.theme.colors.grayLighter};
   padding: 20px 0 40px;
   margin-bottom: 40px;
+  margin-top: 20px;
 
   h1 {
     font-size: 24px;
@@ -37,6 +38,7 @@ const StyledPageHeader = styled(PageHeader)`
   ${media.tablet`
     padding: 10px 0 30px;
     margin-bottom: 30px;
+    margin-top: 20;
   `};
 
   ${media.handheldLarge`
