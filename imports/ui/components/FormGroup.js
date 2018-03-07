@@ -17,7 +17,7 @@ label.error {
     margin-top: 8px;
     font-size: 13px;
     font-weight: normal;
-    color: $danger;
+    color: ${props => props.theme.colors.danger};
 }
 `;
 

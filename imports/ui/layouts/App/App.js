@@ -45,12 +45,16 @@ class App extends React.Component {
   }
 
   render() {
-    const { props, state, setAfterLoginPath } = this;
+    const {
+      state, setAfterLoginPath,
+    } = this;
+    const { className, ...props } = this.props;
+
     return (
       <ThemeProvider theme={theme}>
         <Router>
           {!props.loading ? (
-            <div className={props.className}>
+            <div className={className}>
               {props.authenticated ?
                 <VerifyEmailAlert
                   userId={props.userId}
@@ -100,6 +104,7 @@ const StyledApp = styled(App)`
 `;
 
 App.propTypes = {
+  className: PropTypes.node.isRequired,
   loading: PropTypes.bool.isRequired,
   userId: PropTypes.string,
   emailAddress: PropTypes.string,
