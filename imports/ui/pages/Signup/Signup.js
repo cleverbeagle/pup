@@ -1,6 +1,6 @@
 import React from 'react';
 import autoBind from 'react-autobind';
-import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Row, Col, ControlLabel, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
@@ -9,6 +9,7 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import OAuthLoginButtons from '../../components/OAuthLoginButtons/OAuthLoginButtons';
 import InputHint from '../../components/InputHint/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
+import FormGroup from '../../components/FormGroup';
 import validate from '../../../modules/validate';
 
 class Signup extends React.Component {

@@ -8,6 +8,7 @@ import { Grid } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
+import styled, { ThemeProvider } from 'styled-components';
 import Navigation from '../../components/Navigation/Navigation';
 import Authenticated from '../../components/Authenticated/Authenticated';
 import Public from '../../components/Public/Public';
@@ -30,8 +31,7 @@ import Privacy from '../../pages/Privacy/Privacy';
 import ExamplePage from '../../pages/ExamplePage/ExamplePage';
 import VerifyEmailAlert from '../../components/VerifyEmailAlert/VerifyEmailAlert';
 import getUserName from '../../../modules/get-user-name';
-
-import './App.scss';
+import theme from '../../stylesheets/theme';
 
 class App extends React.Component {
   constructor(props) {
@@ -45,43 +45,49 @@ class App extends React.Component {
   }
 
   render() {
-    const { props, state, setAfterLoginPath } = this;
+    const {
+      state, setAfterLoginPath,
+    } = this;
+    const { className, ...props } = this.props;
+
     return (
-      <Router>
-        {!props.loading ? (
-          <div className="App">
-            {props.authenticated ?
-              <VerifyEmailAlert
-                userId={props.userId}
-                emailVerified={props.emailVerified}
-                emailAddress={props.emailAddress}
-              />
+      <ThemeProvider theme={theme}>
+        <Router>
+          {!props.loading ? (
+            <div className={className}>
+              {props.authenticated ?
+                <VerifyEmailAlert
+                  userId={props.userId}
+                  emailVerified={props.emailVerified}
+                  emailAddress={props.emailAddress}
+                />
               : ''}
-            <Navigation {...props} {...state} />
-            <Grid>
-              <Switch>
-                <Route exact name="index" path="/" component={Index} />
-                <Authenticated exact path="/documents" component={Documents} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-                <Authenticated exact path="/documents/new" component={NewDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-                <Authenticated exact path="/documents/:_id" component={ViewDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-                <Authenticated exact path="/documents/:_id/edit" component={EditDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-                <Authenticated exact path="/profile" component={Profile} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-                <Public path="/signup" component={Signup} {...props} {...state} />
-                <Public path="/login" component={Login} {...props} {...state} />
-                <Route path="/logout" render={routeProps => <Logout {...routeProps} setAfterLoginPath={setAfterLoginPath} />} {...props} {...state} />
-                <Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
-                <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
-                <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
-                <Route name="terms" path="/terms" component={Terms} />
-                <Route name="privacy" path="/privacy" component={Privacy} />
-                <Route name="examplePage" path="/example-page" component={ExamplePage} />
-                <Route component={NotFound} />
-              </Switch>
-            </Grid>
-            <Footer />
-          </div>
+              <Navigation {...props} {...state} />
+              <Grid>
+                <Switch>
+                  <Route exact name="index" path="/" component={Index} />
+                  <Authenticated exact path="/documents" component={Documents} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+                  <Authenticated exact path="/documents/new" component={NewDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+                  <Authenticated exact path="/documents/:_id" component={ViewDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+                  <Authenticated exact path="/documents/:_id/edit" component={EditDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+                  <Authenticated exact path="/profile" component={Profile} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+                  <Public path="/signup" component={Signup} {...props} {...state} />
+                  <Public path="/login" component={Login} {...props} {...state} />
+                  <Route path="/logout" render={routeProps => <Logout {...routeProps} setAfterLoginPath={setAfterLoginPath} />} {...props} {...state} />
+                  <Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
+                  <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
+                  <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
+                  <Route name="terms" path="/terms" component={Terms} />
+                  <Route name="privacy" path="/privacy" component={Privacy} />
+                  <Route name="examplePage" path="/example-page" component={ExamplePage} />
+                  <Route component={NotFound} />
+                </Switch>
+              </Grid>
+              <Footer />
+            </div>
         ) : ''}
-      </Router>
+        </Router>
+      </ThemeProvider>
     );
   }
 }
@@ -91,7 +97,14 @@ App.defaultProps = {
   emailAddress: '',
 };
 
+const StyledApp = styled(App)`
+  > .container {
+    margin-bottom: 20px;
+  }
+`;
+
 App.propTypes = {
+  className: PropTypes.node.isRequired,
   loading: PropTypes.bool.isRequired,
   userId: PropTypes.string,
   emailAddress: PropTypes.string,
@@ -117,4 +130,4 @@ export default withTracker(() => {
     emailAddress,
     emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,
   };
-})(App);
+})(StyledApp);

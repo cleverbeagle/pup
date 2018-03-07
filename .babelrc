@@ -4,6 +4,7 @@
     "react"
   ],
   "plugins": [
-    "lodash"
+    "lodash",
+    "babel-plugin-styled-components"
   ]
 }

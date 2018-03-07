@@ -1,11 +1,12 @@
 import React from 'react';
 import autoBind from 'react-autobind';
-import { Row, Col, Alert, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Row, Col, Alert, ControlLabel, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
+import FormGroup from '../../components/FormGroup';
 import validate from '../../../modules/validate';
 
 class RecoverPassword extends React.Component {

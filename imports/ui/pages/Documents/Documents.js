@@ -5,11 +5,10 @@ import { Table, Alert, Button } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Bert } from 'meteor/themeteorchef:bert';
+import styled from 'styled-components';
 import DocumentsCollection from '../../../api/Documents/Documents';
 import { timeago, monthDayYearAtTime } from '../../../modules/dates';
 import Loading from '../../components/Loading/Loading';
-
-import './Documents.scss';
 
 const handleRemove = (documentId) => {
   if (confirm('Are you sure? This is permanent!')) {
@@ -24,9 +23,9 @@ const handleRemove = (documentId) => {
 };
 
 const Documents = ({
-  loading, documents, match, history,
+  className, loading, documents, match, history,
 }) => (!loading ? (
-  <div className="Documents">
+  <div className={className}>
     <div className="page-header clearfix">
       <h4 className="pull-left">Documents</h4>
       <Link className="btn btn-success pull-right" to={`${match.url}/new`}>Add Document</Link>
@@ -75,7 +74,14 @@ const Documents = ({
   </div>
 ) : <Loading />);
 
+const StyledDocuments = styled(Documents)`
+  * > table > tbody >  tr > td {
+    vertical-align: middle;
+  }
+`;
+
 Documents.propTypes = {
+  className: PropTypes.node.isRequired,
   loading: PropTypes.bool.isRequired,
   documents: PropTypes.arrayOf(PropTypes.object).isRequired,
   match: PropTypes.object.isRequired,
@@ -88,4 +94,4 @@ export default withTracker(() => {
     loading: !subscription.ready(),
     documents: DocumentsCollection.find().fetch(),
   };
-})(Documents);
+})(StyledDocuments);

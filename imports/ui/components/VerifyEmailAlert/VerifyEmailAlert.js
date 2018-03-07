@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { Alert, Button } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-
-import './VerifyEmailAlert.scss';
+import styled from 'styled-components';
 
 const handleResendVerificationEmail = (emailAddress) => {
   Meteor.call('users.sendVerificationEmail', (error) => {
@@ -16,9 +15,11 @@ const handleResendVerificationEmail = (emailAddress) => {
   });
 };
 
-const VerifyEmailAlert = ({ userId, emailVerified, emailAddress }) => (
+const VerifyEmailAlert = ({
+  className, userId, emailVerified, emailAddress,
+}) => (
   userId && !emailVerified ? (
-    <div className="VerifyEmailAlert">
+    <div className={className}>
       <Alert className="verify-email text-center">
         <p>Hey friend! Can you <strong>verify your email address</strong> ({emailAddress}) for us?
           <Button
@@ -34,10 +35,31 @@ const VerifyEmailAlert = ({ userId, emailVerified, emailAddress }) => (
   ) : null
 );
 
+const StyledVerifyEmailAlert = styled(VerifyEmailAlert)`
+  .alert {
+    margin-bottom: 0;
+    padding: 0;
+    border-top: none;
+    border-bottom: 1px solid #e7e7e7;
+    background: #fff;
+    color: ${props => props.theme.colors.grayDark};
+    border-radius: 0;
+
+    p {
+      padding: 19px;
+    }
+
+    .btn {
+      padding: 0;
+    }
+  }
+`;
+
 VerifyEmailAlert.propTypes = {
+  className: PropTypes.node.isRequired,
   userId: PropTypes.string.isRequired,
   emailVerified: PropTypes.bool.isRequired,
   emailAddress: PropTypes.string.isRequired,
 };
 
-export default VerifyEmailAlert;
+export default StyledVerifyEmailAlert;

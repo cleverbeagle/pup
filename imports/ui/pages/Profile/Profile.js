@@ -5,17 +5,17 @@ import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 import FileSaver from 'file-saver';
 import base64ToBlob from 'b64-to-blob';
-import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Row, Col, ControlLabel, Button } from 'react-bootstrap';
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { withTracker } from 'meteor/react-meteor-data';
+import styled from 'styled-components';
 import InputHint from '../../components/InputHint/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
+import FormGroup from '../../components/FormGroup';
 import validate from '../../../modules/validate';
-
-import './Profile.scss';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -223,9 +223,9 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { loading, user } = this.props;
+    const { className, loading, user } = this.props;
     return (
-      <div className="Profile">
+      <div className={className}>
         <Row>
           <Col xs={12} sm={6} md={4}>
             <h4 className="page-header">Edit Profile</h4>
@@ -245,7 +245,54 @@ class Profile extends React.Component {
   }
 }
 
+const StyledProfile = styled(Profile)`
+  .LoggedInWith {
+    padding: 20px;
+    border-radius: 3px;
+    color: #fff;
+    border: 1px solid ${props => props.theme.colors.grayLighter};
+    text-align: center;
+
+    img {
+      width: 100px;
+    }
+
+    &.github img {
+      width: 125px;
+    }
+
+    p {
+      margin: 20px 0 0 0;
+      color: ${props => props.theme.colors.grayLight};
+    }
+
+    .btn {
+      margin-top: 20px;
+
+      &.btn-facebook {
+        background: ${props => props.theme.colors.facebook};
+        border-color: ${props => props.theme.colors.facebook};
+        color: #fff;
+      }
+
+      &.btn-google {
+        background: ${props => props.theme.colors.google};
+        border-color: ${props => props.theme.colors.google};
+        color: #fff;
+      }
+
+      &.btn-github {
+        background: ${props => props.theme.colors.github};
+        border-color: ${props => props.theme.colors.github};
+        color: #fff;
+      }
+    }
+  }
+`;
+
+
 Profile.propTypes = {
+  className: PropTypes.node.isRequired,
   loading: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
 };
@@ -257,4 +304,4 @@ export default withTracker(() => {
     loading: !subscription.ready(),
     user: Meteor.user(),
   };
-})(Profile);
+})(StyledProfile);

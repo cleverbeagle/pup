@@ -24,6 +24,7 @@
     "meteor-node-stubs": "^0.3.2",
     "moment": "^2.19.1",
     "moment-timezone": "^0.5.14",
+    "polished": "^1.9.2",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-addons-pure-render-mixin": "^15.6.2",
@@ -33,11 +34,13 @@
     "react-markdown": "^3.2.0",
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
-    "simpl-schema": "^0.3.2"
+    "simpl-schema": "^0.3.2",
+    "styled-components": "^3.2.0"
   },
   "devDependencies": {
     "babel-jest": "^21.2.0",
     "babel-plugin-lodash": "^3.2.11",
+    "babel-plugin-styled-components": "^1.5.1",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "enzyme": "^3.1.0",
