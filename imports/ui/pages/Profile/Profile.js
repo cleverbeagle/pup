@@ -127,8 +127,8 @@ class Profile extends React.Component {
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
-          form.currentPassword.value = '';
-          form.newPassword.value = '';
+          form.currentPassword.value = ''; // eslint-disable-line no-param-reassign
+          form.newPassword.value = ''; // eslint-disable-line no-param-reassign
         }
       });
     }
@@ -233,7 +233,7 @@ class Profile extends React.Component {
               {this.renderProfileForm(loading, user)}
             </form>
             <AccountPageFooter>
-              <p><a href="#" onClick={this.handleExportData}>Export my data</a> – Download all of your documents as .txt files in a .zip</p>
+              <p><Button bsStyle="link" className="btn-export" onClick={this.handleExportData}>Export my data</Button> – Download all of your documents as .txt files in a .zip</p>
             </AccountPageFooter>
             <AccountPageFooter>
               <Button bsStyle="danger" onClick={this.handleDeleteAccount}>Delete My Account</Button>
