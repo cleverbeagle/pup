@@ -4,7 +4,7 @@ import { Accounts } from 'meteor/accounts-base';
 import editProfile from './edit-profile';
 import exportData from './export-data';
 import deleteAccount from './delete-account';
-import sendWelcomeEmail from './/send-welcome-email';
+import sendWelcomeEmail from './send-welcome-email';
 import handleMethodException from '../../../modules/handle-method-exception';
 import rateLimit from '../../../modules/rate-limit';
 
