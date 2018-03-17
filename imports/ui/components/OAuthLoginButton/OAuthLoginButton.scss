@@ -36,6 +36,13 @@
     &:hover { background: darken($github, 5%); }
   }
 
+  &.OAuthLoginButton-twitter {
+    background: $twitter;
+    color: #fff;
+
+    &:hover { background: darken($twitter, 5%); }
+  }
+
   &:active {
     position: relative;
     top: 1px;

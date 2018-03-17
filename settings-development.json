@@ -22,6 +22,11 @@
         "clientId": "",
         "secret": "",
         "loginStyle": "popup"
+      },
+      "twitter": {
+        "clientId": "",
+        "secret": "",
+        "loginStyle": "popup"
       }
     },
     "supportEmailFrom": "Application Support <support@application.com>"
