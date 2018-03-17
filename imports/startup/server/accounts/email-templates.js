@@ -4,21 +4,19 @@ import getPrivateFile from '../../../modules/server/get-private-file';
 import templateToHTML from '../../../modules/server/handlebars-email-to-html';
 import templateToText from '../../../modules/server/handlebars-email-to-text';
 
-const name = 'Application Name';
-const email = '<support@application.com>';
-const from = `${name} ${email}`;
 const { emailTemplates } = Accounts;
+const { applicationName } = Meteor.settings.public;
 
-emailTemplates.siteName = name;
-emailTemplates.from = from;
+emailTemplates.siteName = applicationName;
+emailTemplates.from = Meteor.settings.private.supportEmailFrom;
 
 emailTemplates.verifyEmail = {
   subject() {
-    return `[${name}] Verify Your Email Address`;
+    return `[${applicationName}] Verify Your Email Address`;
   },
   html(user, url) {
     return templateToHTML(getPrivateFile('email-templates/verify-email.html'), {
-      applicationName: name,
+      applicationName,
       firstName: user.profile.name.first,
       verifyUrl: url.replace('#/', ''),
     });
@@ -27,7 +25,7 @@ emailTemplates.verifyEmail = {
     const urlWithoutHash = url.replace('#/', '');
     if (Meteor.isDevelopment) console.info(`Verify Email Link: ${urlWithoutHash}`); // eslint-disable-line
     return templateToText(getPrivateFile('email-templates/verify-email.txt'), {
-      applicationName: name,
+      applicationName,
       firstName: user.profile.name.first,
       verifyUrl: urlWithoutHash,
     });
@@ -36,12 +34,12 @@ emailTemplates.verifyEmail = {
 
 emailTemplates.resetPassword = {
   subject() {
-    return `[${name}] Reset Your Password`;
+    return `[${applicationName}] Reset Your Password`;
   },
   html(user, url) {
     return templateToHTML(getPrivateFile('email-templates/reset-password.html'), {
       firstName: user.profile.name.first,
-      applicationName: name,
+      applicationName,
       emailAddress: user.emails[0].address,
       resetUrl: url.replace('#/', ''),
     });
@@ -51,7 +49,7 @@ emailTemplates.resetPassword = {
     if (Meteor.isDevelopment) console.info(`Reset Password Link: ${urlWithoutHash}`); // eslint-disable-line
     return templateToText(getPrivateFile('email-templates/reset-password.txt'), {
       firstName: user.profile.name.first,
-      applicationName: name,
+      applicationName,
       emailAddress: user.emails[0].address,
       resetUrl: urlWithoutHash,
     });
