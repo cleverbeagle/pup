@@ -1,7 +1,9 @@
 {
   "public": {
     "applicationName": "Application Name",
-    "copyrightStartYear": "2017"
+    "copyrightStartYear": "2017",
+    "twitterHandle": "@application",
+    "twitterUrl": "https://twitter.com/application"
   },
   "private": {
     "MAIL_URL": "",
