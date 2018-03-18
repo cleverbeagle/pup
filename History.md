@@ -1,5 +1,6 @@
 ## v.NEXT
 
+- Improve [#140](https://github.com/cleverbeagle/pup/issues/130). Move "Application Name" and support email into settings file instead of hard-coding it into the source. H/t [@michelfloyd](https://github.com/michelfloyd) for this one.
 - Add [#130](https://github.com/cleverbeagle/pup/issues/130). Remove unnecessary Babel presets.
 - Add [#103](https://github.com/cleverbeagle/pup/issues/103). i18n support with example language file (Spanish?)
 - Improve [#81](https://github.com/cleverbeagle/pup/issues/81). Migrate to `styled-components` for CSS.
