@@ -22,7 +22,7 @@ export default (handlebarsMarkup, context, options) => {
     // If the base template is modified to include additional variables then they will need to be added here
     const baseContext = {
       content,
-      applicationName: context.applicationName,
+      applicationName: context.applicationName || Meteor.settings.public.applicationName, // provide a default
       twitterHandle: Meteor.settings.public.twitterHandle,
       twitterUrl: Meteor.settings.public.twitterUrl,
     };
