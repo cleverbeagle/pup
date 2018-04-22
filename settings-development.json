@@ -1,7 +1,8 @@
 {
   "public": {
     "productName": "Product Name",
-    "copyrightStartYear": "2018"
+    "copyrightStartYear": "2018",
+    "twitterUsername": "product"
   },
   "private": {
     "MAIL_URL": "",
