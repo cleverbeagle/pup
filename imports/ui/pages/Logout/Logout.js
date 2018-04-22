@@ -5,6 +5,8 @@ import Icon from '../../components/Icon/Icon';
 
 import './Logout.scss';
 
+const { productName, twitterUsername, facebookUsername } = Meteor.settings.public;
+
 class Logout extends React.Component {
   componentDidMount() {
     Meteor.logout(() => this.props.setAfterLoginPath(null));
@@ -18,11 +20,10 @@ class Logout extends React.Component {
           alt="Clever Beagle"
         />
         <h1>Stay safe out there.</h1>
-        <p>{'Don\'t forget to like and follow Clever Beagle elsewhere on the web:'}</p>
+        <p>{`Don't forget to like and follow ${productName} elsewhere on the web`}</p>
         <ul className="FollowUsElsewhere">
-          <li><a href="https://facebook.com/cleverbeagle"><Icon icon="facebook-official" /></a></li>
-          <li><a href="https://twitter.com/clvrbgl"><Icon icon="twitter" /></a></li>
-          <li><a href="https://github.com/cleverbeagle"><Icon icon="github" /></a></li>
+          <li><a href={`https://facebook.com/${facebookUsername}?utm_source=app&utm_medium=referral&utm_campaign=logoutPage`}><Icon icon="facebook-official" /></a></li>
+          <li><a href={`https://twitter.com/${twitterUsername}?utm_source=app&utm_medium=referral&utm_campaign=logoutPage`}><Icon icon="twitter" /></a></li>
         </ul>
       </div>
     );

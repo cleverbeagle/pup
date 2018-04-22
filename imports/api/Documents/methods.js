@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import Documents from './Documents';
