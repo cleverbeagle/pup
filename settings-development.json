@@ -22,6 +22,6 @@
         "loginStyle": "popup"
       }
     },
-    "supportEmailFrom": "Customer Support <support@product.com>"
+    "supportEmail": "Customer Support <support@product.com>"
   }
 }

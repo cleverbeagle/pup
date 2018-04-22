@@ -5,7 +5,7 @@ import templateToHTML from '../../../modules/server/handlebars-email-to-html';
 import templateToText from '../../../modules/server/handlebars-email-to-text';
 
 const name = Meteor.settings.public.productName;
-const from = Meteor.settings.private.supportEmailFrom;
+const from = Meteor.settings.private.supportEmail;
 const { emailTemplates } = Accounts;
 
 emailTemplates.siteName = name;
