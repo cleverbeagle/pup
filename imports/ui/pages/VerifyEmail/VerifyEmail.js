@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Meteor } from 'meteor/meteor';
 import { Alert } from 'react-bootstrap';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -19,7 +20,13 @@ class VerifyEmail extends React.Component {
       } else {
         setTimeout(() => {
           Bert.alert('All set, thanks!', 'success');
-          history.push('/documents');
+          Meteor.call('users.sendWelcomeEmail', (errorMethod) => {
+            if (errorMethod) {
+              Bert.alert(errorMethod.reason, 'danger');
+            } else {
+              history.push('/documents');
+            }
+          });
         }, 1500);
       }
     });
