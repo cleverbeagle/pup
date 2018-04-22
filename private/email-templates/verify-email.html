@@ -1,24 +1,10 @@
-<meta itemprop="name" content="Verify Email Address"/>
-<table width="100%" cellpadding="0" cellspacing="0">
-  <tr>
-    <td class="content-block">
-      Hey, {{firstName}}!
-    </td>
-  </tr>
-  <tr>
-    <td class="content-block">
-      Can you do us a favor and verify your email address?
-    </td>
-  </tr>
-  <tr>
-    <td class="content-block" itemprop="handler" itemscope itemtype="http://schema.org/HttpActionHandler">
-      <a href="{{verifyUrl}}" class="btn-primary" itemprop="url">Verify Email Address</a>
-    </td>
-  </tr>
-  <tr>
-    <td class="content-block">
-      Thanks! <br />
-      {{productName}} Team
-    </td>
-  </tr>
-</table>
+<p style="margin-top:0px;">Hey, {{firstName}}!</p>
+
+<p>Can you do us a favor and verify your email address?</p>
+
+<p><a href="{{verifyUrl}}" class="btn-primary" itemprop="url" itemprop="handler" itemscope itemtype="http://schema.org/HttpActionHandler">Verify Email Address</a></p>
+
+<p style="margin-bottom:0px;">
+Thanks! <br />
+{{productName}} Team
+</p>

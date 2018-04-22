@@ -1,29 +1,12 @@
-<meta itemprop="name" content="Welcome"/>
-<table width="100%" cellpadding="0" cellspacing="0">
-  <tr>
-    <td class="content-block">
-      Hey, {{firstName}}!
-    </td>
-  </tr>
-  <tr>
-    <td class="content-block">
-      Welcome to {{productName}}. We're excited to have you on board.
-    </td>
-  </tr>
-  <tr>
-    <td class="content-block">
-      Ready to get started?
-    </td>
-  </tr>
-  <tr>
-    <td class="content-block" itemprop="handler" itemscope itemtype="http://schema.org/HttpActionHandler">
-      <a href="{{welcomeUrl}}" class="btn-primary" itemprop="url">View Your Documents</a>
-    </td>
-  </tr>
-  <tr>
-    <td class="content-block">
-      Cheers, <br />
-      {{productName}} Team
-    </td>
-  </tr>
-</table>
+<p style="margin-top:0px;">Hey, {{firstName}}!</p>
+
+<p>Welcome to {{productName}}. We're excited to have you on board.</p>
+
+<p>Ready to get started?</p>
+
+<p><a href="{{welcomeUrl}}" class="btn-primary" itemprop="url" itemprop="handler" itemscope itemtype="http://schema.org/HttpActionHandler">View Your Documents</a></p>
+
+<p style="margin-bottom:0px;">
+Cheers, <br />
+{{productName}} Team
+</p>

@@ -16,6 +16,8 @@ emailTemplates.verifyEmail = {
   },
   html(user, url) {
     return templateToHTML(getPrivateFile('email-templates/verify-email.html'), {
+      title: 'Let\'s Verify Your Email',
+      subtitle: `Verify your email to start using ${productName}.`,
       productName,
       firstName: user.profile.name.first,
       verifyUrl: url.replace('#/', ''),
@@ -38,6 +40,8 @@ emailTemplates.resetPassword = {
   },
   html(user, url) {
     return templateToHTML(getPrivateFile('email-templates/reset-password.html'), {
+      title: 'Let\'s Reset Your Password',
+      subtitle: 'A password reset was requested for this email address.',
       firstName: user.profile.name.first,
       productName,
       emailAddress: user.emails[0].address,
