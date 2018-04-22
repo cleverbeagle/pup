@@ -11,5 +11,5 @@ if (Meteor.settings.private && Meteor.settings.private.OAuth) {
     );
   });
 } else {
-  console.warn('Warning! OAuth settings are not configured. OAuth logins will not function.');
+  console.warn('[Pup] Woof! OAuth settings are not configured. OAuth login will not function. See https://cleverbeagle.com/pup/v1/accounts/oauth-setup#setting-oauth-credentials for configuration instructions.');
 }

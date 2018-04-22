@@ -4,7 +4,7 @@ import sendEmail from '../../../modules/server/send-email';
 import getOAuthProfile from '../../../modules/get-oauth-profile';
 
 export default (oauthUser) => {
-  const user = !oauthUser ? Meteor.user() : check(oauthUser, Object);
+  const user = oauthUser || Meteor.user();
   const OAuthProfile = getOAuthProfile(user.profile, user);
 
   const applicationName = 'Application Name';

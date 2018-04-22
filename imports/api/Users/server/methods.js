@@ -12,6 +12,13 @@ Meteor.methods({
   'users.sendVerificationEmail': function usersSendVerificationEmail() {
     return Accounts.sendVerificationEmail(this.userId);
   },
+  'users.sendWelcomeEmail': function userSendWelcomeEmail() {
+    return sendWelcomeEmail()
+      .then(response => response)
+      .catch((exception) => {
+        handleMethodException(exception);
+      });
+  },
   'users.editProfile': function usersEditProfile(profile) {
     check(profile, {
       emailAddress: String,
@@ -43,22 +50,15 @@ Meteor.methods({
         handleMethodException(exception);
       });
   },
-  'users.sendWelcomeEmail': function userSendWelcomeEmail() {
-    return sendWelcomeEmail()
-      .then(response => response)
-      .catch((exception) => {
-        handleMethodException(exception);
-      });
-  },
 });
 
 rateLimit({
   methods: [
     'users.sendVerificationEmail',
+    'users.sendWelcomeEmail',
     'users.editProfile',
     'users.exportData',
     'users.deleteAccount',
-    'users.sendWelcomeEmail',
   ],
   limit: 5,
   timeRange: 1000,
