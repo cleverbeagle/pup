@@ -4,9 +4,8 @@ import getPrivateFile from '../../../modules/server/get-private-file';
 import templateToHTML from '../../../modules/server/handlebars-email-to-html';
 import templateToText from '../../../modules/server/handlebars-email-to-text';
 
-const name = 'Application Name';
-const email = '<support@application.com>';
-const from = `${name} ${email}`;
+const name = Meteor.settings.public.applicationName;
+const from = Meteor.settings.private.supportEmailFrom;
 const { emailTemplates } = Accounts;
 
 emailTemplates.siteName = name;

@@ -1,5 +1,8 @@
 {
-  "public": {},
+  "public": {
+    "applicationName": "Application Name",
+    "copyrightStartYear": "2017"
+  },
   "private": {
     "MAIL_URL": "",
     "OAuth": {
@@ -18,6 +21,7 @@
         "secret": "",
         "loginStyle": "popup"
       }
-    }
+    },
+    "supportEmailFrom": "Application Support <support@application.com>"
   }
 }

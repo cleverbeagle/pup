@@ -7,13 +7,14 @@ export default (oauthUser) => {
   const user = oauthUser || Meteor.user();
   const OAuthProfile = getOAuthProfile(user.profile, user);
 
-  const applicationName = 'Application Name';
-  const firstName = OAuthProfile ? OAuthProfile.name.first : user.profile.name.first;
-  const emailAddress = OAuthProfile ? OAuthProfile.email : user.emails[0].address;
+  const { applicationName } = Meteor.settings.public;
+  const { supportEmailFrom } = Meteor.settings.private;
+  const firstName = OAuthProfile ? OAuthProfile.name.first : options.profile.name.first;
+  const emailAddress = OAuthProfile ? OAuthProfile.email : options.email;
 
   return sendEmail({
     to: emailAddress,
-    from: `${applicationName} <support@application.com>`,
+    from: supportEmailFrom,
     subject: `[${applicationName}] Welcome, ${firstName}!`,
     template: 'welcome',
     templateVars: {
