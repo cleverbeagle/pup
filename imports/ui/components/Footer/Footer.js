@@ -6,7 +6,7 @@ import { year } from '../../../modules/dates';
 
 import './Footer.scss';
 
-const { applicationName, copyrightStartYear } = Meteor.settings.public;
+const { productName, copyrightStartYear } = Meteor.settings.public;
 const copyrightYear = () => {
   const currentYear = year();
   return currentYear === copyrightStartYear ? copyrightStartYear : `${copyrightStartYear}-${currentYear}`;
@@ -15,7 +15,7 @@ const copyrightYear = () => {
 const Footer = () => (
   <div className="Footer">
     <Grid>
-      <p className="pull-left">&copy; {copyrightYear()} {applicationName}</p>
+      <p className="pull-left">&copy; {copyrightYear()} {productName}</p>
       <ul className="pull-right">
         <li><Link to="/terms">Terms<span className="hidden-xs"> of Service</span></Link></li>
         <li><Link to="/privacy">Privacy<span className="hidden-xs"> Policy</span></Link></li>

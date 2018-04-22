@@ -1,7 +1,7 @@
 {
   "public": {
-    "applicationName": "Application Name",
-    "copyrightStartYear": "2017"
+    "productName": "Product Name",
+    "copyrightStartYear": "2018"
   },
   "private": {
     "MAIL_URL": "",
@@ -22,6 +22,6 @@
         "loginStyle": "popup"
       }
     },
-    "supportEmailFrom": "Application Support <support@application.com>"
+    "supportEmailFrom": "Customer Support <support@product.com>"
   }
 }
