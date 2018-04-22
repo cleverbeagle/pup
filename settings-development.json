@@ -1,7 +1,13 @@
 {
-  "public": {},
+  "public": {
+    "productName": "Product Name",
+    "copyrightStartYear": "2018",
+    "twitterUsername": "product",
+    "facebookUsername": "product",
+    "productAddress": "1658 N. Milwaukee Ave., #393, Chicago, IL 60647"
+  },
   "private": {
-    "MAIL_URL": "",
+    "MAIL_URL": "smtp://6dbe8075-9898-42e5-9f41-48d8688b2707:6dbe8075-9898-42e5-9f41-48d8688b2707@smtp.postmarkapp.com:587",
     "OAuth": {
       "facebook": {
         "appId": "",
@@ -18,6 +24,7 @@
         "secret": "",
         "loginStyle": "popup"
       }
-    }
+    },
+    "supportEmail": "Customer Support <business@cleverbeagle.com>"
   }
 }

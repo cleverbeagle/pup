@@ -1,6 +1,6 @@
 Hey, {{firstName}}!
 
-Welcome to Application Name. We're excited to have you on board.
+Welcome to {{productName}}. We're excited to have you on board.
 
 Ready to get started?
 
