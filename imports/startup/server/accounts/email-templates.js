@@ -4,9 +4,8 @@ import getPrivateFile from '../../../modules/server/get-private-file';
 import templateToHTML from '../../../modules/server/handlebars-email-to-html';
 import templateToText from '../../../modules/server/handlebars-email-to-text';
 
-const name = 'Application Name';
-const email = '<support@application.com>';
-const from = `${name} ${email}`;
+const name = Meteor.settings.public.productName;
+const from = Meteor.settings.private.supportEmail;
 const { emailTemplates } = Accounts;
 
 emailTemplates.siteName = name;
@@ -18,7 +17,7 @@ emailTemplates.verifyEmail = {
   },
   html(user, url) {
     return templateToHTML(getPrivateFile('email-templates/verify-email.html'), {
-      applicationName: name,
+      productName: name,
       firstName: user.profile.name.first,
       verifyUrl: url.replace('#/', ''),
     });
@@ -27,7 +26,7 @@ emailTemplates.verifyEmail = {
     const urlWithoutHash = url.replace('#/', '');
     if (Meteor.isDevelopment) console.info(`[Pup] Verify Email Link: ${urlWithoutHash}`); // eslint-disable-line
     return templateToText(getPrivateFile('email-templates/verify-email.txt'), {
-      applicationName: name,
+      productName: name,
       firstName: user.profile.name.first,
       verifyUrl: urlWithoutHash,
     });
@@ -41,7 +40,7 @@ emailTemplates.resetPassword = {
   html(user, url) {
     return templateToHTML(getPrivateFile('email-templates/reset-password.html'), {
       firstName: user.profile.name.first,
-      applicationName: name,
+      productName: name,
       emailAddress: user.emails[0].address,
       resetUrl: url.replace('#/', ''),
     });
@@ -51,7 +50,7 @@ emailTemplates.resetPassword = {
     if (Meteor.isDevelopment) console.info(`Reset Password Link: ${urlWithoutHash}`); // eslint-disable-line
     return templateToText(getPrivateFile('email-templates/reset-password.txt'), {
       firstName: user.profile.name.first,
-      applicationName: name,
+      productName: name,
       emailAddress: user.emails[0].address,
       resetUrl: urlWithoutHash,
     });

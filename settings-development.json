@@ -1,5 +1,8 @@
 {
-  "public": {},
+  "public": {
+    "productName": "Product Name",
+    "copyrightStartYear": "2018"
+  },
   "private": {
     "MAIL_URL": "",
     "OAuth": {
@@ -18,6 +21,7 @@
         "secret": "",
         "loginStyle": "popup"
       }
-    }
+    },
+    "supportEmail": "Customer Support <support@product.com>"
   }
 }
