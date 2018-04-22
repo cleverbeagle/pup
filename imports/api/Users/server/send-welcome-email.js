@@ -1,13 +1,15 @@
 import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check';
 import sendEmail from '../../../modules/server/send-email';
 import getOAuthProfile from '../../../modules/get-oauth-profile';
 
-export default (options, user) => {
-  const OAuthProfile = getOAuthProfile(options, user);
+export default (oauthUser) => {
+  const user = oauthUser || Meteor.user();
+  const OAuthProfile = getOAuthProfile(user.profile, user);
 
   const applicationName = 'Application Name';
-  const firstName = OAuthProfile ? OAuthProfile.name.first : options.profile.name.first;
-  const emailAddress = OAuthProfile ? OAuthProfile.email : options.email;
+  const firstName = OAuthProfile ? OAuthProfile.name.first : user.profile.name.first;
+  const emailAddress = OAuthProfile ? OAuthProfile.email : user.emails[0].address;
 
   return sendEmail({
     to: emailAddress,
