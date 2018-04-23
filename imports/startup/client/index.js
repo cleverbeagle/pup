@@ -1,11 +1,24 @@
-/* eslint-disable no-unused-expressions */
+/* eslint-disable no-underscore-dangle, no-unused-expressions */
 
 import React from 'react';
-import { render } from 'react-dom';
+import { hydrate } from 'react-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import { ThemeProvider, injectGlobal } from 'styled-components';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import { Meteor } from 'meteor/meteor';
+import { Bert } from 'meteor/themeteorchef:bert';
 import App from '../../ui/layouts/App/App';
+import mainReducer from '../../modules/redux/reducers';
 import '../both/api';
+
+Bert.defaults.style = 'growl-bottom-right';
+
+const preloadedState = window.__PRELOADED_STATE__;
+delete window.__PRELOADED_STATE__;
+
+const store = createStore(mainReducer, preloadedState, applyMiddleware(thunk));
 
 injectGlobal`
   :root {
@@ -81,9 +94,15 @@ injectGlobal`
 
 const theme = {};
 
-Meteor.startup(() => render(
+Meteor.startup(() => hydrate(
   <ThemeProvider theme={theme}>
-    <App />
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <App />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
   </ThemeProvider>,
   document.getElementById('react-root'),
 ));

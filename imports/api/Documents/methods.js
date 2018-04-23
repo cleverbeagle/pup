@@ -1,12 +1,21 @@
 /* eslint-disable consistent-return */
 
 import { Meteor } from 'meteor/meteor';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 import Documents from './Documents';
 import handleMethodException from '../../modules/handle-method-exception';
 import rateLimit from '../../modules/rate-limit';
 
 Meteor.methods({
+  'documents.findOne': function documentsFindOne(documentId) {
+    check(documentId, Match.OneOf(String, undefined));
+
+    try {
+      return Documents.findOne(documentId);
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
   'documents.insert': function documentsInsert(doc) {
     check(doc, {
       title: String,

@@ -6,9 +6,9 @@ import autoBind from 'react-autobind';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 import styled from 'styled-components';
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Roles } from 'meteor/alanning:roles';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { Accounts } from 'meteor/accounts-base';
 import Navigation from '../../components/Navigation/Navigation';
 import Authenticated from '../../components/Authenticated/Authenticated';
 import Public from '../../components/Public/Public';
@@ -30,11 +30,14 @@ import Terms from '../../pages/Terms/Terms';
 import Privacy from '../../pages/Privacy/Privacy';
 import ExamplePage from '../../pages/ExamplePage/ExamplePage';
 import VerifyEmailAlert from '../../components/VerifyEmailAlert/VerifyEmailAlert';
-import getUserName from '../../../modules/get-user-name';
+import { onLogin, onLogout } from '../../../modules/redux/actions';
 
 const StyledApp = styled.div`
+  visibility: ${props => (props.ready ? 'visible' : 'hidden')};
+
   > .container {
     margin-bottom: 80px;
+    padding-bottom: 20px;
   }
 
   .verify-email {
@@ -59,8 +62,15 @@ const StyledApp = styled.div`
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { afterLoginPath: null };
+    this.state = { ready: false, afterLoginPath: null };
     autoBind(this);
+  }
+
+  componentDidMount() {
+    const { handleOnLogin, handleOnLogout } = this.props;
+    Accounts.onLogin(() => handleOnLogin());
+    Accounts.onLogout(() => handleOnLogout());
+    this.setState({ ready: true });
   }
 
   setAfterLoginPath(afterLoginPath) {
@@ -70,41 +80,37 @@ class App extends React.Component {
   render() {
     const { props, state, setAfterLoginPath } = this;
     return (
-      <Router>
-        {!props.loading ? (
-          <StyledApp>
-            {props.authenticated ?
-              <VerifyEmailAlert
-                userId={props.userId}
-                emailVerified={props.emailVerified}
-                emailAddress={props.emailAddress}
-              />
-              : ''}
-            <Navigation {...props} {...state} />
-            <Grid>
-              <Switch>
-                <Route exact name="index" path="/" component={Index} />
-                <Authenticated exact path="/documents" component={Documents} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-                <Authenticated exact path="/documents/new" component={NewDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-                <Authenticated exact path="/documents/:_id" component={ViewDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-                <Authenticated exact path="/documents/:_id/edit" component={EditDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-                <Authenticated exact path="/profile" component={Profile} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-                <Public path="/signup" component={Signup} {...props} {...state} />
-                <Public path="/login" component={Login} {...props} {...state} />
-                <Route path="/logout" render={routeProps => <Logout {...routeProps} setAfterLoginPath={setAfterLoginPath} />} {...props} {...state} />
-                <Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
-                <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
-                <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
-                <Route name="terms" path="/terms" component={Terms} />
-                <Route name="privacy" path="/privacy" component={Privacy} />
-                <Route name="examplePage" path="/example-page" component={ExamplePage} />
-                <Route component={NotFound} />
-              </Switch>
-            </Grid>
-            <Footer />
-          </StyledApp>
-        ) : ''}
-      </Router>
+      <StyledApp ready={this.state.ready}>
+        {props.authenticated ?
+          <VerifyEmailAlert
+            userId={props.userId}
+            emailVerified={props.emailVerified}
+            emailAddress={props.emailAddress}
+          />
+          : ''}
+        <Navigation {...props} {...state} />
+        <Grid>
+          <Switch>
+            <Route exact name="index" path="/" component={Index} />
+            <Authenticated exact path="/documents" component={Documents} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Authenticated exact path="/documents/new" component={NewDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Route exact path="/documents/:_id" component={ViewDocument} />
+            <Authenticated exact path="/documents/:_id/edit" component={EditDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Authenticated exact path="/profile" component={Profile} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Public path="/signup" component={Signup} {...props} {...state} />
+            <Public path="/login" component={Login} {...props} {...state} />
+            <Route path="/logout" render={routeProps => <Logout {...routeProps} setAfterLoginPath={setAfterLoginPath} />} {...props} {...state} />
+            <Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
+            <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
+            <Route name="reset-password" path="/reset-password/:token" component={ResetPassword} />
+            <Route name="terms" path="/terms" component={Terms} />
+            <Route name="privacy" path="/privacy" component={Privacy} />
+            <Route name="examplePage" path="/example-page" component={ExamplePage} />
+            <Route component={NotFound} />
+          </Switch>
+        </Grid>
+        <Footer />
+      </StyledApp>
     );
   }
 }
@@ -120,24 +126,14 @@ App.propTypes = {
   emailAddress: PropTypes.string,
   emailVerified: PropTypes.bool.isRequired,
   authenticated: PropTypes.bool.isRequired,
+  handleOnLogin: PropTypes.func.isRequired,
+  handleOnLogout: PropTypes.func.isRequired,
 };
 
-export default withTracker(() => {
-  const loggingIn = Meteor.loggingIn();
-  const user = Meteor.user();
-  const userId = Meteor.userId();
-  const loading = !Roles.subscription.ready();
-  const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
-  const emailAddress = user && user.emails && user.emails[0].address;
+const mapStateToProps = state => ({ ...state });
+const mapDispatchToProps = dispatch => ({
+  handleOnLogin: data => dispatch(onLogin(data)),
+  handleOnLogout: data => dispatch(onLogout(data)),
+});
 
-  return {
-    loading,
-    loggingIn,
-    authenticated: !loggingIn && !!userId,
-    name: name || emailAddress,
-    roles: !loading && Roles.getRolesForUser(userId),
-    userId,
-    emailAddress,
-    emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,
-  };
-})(App);
+export default compose(connect(mapStateToProps, mapDispatchToProps))(App);
