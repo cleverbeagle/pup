@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Table, Alert, Button } from 'react-bootstrap';
+import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -9,7 +10,11 @@ import DocumentsCollection from '../../../api/Documents/Documents';
 import { timeago, monthDayYearAtTime } from '../../../modules/dates';
 import Loading from '../../components/Loading/Loading';
 
-import './Documents.scss';
+const StyledDocuments = styled.div`
+  table tbody tr td {
+    vertical-align: middle;
+  }
+`;
 
 const handleRemove = (documentId) => {
   if (confirm('Are you sure? This is permanent!')) {
@@ -26,7 +31,7 @@ const handleRemove = (documentId) => {
 const Documents = ({
   loading, documents, match, history,
 }) => (!loading ? (
-  <div className="Documents">
+  <StyledDocuments>
     <div className="page-header clearfix">
       <h4 className="pull-left">Documents</h4>
       <Link className="btn btn-success pull-right" to={`${match.url}/new`}>Add Document</Link>
@@ -72,7 +77,7 @@ const Documents = ({
           ))}
         </tbody>
       </Table> : <Alert bsStyle="warning">No documents yet!</Alert>}
-  </div>
+  </StyledDocuments>
 ) : <Loading />);
 
 Documents.propTypes = {

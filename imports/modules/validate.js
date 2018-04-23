@@ -1,4 +1,8 @@
-import $ from 'jquery';
-import 'jquery-validation';
+import { Meteor } from 'meteor/meteor';
 
-export default (form, options) => $(form).validate(options);
+if (Meteor.isClient) {
+  import $ from 'jquery';
+  import 'jquery-validation';
+
+  export default (form, options) => $(form).validate(options);
+}

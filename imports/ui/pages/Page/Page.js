@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
+import { Meteor } from 'meteor/meteor';
 import PageHeader from '../../components/PageHeader/PageHeader';
 
 const StyledPage = styled.div`
@@ -46,7 +47,7 @@ const Content = styled.div`
 `;
 
 const Page = ({ title, subtitle, content }) => {
-  window.scrollTo(0, 0); // Force window to top of page.
+  if (Meteor.isClient) window.scrollTo(0, 0); // Force window to top of page.
   return (
     <StyledPage>
       <PageHeader title={title} subtitle={subtitle} />

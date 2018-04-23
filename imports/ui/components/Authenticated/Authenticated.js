@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
+import { Meteor } from 'meteor/meteor';
 
 class Authenticated extends React.Component {
   componentWillMount() {
-    this.props.setAfterLoginPath(`${window.location.pathname}${window.location.search}`);
+    if (Meteor.isClient) this.props.setAfterLoginPath(`${window.location.pathname}${window.location.search}`);
   }
 
   render() {

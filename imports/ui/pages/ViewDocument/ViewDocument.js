@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ButtonToolbar, ButtonGroup, Button } from 'react-bootstrap';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Documents from '../../../api/Documents/Documents';
+import SEO from '../../components/SEO/SEO';
 import NotFound from '../NotFound/NotFound';
-import Loading from '../../components/Loading/Loading';
 
 const handleRemove = (documentId, history) => {
   if (confirm('Are you sure? This is permanent!')) {
@@ -23,6 +25,15 @@ const handleRemove = (documentId, history) => {
 
 const renderDocument = (doc, match, history) => (doc ? (
   <div className="ViewDocument">
+    <SEO
+      title={doc.title}
+      description={doc.body}
+      url={`documents/${doc._id}`}
+      contentType="article"
+      published={doc.createdAt}
+      updated={doc.updatedAt}
+      twitter="clvrbgl"
+    />
     <div className="page-header clearfix">
       <h4 className="pull-left">{ doc && doc.title }</h4>
       <ButtonToolbar className="pull-right">
@@ -38,29 +49,26 @@ const renderDocument = (doc, match, history) => (doc ? (
   </div>
 ) : <NotFound />);
 
-const ViewDocument = ({
-  loading, doc, match, history,
-}) => (
-  !loading ? renderDocument(doc, match, history) : <Loading />
-);
+const ViewDocument = ({ doc, match, history }) => (renderDocument(doc, match, history));
 
 ViewDocument.defaultProps = {
   doc: null,
 };
 
 ViewDocument.propTypes = {
-  loading: PropTypes.bool.isRequired,
   doc: PropTypes.object,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 
-export default withTracker(({ match }) => {
-  const documentId = match.params._id;
-  const subscription = Meteor.subscribe('documents.view', documentId);
+export default compose(
+  connect(state => ({ ...state })),
+  withTracker(({ match }) => {
+    const documentId = match.params._id;
+    if (Meteor.isClient) Meteor.subscribe('documents.view', documentId);
 
-  return {
-    loading: !subscription.ready(),
-    doc: Documents.findOne(documentId),
-  };
-})(ViewDocument);
+    return {
+      doc: Documents.findOne(documentId),
+    };
+  }),
+)(ViewDocument);
