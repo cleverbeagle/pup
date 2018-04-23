@@ -13,7 +13,8 @@ Meteor.methods({
     try {
       const verifiedServices = [];
       services.forEach((service) => {
-        if (ServiceConfiguration.configurations.findOne({ service })) {
+        const serviceConfig = ServiceConfiguration.configurations.findOne({ service });
+        if (serviceConfig && serviceConfig.enabled) {
           verifiedServices.push(service);
         }
       });

@@ -7,24 +7,27 @@
     "productAddress": "1658 N. Milwaukee Ave., #393, Chicago, IL 60647"
   },
   "private": {
-    "MAIL_URL": "smtp://6dbe8075-9898-42e5-9f41-48d8688b2707:6dbe8075-9898-42e5-9f41-48d8688b2707@smtp.postmarkapp.com:587",
+    "MAIL_URL": "",
     "OAuth": {
       "facebook": {
+        "enabled": true,
         "appId": "",
         "secret": "",
         "loginStyle": "popup"
       },
       "google": {
+        "enabled": true,
         "clientId": "",
         "secret": "",
         "loginStyle": "popup"
       },
       "github": {
+        "enabled": true,
         "clientId": "",
         "secret": "",
         "loginStyle": "popup"
       }
     },
-    "supportEmail": "Customer Support <business@cleverbeagle.com>"
+    "supportEmail": "Customer Support <support@product.com>"
   }
 }
