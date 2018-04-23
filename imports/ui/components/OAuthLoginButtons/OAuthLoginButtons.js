@@ -1,20 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { ReactiveVar } from 'meteor/reactive-var';
 import OAuthLoginButton from '../OAuthLoginButton/OAuthLoginButton';
 
-import './OAuthLoginButtons.scss';
+const StyledOAuthLoginButtons = styled.div`
+  margin-bottom: 25px;
+
+  ${props => (props.emailMessage ? `
+    position: relative;
+    border-bottom: 1px solid var(--gray-lighter);
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+  ` : '')}
+`;
+
+const EmailMessage = styled.p`
+  display: inline-block;
+  background: #fff;
+  padding: 0 10px;
+  position: absolute;
+  bottom: -19px;
+  left: 50%;
+  margin-left: -${props => props.offset}px;
+`;
 
 const OAuthLoginButtons = ({ services, emailMessage }) => (services.length ? (
-  <div className={`OAuthLoginButtons ${emailMessage ? 'WithEmailMessage' : ''}`}>
+  <StyledOAuthLoginButtons emailMessage={emailMessage}>
     {services.map(service => <OAuthLoginButton key={service} service={service} />)}
     {emailMessage ?
-      <p className="EmailMessage" style={{ marginLeft: `-${emailMessage.offset}px` }}>
+      <EmailMessage offset={emailMessage.offset}>
         {emailMessage.text}
-      </p> : ''}
-  </div>
+      </EmailMessage> : ''}
+  </StyledOAuthLoginButtons>
 ) : <div />);
 
 OAuthLoginButtons.propTypes = {
