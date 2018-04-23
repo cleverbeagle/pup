@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import './AccountPageFooter.scss';
+const StyledAccountPageFooter = styled.div`
+  margin: 25px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--gray-lighter);
+`;
 
 const AccountPageFooter = ({ children }) => (
-  <div className="AccountPageFooter">
+  <StyledAccountPageFooter>
     {children}
-  </div>
+  </StyledAccountPageFooter>
 );
 
 AccountPageFooter.propTypes = {

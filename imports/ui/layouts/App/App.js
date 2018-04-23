@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
+import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
@@ -31,7 +32,29 @@ import ExamplePage from '../../pages/ExamplePage/ExamplePage';
 import VerifyEmailAlert from '../../components/VerifyEmailAlert/VerifyEmailAlert';
 import getUserName from '../../../modules/get-user-name';
 
-import './App.scss';
+const StyledApp = styled.div`
+  > .container {
+    margin-bottom: 80px;
+  }
+
+  .verify-email {
+    margin-bottom: 0;
+    padding: 0;
+    border-top: none;
+    border-bottom: 1px solid #e7e7e7;
+    background: #fff;
+    color: var(--gray-dark);
+    border-radius: 0;
+
+    p {
+      padding: 19px;
+    }
+
+    .btn {
+      padding: 0;
+    }
+  }
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -49,7 +72,7 @@ class App extends React.Component {
     return (
       <Router>
         {!props.loading ? (
-          <div className="App">
+          <StyledApp>
             {props.authenticated ?
               <VerifyEmailAlert
                 userId={props.userId}
@@ -79,7 +102,7 @@ class App extends React.Component {
               </Switch>
             </Grid>
             <Footer />
-          </div>
+          </StyledApp>
         ) : ''}
       </Router>
     );

@@ -1,12 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import './InputHint.scss';
+const StyledInputHint = styled.div`
+  display: block;
+  margin-top: 8px;
+  font-style: italic;
+  color: var(--gray-light);
+  font-size: 13px;
+`;
 
 const InputHint = ({ children }) => (
-  <div className="InputHint">
+  <StyledInputHint>
     {children}
-  </div>
+  </StyledInputHint>
 );
 
 InputHint.propTypes = {

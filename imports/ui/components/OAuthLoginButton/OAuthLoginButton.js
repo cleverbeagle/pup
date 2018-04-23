@@ -1,10 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { darken } from 'polished';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Icon from '../Icon/Icon';
 
-import './OAuthLoginButton.scss';
+const StyledOAuthLoginButton = styled.button`
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+  background: var(--gray-lighter);
+  border-radius: 3px;
+
+  i {
+    margin-right: 3px;
+    font-size: 18px;
+    position: relative;
+    top: 1px;
+  }
+
+  &.OAuthLoginButton-facebook {
+    background: var(--facebook);
+    color: #fff;
+
+    &:hover { background: ${darken(0.05, '#3b5998')}; }
+  }
+
+  &.OAuthLoginButton-google {
+    background: var(--google);
+    color: #fff;
+
+    &:hover { background: ${darken(0.05, '#ea4335')}; }
+  }
+
+  &.OAuthLoginButton-github {
+    background: var(--github);
+    color: #fff;
+
+    &:hover { background: ${darken(0.05, '#333333')}; }
+  }
+
+  &:active {
+    position: relative;
+    top: 1px;
+  }
+
+  &:active,
+  &:focus {
+    outline: 0;
+  }
+
+  &:not(:last-child) {
+    margin-top: 10px;
+  }
+`;
 
 const handleLogin = (service, callback) => {
   const options = {
@@ -31,19 +82,19 @@ const handleLogin = (service, callback) => {
 };
 
 const serviceLabel = {
-  facebook: <span><Icon icon="facebook-official" /> Log In with Facebook</span>,
+  facebook: <span><Icon icon="facebook" /> Log In with Facebook</span>,
   github: <span><Icon icon="github" /> Log In with GitHub</span>,
   google: <span><Icon icon="google" /> Log In with Google</span>,
 };
 
 const OAuthLoginButton = ({ service, callback }) => (
-  <button
+  <StyledOAuthLoginButton
     className={`OAuthLoginButton OAuthLoginButton-${service}`}
     type="button"
     onClick={() => handleLogin(service, callback)}
   >
     {serviceLabel[service]}
-  </button>
+  </StyledOAuthLoginButton>
 );
 
 OAuthLoginButton.defaultProps = {

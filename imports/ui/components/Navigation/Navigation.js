@@ -6,10 +6,8 @@ import { Meteor } from 'meteor/meteor';
 import PublicNavigation from '../PublicNavigation/PublicNavigation';
 import AuthenticatedNavigation from '../AuthenticatedNavigation/AuthenticatedNavigation';
 
-import './Navigation.scss';
-
 const Navigation = props => (
-  <Navbar>
+  <Navbar collapseOnSelect>
     <Navbar.Header>
       <Navbar.Brand>
         <Link to="/">{Meteor.settings.public.productName}</Link>

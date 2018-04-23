@@ -7,6 +7,7 @@ import FileSaver from 'file-saver';
 import base64ToBlob from 'b64-to-blob';
 import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import _ from 'lodash';
+import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -15,7 +16,54 @@ import InputHint from '../../components/InputHint/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
 import validate from '../../../modules/validate';
 
-import './Profile.scss';
+const StyledProfile = styled.div`
+  .LoggedInWith {
+    padding: 20px;
+    border-radius: 3px;
+    color: #fff;
+    border: 1px solid var(--gray-lighter);
+    text-align: center;
+
+    img {
+      width: 100px;
+    }
+
+    &.github img {
+      width: 125px;
+    }
+
+    p {
+      margin: 20px 0 0 0;
+      color: var(--gray-light);
+    }
+
+    .btn {
+      margin-top: 20px;
+
+      &.btn-facebook {
+        background: var(--facebook);
+        border-color: var(--facebook);
+        color: #fff;
+      }
+
+      &.btn-google {
+        background: var(--google);
+        border-color: var(--google);
+        color: #fff;
+      }
+
+      &.btn-github {
+        background: var(--github);
+        border-color: var(--github);
+        color: #fff;
+      }
+    }
+  }
+
+  .btn-export {
+    padding: 0;
+  }
+`;
 
 class Profile extends React.Component {
   constructor(props) {
@@ -225,7 +273,7 @@ class Profile extends React.Component {
   render() {
     const { loading, user } = this.props;
     return (
-      <div className="Profile">
+      <StyledProfile>
         <Row>
           <Col xs={12} sm={6} md={4}>
             <h4 className="page-header">Edit Profile</h4>
@@ -240,7 +288,7 @@ class Profile extends React.Component {
             </AccountPageFooter>
           </Col>
         </Row>
-      </div>
+      </StyledProfile>
     );
   }
 }

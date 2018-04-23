@@ -1,10 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Alert, Button } from 'react-bootstrap';
+import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 
-import './VerifyEmailAlert.scss';
+const StyledVerifyEmailAlert = styled.div`
+  .alert {
+    margin-bottom: 0;
+    padding: 0;
+    border-top: none;
+    border-bottom: 1px solid #e7e7e7;
+    background: #fff;
+    color: $gray-dark;
+    border-radius: 0;
+
+    p {
+      padding: 19px;
+    }
+
+    .btn {
+      padding: 0;
+    }
+  }
+`;
 
 const handleResendVerificationEmail = (emailAddress) => {
   Meteor.call('users.sendVerificationEmail', (error) => {
@@ -18,7 +37,7 @@ const handleResendVerificationEmail = (emailAddress) => {
 
 const VerifyEmailAlert = ({ userId, emailVerified, emailAddress }) => (
   userId && !emailVerified ? (
-    <div className="VerifyEmailAlert">
+    <StyledVerifyEmailAlert>
       <Alert className="verify-email text-center">
         <p>Hey friend! Can you <strong>verify your email address</strong> ({emailAddress}) for us?
           <Button
@@ -30,7 +49,7 @@ const VerifyEmailAlert = ({ userId, emailVerified, emailAddress }) => (
           </Button>
         </p>
       </Alert>
-    </div>
+    </StyledVerifyEmailAlert>
   ) : null
 );
 
