@@ -18,11 +18,12 @@ const StyledLogout = styled.div`
   }
 
   h1 {
-    font-size: 28px;
+    font-size: 24px;
   }
 
   p {
-    font-size: 18px;
+    font-size: 16px;
+    line-height: 22px;
     color: ${lighten(0.25, '#4285F4')};
   }
 
@@ -49,10 +50,23 @@ const StyledLogout = styled.div`
 
   @media screen and (min-width: 768px) {
     padding: 30px;
+
+    h1 {
+      font-size: 26px;
+    }
   }
 
   @media screen and (min-width: 992px) {
     padding: 40px;
+
+    h1 {
+      font-size: 28px;
+    }
+  
+    p {
+      font-size: 18px;
+      line-height: 24px;
+    }
   }
 `;
 
@@ -71,9 +85,9 @@ class Logout extends React.Component {
           alt="Clever Beagle"
         />
         <h1>Stay safe out there.</h1>
-        <p>{`Don't forget to like and follow ${productName} elsewhere on the web`}</p>
+        <p>{`Don't forget to like and follow ${productName} elsewhere on the web:`}</p>
         <ul className="FollowUsElsewhere">
-          <li><a href={`https://facebook.com/${facebookUsername}?utm_source=app&utm_medium=referral&utm_campaign=logoutPage`}><Icon icon="facebook-official" /></a></li>
+          <li><a href={`https://facebook.com/${facebookUsername}?utm_source=app&utm_medium=referral&utm_campaign=logoutPage`}><Icon icon="facebook" /></a></li>
           <li><a href={`https://twitter.com/${twitterUsername}?utm_source=app&utm_medium=referral&utm_campaign=logoutPage`}><Icon icon="twitter" /></a></li>
         </ul>
       </StyledLogout>
