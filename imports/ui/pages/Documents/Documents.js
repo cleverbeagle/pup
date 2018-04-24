@@ -9,6 +9,7 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import DocumentsCollection from '../../../api/Documents/Documents';
 import { timeago, monthDayYearAtTime } from '../../../modules/dates';
 import Loading from '../../components/Loading/Loading';
+import BlankState from '../../components/BlankState/BlankState';
 
 const StyledDocuments = styled.div`
   table tbody tr td {
@@ -76,7 +77,16 @@ const Documents = ({
             </tr>
           ))}
         </tbody>
-      </Table> : <Alert bsStyle="warning">No documents yet!</Alert>}
+      </Table> : <BlankState
+        icon={{ style: 'solid', symbol: 'file-alt' }}
+        title="You're plum out of documents, friend!"
+        subtitle="Add your first document by clicking the button below."
+        action={{
+          style: 'success',
+          onClick: () => history.push(`${match.url}/new`),
+          label: 'Create Your First Document',
+        }}
+      />}
   </StyledDocuments>
 ) : <Loading />);
 
