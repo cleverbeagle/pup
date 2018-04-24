@@ -17,7 +17,7 @@ export function onLogin() {
       loggingIn,
       authenticated: !loggingIn && !!userId,
       name: name || emailAddress,
-      roles: !loading && Roles.getRolesForUser(userId),
+      roles: Roles.getRolesForUser(userId),
       userId,
       emailAddress,
       emailVerified: user && user.emails ? user && user.emails && user.emails[0].verified : true,
