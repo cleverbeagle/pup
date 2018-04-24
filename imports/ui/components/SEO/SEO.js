@@ -19,62 +19,39 @@ const seoImages = {
 const seoImageURL = file => `https://s3-us-west-2.amazonaws.com/cleverbeagle-assets/graphics/${file}`;
 const seoURL = path => Meteor.absoluteUrl(path);
 
-const getMetaTags = ({
-  title, description, url, contentType, images, published, updated, category, tags, twitter,
-}) => {
-  const metaTags = [
-    { itemprop: 'name', content: title },
-    { itemprop: 'description', content: description },
-    { itemprop: 'image', content: (images && images.google) || seoImageURL(_.sample(seoImages.google)) },
-    { name: 'description', content: description },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:site', content: '@clvrbgl' },
-    { name: 'twitter:title', content: `${title} | Clever Beagle` },
-    { name: 'twitter:description', content: description },
-    { name: 'twitter:creator', content: `@${twitter}` || '@clvrbgl' },
-    { name: 'twitter:image:src', content: (images && images.twitter) || seoImageURL(_.sample(seoImages.twitter)) },
-    { name: 'og:title', content: `${title} | Clever Beagle` },
-    { name: 'og:type', content: contentType },
-    { name: 'og:url', content: url },
-    { name: 'og:image', content: (images && images.facebook) || seoImageURL(_.sample(seoImages.facebook)) },
-    { name: 'og:description', content: description },
-    { name: 'og:site_name', content: 'Clever Beagle' },
-    { name: 'fb:app_id', content: '196001354345637' },
-  ];
-
-  if (published) metaTags.push({ name: 'article:published_time', content: published });
-  if (updated) metaTags.push({ name: 'article:modified_time', content: updated });
-  if (category) metaTags.push({ name: 'article:section', content: category });
-  if (tags) metaTags.push({ name: 'article:tag', content: tags });
-
-  return metaTags;
-};
-
 const SEO = ({
-  schema, title, description, path, contentType, published, updated, category, tags, twitter,
+  schema, title, description, images, path, contentType, published, updated, category, tags, twitter,
 }) => (
-  <Helmet
-    htmlAttributes={{
-      lang: 'en',
-      itemscope: undefined,
-      itemtype: `http://schema.org/${schema}`,
-    }}
-    title={title}
-    link={[
-      { rel: 'canonical', href: seoURL(path) },
-    ]}
-    meta={getMetaTags({
-      title,
-      description,
-      contentType,
-      url: seoURL(path),
-      published,
-      updated,
-      category,
-      tags,
-      twitter,
-    })}
-  />
+  <Helmet>
+    <html lang="en" itemScope itemType={`http://schema.org/${schema}`} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta itemProp="name" content={title} />
+    <meta itemProp="description" content={description} />
+    <meta itemProp="image" content={(images && images.google) || seoImageURL(_.sample(seoImages.google))} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@clvrbgl" />
+    <meta name="twitter:title" content={`${title} | Pup`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:creator" content={`@${twitter}` || '@clvrbgl'} />
+    <meta name="twitter:image:src" content={(images && images.twitter) || seoImageURL(_.sample(seoImages.twitter))} />
+
+    <meta property="og:title" content={`${title} | Pup`} />
+    <meta property="og:type" content={contentType} />
+    <meta property="og:url" content={seoURL(path)} />
+    <meta property="og:image" content={(images && images.facebook) || seoImageURL(_.sample(seoImages.facebook))} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Pup" />
+
+    <meta name="fb:app_id" content="196001354345637" />
+
+    {published ? <meta name="article:published_time" content={published} /> : ''}
+    {updated ? <meta name="article:modified_time" content={updated} /> : ''}
+    {category ? <meta name="article:section" content={category} /> : ''}
+    {tags ? <meta name="article:tag" content={tags} /> : ''}
+  </Helmet>
 );
 
 SEO.defaultProps = {

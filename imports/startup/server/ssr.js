@@ -30,7 +30,6 @@ onPageLoad((sink) => {
 
   const store = createStore(mainReducer, data, applyMiddleware(thunk));
   const initialData = store.getState();
-  const helmet = Helmet.renderStatic();
   const stylesheet = new ServerStyleSheet();
 
   const app = renderToString(stylesheet.collectStyles( // eslint-disable-line
@@ -40,11 +39,12 @@ onPageLoad((sink) => {
       </StaticRouter>
     </Provider>));
 
-  sink.renderIntoElementById('react-root', app);
-
+  const helmet = Helmet.renderStatic();
   sink.appendToHead(helmet.meta.toString());
   sink.appendToHead(helmet.title.toString());
   sink.appendToHead(stylesheet.getStyleTags());
+
+  sink.renderIntoElementById('react-root', app);
 
   sink.appendToBody(`
     <script>
