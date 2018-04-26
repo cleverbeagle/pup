@@ -87,8 +87,8 @@ class Logout extends React.Component {
         <h1>Stay safe out there.</h1>
         <p>{`Don't forget to like and follow ${productName} elsewhere on the web:`}</p>
         <ul className="FollowUsElsewhere">
-          <li><a href={`https://facebook.com/${facebookUsername}?utm_source=app&utm_medium=referral&utm_campaign=logoutPage`}><Icon icon="facebook" /></a></li>
-          <li><a href={`https://twitter.com/${twitterUsername}?utm_source=app&utm_medium=referral&utm_campaign=logoutPage`}><Icon icon="twitter" /></a></li>
+          <li><a href={`https://facebook.com/${facebookUsername}?utm_source=app&utm_medium=referral&utm_campaign=logoutPage`}><Icon iconStyle="brand" icon="facebook" /></a></li>
+          <li><a href={`https://twitter.com/${twitterUsername}?utm_source=app&utm_medium=referral&utm_campaign=logoutPage`}><Icon iconStyle="brand" icon="twitter" /></a></li>
         </ul>
       </StyledLogout>
     );

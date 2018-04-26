@@ -7,4 +7,4 @@ Ready to get started?
 [View Your Documents]({{welcomeUrl}})
 
 Cheers,
-Application Name Team
+{{productName}} Team

@@ -24,7 +24,7 @@ EditDocument.propTypes = {
 
 export default withTracker(({ match }) => {
   const documentId = match.params._id;
-  const subscription = Meteor.subscribe('documents.view', documentId);
+  const subscription = Meteor.subscribe('documents.edit', documentId);
 
   return {
     loading: !subscription.ready(),

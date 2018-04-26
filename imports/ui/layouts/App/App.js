@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -70,6 +70,10 @@ class App extends React.Component {
     const { handleOnLogin, handleOnLogout } = this.props;
     Accounts.onLogin(() => handleOnLogin());
     Accounts.onLogout(() => handleOnLogout());
+    this.setPageReady();
+  }
+
+  setPageReady() {
     this.setState({ ready: true });
   }
 

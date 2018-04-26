@@ -36,14 +36,16 @@ const renderDocument = (doc, match, history) => (doc ? (
     />
     <div className="page-header clearfix">
       <h4 className="pull-left">{ doc && doc.title }</h4>
-      <ButtonToolbar className="pull-right">
-        <ButtonGroup bsSize="small">
-          <Button onClick={() => history.push(`${match.url}/edit`)}>Edit</Button>
-          <Button onClick={() => handleRemove(doc._id, history)} className="text-danger">
-            Delete
-          </Button>
-        </ButtonGroup>
-      </ButtonToolbar>
+      {Meteor.isClient && Meteor.userId() ? (
+        <ButtonToolbar className="pull-right">
+          <ButtonGroup bsSize="small">
+            <Button onClick={() => history.push(`${match.url}/edit`)}>Edit</Button>
+            <Button onClick={() => handleRemove(doc._id, history)} className="text-danger">
+              Delete
+            </Button>
+          </ButtonGroup>
+        </ButtonToolbar>
+      ) : ''}
     </div>
     { doc && doc.body }
   </div>

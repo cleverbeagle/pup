@@ -37,8 +37,14 @@ Meteor.methods({
 
     try {
       const documentId = doc._id;
-      Documents.update(documentId, { $set: doc });
-      return documentId; // Return _id so we can redirect to document after update.
+      const docToUpdate = Documents.findOne(documentId, { fields: { owner: 1 } });
+
+      if (docToUpdate.owner === this.userId) {
+        Documents.update(documentId, { $set: doc });
+        return documentId; // Return _id so we can redirect to document after update.
+      }
+
+      throw new Meteor.Error('403', 'Sorry, pup. You\'re not allowed to edit this document.');
     } catch (exception) {
       handleMethodException(exception);
     }
@@ -47,7 +53,13 @@ Meteor.methods({
     check(documentId, String);
 
     try {
-      return Documents.remove(documentId);
+      const docToRemove = Documents.findOne(documentId, { fields: { owner: 1 } });
+
+      if (docToRemove.owner === this.userId) {
+        return Documents.remove(documentId);
+      }
+
+      throw new Meteor.Error('403', 'Sorry, pup. You\'re not allowed to delete this document.');
     } catch (exception) {
       handleMethodException(exception);
     }
