@@ -12,7 +12,7 @@ const StyledVerifyEmailAlert = styled.div`
     border-top: none;
     border-bottom: 1px solid #e7e7e7;
     background: #fff;
-    color: $gray-dark;
+    color: var(--gray-dark);
     border-radius: 0;
 
     p {
