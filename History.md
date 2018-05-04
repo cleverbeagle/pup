@@ -2,6 +2,9 @@
 
 - Add [#103](https://github.com/cleverbeagle/pup/issues/103). i18n support with example language file (Spanish?)
 
+## v1.5.1, May 3rd, 2018
+
+- Fix [#159](https://github.com/cleverbeagle/pup/issues/159). Fix incorrect CSS variable referencing old Sass syntax. H/t [@mbessieres](https://github.com/mbessieres) for the tip.
 
 ## v1.5.0, April 26th, 2018
 
