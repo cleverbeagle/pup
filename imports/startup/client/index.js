@@ -9,6 +9,8 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.css';
 import App from '../../ui/layouts/App/App';
 import mainReducer from '../../modules/redux/reducers';
 import '../both/api';
