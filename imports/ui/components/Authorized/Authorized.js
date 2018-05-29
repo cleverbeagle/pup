@@ -38,25 +38,21 @@ class Authorized extends React.Component {
 
   render() {
     const {
-      allowedRoles, group, userId, loggingIn, authenticated, component, path, exact, ...rest
+      component, path, exact, ...rest
     } = this.props;
 
-    return this.state.authorized ? (
+    return (this.state.authorized ? (
       <Route
         path={path}
         exact={exact}
-        render={props => (
-          React.createElement(component, {
-            ...props, ...rest, loggingIn, authenticated,
-          })
-        )}
+        render={props => (React.createElement(component, { ...props, ...rest }))}
       />
-    ) : <div />;
+    ) : <div />);
   }
 }
 
 Authorized.defaultProps = {
-  group: null,
+  allowedGroup: null,
   userId: null,
   exact: false,
   userRoles: [],
@@ -64,25 +60,22 @@ Authorized.defaultProps = {
 };
 
 Authorized.propTypes = {
-  allowedRoles: PropTypes.array.isRequired,
-  group: PropTypes.string,
-  userId: PropTypes.string,
   loading: PropTypes.bool.isRequired,
-  loggingIn: PropTypes.bool.isRequired,
-  authenticated: PropTypes.bool.isRequired,
+  allowedRoles: PropTypes.array.isRequired,
+  allowedGroup: PropTypes.string,
+  userId: PropTypes.string,
   component: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
   exact: PropTypes.bool,
-  setAfterLoginPath: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   userRoles: PropTypes.array,
   userIsInRoles: PropTypes.bool,
 };
 
-export default withRouter(withTracker(({ allowedRoles }) => { // eslint-disable-line
+export default withRouter(withTracker(({ allowedRoles, allowedGroup }) => { // eslint-disable-line
   return Meteor.isClient ? {
     loading: Meteor.isClient ? !Roles.subscription.ready() : true,
     userRoles: Roles.getRolesForUser(Meteor.userId()),
-    userIsInRoles: Roles.userIsInRole(Meteor.userId(), allowedRoles),
+    userIsInRoles: Roles.userIsInRole(Meteor.userId(), allowedRoles, allowedGroup),
   } : {};
 })(Authorized));
