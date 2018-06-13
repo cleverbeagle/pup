@@ -2,7 +2,6 @@
 
 - Improve [#162](https://github.com/cleverbeagle/pup/issues/162). Remove `fourseven:scss` dependency.
 - Add [#156](https://github.com/cleverbeagle/pup/issues/156). Add `<Authorized />` route component for roles-based routing.
-- Add [#155](https://github.com/cleverbeagle/pup/issues/155). Add a settings panel for users (alongside profile).
 - Add [#151](https://github.com/cleverbeagle/pup/issues/151). Add a simple admin panel for users.
 - Add [#149](https://github.com/cleverbeagle/pup/issues/149). Add a pattern for acquiring GDPR consent.
 - Add [#103](https://github.com/cleverbeagle/pup/issues/103). i18n support with example language file (Spanish?)
