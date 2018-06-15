@@ -28,7 +28,7 @@ import VerifyEmail from '../../pages/VerifyEmail/VerifyEmail';
 import RecoverPassword from '../../pages/RecoverPassword/RecoverPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
-import Admin from '../../pages/Admin/Admin';
+import AdminUsers from '../../pages/AdminUsers/AdminUsers';
 import NotFound from '../../pages/NotFound/NotFound';
 import Footer from '../../components/Footer/Footer';
 import Terms from '../../pages/Terms/Terms';
@@ -117,7 +117,7 @@ class App extends React.Component {
             <Route name="terms" path="/terms" component={Terms} />
             <Route name="privacy" path="/privacy" component={Privacy} />
             <Route name="examplePage" path="/example-page" component={ExamplePage} />
-            <Authorized allowed={['admin']} path="/admin" component={Admin} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Authorized allowed={['admin']} path="/admin" component={AdminUsers} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
             <Route component={NotFound} />
           </Switch>
         </Grid>
