@@ -23,14 +23,16 @@ class Authorized extends React.Component {
   }
 
   checkIfAuthorized() {
-    const { loading, userRoles, userIsInRoles } = this.props;
+    const {
+      loading, userRoles, userIsInRoles, pathAfterFailure,
+    } = this.props;
 
     if (!loading && userRoles.length > 0) {
       if (!userIsInRoles) {
-        this.props.history.push('/login');
+        this.props.history.push(pathAfterFailure);
       } else {
-        // Check to see if authorized is still false before setting. This prevents the infinite loop
-        // the linter is anticipating when this is used within componentDidUpdate.
+        // Check to see if authorized is still false before setting. This prevents an infinite loop
+        // when this is used within componentDidUpdate.
         if (!this.state.authorized) this.setState({ authorized: true }); // eslint-disable-line
       }
     }
@@ -57,6 +59,7 @@ Authorized.defaultProps = {
   exact: false,
   userRoles: [],
   userIsInRoles: false,
+  pathAfterFailure: '/login',
 };
 
 Authorized.propTypes = {
@@ -70,6 +73,7 @@ Authorized.propTypes = {
   history: PropTypes.object.isRequired,
   userRoles: PropTypes.array,
   userIsInRoles: PropTypes.bool,
+  pathAfterFailure: PropTypes.string,
 };
 
 export default withRouter(withTracker(({ allowedRoles, allowedGroup }) => { // eslint-disable-line
