@@ -82,9 +82,9 @@ const handleLogin = (service, callback) => {
 };
 
 const serviceLabel = {
-  facebook: <span><Icon icon="facebook" /> Log In with Facebook</span>,
-  github: <span><Icon icon="github" /> Log In with GitHub</span>,
-  google: <span><Icon icon="google" /> Log In with Google</span>,
+  facebook: <span><Icon iconStyle="brand" icon="facebook" /> Log In with Facebook</span>,
+  github: <span><Icon iconStyle="brand" icon="github" /> Log In with GitHub</span>,
+  google: <span><Icon iconStyle="brand" icon="google" /> Log In with Google</span>,
 };
 
 const OAuthLoginButton = ({ service, callback }) => (

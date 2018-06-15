@@ -25,15 +25,15 @@ const parseFacebookData = service => ({
   },
 });
 
-const getDataForService = (profile, services) => {
+const getDataForService = (options, services) => {
   if (services.facebook) return parseFacebookData(services.facebook);
-  if (services.github) return parseGithubData(profile, services.github);
+  if (services.github) return parseGithubData(options, services.github);
   if (services.google) return parseGoogleData(services.google);
   return null;
 };
 
 export default (options, user) => {
   const isOAuth = !options.password;
-  const serviceData = isOAuth ? getDataForService(options.profile, user.services) : null;
+  const serviceData = isOAuth ? getDataForService(options, user.services) : null;
   return isOAuth ? serviceData : null;
 };

@@ -1,7 +1,17 @@
 ## v.NEXT
 
-- Add [#130](https://github.com/cleverbeagle/pup/issues/130). Remove unnecessary Babel presets.
 - Add [#103](https://github.com/cleverbeagle/pup/issues/103). i18n support with example language file (Spanish?)
+
+
+## v1.5.0, April 26th, 2018
+
+- Improve [#157](https://github.com/cleverbeagle/pup/issues/157). Bump Meteor to 1.6.1.1 and all dependencies to their latest compatible versions.
+- Add [#154](https://github.com/cleverbeagle/pup/issues/154). Add blank state component.
+- Improve [#144](https://github.com/cleverbeagle/pup/issues/144). Migrate to base template for transactional emails. H/t [@michelfloyd](https://github.com/michelfloyd) for this one.
+- Improve [#140](https://github.com/cleverbeagle/pup/issues/140). Move "Application Name" and support email into settings file instead of hard-coding it into the source. H/t [@michelfloyd](https://github.com/michelfloyd) for this one.
+- Improve [#138](https://github.com/cleverbeagle/pup/issues/138). Correct all linter errors. H/t [@merlinpatt](https://github.com/merlinpatt) for this one.
+- Improve [#134](https://github.com/cleverbeagle/pup/issues/134). Prevent welcome email sending before a user has verified their email address. h/t [@toinevk](https://github.com/toinevk).
+- Improve [#130](https://github.com/cleverbeagle/pup/issues/130). Remove unnecessary Babel presets. h/t [@toinevk](https://github.com/toinevk).
 - Improve [#81](https://github.com/cleverbeagle/pup/issues/81). Migrate to `styled-components` for CSS.
 - Add [#69](https://github.com/cleverbeagle/pup/issues/69). Support for SSR with examples for dynamic data.
 
