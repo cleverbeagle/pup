@@ -184,7 +184,7 @@ class AdminUsers extends React.Component {
             </StyledListGroupItem>
           ))}
         </StyledListGroup>
-        {this.state.total && !this.state.searching ? this.renderPagination(this.state.total, this.state.usersPerPage, this.state.currentPage) : ''}
+        {this.state.total && !this.state.searching && this.state.total > this.state.usersPerPage ? this.renderPagination(this.state.total, this.state.usersPerPage, this.state.currentPage) : ''}
       </div>
     );
   }

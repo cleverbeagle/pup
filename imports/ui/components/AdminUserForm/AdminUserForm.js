@@ -107,6 +107,7 @@ class AdminUserForm extends React.Component {
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
+          Bert.alert('User deleted!', 'success');
           this.props.history.push('/admin/users');
         }
       });
@@ -246,7 +247,7 @@ class AdminUserForm extends React.Component {
                   {user ? 'Save Changes' : 'Create User'}
                 </Button>
                 {user ? (
-                  <Button type="submit" bsStyle="danger" className="pull-right" onClick={this.handleDeleteUser}>
+                  <Button bsStyle="danger" className="pull-right" onClick={this.handleDeleteUser}>
                     Delete User
                   </Button>
                 ) : ''}
