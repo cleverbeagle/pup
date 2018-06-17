@@ -19,8 +19,9 @@ Meteor.methods({
         const skip = ((options.currentPage * options.perPage) - options.perPage);
         const searchRegex = options.search ? new RegExp(options.search, 'i') : null;
         return {
-          total: Meteor.users.find().count(),
+          total: Meteor.users.find({ _id: { $ne: this.userId } }).count(),
           users: options.search ? fetchUsers({
+            _id: { $ne: this.userId },
             $or: [
               { 'profile.name.first': searchRegex },
               { 'profile.name.last': searchRegex },
@@ -33,7 +34,7 @@ Meteor.methods({
               { 'services.github.email': searchRegex },
               { 'services.github.username': searchRegex },
             ],
-          }, {}) : fetchUsers({}, { limit: options.perPage, skip }),
+          }, {}) : fetchUsers({ _id: { $ne: this.userId } }, { limit: options.perPage, skip }),
         };
       }
 
@@ -68,7 +69,7 @@ Meteor.methods({
         return userId;
       }
 
-      throw new Meteor.Error('500', 'Sorry, you need to be an administrator to do this.');
+      throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');
     } catch (exception) {
       handleMethodException(exception);
     }
@@ -104,7 +105,7 @@ Meteor.methods({
         return true;
       }
 
-      throw new Meteor.Error('500', 'Sorry, you need to be an administrator to do this.');
+      throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');
     } catch (exception) {
       handleMethodException(exception);
     }

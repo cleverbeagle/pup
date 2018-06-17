@@ -12,7 +12,7 @@ import InputHint from '../../components/InputHint/InputHint';
 import Icon from '../../components/Icon/Icon';
 import validate from '../../../modules/validate';
 
-class AdminUserForm extends React.Component {
+class AdminUserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = { showPassword: false, password: '' };
@@ -121,7 +121,7 @@ class AdminUserForm extends React.Component {
   render() {
     const { loading, user, roles } = this.props;
     return (
-      <div className="AdminUserForm">
+      <div className="AdminUserProfile">
         <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
           {!loading ? (
             <Row>
@@ -260,11 +260,11 @@ class AdminUserForm extends React.Component {
   }
 }
 
-AdminUserForm.propTypes = {
+AdminUserProfile.propTypes = {
   loading: PropTypes.bool.isRequired,
   history: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   roles: PropTypes.array.isRequired,
 };
 
-export default AdminUserForm;
+export default AdminUserProfile;

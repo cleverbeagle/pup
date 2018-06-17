@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
+import { Roles } from 'meteor/alanning:roles';
 import editProfile from './edit-profile';
 import exportData from './export-data';
 import deleteAccount from './delete-account';
@@ -45,6 +46,7 @@ Meteor.methods({
   },
   'users.deleteAccount': function usersDeleteAccount(userId) {
     check(userId, Match.Maybe(String));
+    if (userId && !Roles.userIsInRole(this.userId, 'admin')) throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');
     return deleteAccount({ userId: userId || this.userId })
       .then(response => response)
       .catch((exception) => {
