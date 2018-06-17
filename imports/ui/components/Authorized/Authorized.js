@@ -47,7 +47,7 @@ class Authorized extends React.Component {
       <Route
         path={path}
         exact={exact}
-        render={props => (React.createElement(component, { ...props, ...rest }))}
+        render={props => (React.createElement(component, { ...rest, ...props }))}
       />
     ) : <div />);
   }

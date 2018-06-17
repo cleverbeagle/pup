@@ -3,13 +3,19 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Roles } from 'meteor/alanning:roles';
 
-const AuthenticatedNavigation = ({ name, history }) => (
+const AuthenticatedNavigation = ({ name, history, userId }) => (
   <div>
     <Nav>
       <LinkContainer to="/documents">
         <NavItem eventKey={1} href="/documents">Documents</NavItem>
       </LinkContainer>
+      {Roles.userIsInRole(userId, 'admin') ? <NavDropdown eventKey={2} title="Admin" id="admin-nav-dropdown">
+        <LinkContainer to="/admin/users">
+          <NavItem eventKey={2.1} href="/admin/users">Users</NavItem>
+        </LinkContainer>
+      </NavDropdown> : ''}
     </Nav>
     <Nav pullRight>
       <NavDropdown eventKey={2} title={name} id="user-nav-dropdown">
