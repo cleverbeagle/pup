@@ -1,9 +1,14 @@
 ## v.NEXT
 
+- Improve [#166](https://github.com/cleverbeagle/pup/issues/166). Add minimum character length validation to update password on `<Profile />`.
+- Improve [#165](https://github.com/cleverbeagle/pup/issues/165). Upgrade to Meteor 1.7.0.1+.
 - Improve [#162](https://github.com/cleverbeagle/pup/issues/162). Remove `fourseven:scss` dependency.
+- Fix [#161](https://github.com/cleverbeagle/pup/issues/161). Fix `PropTypes` warning on `<BlankState />` component.
 - Add [#156](https://github.com/cleverbeagle/pup/issues/156). Add `<Authorized />` route component for roles-based routing.
+- Add [#155](https://github.com/cleverbeagle/pup/issues/155). Add settings panel (relates to #149).
 - Add [#151](https://github.com/cleverbeagle/pup/issues/151). Add a simple admin panel for users.
 - Add [#149](https://github.com/cleverbeagle/pup/issues/149). Add a pattern for acquiring GDPR consent.
+- Add [#124](https://github.com/cleverbeagle/pup/issues/124). Add documentation for `afterLoginPath` redirects to routing.
 - Add [#103](https://github.com/cleverbeagle/pup/issues/103). i18n support with example language file (Spanish?)
 
 ## v1.5.1, May 3rd, 2018
