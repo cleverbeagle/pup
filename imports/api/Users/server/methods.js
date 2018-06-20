@@ -21,12 +21,42 @@ Meteor.methods({
         handleMethodException(exception);
       });
   },
-  'users.fetchSettings': function usersFetchSettings(userId) { // eslint-disable-line
-    check(userId, Match.Maybe(String));
+  'users.fetchSettings': function usersFetchSettings(options) { // eslint-disable-line
+    check(options, Match.Maybe(Object));
 
     try {
-      const settings = UserSettings.findOne({ userId: userId || this.userId });
-      return settings.settings;
+      const settings = UserSettings.findOne({ userId: options.userId || this.userId });
+      if (!options.gdpr && !options.isAdmin) return settings.settings;
+      if (options.gdpr && !options.isAdmin) return settings.settings.filter(setting => setting.isGDPR === true);
+      if (options.isAdmin) return settings.settings.filter(setting => (setting.isGDPR === false || (typeof setting.isGDPR === 'undefined')));
+      return [];
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
+  'users.checkIfGDPRComplete': function usersCheckIfGDPRComplete() { // eslint-disable-line
+    try {
+      let gdprComplete = true;
+      const settings = UserSettings.findOne({ userId: this.userId });
+      const gdprSettings = settings.settings.filter(setting => setting.isGDPR === true);
+      gdprSettings.forEach(({ lastUpdatedByUser }) => {
+        if (!lastUpdatedByUser) gdprComplete = false;
+      });
+      return gdprComplete;
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
+  'users.saveGDPRSettings': function usersSaveGDPRSettings() { // eslint-disable-line
+    try {
+      const settings = UserSettings.findOne({ userId: this.userId });
+      settings.settings = settings.settings
+        .filter(setting => setting.isGDPR === true)
+        .map(gdprSetting => ({
+          ...gdprSetting,
+          lastUpdatedByUser: (new Date()).toISOString(),
+        }));
+      return UserSettings.update({ _id: settings._id }, { $set: { settings: settings.settings } });
     } catch (exception) {
       handleMethodException(exception);
     }

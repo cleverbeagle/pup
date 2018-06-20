@@ -41,28 +41,36 @@ const AdminUserTabs = styled(Tabs)`
   }
 `;
 
-const AdminUser = (props) => {
-  const { loading, user } = props;
-  return !loading && user ? (
-    <div className="AdminUser">
-      <Breadcrumb>
-        <Breadcrumb.Item><Link to="/admin/users">Users</Link></Breadcrumb.Item>
-        <Breadcrumb.Item active>{user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username}</Breadcrumb.Item>
-      </Breadcrumb>
-      <AdminUserHeader className="page-header">
-        {user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username} {user.service !== 'password' ? <span className={`label label-${user.service}`}>{user.service}</span> : ''}
-      </AdminUserHeader>
-      <AdminUserTabs animation={false} defaultActiveKey={1} id="admin-user-tabs">
-        <Tab eventKey={1} title="Profile">
-          <AdminUserProfile {...props} />
-        </Tab>
-        <Tab eventKey={2} title="Settings">
-          <UserSettings userId={user._id} />
-        </Tab>
-      </AdminUserTabs>
-    </div>
-  ) : <div />;
-};
+class AdminUser extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { activeTab: 'profile' };
+  }
+
+  render() {
+    const { loading, user } = this.props;
+    return !loading && user ? (
+      <div className="AdminUser">
+        <Breadcrumb>
+          <Breadcrumb.Item><Link to="/admin/users">Users</Link></Breadcrumb.Item>
+          <Breadcrumb.Item active>{user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username}</Breadcrumb.Item>
+        </Breadcrumb>
+        <AdminUserHeader className="page-header">
+          {user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username} {user.service !== 'password' ? <span className={`label label-${user.service}`}>{user.service}</span> : ''}
+        </AdminUserHeader>
+        <AdminUserTabs animation={false} activeKey={this.state.activeTab} onSelect={activeTab => this.setState({ activeTab })} id="admin-user-tabs">
+          <Tab eventKey="profile" title="Profile">
+            <AdminUserProfile {...this.props} />
+          </Tab>
+          <Tab eventKey="settings" title="Settings">
+            { /* Manually check the activeTab value to ensure we refetch settings on re-render of UserSettings */ }
+            {this.state.activeTab === 'settings' ? <UserSettings isAdmin userId={user._id} /> : ''}
+          </Tab>
+        </AdminUserTabs>
+      </div>
+    ) : <div />;
+  }
+}
 
 AdminUser.propTypes = {
   loading: PropTypes.bool.isRequired,

@@ -18,6 +18,7 @@ Accounts.onCreateUser((options, user) => {
   UserSettings.insert({
     userId: user._id,
     settings: [{
+      isGDPR: true,
       key: 'canSendMarketingEmails',
       label: 'Can we send you marketing emails?',
       value: false,

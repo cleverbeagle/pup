@@ -74,6 +74,7 @@ const StyledProfile = styled.div`
 class Profile extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { activeTab: 'profile' };
     autoBind(this);
   }
 
@@ -276,8 +277,8 @@ class Profile extends React.Component {
     return (
       <StyledProfile>
         <h4 className="page-header">{user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username}</h4>
-        <Tabs animation={false} defaultActiveKey={1} id="admin-user-tabs">
-          <Tab eventKey={1} title="Profile">
+        <Tabs animation={false} activeKey={this.state.activeTab} onSelect={activeTab => this.setState({ activeTab })} id="admin-user-tabs">
+          <Tab eventKey="profile" title="Profile">
             <Row>
               <Col xs={12} sm={6} md={4}>
                 <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
@@ -292,8 +293,9 @@ class Profile extends React.Component {
               </Col>
             </Row>
           </Tab>
-          <Tab eventKey={2} title="Settings">
-            <UserSettings />
+          <Tab eventKey="settings" title="Settings">
+            { /* Manually check the activeTab value to ensure we refetch settings on re-render of UserSettings */ }
+            {this.state.activeTab === 'settings' ? <UserSettings /> : ''}
           </Tab>
         </Tabs>
       </StyledProfile>

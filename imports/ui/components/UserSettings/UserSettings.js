@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
+import BlankState from '../BlankState/BlankState';
 
 const Setting = styled(ListGroupItem)`
   display: flexbox;
@@ -26,7 +27,7 @@ const Setting = styled(ListGroupItem)`
 class UserSettings extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { settings: [] };
+    this.state = { loading: true, settings: [] };
     autoBind(this);
   }
 
@@ -39,20 +40,16 @@ class UserSettings extends React.Component {
       userId: this.props.userId,
       ...setting,
     }, (error) => {
-      if (error) {
-        Bert.alert(error.reason, 'danger');
-      } else {
-        // this.fetchSettings();
-      }
+      if (error) Bert.alert(error.reason, 'danger');
     });
   }
 
   fetchSettings() {
-    Meteor.call('users.fetchSettings', this.props.userId, (error, settings) => {
+    Meteor.call('users.fetchSettings', this.props, (error, settings) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
-        this.setState({ settings });
+        this.setState({ settings, loading: false });
       }
     });
   }
@@ -64,19 +61,27 @@ class UserSettings extends React.Component {
   }
 
   render() {
-    const { settings } = this.state;
+    const { loading, settings } = this.state;
     return (
       <div className="UserSettings">
-        <ListGroup>
-          {settings.map(({ key, label, value }) => (
-            <Setting key={key} className="clearfix">
-              <p>{label}</p>
-              <div>
-                {this.renderSettingValue(key, value, this.handleUpdateSetting)}
-              </div>
-            </Setting>
-          ))}
-        </ListGroup>
+        {!loading ? (
+          <ListGroup>
+            {settings.length > 0 ? settings.map(({ key, label, value }) => (
+              <Setting key={key} className="clearfix">
+                <p>{label}</p>
+                <div>
+                  {this.renderSettingValue(key, value, this.handleUpdateSetting)}
+                </div>
+              </Setting>
+            )) : (
+              <BlankState
+                icon={{ style: 'solid', symbol: 'cogs' }}
+                title={`No settings to manage ${this.props.isAdmin ? 'for this user' : 'yet'}.`}
+                subtitle={`${this.props.isAdmin ? 'GDPR-specific settings intentionally excluded. ' : ''} When there are settings to manage, they'll appear here.`}
+              />
+            )}
+          </ListGroup>
+        ) : ''}
       </div>
     );
   }
@@ -84,10 +89,12 @@ class UserSettings extends React.Component {
 
 UserSettings.defaultProps = {
   userId: null,
+  isAdmin: false,
 };
 
 UserSettings.propTypes = {
   userId: PropTypes.string,
+  isAdmin: PropTypes.bool,
 };
 
 export default UserSettings;

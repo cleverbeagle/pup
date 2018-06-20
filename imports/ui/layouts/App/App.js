@@ -36,6 +36,7 @@ import Terms from '../../pages/Terms/Terms';
 import Privacy from '../../pages/Privacy/Privacy';
 import ExamplePage from '../../pages/ExamplePage/ExamplePage';
 import VerifyEmailAlert from '../../components/VerifyEmailAlert/VerifyEmailAlert';
+import GDPRConsentModal from '../../components/GDPRConsentModal/GDPRConsentModal';
 import { onLogin, onLogout } from '../../../modules/redux/actions';
 import withTrackerSSR from '../../../modules/with-tracker-ssr';
 import getUserName from '../../../modules/get-user-name';
@@ -100,6 +101,7 @@ class App extends React.Component {
             emailAddress={props.emailAddress}
           />
           : ''}
+        {props.authenticated ? <GDPRConsentModal userId={props.userId} /> : ''}
         <Navigation {...props} {...state} />
         <Grid>
           <Switch>
