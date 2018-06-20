@@ -18,6 +18,13 @@ Meteor.methods({
       if (Roles.userIsInRole(this.userId, 'admin')) {
         const skip = ((options.currentPage * options.perPage) - options.perPage);
         const searchRegex = options.search ? new RegExp(options.search, 'i') : null;
+        const sort = {
+          'profile.name.last': 1,
+          'services.facebook.first_name': 1,
+          'services.google.name': 1,
+          'services.github.username': 1,
+        };
+
         return {
           total: Meteor.users.find({ _id: { $ne: this.userId } }).count(),
           users: options.search ? fetchUsers({
@@ -34,7 +41,7 @@ Meteor.methods({
               { 'services.github.email': searchRegex },
               { 'services.github.username': searchRegex },
             ],
-          }, {}) : fetchUsers({ _id: { $ne: this.userId } }, { limit: options.perPage, skip }),
+          }, { sort }) : fetchUsers({ _id: { $ne: this.userId } }, { limit: options.perPage, skip, sort }),
         };
       }
 

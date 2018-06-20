@@ -9,6 +9,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import AdminUserProfile from '../../components/AdminUserProfile/AdminUserProfile';
+import UserSettings from '../../components/UserSettings/UserSettings';
 import getUserProfile from '../../../modules/get-user-profile';
 
 const AdminUserHeader = styled.h4`
@@ -56,7 +57,7 @@ const AdminUser = (props) => {
           <AdminUserProfile {...props} />
         </Tab>
         <Tab eventKey={2} title="Settings">
-          Settings here
+          <UserSettings userId={user._id} />
         </Tab>
       </AdminUserTabs>
     </div>

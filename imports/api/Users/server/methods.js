@@ -8,6 +8,7 @@ import deleteAccount from './delete-account';
 import sendWelcomeEmail from './send-welcome-email';
 import handleMethodException from '../../../modules/handle-method-exception';
 import rateLimit from '../../../modules/rate-limit';
+import UserSettings from '../../UserSettings/UserSettings';
 
 Meteor.methods({
   'users.sendVerificationEmail': function usersSendVerificationEmail() {
@@ -19,6 +20,41 @@ Meteor.methods({
       .catch((exception) => {
         handleMethodException(exception);
       });
+  },
+  'users.fetchSettings': function usersFetchSettings(userId) { // eslint-disable-line
+    check(userId, Match.Maybe(String));
+
+    try {
+      const settings = UserSettings.findOne({ userId: userId || this.userId });
+      return settings.settings;
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
+  'users.updateSetting': function usersUpdateSetting(setting) { // eslint-disable-line
+    check(setting, Object);
+
+    try {
+      const settings = UserSettings.findOne({ userId: setting.userId || this.userId });
+      const settingToUpdate = settings.settings.find(({ key }) => key === setting.key);
+
+      if (setting.userId && Roles.userIsInRole(this.userId, 'admin')) {
+        settingToUpdate.value = setting.value;
+        settingToUpdate.lastUpdatedByAdmin = (new Date()).toISOString();
+      }
+
+      if (settings.userId === this.userId) {
+        settingToUpdate.value = setting.value;
+        settingToUpdate.lastUpdatedByUser = (new Date()).toISOString();
+      }
+
+      return UserSettings.update(
+        { userId: setting.userId || this.userId },
+        { $set: { settings: settings.settings } },
+      );
+    } catch (exception) {
+      handleMethodException(exception);
+    }
   },
   'users.editProfile': function usersEditProfile(profile) {
     check(profile, {

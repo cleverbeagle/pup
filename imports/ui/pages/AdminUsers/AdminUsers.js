@@ -76,21 +76,23 @@ const StyledListGroupItem = styled(ListGroupItem)`
     }
 
     .label {
+      display: inline-block;
       position: relative;
       top: -1px;
+      margin-left: 3px;
     }
 
-    .label-Facebook {
+    .label-facebook {
       background: var(--facebook);
       color: #fff;
     }
 
-    .label-Google {
+    .label-google {
       background: var(--google);
       color: #fff;
     }
 
-    .label-GitHub {
+    .label-github {
       background: var(--github);
       color: #fff;
     }

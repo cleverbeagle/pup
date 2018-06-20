@@ -153,10 +153,11 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withTrackerSSR(() => {
+    const app = Meteor.subscribe('app');
     const loggingIn = Meteor.loggingIn();
     const user = Meteor.user();
     const userId = Meteor.userId();
-    const loading = !Roles.subscription.ready();
+    const loading = !app.ready() && !Roles.subscription.ready();
     const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
     const emailAddress = user && user.emails && user.emails[0].address;
 

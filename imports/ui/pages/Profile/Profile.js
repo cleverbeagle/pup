@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
 import FileSaver from 'file-saver';
 import base64ToBlob from 'b64-to-blob';
-import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Row, Col, FormGroup, ControlLabel, Button, Tabs, Tab } from 'react-bootstrap';
 import _ from 'lodash';
 import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
@@ -14,9 +14,15 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import { withTracker } from 'meteor/react-meteor-data';
 import InputHint from '../../components/InputHint/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
+import UserSettings from '../../components/UserSettings/UserSettings';
 import validate from '../../../modules/validate';
+import getUserProfile from '../../../modules/get-user-profile';
 
 const StyledProfile = styled.div`
+  .nav.nav-tabs {
+    margin-bottom: 20px;
+  }
+  
   .LoggedInWith {
     padding: 20px;
     border-radius: 3px;
@@ -122,10 +128,7 @@ class Profile extends React.Component {
   }
 
   getUserType(user) {
-    const userToCheck = user;
-    delete userToCheck.services.resume;
-    const service = Object.keys(userToCheck.services)[0];
-    return service === 'password' ? 'password' : 'oauth';
+    return user.service === 'password' ? 'password' : 'oauth';
   }
 
   handleExportData(event) {
@@ -185,23 +188,21 @@ class Profile extends React.Component {
   renderOAuthUser(loading, user) {
     return !loading ? (
       <div className="OAuthProfile">
-        {Object.keys(user.services).map(service => (
-          <div key={service} className={`LoggedInWith ${service}`}>
-            <img src={`/${service}.svg`} alt={service} />
-            <p>{`You're logged in with ${_.capitalize(service)} using the email address ${user.services[service].email}.`}</p>
-            <Button
-              className={`btn btn-${service}`}
-              href={{
-                facebook: 'https://www.facebook.com/settings',
-                google: 'https://myaccount.google.com/privacy#personalinfo',
-                github: 'https://github.com/settings/profile',
-              }[service]}
-              target="_blank"
-            >
-              Edit Profile on {_.capitalize(service)}
-            </Button>
-          </div>
-        ))}
+        <div key={user.service} className={`LoggedInWith ${user.service}`}>
+          <img src={`/${user.service}.svg`} alt={user.service} />
+          <p>{`You're logged in with ${_.capitalize(user.service)} using the email address ${user.emails[0].address}.`}</p>
+          <Button
+            className={`btn btn-${user.service}`}
+            href={{
+              facebook: 'https://www.facebook.com/settings',
+              google: 'https://myaccount.google.com/privacy#personalinfo',
+              github: 'https://github.com/settings/profile',
+            }[user.service]}
+            target="_blank"
+          >
+            Edit Profile on {_.capitalize(user.service)}
+          </Button>
+        </div>
       </div>) : <div />;
   }
 
@@ -274,20 +275,27 @@ class Profile extends React.Component {
     const { loading, user } = this.props;
     return (
       <StyledProfile>
-        <Row>
-          <Col xs={12} sm={6} md={4}>
-            <h4 className="page-header">Edit Profile</h4>
-            <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-              {this.renderProfileForm(loading, user)}
-            </form>
-            <AccountPageFooter>
-              <p><Button bsStyle="link" className="btn-export" onClick={this.handleExportData}>Export my data</Button> – Download all of your documents as .txt files in a .zip</p>
-            </AccountPageFooter>
-            <AccountPageFooter>
-              <Button bsStyle="danger" onClick={this.handleDeleteAccount}>Delete My Account</Button>
-            </AccountPageFooter>
-          </Col>
-        </Row>
+        <h4 className="page-header">{user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username}</h4>
+        <Tabs animation={false} defaultActiveKey={1} id="admin-user-tabs">
+          <Tab eventKey={1} title="Profile">
+            <Row>
+              <Col xs={12} sm={6} md={4}>
+                <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+                  {this.renderProfileForm(loading, user)}
+                </form>
+                <AccountPageFooter>
+                  <p><Button bsStyle="link" className="btn-export" onClick={this.handleExportData}>Export my data</Button> – Download all of your documents as .txt files in a .zip</p>
+                </AccountPageFooter>
+                <AccountPageFooter>
+                  <Button bsStyle="danger" onClick={this.handleDeleteAccount}>Delete My Account</Button>
+                </AccountPageFooter>
+              </Col>
+            </Row>
+          </Tab>
+          <Tab eventKey={2} title="Settings">
+            <UserSettings />
+          </Tab>
+        </Tabs>
       </StyledProfile>
     );
   }
@@ -303,6 +311,6 @@ export default withTracker(() => {
 
   return {
     loading: !subscription.ready(),
-    user: Meteor.user(),
+    user: getUserProfile(Meteor.users.findOne({ _id: Meteor.userId() })),
   };
 })(Profile);
