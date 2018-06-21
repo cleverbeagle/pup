@@ -1,16 +1,13 @@
 import { Meteor } from 'meteor/meteor';
 import UserSettings from '../api/UserSettings/UserSettings';
 
-export default (setting) => {
+export default (setting, notCurrentUserId) => {
   if (!setting) {
     console.warn('[Pup] Please pass a setting key to retrieve.');
     return null;
   }
 
-  let userId;
-
-  if (Meteor.isClient) userId = Meteor.userId();
-  if (Meteor.isServer) userId = this.userId; // eslint-disable-line
+  const userId = Meteor.isClient ? (notCurrentUserId || Meteor.userId()) : (notCurrentUserId || this.userId);
 
   if (userId && setting) {
     const userSettings = UserSettings.findOne({ userId });

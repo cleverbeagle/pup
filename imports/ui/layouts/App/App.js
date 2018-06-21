@@ -30,6 +30,7 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import AdminUsers from '../../pages/AdminUsers/AdminUsers';
 import AdminUser from '../../pages/AdminUser/AdminUser';
+import AdminUserSettings from '../../pages/AdminUserSettings/AdminUserSettings';
 import NotFound from '../../pages/NotFound/NotFound';
 import Footer from '../../components/Footer/Footer';
 import Terms from '../../pages/Terms/Terms';
@@ -121,6 +122,7 @@ class App extends React.Component {
             <Route name="privacy" path="/privacy" component={Privacy} />
             <Route name="examplePage" path="/example-page" component={ExamplePage} />
             <Authorized exact allowedRoles={['admin']} path="/admin/users" component={AdminUsers} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Authorized exact allowedRoles={['admin']} path="/admin/users/settings" component={AdminUserSettings} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
             <Authorized exact allowedRoles={['admin']} path="/admin/users/:_id" component={AdminUser} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
             <Route component={NotFound} />
           </Switch>

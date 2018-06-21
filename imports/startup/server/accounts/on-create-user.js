@@ -2,7 +2,6 @@ import { Accounts } from 'meteor/accounts-base';
 import getOAuthProfile from '../../../modules/get-oauth-profile';
 import sendWelcomeEmail from '../../../api/Users/server/send-welcome-email';
 import UserSettings from '../../../api/UserSettings/UserSettings';
-import getUserSettings from '../../../modules/get-user-settings';
 
 Accounts.onCreateUser((options, user) => {
   const userToCreate = user;
@@ -23,7 +22,7 @@ Accounts.onCreateUser((options, user) => {
       label: 'Can we send you marketing emails?',
       value: false,
       lastUpdatedByUser: null,
-      lastUpdatedByAdmin: (new Date()).toString(),
+      lastUpdatedByAdmin: (new Date()).toISOString(),
     }],
   });
 
