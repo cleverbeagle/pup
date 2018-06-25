@@ -2,8 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
+import UserSettings from '../UserSettings/UserSettings';
 import handleMethodException from '../../modules/handle-method-exception';
-import getOAuthProfile from '../../modules/get-oauth-profile';
 import getUserProfile from '../../modules/get-user-profile';
 
 const fetchUsers = (query, projection) => {
@@ -110,6 +110,55 @@ Meteor.methods({
         }
 
         return true;
+      }
+
+      throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
+  'admin.fetchUserSettings': function adminFetchUserSettings() {
+    try {
+      return Roles.userIsInRole(this.userId, 'admin') ? UserSettings.find({}, { sort: { key: 1 } }).fetch() : [];
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
+  'admin.addUserSetting': function adminAddUserSetting(setting) {
+    check(setting, Object);
+
+    try {
+      if (Roles.userIsInRole(this.userId, 'admin')) {
+        if (!UserSettings.findOne({ key: setting.key })) {
+          const settingId = UserSettings.insert(setting);
+          const userIds = Meteor.users.find({}, { fields: { _id: 1 } }).fetch().map(({ _id }) => _id);
+          userIds.forEach((userId) => {
+            Meteor.users.update({ _id: userId }, {
+              $addToSet: {
+                settings: { _id: settingId, ...setting },
+              },
+            });
+          });
+          return true;
+        }
+
+        throw new Meteor.Error('500', 'Sorry, this setting already exists.');
+      }
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
+  'admin.deleteUserSetting': function adminDeleteUserSetting(settingId) {
+    check(settingId, String);
+
+    try {
+      if (Roles.userIsInRole(this.userId, 'admin')) {
+        return Meteor.users.update(
+          {},
+          { $pull: { settings: { _id: settingId } } },
+          { multi: true },
+          () => UserSettings.remove({ _id: settingId }),
+        );
       }
 
       throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');

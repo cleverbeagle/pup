@@ -12,19 +12,9 @@ Accounts.onCreateUser((options, user) => {
 
   userToCreate.roles = ['user']; // Set default roles for new sign ups.
 
-  // Add a default settings object for new sign ups (https://cleverbeagle.com/pup/v1/accounts/settings).
-  // Set GDPR consent to false by default (https://cleverbeagle.com/pup/v1/accounts/gdpr).
-  UserSettings.insert({
-    userId: user._id,
-    settings: [{
-      isGDPR: true,
-      key: 'canSendMarketingEmails',
-      label: 'Can we send you marketing emails?',
-      value: false,
-      lastUpdatedByUser: null,
-      lastUpdatedByAdmin: (new Date()).toISOString(),
-    }],
-  });
+  // Add a default settings array for new sign ups (https://cleverbeagle.com/pup/v1/accounts/settings).
+  const settings = UserSettings.find().fetch();
+  userToCreate.settings = settings;
 
   return userToCreate;
 });

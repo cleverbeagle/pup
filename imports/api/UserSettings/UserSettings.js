@@ -1,4 +1,5 @@
 import { Mongo } from 'meteor/mongo';
+import { Match } from 'meteor/check';
 import SimpleSchema from 'simpl-schema';
 
 const UserSettings = new Mongo.Collection('UserSettings');
@@ -16,46 +17,41 @@ UserSettings.deny({
 });
 
 const UserSettingsSchema = new SimpleSchema({
-  userId: {
-    type: String,
-    label: 'The ID of the user these settings belong to.',
-  },
-  settings: {
-    type: Array,
-    label: 'The settings for the user.',
-    defaultValue: [],
-  },
-  'settings.$': {
-    type: Object,
-    label: 'A setting for the user.',
-    blackbox: true,
-  },
-  'settings.$.isGDPR': {
+  isGDPR: {
     type: Boolean,
     label: 'Is this a GDPR-specific setting?',
     defaultValue: false,
   },
-  'settings.$.key': {
+  key: {
     type: String,
     label: 'What is the key value you\'ll access this setting with?',
   },
-  'settings.$.label': {
+  label: {
     type: String,
     label: 'The user-facing label for the setting.',
   },
-  'settings.$.value': {
-    type: SimpleSchema.oneOf(String, Boolean, Number),
+  type: {
+    type: String,
+    allowedValues: ['boolean', 'string', 'number'],
+    label: 'What is the primitive type for this setting?',
+  },
+  value: {
+    type: SimpleSchema.oneOf(Boolean, Number, String),
     label: 'The value for the setting',
-  },
-  'settings.$.lastUpdatedByUser': {
-    type: String,
-    label: 'The date this setting was last updated by the user.',
-    defaultValue: null,
-  },
-  'settings.$.lastUpdatedByAdmin': {
-    type: String,
-    label: 'The date this setting was last updated by an admin.',
-    defaultValue: null,
+    autoValue() { // eslint-disable-line
+      // NOTE: Pass default value as a string to get around this:
+      // https://github.com/aldeed/simple-schema-js/issues/169
+      if (this.isInsert || this.isUpsert) {
+        const type = this.field('type');
+        if (type.value) {
+          return {
+            boolean: this.value == 'true', // eslint-disable-line
+            string: this.value,
+            number: parseInt(this.value, 10),
+          }[type.value];
+        }
+      }
+    },
   },
 });
 

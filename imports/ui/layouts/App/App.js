@@ -93,7 +93,7 @@ class App extends React.Component {
 
   render() {
     const { props, state, setAfterLoginPath } = this;
-    return (
+    return (!props.loading ? (
       <StyledApp ready={this.state.ready}>
         {props.authenticated ?
           <VerifyEmailAlert
@@ -129,7 +129,7 @@ class App extends React.Component {
         </Grid>
         <Footer />
       </StyledApp>
-    );
+    ) : <div />);
   }
 }
 

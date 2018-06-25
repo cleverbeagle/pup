@@ -40,7 +40,11 @@ class UserSettings extends React.Component {
       userId: this.props.userId,
       ...setting,
     }, (error) => {
-      if (error) Bert.alert(error.reason, 'danger');
+      if (error) {
+        Bert.alert(error.reason, 'danger');
+      } else {
+        this.fetchSettings();
+      }
     });
   }
 
@@ -56,7 +60,8 @@ class UserSettings extends React.Component {
 
   renderSettingValue(key, value, onChange) {
     return {
-      boolean: valueToRender => (<ToggleSwitch id={key} toggled={valueToRender} onToggle={(id, toggled) => onChange({ key, value: toggled })} />),
+      // TODO: Support numbers and strings.
+      boolean: valueToRender => (<ToggleSwitch id={key} toggled={value} onToggle={(id, toggled) => onChange({ key, value: toggled })} />),
     }[typeof value](value);
   }
 
@@ -66,11 +71,11 @@ class UserSettings extends React.Component {
       <div className="UserSettings">
         {!loading ? (
           <ListGroup>
-            {settings.length > 0 ? settings.map(({ key, label, value }) => (
+            {settings.length > 0 ? settings.map(({ _id, key, label, value }) => (
               <Setting key={key} className="clearfix">
                 <p>{label}</p>
                 <div>
-                  {this.renderSettingValue(key, value, this.handleUpdateSetting)}
+                  {this.renderSettingValue(key, value, update => this.handleUpdateSetting({ ...update, _id }))}
                 </div>
               </Setting>
             )) : (
