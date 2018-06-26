@@ -17,7 +17,7 @@ onPageLoad((sink) => {
 
   const context = {};
   const data = {
-    loading: false,
+    loading: true,
     loggingIn: false,
     authenticated: false,
     name: '',

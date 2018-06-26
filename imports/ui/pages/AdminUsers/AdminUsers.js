@@ -76,21 +76,23 @@ const StyledListGroupItem = styled(ListGroupItem)`
     }
 
     .label {
+      display: inline-block;
       position: relative;
       top: -1px;
+      margin-left: 3px;
     }
 
-    .label-Facebook {
+    .label-facebook {
       background: var(--facebook);
       color: #fff;
     }
 
-    .label-Google {
+    .label-google {
       background: var(--google);
       color: #fff;
     }
 
-    .label-GitHub {
+    .label-github {
       background: var(--github);
       color: #fff;
     }
@@ -180,7 +182,7 @@ class AdminUsers extends React.Component {
           }) => (
             <StyledListGroupItem key={_id}>
               <Link to={`/admin/users/${_id}`} />
-              <p>{profile ? `${profile.name.first} ${profile.name.last}` : username } <span>{emails[0].address}</span> {service !== 'Password' ? <span className={`label label-${service}`}>{service}</span> : ''}</p>
+              <p>{profile ? `${profile.name.first} ${profile.name.last}` : username } <span>{emails[0].address}</span> {service !== 'password' ? <span className={`label label-${service}`}>{service}</span> : ''}</p>
             </StyledListGroupItem>
           ))}
         </StyledListGroup>

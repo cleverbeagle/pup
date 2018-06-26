@@ -85,6 +85,10 @@ injectGlobal`
     margin-top: 0;
   }
 
+  .table tr td {
+    vertical-align: middle !important;
+  }
+
   @media screen and (min-width: 768px) {
     .page-header {
       margin-top: 20px;

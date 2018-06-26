@@ -7,13 +7,12 @@ export function onLogin() {
     const loggingIn = Meteor.loggingIn();
     const user = Meteor.user();
     const userId = Meteor.userId();
-    const loading = !Roles.subscription.ready();
     const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
     const emailAddress = user && user.emails && user.emails[0].address;
 
     dispatch({
       type: 'ON_LOGIN',
-      loading,
+      loading: false,
       loggingIn,
       authenticated: !loggingIn && !!userId,
       name: name || emailAddress,

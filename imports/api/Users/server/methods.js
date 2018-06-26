@@ -20,6 +20,76 @@ Meteor.methods({
         handleMethodException(exception);
       });
   },
+  'users.fetchSettings': function usersFetchSettings(options) { // eslint-disable-line
+    check(options, Match.Maybe(Object));
+
+    try {
+      const user = Meteor.users.findOne({ _id: options.userId || this.userId }, { fields: { settings: 1 } });
+
+      if (user && user.settings) {
+        if (!options.gdpr && !options.isAdmin) return user.settings;
+        if (options.gdpr && !options.isAdmin) return user.settings.filter(setting => setting.isGDPR === true);
+        if (options.isAdmin) return user.settings.filter(setting => (setting.isGDPR === false || (typeof setting.isGDPR === 'undefined')));
+      }
+
+      return [];
+    } catch (exception) {
+      console.warn(exception);
+      handleMethodException(exception);
+    }
+  },
+  'users.checkIfGDPRComplete': function usersCheckIfGDPRComplete() { // eslint-disable-line
+    try {
+      let gdprComplete = true;
+      const user = Meteor.users.findOne({ _id: this.userId }, { fields: { settings: 1 } });
+      const gdprSettings = user.settings.filter(setting => setting.isGDPR === true);
+      gdprSettings.forEach(({ lastUpdatedByUser }) => {
+        if (!lastUpdatedByUser) gdprComplete = false;
+      });
+      return gdprComplete;
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
+  'users.saveGDPRSettings': function usersSaveGDPRSettings() { // eslint-disable-line
+    try {
+      const user = Meteor.users.findOne({ _id: this.userId }, { fields: { _id: 1, settings: 1 } });
+      user.settings = user.settings
+        .filter(setting => setting.isGDPR === true)
+        .map(gdprSetting => ({
+          ...gdprSetting,
+          lastUpdatedByUser: (new Date()).toISOString(),
+        }));
+      return Meteor.users.update({ _id: user._id }, { $set: { settings: user.settings } });
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
+  'users.updateSetting': function usersUpdateSetting(setting) { // eslint-disable-line
+    check(setting, Object);
+
+    try {
+      const user = Meteor.users.findOne({ _id: setting.userId || this.userId });
+      const settingToUpdate = user.settings.find(({ _id }) => _id === setting._id);
+
+      if (setting.userId && Roles.userIsInRole(this.userId, 'admin')) {
+        settingToUpdate.value = setting.value;
+        settingToUpdate.lastUpdatedByAdmin = (new Date()).toISOString();
+      }
+
+      if (!setting.userId && user._id === this.userId) {
+        settingToUpdate.value = setting.value;
+        settingToUpdate.lastUpdatedByUser = (new Date()).toISOString();
+      }
+
+      return Meteor.users.update(
+        { _id: setting.userId || this.userId },
+        { $set: { settings: user.settings } },
+      );
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
   'users.editProfile': function usersEditProfile(profile) {
     check(profile, {
       emailAddress: String,
@@ -59,6 +129,10 @@ rateLimit({
   methods: [
     'users.sendVerificationEmail',
     'users.sendWelcomeEmail',
+    'users.fetchSettings',
+    'users.checkIfGDPRComplete',
+    'users.saveGDPRSettings',
+    'users.updateSetting',
     'users.editProfile',
     'users.exportData',
     'users.deleteAccount',

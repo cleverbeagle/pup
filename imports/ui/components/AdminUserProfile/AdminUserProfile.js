@@ -59,7 +59,7 @@ class AdminUserProfile extends React.Component {
 
   handleSubmit() {
     const existingUser = this.props.user;
-    const isPasswordUser = (existingUser && existingUser.service === 'Password') || !existingUser;
+    const isPasswordUser = (existingUser && existingUser.service === 'password') || !existingUser;
     const method = existingUser ? 'edit' : 'create';
     const password = isPasswordUser ? this.password.value : null;
     const roleCheckboxes = document.querySelectorAll('[name="role"]:checked');
@@ -132,7 +132,7 @@ class AdminUserProfile extends React.Component {
                       <FormGroup>
                         <ControlLabel>First Name</ControlLabel>
                         <input
-                          disabled={user && user.service !== 'Password'}
+                          disabled={user && user.service !== 'password'}
                           type="text"
                           name="firstName"
                           className="form-control"
@@ -145,7 +145,7 @@ class AdminUserProfile extends React.Component {
                       <FormGroup>
                         <ControlLabel>Last Name</ControlLabel>
                         <input
-                          disabled={user && user.service !== 'Password'}
+                          disabled={user && user.service !== 'password'}
                           type="text"
                           name="lastName"
                           className="form-control"
@@ -162,7 +162,7 @@ class AdminUserProfile extends React.Component {
                       <FormGroup>
                         <ControlLabel>Username</ControlLabel>
                         <input
-                          disabled={user && user.service !== 'Password'}
+                          disabled={user && user.service !== 'password'}
                           type="text"
                           name="username"
                           className="form-control"
@@ -178,7 +178,7 @@ class AdminUserProfile extends React.Component {
                     <FormGroup>
                       <ControlLabel>Email Address</ControlLabel>
                       <input
-                        disabled={user && user.service !== 'Password'}
+                        disabled={user && user.service !== 'password'}
                         type="text"
                         name="emailAddress"
                         autoComplete="off"
@@ -205,7 +205,7 @@ class AdminUserProfile extends React.Component {
                     </FormGroup>
                   </Col>
                 </Row>
-                {user && user.service === 'Password' ? (
+                {user && user.service === 'password' ? (
                   <Row>
                     <Col xs={12}>
                       <FormGroup>

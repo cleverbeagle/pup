@@ -9,7 +9,6 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Accounts } from 'meteor/accounts-base';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import Navigation from '../../components/Navigation/Navigation';
@@ -30,12 +29,14 @@ import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import Profile from '../../pages/Profile/Profile';
 import AdminUsers from '../../pages/AdminUsers/AdminUsers';
 import AdminUser from '../../pages/AdminUser/AdminUser';
+import AdminUserSettings from '../../pages/AdminUserSettings/AdminUserSettings';
 import NotFound from '../../pages/NotFound/NotFound';
 import Footer from '../../components/Footer/Footer';
 import Terms from '../../pages/Terms/Terms';
 import Privacy from '../../pages/Privacy/Privacy';
 import ExamplePage from '../../pages/ExamplePage/ExamplePage';
 import VerifyEmailAlert from '../../components/VerifyEmailAlert/VerifyEmailAlert';
+import GDPRConsentModal from '../../components/GDPRConsentModal/GDPRConsentModal';
 import { onLogin, onLogout } from '../../../modules/redux/actions';
 import withTrackerSSR from '../../../modules/with-tracker-ssr';
 import getUserName from '../../../modules/get-user-name';
@@ -91,7 +92,7 @@ class App extends React.Component {
 
   render() {
     const { props, state, setAfterLoginPath } = this;
-    return (
+    return (!props.loading ? (
       <StyledApp ready={this.state.ready}>
         {props.authenticated ?
           <VerifyEmailAlert
@@ -100,6 +101,7 @@ class App extends React.Component {
             emailAddress={props.emailAddress}
           />
           : ''}
+        {props.authenticated ? <GDPRConsentModal userId={props.userId} /> : ''}
         <Navigation {...props} {...state} />
         <Grid>
           <Switch>
@@ -118,14 +120,15 @@ class App extends React.Component {
             <Route name="terms" path="/terms" component={Terms} />
             <Route name="privacy" path="/privacy" component={Privacy} />
             <Route name="examplePage" path="/example-page" component={ExamplePage} />
-            <Authorized exact allowedRoles={['admin']} path="/admin/users" component={AdminUsers} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-            <Authorized exact allowedRoles={['admin']} path="/admin/users/:_id" component={AdminUser} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Authorized exact allowedRoles={['admin']} path="/admin/users" pathAfterFailure="/" component={AdminUsers} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Authorized exact allowedRoles={['admin']} path="/admin/users/settings" pathAfterFailure="/" component={AdminUserSettings} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Authorized exact allowedRoles={['admin']} path="/admin/users/:_id" pathAfterFailure="/" component={AdminUser} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
             <Route component={NotFound} />
           </Switch>
         </Grid>
         <Footer />
       </StyledApp>
-    );
+    ) : <div />);
   }
 }
 
@@ -153,10 +156,11 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   withTrackerSSR(() => {
+    const app = Meteor.subscribe('app');
     const loggingIn = Meteor.loggingIn();
     const user = Meteor.user();
     const userId = Meteor.userId();
-    const loading = !Roles.subscription.ready();
+    const loading = !app.ready() && !Roles.subscription.ready();
     const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
     const emailAddress = user && user.emails && user.emails[0].address;
 

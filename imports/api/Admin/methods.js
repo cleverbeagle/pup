@@ -2,22 +2,29 @@ import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
+import UserSettings from '../UserSettings/UserSettings';
 import handleMethodException from '../../modules/handle-method-exception';
-import getOAuthProfile from '../../modules/get-oauth-profile';
 import getUserProfile from '../../modules/get-user-profile';
+import rateLimit from '../../modules/rate-limit';
 
-const fetchUsers = (query, projection) => {
-  return Meteor.users.find(query, projection).fetch().map(user => getUserProfile(user));
-};
+const fetchUsers = (query, projection) =>
+  Meteor.users.find(query, projection).fetch().map(user => getUserProfile(user));
 
 Meteor.methods({
-  'admin.fetchUsers': function adminFetchUsers(options) {
+  'admin.fetchUsers': function adminFetchUsers(options) { // eslint-disable-line
     check(options, Match.Maybe(Object));
 
     try {
       if (Roles.userIsInRole(this.userId, 'admin')) {
         const skip = ((options.currentPage * options.perPage) - options.perPage);
         const searchRegex = options.search ? new RegExp(options.search, 'i') : null;
+        const sort = {
+          'profile.name.last': 1,
+          'services.facebook.first_name': 1,
+          'services.google.name': 1,
+          'services.github.username': 1,
+        };
+
         return {
           total: Meteor.users.find({ _id: { $ne: this.userId } }).count(),
           users: options.search ? fetchUsers({
@@ -34,16 +41,16 @@ Meteor.methods({
               { 'services.github.email': searchRegex },
               { 'services.github.username': searchRegex },
             ],
-          }, {}) : fetchUsers({ _id: { $ne: this.userId } }, { limit: options.perPage, skip }),
+          }, { sort }) : fetchUsers({ _id: { $ne: this.userId } }, { limit: options.perPage, skip, sort }),
         };
       }
 
-      return [];
+      throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');
     } catch (exception) {
       handleMethodException(exception);
     }
   },
-  'admin.createUser': function adminCreateUser(user) {
+  'admin.createUser': function adminCreateUser(user) { // eslint-disable-line
     check(user, {
       _id: Match.Optional(String),
       email: String,
@@ -74,7 +81,7 @@ Meteor.methods({
       handleMethodException(exception);
     }
   },
-  'admin.editUser': function adminEditUser(user) {
+  'admin.editUser': function adminEditUser(user) { // eslint-disable-line
     check(user, {
       _id: String,
       email: Match.Maybe(String),
@@ -110,4 +117,105 @@ Meteor.methods({
       handleMethodException(exception);
     }
   },
+  'admin.fetchUserSettings': function adminFetchUserSettings() { // eslint-disable-line
+    try {
+      if (Roles.userIsInRole(this.userId, 'admin')) {
+        return UserSettings.find({}, { sort: { key: 1 } }).fetch();
+      }
+
+      throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
+  'admin.addUserSetting': function adminAddUserSetting(setting) { // eslint-disable-line
+    check(setting, Object);
+
+    try {
+      if (Roles.userIsInRole(this.userId, 'admin')) {
+        if (!UserSettings.findOne({ key: setting.key })) {
+          const settingId = UserSettings.insert(setting);
+          const userIds = Meteor.users.find({}, { fields: { _id: 1 } }).fetch().map(({ _id }) => _id);
+          userIds.forEach((userId) => {
+            Meteor.users.update({ _id: userId }, {
+              $addToSet: {
+                settings: { _id: settingId, ...setting },
+              },
+            });
+          });
+          return true;
+        }
+      }
+
+      throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
+  'admin.updateUserSetting': function updateUserSetting(setting) { // eslint-disable-line
+    check(setting, Object);
+
+    try {
+      if (Roles.userIsInRole(this.userId, 'admin')) {
+        const settingToUpdate = { ...setting }; // Copy here because schema cleans value on 160.
+        return UserSettings.update({ _id: setting._id }, {
+          $set: setting,
+        }, () => {
+          const users = Meteor.users.find({}, { fields: { _id: 1, settings: 1 } }).fetch();
+          users.forEach(({ _id, settings }) => {
+            const userSettings = [...settings];
+            const userSettingToUpdate = userSettings.find(settingOnUser => settingOnUser._id === settingToUpdate._id); // eslint-disable-line
+
+            // Manually set individual fields in memory before writing back to user.
+            userSettingToUpdate.isGDPR = setting.isGDPR;
+            userSettingToUpdate.type = setting.type;
+            userSettingToUpdate.value = setting.value;
+            userSettingToUpdate.key = setting.key;
+            userSettingToUpdate.label = setting.label;
+
+            Meteor.users.update(
+              { _id },
+              { $set: { settings: userSettings } },
+            );
+          });
+        });
+      }
+
+      throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
+  'admin.deleteUserSetting': function adminDeleteUserSetting(settingId) { // eslint-disable-line
+    check(settingId, String);
+
+    try {
+      if (Roles.userIsInRole(this.userId, 'admin')) {
+        return Meteor.users.update(
+          {},
+          { $pull: { settings: { _id: settingId } } },
+          { multi: true },
+          () => UserSettings.remove({ _id: settingId }),
+        );
+      }
+
+      throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
+});
+
+rateLimit({
+  methods: [
+    'admin.fetchUsers',
+    'admin.createUser',
+    'admin.editUser',
+    'admin.fetchUserSettings',
+    'admin.addUserSetting',
+    'admin.updateUserSetting',
+    'admin.deleteUserSetting',
+  ],
+  limit: 5,
+  timeRange: 1000,
 });

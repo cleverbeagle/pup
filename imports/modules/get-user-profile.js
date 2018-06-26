@@ -1,5 +1,5 @@
 const parseGoogleData = service => ({
-  service: 'Google',
+  service: 'google',
   emails: [
     { address: service.email },
   ],
@@ -12,7 +12,7 @@ const parseGoogleData = service => ({
 });
 
 const parseGithubData = service => ({
-  service: 'GitHub',
+  service: 'github',
   emails: [
     { address: service.email },
   ],
@@ -26,7 +26,7 @@ const parseGithubData = service => ({
 });
 
 const parseFacebookData = service => ({
-  service: 'Facebook',
+  service: 'facebook',
   emails: [
     { address: service.email },
   ],
@@ -48,7 +48,7 @@ const getDataForService = (services) => {
 export default (user) => {
   if (user) {
     const isOAuth = !user.services ? false : !user.services.password; // If services do not exist, it's the current user.
-    const userData = isOAuth ? { _id: user._id, ...getDataForService(user.services) } : { service: 'Password', ...user };
+    const userData = isOAuth ? { _id: user._id, ...getDataForService(user.services) } : { service: 'password', ...user };
     return userData;
   }
 
