@@ -8,7 +8,6 @@ import deleteAccount from './delete-account';
 import sendWelcomeEmail from './send-welcome-email';
 import handleMethodException from '../../../modules/handle-method-exception';
 import rateLimit from '../../../modules/rate-limit';
-import UserSettings from '../../UserSettings/UserSettings';
 
 Meteor.methods({
   'users.sendVerificationEmail': function usersSendVerificationEmail() {
@@ -54,7 +53,7 @@ Meteor.methods({
   },
   'users.saveGDPRSettings': function usersSaveGDPRSettings() { // eslint-disable-line
     try {
-      const user = Meteor.users.findOne({ userId: this.userId });
+      const user = Meteor.users.findOne({ _id: this.userId }, { fields: { _id: 1, settings: 1 } });
       user.settings = user.settings
         .filter(setting => setting.isGDPR === true)
         .map(gdprSetting => ({
@@ -130,6 +129,10 @@ rateLimit({
   methods: [
     'users.sendVerificationEmail',
     'users.sendWelcomeEmail',
+    'users.fetchSettings',
+    'users.checkIfGDPRComplete',
+    'users.saveGDPRSettings',
+    'users.updateSetting',
     'users.editProfile',
     'users.exportData',
     'users.deleteAccount',

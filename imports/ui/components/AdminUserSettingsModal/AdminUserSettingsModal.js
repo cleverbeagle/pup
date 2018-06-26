@@ -13,13 +13,17 @@ import validate from '../../../modules/validate';
 class AdminUserSettingsModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { keyName: '', isGDPR: false, settingType: 'boolean', value: '' };
+    this.state = {
+      keyName: '',
+      isGDPR: false,
+      settingType: 'boolean',
+      value: '',
+    };
     autoBind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.setting) {
-      console.log(nextProps.setting);
       this.setState({
         keyName: nextProps.setting.key,
         isGDPR: nextProps.setting.isGDPR,
@@ -66,8 +70,6 @@ class AdminUserSettingsModal extends React.Component {
       value: this.defaultValue.value,
     };
 
-    console.log(setting);
-
     if (this.props.setting) {
       setting._id = this.props.setting._id;
       const confirmUpdate = confirm('Are you sure? This will overwrite this setting for all users immediately. If you\'re changing the Key Name or Type, double-check that your UI can support this to avoid rendering errors.');
@@ -98,7 +100,7 @@ class AdminUserSettingsModal extends React.Component {
     return (
       <Modal show={show} onHide={onHide}>
         <Modal.Header>
-          <Modal.Title>{setting ? 'Edit' : 'Add'} User Setting</Modal.Title>
+          <Modal.Title>{setting ? 'Edit' : 'Add a'} User Setting</Modal.Title>
         </Modal.Header>
         <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
           <Modal.Body>

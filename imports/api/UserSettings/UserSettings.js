@@ -1,5 +1,4 @@
 import { Mongo } from 'meteor/mongo';
-import { Match } from 'meteor/check';
 import SimpleSchema from 'simpl-schema';
 
 const UserSettings = new Mongo.Collection('UserSettings');
@@ -41,15 +40,13 @@ const UserSettingsSchema = new SimpleSchema({
     autoValue() { // eslint-disable-line
       // NOTE: Pass default value as a string to get around this:
       // https://github.com/aldeed/simple-schema-js/issues/169
-      if (this.isInsert || this.isUpsert) {
-        const type = this.field('type');
-        if (type.value) {
-          return {
-            boolean: this.value == 'true', // eslint-disable-line
-            string: this.value,
-            number: parseInt(this.value, 10),
-          }[type.value];
-        }
+      const type = this.field('type');
+      if (type.value) {
+        return {
+          boolean: this.value == 'true', // eslint-disable-line
+          string: this.value,
+          number: parseInt(this.value, 10),
+        }[type.value];
       }
     },
     optional: true,

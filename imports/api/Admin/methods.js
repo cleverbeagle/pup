@@ -5,13 +5,13 @@ import { Roles } from 'meteor/alanning:roles';
 import UserSettings from '../UserSettings/UserSettings';
 import handleMethodException from '../../modules/handle-method-exception';
 import getUserProfile from '../../modules/get-user-profile';
+import rateLimit from '../../modules/rate-limit';
 
-const fetchUsers = (query, projection) => {
-  return Meteor.users.find(query, projection).fetch().map(user => getUserProfile(user));
-};
+const fetchUsers = (query, projection) =>
+  Meteor.users.find(query, projection).fetch().map(user => getUserProfile(user));
 
 Meteor.methods({
-  'admin.fetchUsers': function adminFetchUsers(options) {
+  'admin.fetchUsers': function adminFetchUsers(options) { // eslint-disable-line
     check(options, Match.Maybe(Object));
 
     try {
@@ -45,12 +45,12 @@ Meteor.methods({
         };
       }
 
-      return [];
+      throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');
     } catch (exception) {
       handleMethodException(exception);
     }
   },
-  'admin.createUser': function adminCreateUser(user) {
+  'admin.createUser': function adminCreateUser(user) { // eslint-disable-line
     check(user, {
       _id: Match.Optional(String),
       email: String,
@@ -81,7 +81,7 @@ Meteor.methods({
       handleMethodException(exception);
     }
   },
-  'admin.editUser': function adminEditUser(user) {
+  'admin.editUser': function adminEditUser(user) { // eslint-disable-line
     check(user, {
       _id: String,
       email: Match.Maybe(String),
@@ -117,14 +117,18 @@ Meteor.methods({
       handleMethodException(exception);
     }
   },
-  'admin.fetchUserSettings': function adminFetchUserSettings() {
+  'admin.fetchUserSettings': function adminFetchUserSettings() { // eslint-disable-line
     try {
-      return Roles.userIsInRole(this.userId, 'admin') ? UserSettings.find({}, { sort: { key: 1 } }).fetch() : [];
+      if (Roles.userIsInRole(this.userId, 'admin')) {
+        return UserSettings.find({}, { sort: { key: 1 } }).fetch();
+      }
+
+      throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');
     } catch (exception) {
       handleMethodException(exception);
     }
   },
-  'admin.addUserSetting': function adminAddUserSetting(setting) {
+  'admin.addUserSetting': function adminAddUserSetting(setting) { // eslint-disable-line
     check(setting, Object);
 
     try {
@@ -141,14 +145,14 @@ Meteor.methods({
           });
           return true;
         }
-
-        throw new Meteor.Error('500', 'Sorry, this setting already exists.');
       }
+
+      throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');
     } catch (exception) {
       handleMethodException(exception);
     }
   },
-  'admin.updateUserSetting': function updateUserSetting(setting) {
+  'admin.updateUserSetting': function updateUserSetting(setting) { // eslint-disable-line
     check(setting, Object);
 
     try {
@@ -176,11 +180,13 @@ Meteor.methods({
           });
         });
       }
+
+      throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');
     } catch (exception) {
       handleMethodException(exception);
     }
   },
-  'admin.deleteUserSetting': function adminDeleteUserSetting(settingId) {
+  'admin.deleteUserSetting': function adminDeleteUserSetting(settingId) { // eslint-disable-line
     check(settingId, String);
 
     try {
@@ -198,4 +204,18 @@ Meteor.methods({
       handleMethodException(exception);
     }
   },
+});
+
+rateLimit({
+  methods: [
+    'admin.fetchUsers',
+    'admin.createUser',
+    'admin.editUser',
+    'admin.fetchUserSettings',
+    'admin.addUserSetting',
+    'admin.updateUserSetting',
+    'admin.deleteUserSetting',
+  ],
+  limit: 5,
+  timeRange: 1000,
 });

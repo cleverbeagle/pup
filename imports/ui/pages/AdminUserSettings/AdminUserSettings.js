@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Button, Table } from 'react-bootstrap';
 import autoBind from 'react-autobind';
 import { Meteor } from 'meteor/meteor';
@@ -10,6 +9,7 @@ class AdminUserSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = { userSettings: [], showSettingsModal: false, currentSetting: null };
+    autoBind(this);
   }
 
   componentWillMount() {
@@ -21,7 +21,6 @@ class AdminUserSettings extends React.Component {
       if (error) {
         Bert.alert(error.reason, 'danger');
       } else {
-        console.log(userSettings);
         this.setState({ userSettings });
       }
     });

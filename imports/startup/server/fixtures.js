@@ -33,7 +33,7 @@ seeder(Meteor.users, {
       return documentsSeed(userId);
     },
   }],
-  modelCount: 5,
+  modelCount: 100,
   model(index, faker) {
     const userCount = index + 1;
     return {

@@ -9,7 +9,6 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Accounts } from 'meteor/accounts-base';
-import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 import Navigation from '../../components/Navigation/Navigation';
@@ -121,9 +120,9 @@ class App extends React.Component {
             <Route name="terms" path="/terms" component={Terms} />
             <Route name="privacy" path="/privacy" component={Privacy} />
             <Route name="examplePage" path="/example-page" component={ExamplePage} />
-            <Authorized exact allowedRoles={['admin']} path="/admin/users" component={AdminUsers} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-            <Authorized exact allowedRoles={['admin']} path="/admin/users/settings" component={AdminUserSettings} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-            <Authorized exact allowedRoles={['admin']} path="/admin/users/:_id" component={AdminUser} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Authorized exact allowedRoles={['admin']} path="/admin/users" pathAfterFailure="/" component={AdminUsers} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Authorized exact allowedRoles={['admin']} path="/admin/users/settings" pathAfterFailure="/" component={AdminUserSettings} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Authorized exact allowedRoles={['admin']} path="/admin/users/:_id" pathAfterFailure="/" component={AdminUser} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
             <Route component={NotFound} />
           </Switch>
         </Grid>

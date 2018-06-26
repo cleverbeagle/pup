@@ -27,11 +27,11 @@ class Authorized extends React.Component {
       loading, userId, userRoles, userIsInRoles, pathAfterFailure,
     } = this.props;
 
-    if (!userId) this.props.history.push(pathAfterFailure);
+    if (!userId) this.props.history.push(pathAfterFailure || '/');
 
     if (!loading && userRoles.length > 0) {
       if (!userIsInRoles) {
-        this.props.history.push(pathAfterFailure);
+        this.props.history.push(pathAfterFailure || '/');
       } else {
         // Check to see if authorized is still false before setting. This prevents an infinite loop
         // when this is used within componentDidUpdate.
