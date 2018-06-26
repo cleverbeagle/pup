@@ -3,6 +3,10 @@
 - Add [#124](https://github.com/cleverbeagle/pup/issues/124). Add documentation for `afterLoginPath` redirects to routing.
 - Add [#103](https://github.com/cleverbeagle/pup/issues/103). i18n support with example language file (Spanish?)
 
+## v1.6.1, June 26th, 2018
+
+- Fix [#176](https://github.com/cleverbeagle/pup/issues/176). Fix flash of /login page while SSR is loading. Needed to do a patch because the fix for this was breaking SSR.
+
 ## v1.6.0, June 26th, 2018
 
 - Fix [#176](https://github.com/cleverbeagle/pup/issues/176). Fix flash of /login page while SSR is loading.
