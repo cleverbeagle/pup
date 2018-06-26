@@ -104,6 +104,7 @@ class Profile extends React.Component {
             // Only required if currentPassword field has a value.
             return component.form.currentPassword.value.length > 0;
           },
+          minlength: 6,
         },
       },
       messages: {
