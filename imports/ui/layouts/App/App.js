@@ -42,7 +42,7 @@ import withTrackerSSR from '../../../modules/with-tracker-ssr';
 import getUserName from '../../../modules/get-user-name';
 
 const StyledApp = styled.div`
-  visibility: ${props => (props.ready ? 'visible' : 'hidden')};
+  visibility: ${props => (props.ready && !props.loading ? 'visible' : 'hidden')};
 
   > .container {
     margin-bottom: 80px;
@@ -92,8 +92,8 @@ class App extends React.Component {
 
   render() {
     const { props, state, setAfterLoginPath } = this;
-    return (!props.loading ? (
-      <StyledApp ready={this.state.ready}>
+    return (
+      <StyledApp ready={this.state.ready} loading={props.loading}>
         {props.authenticated ?
           <VerifyEmailAlert
             userId={props.userId}
@@ -128,7 +128,7 @@ class App extends React.Component {
         </Grid>
         <Footer />
       </StyledApp>
-    ) : <div />);
+    );
   }
 }
 
