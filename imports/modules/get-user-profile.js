@@ -17,12 +17,6 @@ const parseGithubData = service => ({
     { address: service.email },
   ],
   username: service.username,
-  // profile: {
-  //   name: {
-  //     first: service.username,
-  //     last: '',
-  //   },
-  // },
 });
 
 const parseFacebookData = service => ({
