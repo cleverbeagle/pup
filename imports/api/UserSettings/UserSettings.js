@@ -52,6 +52,7 @@ const UserSettingsSchema = new SimpleSchema({
         }
       }
     },
+    optional: true,
   },
 });
 

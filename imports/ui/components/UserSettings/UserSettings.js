@@ -16,7 +16,7 @@ const Setting = styled(ListGroupItem)`
 
   p {
     flex-grow: 1;
-    margin: 0;
+    margin: 0 5px 0 0;
   }
 
   > div {
@@ -58,11 +58,12 @@ class UserSettings extends React.Component {
     });
   }
 
-  renderSettingValue(key, value, onChange) {
+  renderSettingValue(type, key, value, onChange) {
     return {
-      // TODO: Support numbers and strings.
-      boolean: valueToRender => (<ToggleSwitch id={key} toggled={value} onToggle={(id, toggled) => onChange({ key, value: toggled })} />),
-    }[typeof value](value);
+      boolean: () => (<ToggleSwitch id={key} toggled={value} onToggle={(id, toggled) => onChange({ key, value: toggled })} />),
+      number: () => (<input type="number" className="form-control" value={value} onChange={event => onChange({ key, value: parseInt(event.target.value, 10) })} />),
+      string: () => (<input type="text" className="form-control" value={value} onChange={event => onChange({ key, value: event.target.value })} />),
+    }[type]();
   }
 
   render() {
@@ -71,11 +72,11 @@ class UserSettings extends React.Component {
       <div className="UserSettings">
         {!loading ? (
           <ListGroup>
-            {settings.length > 0 ? settings.map(({ _id, key, label, value }) => (
+            {settings.length > 0 ? settings.map(({ _id, key, label, type, value }) => (
               <Setting key={key} className="clearfix">
                 <p>{label}</p>
                 <div>
-                  {this.renderSettingValue(key, value, update => this.handleUpdateSetting({ ...update, _id }))}
+                  {this.renderSettingValue(type, key, value, update => this.handleUpdateSetting({ ...update, _id }))}
                 </div>
               </Setting>
             )) : (

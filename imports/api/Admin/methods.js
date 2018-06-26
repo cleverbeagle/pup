@@ -148,6 +148,38 @@ Meteor.methods({
       handleMethodException(exception);
     }
   },
+  'admin.updateUserSetting': function updateUserSetting(setting) {
+    check(setting, Object);
+
+    try {
+      if (Roles.userIsInRole(this.userId, 'admin')) {
+        const settingToUpdate = { ...setting }; // Copy here because schema cleans value on 160.
+        return UserSettings.update({ _id: setting._id }, {
+          $set: setting,
+        }, () => {
+          const users = Meteor.users.find({}, { fields: { _id: 1, settings: 1 } }).fetch();
+          users.forEach(({ _id, settings }) => {
+            const userSettings = [...settings];
+            const userSettingToUpdate = userSettings.find(settingOnUser => settingOnUser._id === settingToUpdate._id); // eslint-disable-line
+
+            // Manually set individual fields in memory before writing back to user.
+            userSettingToUpdate.isGDPR = setting.isGDPR;
+            userSettingToUpdate.type = setting.type;
+            userSettingToUpdate.value = setting.value;
+            userSettingToUpdate.key = setting.key;
+            userSettingToUpdate.label = setting.label;
+
+            Meteor.users.update(
+              { _id },
+              { $set: { settings: userSettings } },
+            );
+          });
+        });
+      }
+    } catch (exception) {
+      handleMethodException(exception);
+    }
+  },
   'admin.deleteUserSetting': function adminDeleteUserSetting(settingId) {
     check(settingId, String);
 
