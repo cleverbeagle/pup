@@ -1,7 +1,23 @@
 ## v.NEXT
 
+- Add [#124](https://github.com/cleverbeagle/pup/issues/124). Add documentation for `afterLoginPath` redirects to routing.
 - Add [#103](https://github.com/cleverbeagle/pup/issues/103). i18n support with example language file (Spanish?)
 
+## v1.6.0, June 26th, 2018
+
+- Fix [#176](https://github.com/cleverbeagle/pup/issues/176). Fix flash of /login page while SSR is loading.
+- Improve [#166](https://github.com/cleverbeagle/pup/issues/166). Add minimum character length validation to update password on `<Profile />`.
+- Improve [#165](https://github.com/cleverbeagle/pup/issues/165). Upgrade to Meteor 1.7.0.1+.
+- Fix [#161](https://github.com/cleverbeagle/pup/issues/161). Fix `PropTypes` warning on `<BlankState />` component.
+- Improve [#162](https://github.com/cleverbeagle/pup/issues/162). Remove `fourseven:scss` dependency.
+- Add [#156](https://github.com/cleverbeagle/pup/issues/156). Add `<Authorized />` route component for roles-based routing.
+- Add [#155](https://github.com/cleverbeagle/pup/issues/155). Add settings panel (relates to #149).
+- Add [#151](https://github.com/cleverbeagle/pup/issues/151). Add a simple admin panel for users.
+- Add [#149](https://github.com/cleverbeagle/pup/issues/149). Add a pattern for acquiring GDPR consent.
+
+## v1.5.1, May 3rd, 2018
+
+- Fix [#159](https://github.com/cleverbeagle/pup/issues/159). Fix incorrect CSS variable referencing old Sass syntax. H/t [@mbessieres](https://github.com/mbessieres) for the tip.
 
 ## v1.5.0, April 26th, 2018
 
