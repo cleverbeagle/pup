@@ -128,5 +128,11 @@
     "type": "git"
   },
   "author": "cleverbeagle <ryan.glover@cleverbeagle.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "meteor": {
+    "mainModule": {
+      "client": "startup/client/index.js",
+      "server": "startup/server/index.js"
+    }
+  }
 }
