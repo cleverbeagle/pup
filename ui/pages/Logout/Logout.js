@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { lighten } from 'polished';
 import { Meteor } from 'meteor/meteor';
-import Icon from '../../components/Icon/Icon';
+import Icon from '../../components/Icon';
 
 const StyledLogout = styled.div`
   padding: 20px;
@@ -62,7 +62,7 @@ const StyledLogout = styled.div`
     h1 {
       font-size: 28px;
     }
-  
+
     p {
       font-size: 18px;
       line-height: 24px;

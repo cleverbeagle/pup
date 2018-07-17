@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
-import PageHeader from '../../components/PageHeader/PageHeader';
+import PageHeader from '../../components/PageHeader';
 
 const StyledPage = styled.div`
   margin-bottom: 0px;
@@ -27,15 +27,15 @@ const Content = styled.div`
   h6 {
     margin: 30px 0 20px;
   }
-    
+
   p {
     margin-bottom: 20px;
   }
-    
+
   > *:first-child {
     margin-top: 0px;
   }
-    
+
   > *:last-child {
     margin-bottom: 0px;
   }

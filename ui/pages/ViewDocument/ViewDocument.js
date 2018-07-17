@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-import Documents from '../../../api/Documents/Documents';
-import SEO from '../../components/SEO/SEO';
-import NotFound from '../NotFound/NotFound';
+import Documents from '../../../api/Documents';
+import SEO from '../../components/SEO';
+import NotFound from '../NotFound';
 
 const handleRemove = (documentId, history) => {
   if (confirm('Are you sure? This is permanent!')) {

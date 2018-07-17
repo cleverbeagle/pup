@@ -11,41 +11,42 @@ import { compose } from 'redux';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
-import Navigation from '../../components/Navigation/Navigation';
 
-import Authenticated from '../../components/Authenticated/Authenticated';
-import Authorized from '../../components/Authorized/Authorized';
-import Public from '../../components/Public/Public';
+import Navigation from '../../components/Navigation';
+
+import Authenticated from '../../components/Authenticated';
+import Authorized from '../../components/Authorized';
+import Public from '../../components/Public';
 
 import Index from '../../pages/Index/Index';
 
-import Documents from '../../pages/Documents/Documents';
-import NewDocument from '../../pages/NewDocument/NewDocument';
-import ViewDocument from '../../pages/ViewDocument/ViewDocument';
-import EditDocument from '../../pages/EditDocument/EditDocument';
+import Documents from '../../pages/Documents';
+import NewDocument from '../../pages/NewDocument';
+import ViewDocument from '../../pages/ViewDocument';
+import EditDocument from '../../pages/EditDocument';
 
-import Profile from '../../pages/Profile/Profile';
-import Signup from '../../pages/Signup/Signup';
-import Login from '../../pages/Login/Login';
-import Logout from '../../pages/Logout/Logout';
+import Profile from '../../pages/Profile';
+import Signup from '../../pages/Signup';
+import Login from '../../pages/Login';
+import Logout from '../../pages/Logout';
 
-import VerifyEmail from '../../pages/VerifyEmail/VerifyEmail';
-import RecoverPassword from '../../pages/RecoverPassword/RecoverPassword';
-import ResetPassword from '../../pages/ResetPassword/ResetPassword';
+import VerifyEmail from '../../pages/VerifyEmail';
+import RecoverPassword from '../../pages/RecoverPassword';
+import ResetPassword from '../../pages/ResetPassword';
 
-import AdminUsers from '../../pages/AdminUsers/AdminUsers';
-import AdminUser from '../../pages/AdminUser/AdminUser';
-import AdminUserSettings from '../../pages/AdminUserSettings/AdminUserSettings';
+import AdminUsers from '../../pages/AdminUsers';
+import AdminUser from '../../pages/AdminUser';
+import AdminUserSettings from '../../pages/AdminUserSettings';
 
-import NotFound from '../../pages/NotFound/NotFound';
-import Footer from '../../components/Footer/Footer';
+import NotFound from '../../pages/NotFound';
+import Footer from '../../components/Footer';
 
-import Terms from '../../pages/Terms/Terms';
-import Privacy from '../../pages/Privacy/Privacy';
-import ExamplePage from '../../pages/ExamplePage/ExamplePage';
+import Terms from '../../pages/Terms';
+import Privacy from '../../pages/Privacy';
+import ExamplePage from '../../pages/ExamplePage';
 
-import VerifyEmailAlert from '../../components/VerifyEmailAlert/VerifyEmailAlert';
-import GDPRConsentModal from '../../components/GDPRConsentModal/GDPRConsentModal';
+import VerifyEmailAlert from '../../components/VerifyEmailAlert';
+import GDPRConsentModal from '../../components/GDPRConsentModal';
 
 import { onLogin, onLogout } from '../../../modules/redux/actions';
 import withTrackerSsr from '../../../modules/withTrackerSsr';

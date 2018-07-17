@@ -12,9 +12,9 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { withTracker } from 'meteor/react-meteor-data';
-import InputHint from '../../components/InputHint/InputHint';
-import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
-import UserSettings from '../../components/UserSettings/UserSettings';
+import InputHint from '../../components/InputHint';
+import AccountPageFooter from '../../components/AccountPageFooter';
+import UserSettings from '../../components/UserSettings';
 import validate from '../../../modules/validate';
 import getUserProfile from '../../../modules/getUserProfile';
 

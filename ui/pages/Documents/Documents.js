@@ -6,10 +6,10 @@ import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Bert } from 'meteor/themeteorchef:bert';
-import DocumentsCollection from '../../../api/Documents/Documents';
+import DocumentsCollection from '../../../api/Documents';
 import { timeago, monthDayYearAtTime } from '../../../modules/dates';
-import Loading from '../../components/Loading/Loading';
-import BlankState from '../../components/BlankState/BlankState';
+import Loading from '../../components/Loading';
+import BlankState from '../../components/BlankState';
 
 const StyledDocuments = styled.div`
   table tbody tr td {

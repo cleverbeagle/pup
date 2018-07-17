@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DocumentEditor from '../../components/DocumentEditor/DocumentEditor';
+import DocumentEditor from '../../components/DocumentEditor';
 
 const NewDocument = ({ history }) => (
   <div className="NewDocument">

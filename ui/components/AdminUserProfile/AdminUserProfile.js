@@ -8,8 +8,8 @@ import autoBind from 'react-autobind';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Random } from 'meteor/random';
-import InputHint from '../../components/InputHint/InputHint';
-import Icon from '../../components/Icon/Icon';
+import InputHint from '../../components/InputHint';
+import Icon from '../../components/Icon';
 import validate from '../../../modules/validate';
 
 class AdminUserProfile extends React.Component {

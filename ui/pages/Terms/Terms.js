@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import Page from '../Page/Page';
+import Page from '../Page';
 
 const { productName } = Meteor.settings.public;
 

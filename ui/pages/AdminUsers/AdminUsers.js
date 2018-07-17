@@ -7,7 +7,7 @@ import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-import SearchInput from '../../components/SearchInput/SearchInput';
+import SearchInput from '../../components/SearchInput';
 import delay from '../../../modules/delay';
 
 const AdminUsersHeader = styled.div`

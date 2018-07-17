@@ -1,5 +1,5 @@
 import React from 'react';
-import Page from '../Page/Page';
+import Page from '../Page';
 
 const content = `
 ### This is my Markdown page

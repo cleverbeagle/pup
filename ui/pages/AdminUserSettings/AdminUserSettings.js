@@ -3,7 +3,7 @@ import { Button, Table } from 'react-bootstrap';
 import autoBind from 'react-autobind';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-import AdminUserSettingsModal from '../../components/AdminUserSettingsModal/AdminUserSettingsModal';
+import AdminUserSettingsModal from '../../components/AdminUserSettingsModal';
 
 class AdminUserSettings extends React.Component {
   constructor(props) {

@@ -8,8 +8,8 @@ import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
-import AdminUserProfile from '../../components/AdminUserProfile/AdminUserProfile';
-import UserSettings from '../../components/UserSettings/UserSettings';
+import AdminUserProfile from '../../components/AdminUserProfile';
+import UserSettings from '../../components/UserSettings';
 import getUserProfile from '../../../modules/getUserProfile';
 
 const AdminUserHeader = styled.h4`
