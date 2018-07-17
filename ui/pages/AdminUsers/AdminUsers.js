@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role, jsx-a11y/anchor-is-valid */
 
 import React from 'react';
-import autoBind from 'react-autobind';
 import { Link } from 'react-router-dom';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import styled from 'styled-components';
@@ -100,23 +99,19 @@ const StyledListGroupItem = styled(ListGroupItem)`
 `;
 
 class AdminUsers extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      total: 0,
-      users: [],
-      usersPerPage: 10,
-      currentPage: 1,
-      searching: false,
-    };
-    autoBind(this);
-  }
+  state = {
+    total: 0,
+    users: [],
+    usersPerPage: 10,
+    currentPage: 1,
+    searching: false,
+  };
 
   componentWillMount() {
     this.fetchUsers();
   }
 
-  fetchUsers(search) {
+  fetchUsers = (search) => {
     Meteor.call('admin.fetchUsers', {
       currentPage: this.state.currentPage,
       perPage: this.state.usersPerPage,
@@ -130,7 +125,7 @@ class AdminUsers extends React.Component {
     });
   }
 
-  handleSearch(event) {
+  handleSearch = (event) => {
     event.persist();
     if (event.target.value.trim() !== '') {
       this.setState({ searching: true });
@@ -141,7 +136,7 @@ class AdminUsers extends React.Component {
     }
   }
 
-  renderPagination(totalUsers, perPage, currentPage) {
+  renderPagination = (totalUsers, perPage, currentPage) => {
     const pages = [];
     const pagesToGenerate = Math.ceil(totalUsers / perPage);
 

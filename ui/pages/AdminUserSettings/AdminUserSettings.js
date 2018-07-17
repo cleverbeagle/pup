@@ -1,22 +1,17 @@
 import React from 'react';
 import { Button, Table } from 'react-bootstrap';
-import autoBind from 'react-autobind';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AdminUserSettingsModal from '../../components/AdminUserSettingsModal';
 
 class AdminUserSettings extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { userSettings: [], showSettingsModal: false, currentSetting: null };
-    autoBind(this);
-  }
+  state = { userSettings: [], showSettingsModal: false, currentSetting: null };
 
   componentWillMount() {
     this.fetchSettings();
   }
 
-  fetchSettings() {
+  fetchSettings = () => {
     Meteor.call('admin.fetchUserSettings', (error, userSettings) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
@@ -26,7 +21,7 @@ class AdminUserSettings extends React.Component {
     });
   }
 
-  handleDeleteSetting(settingId) {
+  handleDeleteSetting = (settingId) => {
     if (confirm('Are you sure? Before deleting this setting make sure that it\'s no longer in use in your application!')) {
       Meteor.call('admin.deleteUserSetting', settingId, (error) => {
         if (error) {

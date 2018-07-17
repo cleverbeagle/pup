@@ -4,20 +4,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, ControlLabel, FormGroup, ListGroup, ListGroupItem, Checkbox, InputGroup, Button } from 'react-bootstrap';
 import _ from 'lodash';
-import autoBind from 'react-autobind';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Random } from 'meteor/random';
-import InputHint from '../../components/InputHint';
-import Icon from '../../components/Icon';
+import InputHint from '../InputHint';
+import Icon from '../Icon';
 import validate from '../../../modules/validate';
 
 class AdminUserProfile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { showPassword: false, password: '' };
-    autoBind(this);
-  }
+  state = { showPassword: false, password: '' };
 
   componentDidMount() {
     const component = this;
@@ -57,7 +52,7 @@ class AdminUserProfile extends React.Component {
     });
   }
 
-  handleSubmit() {
+  handleSubmit = () => {
     const existingUser = this.props.user;
     const isPasswordUser = (existingUser && existingUser.service === 'password') || !existingUser;
     const method = existingUser ? 'edit' : 'create';
@@ -101,7 +96,7 @@ class AdminUserProfile extends React.Component {
     });
   }
 
-  handleDeleteUser() {
+  handleDeleteUser = () => {
     if (confirm('Are you sure? This will permanently delete this user\'s account!')) {
       Meteor.call('users.deleteAccount', this.props.user._id, (error) => {
         if (error) {
@@ -114,7 +109,7 @@ class AdminUserProfile extends React.Component {
     }
   }
 
-  generatePassword() {
+  generatePassword = () => {
     this.setState({ password: Random.hexString(20) });
   }
 

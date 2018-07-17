@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-import Icon from '../Icon/Icon';
+import Icon from '../Icon';
 
 const StyledOAuthLoginButton = styled.button`
   display: block;

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import autoBind from 'react-autobind';
 import styled from 'styled-components';
-import Icon from '../Icon/Icon';
+import Icon from '../Icon';
 
 const StyledToggleSwitch = styled.div`
   display: inline-block;
@@ -47,17 +46,13 @@ const StyledToggleSwitch = styled.div`
 `;
 
 class ToggleSwitch extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { toggled: props.toggled };
-    autoBind(this);
-  }
+  state = { toggled: props.toggled };
 
   componentWillReceiveProps(nextProps) {
     this.setState({ toggled: nextProps.toggled });
   }
 
-  toggleSwitch(event) {
+  toggleSwitch = (event) => {
     event.stopPropagation();
     const toggled = !this.state.toggled;
     this.setState({ toggled }, () => {

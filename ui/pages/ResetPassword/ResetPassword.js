@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import autoBind from 'react-autobind';
 import { Row, Col, Alert, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -41,7 +40,7 @@ class ResetPassword extends React.Component {
     });
   }
 
-  handleSubmit(form) {
+  handleSubmit = (form) => {
     const { match, history } = this.props;
     const { token } = match.params;
 

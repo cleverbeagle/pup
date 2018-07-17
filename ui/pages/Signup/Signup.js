@@ -1,5 +1,4 @@
 import React from 'react';
-import autoBind from 'react-autobind';
 import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -12,11 +11,6 @@ import AccountPageFooter from '../../components/AccountPageFooter';
 import validate from '../../../modules/validate';
 
 class Signup extends React.Component {
-  constructor(props) {
-    super(props);
-    autoBind(this);
-  }
-
   componentDidMount() {
     const component = this;
 
@@ -57,7 +51,7 @@ class Signup extends React.Component {
     });
   }
 
-  handleSubmit(form) {
+  handleSubmit = (form) => {
     const { history } = this.props;
 
     Accounts.createUser({

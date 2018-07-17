@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
-import PublicNavigation from '../PublicNavigation/PublicNavigation';
-import AuthenticatedNavigation from '../AuthenticatedNavigation/AuthenticatedNavigation';
+import PublicNavigation from '../PublicNavigation';
+import AuthenticatedNavigation from '../AuthenticatedNavigation';
 
 const Navigation = props => (
   <Navbar collapseOnSelect>

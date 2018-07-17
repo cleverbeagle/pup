@@ -1,5 +1,4 @@
 import React from 'react';
-import autoBind from 'react-autobind';
 import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
@@ -9,11 +8,6 @@ import AccountPageFooter from '../../components/AccountPageFooter';
 import validate from '../../../modules/validate';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    autoBind(this);
-  }
-
   componentDidMount() {
     const component = this;
 
@@ -40,7 +34,7 @@ class Login extends React.Component {
     });
   }
 
-  handleSubmit(form) {
+  handleSubmit = (form) => {
     Meteor.loginWithPassword(form.emailAddress.value, form.password.value, (error) => {
       if (error) {
         Bert.alert(error.reason, 'danger');

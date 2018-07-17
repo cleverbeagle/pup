@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import autoBind from 'react-autobind';
 import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
-import BlankState from '../BlankState/BlankState';
+import ToggleSwitch from '../ToggleSwitch';
+import BlankState from '../BlankState';
 
 const Setting = styled(ListGroupItem)`
   display: flexbox;
@@ -25,17 +24,13 @@ const Setting = styled(ListGroupItem)`
 `;
 
 class UserSettings extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { loading: true, settings: [] };
-    autoBind(this);
-  }
+  state = { loading: true, settings: [] }
 
   componentWillMount() {
     this.fetchSettings();
   }
 
-  handleUpdateSetting(setting) {
+  handleUpdateSetting = (setting) => {
     Meteor.call('users.updateSetting', {
       userId: this.props.userId,
       ...setting,
@@ -48,7 +43,7 @@ class UserSettings extends React.Component {
     });
   }
 
-  fetchSettings() {
+  fetchSettings = () => {
     Meteor.call('users.fetchSettings', this.props, (error, settings) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
@@ -58,7 +53,7 @@ class UserSettings extends React.Component {
     });
   }
 
-  renderSettingValue(type, key, value, onChange) {
+  renderSettingValue = (type, key, value, onChange) => {
     return {
       boolean: () => (<ToggleSwitch id={key} toggled={value} onToggle={(id, toggled) => onChange({ key, value: toggled })} />),
       number: () => (<input type="number" className="form-control" value={value} onChange={event => onChange({ key, value: parseInt(event.target.value, 10) })} />),

@@ -1,5 +1,4 @@
 import React from 'react';
-import autoBind from 'react-autobind';
 import { Row, Col, Alert, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -9,11 +8,6 @@ import AccountPageFooter from '../../components/AccountPageFooter';
 import validate from '../../../modules/validate';
 
 class RecoverPassword extends React.Component {
-  constructor(props) {
-    super(props);
-    autoBind(this);
-  }
-
   componentDidMount() {
     const component = this;
 
@@ -34,7 +28,7 @@ class RecoverPassword extends React.Component {
     });
   }
 
-  handleSubmit(form) {
+  handleSubmit = (form) => {
     const { history } = this.props;
     const email = form.emailAddress.value;
 

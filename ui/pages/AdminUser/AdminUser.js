@@ -42,10 +42,7 @@ const AdminUserTabs = styled(Tabs)`
 `;
 
 class AdminUser extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { activeTab: 'profile' };
-  }
+  state = { activeTab: 'profile' };
 
   render() {
     const { loading, user } = this.props;

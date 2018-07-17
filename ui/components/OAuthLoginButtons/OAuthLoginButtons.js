@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { ReactiveVar } from 'meteor/reactive-var';
-import OAuthLoginButton from '../OAuthLoginButton/OAuthLoginButton';
+import OAuthLoginButton from '../OAuthLoginButton';
 
 const StyledOAuthLoginButtons = styled.div`
   margin-bottom: 25px;

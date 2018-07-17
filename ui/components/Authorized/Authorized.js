@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import autoBind from 'react-autobind';
 import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { Roles } from 'meteor/alanning:roles';
@@ -8,11 +7,7 @@ import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 
 class Authorized extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { authorized: false };
-    autoBind(this);
-  }
+  state = { authorized: false };
 
   componentDidMount() {
     this.checkIfAuthorized();
@@ -22,7 +17,7 @@ class Authorized extends React.Component {
     this.checkIfAuthorized();
   }
 
-  checkIfAuthorized() {
+  checkIfAuthorized = () => {
     const {
       loading, userId, userRoles, userIsInRoles, pathAfterFailure,
     } = this.props;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Icon from '../Icon/Icon';
+import Icon from '../Icon';
 
 const StyledSearchInput = styled.div`
   position: relative;

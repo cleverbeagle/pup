@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button } from 'react-bootstrap';
-import Icon from '../Icon/Icon';
+import Icon from '../Icon';
 
 const StyledBlankState = styled.div`
   padding: 40px 0;

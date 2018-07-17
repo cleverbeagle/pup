@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import autoBind from 'react-autobind';
 import { Modal, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-import UserSettings from '../UserSettings/UserSettings';
+import UserSettings from '../UserSettings';
 
 const StyledGDPRConsentModal = styled(Modal)`
   .modal-body > p {
@@ -18,11 +17,7 @@ const StyledGDPRConsentModal = styled(Modal)`
 `;
 
 class GDPRConsentModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { show: false };
-    autoBind(this);
-  }
+  state = { show: false };
 
   componentWillMount() {
     Meteor.call('users.checkIfGDPRComplete', (error, complete) => {
@@ -35,7 +30,7 @@ class GDPRConsentModal extends React.Component {
     });
   }
 
-  handleSaveSettings() {
+  handleSaveSettings = () => {
     Meteor.call('users.saveGDPRSettings', (error) => {
       if (error) {
         Bert.alert(error.reason, 'danger');

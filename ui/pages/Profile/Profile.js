@@ -2,7 +2,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import autoBind from 'react-autobind';
 import FileSaver from 'file-saver';
 import base64ToBlob from 'b64-to-blob';
 import { Row, Col, FormGroup, ControlLabel, Button, Tabs, Tab } from 'react-bootstrap';
@@ -72,11 +71,7 @@ const StyledProfile = styled.div`
 `;
 
 class Profile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { activeTab: 'profile' };
-    autoBind(this);
-  }
+  state = { activeTab: 'profile' };
 
   componentDidMount() {
     const component = this;
@@ -129,11 +124,11 @@ class Profile extends React.Component {
     });
   }
 
-  getUserType(user) {
+  getUserType = (user) => {
     return user.service === 'password' ? 'password' : 'oauth';
   }
 
-  handleExportData(event) {
+  handleExportData = (event) => {
     event.preventDefault();
     Meteor.call('users.exportData', (error, exportData) => {
       if (error) {
@@ -144,7 +139,7 @@ class Profile extends React.Component {
     });
   }
 
-  handleDeleteAccount() {
+  handleDeleteAccount = () => {
     if (confirm('Are you sure? This will permanently delete your account and all of its data.')) {
       Meteor.call('users.deleteAccount', (error) => {
         if (error) {
@@ -156,7 +151,7 @@ class Profile extends React.Component {
     }
   }
 
-  handleSubmit(form) {
+  handleSubmit = (form) => {
     const profile = {
       emailAddress: form.emailAddress.value,
       profile: {
@@ -187,7 +182,7 @@ class Profile extends React.Component {
     }
   }
 
-  renderOAuthUser(loading, user) {
+  renderOAuthUser = (loading, user) => {
     return !loading ? (
       <div className="OAuthProfile">
         <div key={user.service} className={`LoggedInWith ${user.service}`}>
@@ -208,7 +203,7 @@ class Profile extends React.Component {
       </div>) : <div />;
   }
 
-  renderPasswordUser(loading, user) {
+  renderPasswordUser = (loading, user) => {
     return !loading ? (
       <div>
         <Row>
@@ -266,7 +261,7 @@ class Profile extends React.Component {
     ) : <div />;
   }
 
-  renderProfileForm(loading, user) {
+  renderProfileForm = (loading, user) => {
     return !loading ? ({
       password: this.renderPasswordUser,
       oauth: this.renderOAuthUser,

@@ -1,26 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import autoBind from 'react-autobind';
 import { Modal, Button, Row, Col, FormGroup, ControlLabel } from 'react-bootstrap';
 import _ from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-import InputHint from '../InputHint/InputHint';
-import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
+import InputHint from '../InputHint';
+import ToggleSwitch from '../ToggleSwitch';
 import delay from '../../../modules/delay';
 import validate from '../../../modules/validate';
 
 class AdminUserSettingsModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      keyName: '',
-      isGDPR: false,
-      settingType: 'boolean',
-      value: '',
-    };
-    autoBind(this);
-  }
+  state = {
+    keyName: '',
+    isGDPR: false,
+    settingType: 'boolean',
+    value: '',
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.setting) {
@@ -38,7 +33,7 @@ class AdminUserSettingsModal extends React.Component {
     if (this.props.show) setTimeout(() => this.attachValidation(), 0);
   }
 
-  attachValidation() {
+  attachValidation = () => {
     validate(this.form, {
       rules: {
         keyName: {
@@ -60,7 +55,7 @@ class AdminUserSettingsModal extends React.Component {
     });
   }
 
-  handleSubmit() {
+  handleSubmit = () => {
     const method = this.props.setting ? 'admin.updateUserSetting' : 'admin.addUserSetting';
     const setting = {
       isGDPR: this.isGDPR.state.toggled,
@@ -86,7 +81,7 @@ class AdminUserSettingsModal extends React.Component {
     });
   }
 
-  handleSetKeyName(event) {
+  handleSetKeyName = (event) => {
     event.persist();
     this.setState({ keyName: event.target.value }, () => {
       delay(() => {

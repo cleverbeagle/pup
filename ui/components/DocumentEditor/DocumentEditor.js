@@ -31,7 +31,7 @@ class DocumentEditor extends React.Component {
     });
   }
 
-  handleSubmit(form) {
+  handleSubmit = (form) => {
     const { history } = this.props;
     const existingDocument = this.props.doc && this.props.doc._id;
     const methodToCall = existingDocument ? 'documents.update' : 'documents.insert';

@@ -6,10 +6,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 
 class VerifyEmail extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { error: null };
-  }
+  state = { error: null };
 
   componentDidMount() {
     const { match, history } = this.props;

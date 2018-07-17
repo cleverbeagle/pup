@@ -2,7 +2,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import autoBind from 'react-autobind';
 import { Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 import styled from 'styled-components';
@@ -80,11 +79,7 @@ const StyledApp = styled.div`
 `;
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { ready: false, afterLoginPath: null };
-    autoBind(this);
-  }
+  state = { ready: false, afterLoginPath: null };
 
   componentDidMount() {
     const { handleOnLogin, handleOnLogout } = this.props;
@@ -93,11 +88,11 @@ class App extends React.Component {
     this.setPageReady();
   }
 
-  setPageReady() {
+  setPageReady = () => {
     this.setState({ ready: true });
   }
 
-  setAfterLoginPath(afterLoginPath) {
+  setAfterLoginPath = (afterLoginPath) => {
     this.setState({ afterLoginPath });
   }
 
