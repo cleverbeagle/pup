@@ -11,7 +11,7 @@ import { Roles } from 'meteor/alanning:roles';
 import AdminUserProfile from '../../components/AdminUserProfile/AdminUserProfile';
 import UserSettings from '../../components/UserSettings/UserSettings';
 import getUserProfile from '../../../modules/getUserProfile';
-// HTML
+
 const AdminUserHeader = styled.h4`
   .label {
     position: relative;
