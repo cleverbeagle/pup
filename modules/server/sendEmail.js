@@ -20,10 +20,12 @@ export default ({
 }) => {
   if (text || html || template) {
     return new Promise((resolve, reject) => {
+      const templateFile = template && getPrivateFile(`email-templates/${template}.txt`);
+      const context = templateVars || {};
       sendEmail({
         ...rest,
-        text: template ? templateToText(getPrivateFile(`email-templates/${template}.txt`), (templateVars || {})) : text,
-        html: template ? templateToHtml(getPrivateFile(`email-templates/${template}.html`), (templateVars || {})) : html,
+        text: template ? templateToText(templateFile, context) : text,
+        html: template ? templateToHtml(templateFile, context) : html,
       }, { resolve, reject });
     });
   }
