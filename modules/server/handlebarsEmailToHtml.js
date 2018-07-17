@@ -1,7 +1,7 @@
 import handlebars from 'handlebars';
 import juice from 'juice';
 import { Meteor } from 'meteor/meteor';
-import getPrivateFile from './get-private-file';
+import getPrivateFile from './getPrivateFile';
 
 export default (handlebarsMarkup, context, options) => {
   if (handlebarsMarkup && context) {

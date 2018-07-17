@@ -10,10 +10,10 @@ import { ServerStyleSheet } from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import App from '../../ui/layouts/App/App';
 import mainReducer from '../../modules/redux/reducers';
-import parseUrlForSSR from '../../modules/parse-url-for-ssr';
+import parseUrlForSsr from '../../modules/parseUrlForSsr';
 
 onPageLoad((sink) => {
-  const documentURL = parseUrlForSSR(sink.request.url, 'documents');
+  const documentURL = parseUrlForSsr(sink.request.url, 'documents');
 
   const context = {};
   const data = {

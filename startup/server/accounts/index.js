@@ -1,4 +1,4 @@
-import './user-settings';
+import './userSettings';
 import './oauth';
-import './email-templates';
-import './on-create-user';
+import './emailTemplates';
+import './onCreateUser';

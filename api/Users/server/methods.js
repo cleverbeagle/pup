@@ -2,12 +2,12 @@ import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
-import editProfile from './edit-profile';
-import exportData from './export-data';
-import deleteAccount from './delete-account';
-import sendWelcomeEmail from './send-welcome-email';
-import handleMethodException from '../../../modules/handle-method-exception';
-import rateLimit from '../../../modules/rate-limit';
+import editProfile from './editProfile';
+import exportData from './exportData';
+import deleteAccount from './deleteAccount';
+import sendWelcomeEmail from './sendWelcomeEmail';
+import handleMethodException from '../../../modules/handleMethodException';
+import rateLimit from '../../../modules/rateLimit';
 
 Meteor.methods({
   'users.sendVerificationEmail': function usersSendVerificationEmail() {

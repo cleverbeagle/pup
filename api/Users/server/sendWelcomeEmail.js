@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
-import sendEmail from '../../../modules/server/send-email';
-import getOAuthProfile from '../../../modules/get-oauth-profile';
+import sendEmail from '../../../modules/server/sendEmail';
+import getOAuthProfile from '../../../modules/getOAuthProfile';
 
 export default (oauthUser) => {
   const user = oauthUser || Meteor.user();

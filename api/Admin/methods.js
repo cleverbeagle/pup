@@ -3,9 +3,9 @@ import { check, Match } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import UserSettings from '../UserSettings/UserSettings';
-import handleMethodException from '../../modules/handle-method-exception';
-import getUserProfile from '../../modules/get-user-profile';
-import rateLimit from '../../modules/rate-limit';
+import handleMethodException from '../../modules/handleMethodException';
+import getUserProfile from '../../modules/getUserProfile';
+import rateLimit from '../../modules/rateLimit';
 
 const fetchUsers = (query, projection) =>
   Meteor.users.find(query, projection).fetch().map(user => getUserProfile(user));

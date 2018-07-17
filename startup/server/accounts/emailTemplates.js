@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import getPrivateFile from '../../../modules/server/get-private-file';
-import templateToHTML from '../../../modules/server/handlebars-email-to-html';
-import templateToText from '../../../modules/server/handlebars-email-to-text';
+import getPrivateFile from '../../../modules/server/getPrivateFile';
+import templateToHtml from '../../../modules/server/handlebarsEmailToHtml';
+import templateToText from '../../../modules/server/handlebarsEmailToText';
 
 const { emailTemplates } = Accounts;
 const { productName } = Meteor.settings.public;
@@ -15,7 +15,7 @@ emailTemplates.verifyEmail = {
     return `[${productName}] Verify Your Email Address`;
   },
   html(user, url) {
-    return templateToHTML(getPrivateFile('email-templates/verify-email.html'), {
+    return templateToHtml(getPrivateFile('email-templates/verify-email.html'), {
       title: 'Let\'s Verify Your Email',
       subtitle: `Verify your email to start using ${productName}.`,
       productName,
@@ -39,7 +39,7 @@ emailTemplates.resetPassword = {
     return `[${productName}] Reset Your Password`;
   },
   html(user, url) {
-    return templateToHTML(getPrivateFile('email-templates/reset-password.html'), {
+    return templateToHtml(getPrivateFile('email-templates/reset-password.html'), {
       title: 'Let\'s Reset Your Password',
       subtitle: 'A password reset was requested for this email address.',
       firstName: user.profile.name.first,

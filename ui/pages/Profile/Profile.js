@@ -16,13 +16,13 @@ import InputHint from '../../components/InputHint/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter/AccountPageFooter';
 import UserSettings from '../../components/UserSettings/UserSettings';
 import validate from '../../../modules/validate';
-import getUserProfile from '../../../modules/get-user-profile';
+import getUserProfile from '../../../modules/getUserProfile';
 
 const StyledProfile = styled.div`
   .nav.nav-tabs {
     margin-bottom: 20px;
   }
-  
+
   .LoggedInWith {
     padding: 20px;
     border-radius: 3px;

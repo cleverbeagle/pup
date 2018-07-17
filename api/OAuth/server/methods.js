@@ -3,8 +3,8 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { ServiceConfiguration } from 'meteor/service-configuration';
-import handleMethodException from '../../../modules/handle-method-exception';
-import rateLimit from '../../../modules/rate-limit';
+import handleMethodException from '../../../modules/handleMethodException';
+import rateLimit from '../../../modules/rateLimit';
 
 Meteor.methods({
   'oauth.verifyConfiguration': function oauthVerifyConfiguration(services) {

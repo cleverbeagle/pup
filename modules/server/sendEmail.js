@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Email } from 'meteor/email';
-import getPrivateFile from './get-private-file';
-import templateToText from './handlebars-email-to-text';
-import templateToHTML from './handlebars-email-to-html';
+import getPrivateFile from './getPrivateFile';
+import templateToText from './handlebarsEmailToText';
+import templateToHtml from './handlebarsEmailToHtml';
 
 const sendEmail = (options, { resolve, reject }) => {
   try {
@@ -23,7 +23,7 @@ export default ({
       sendEmail({
         ...rest,
         text: template ? templateToText(getPrivateFile(`email-templates/${template}.txt`), (templateVars || {})) : text,
-        html: template ? templateToHTML(getPrivateFile(`email-templates/${template}.html`), (templateVars || {})) : html,
+        html: template ? templateToHtml(getPrivateFile(`email-templates/${template}.html`), (templateVars || {})) : html,
       }, { resolve, reject });
     });
   }

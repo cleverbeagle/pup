@@ -38,8 +38,8 @@ import ExamplePage from '../../pages/ExamplePage/ExamplePage';
 import VerifyEmailAlert from '../../components/VerifyEmailAlert/VerifyEmailAlert';
 import GDPRConsentModal from '../../components/GDPRConsentModal/GDPRConsentModal';
 import { onLogin, onLogout } from '../../../modules/redux/actions';
-import withTrackerSSR from '../../../modules/with-tracker-ssr';
-import getUserName from '../../../modules/get-user-name';
+import withTrackerSsr from '../../../modules/withTrackerSsr';
+import getUserName from '../../../modules/getUserName';
 
 const StyledApp = styled.div`
   visibility: ${props => (props.ready && !props.loading ? 'visible' : 'hidden')};
@@ -155,7 +155,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withTrackerSSR(() => {
+  withTrackerSsr(() => {
     const app = Meteor.subscribe('app');
     const loggingIn = Meteor.loggingIn();
     const user = Meteor.user();
