@@ -48,15 +48,15 @@ class AdminUserProfile extends React.Component {
           minlength: 'Please use at least six characters.',
         },
       },
-      submitHandler() { component.handleSubmit(); },
+      submitHandler() { component.handleSubmit(component.form); },
     });
   }
 
-  handleSubmit = () => {
+  handleSubmit = (form) => {
     const existingUser = this.props.user;
     const isPasswordUser = (existingUser && existingUser.service === 'password') || !existingUser;
     const method = existingUser ? 'edit' : 'create';
-    const password = isPasswordUser ? this.password.value : null;
+    const password = isPasswordUser ? form.password.value : null;
     const roleCheckboxes = document.querySelectorAll('[name="role"]:checked');
     const roles = [];
     [].forEach.call(roleCheckboxes, (role) => { roles.push(role.value); });
@@ -65,12 +65,12 @@ class AdminUserProfile extends React.Component {
 
     if (isPasswordUser) {
       user = {
-        email: this.emailAddress.value,
+        email: form.emailAddress.value,
         password,
         profile: {
           name: {
-            first: this.firstName.value,
-            last: this.lastName.value,
+            first: form.firstName.value,
+            last: form.lastName.value,
           },
         },
         roles,
@@ -121,7 +121,7 @@ class AdminUserProfile extends React.Component {
           {!loading ? (
             <Row>
               <Col xs={12} md={6}>
-                {user && user.profile && user.profile.name ? (
+                {user && user.profile && user.profile.name &&
                   <Row>
                     <Col xs={6}>
                       <FormGroup>
@@ -132,7 +132,6 @@ class AdminUserProfile extends React.Component {
                           name="firstName"
                           className="form-control"
                           defaultValue={user && user.profile && user.profile.name.first}
-                          ref={firstName => (this.firstName = firstName)}
                         />
                       </FormGroup>
                     </Col>
@@ -145,13 +144,12 @@ class AdminUserProfile extends React.Component {
                           name="lastName"
                           className="form-control"
                           defaultValue={user && user.profile && user.profile.name.last}
-                          ref={lastName => (this.lastName = lastName)}
                         />
                       </FormGroup>
                     </Col>
                   </Row>
-                ) : ''}
-                {user && user.username ? (
+                }
+                {user && user.username &&
                   <Row>
                     <Col xs={12}>
                       <FormGroup>
@@ -162,12 +160,11 @@ class AdminUserProfile extends React.Component {
                           name="username"
                           className="form-control"
                           defaultValue={user && user.username}
-                          ref={username => (this.username = username)}
                         />
                       </FormGroup>
                     </Col>
                   </Row>
-                ) : ''}
+                }
                 <Row>
                   <Col xs={12}>
                     <FormGroup>
@@ -179,7 +176,6 @@ class AdminUserProfile extends React.Component {
                         autoComplete="off"
                         className="form-control"
                         defaultValue={user && user.emails && user.emails[0].address}
-                        ref={emailAddress => (this.emailAddress = emailAddress)}
                       />
                     </FormGroup>
                   </Col>
@@ -200,7 +196,7 @@ class AdminUserProfile extends React.Component {
                     </FormGroup>
                   </Col>
                 </Row>
-                {user && user.service === 'password' ? (
+                {user && user.service === 'password' &&
                   <Row>
                     <Col xs={12}>
                       <FormGroup>
@@ -225,7 +221,6 @@ class AdminUserProfile extends React.Component {
                             autoComplete="off"
                             value={this.state.password}
                             onChange={event => this.setState({ password: event.target.value })}
-                            ref={password => (this.password = password)}
                           />
                           <InputGroup.Button>
                             <Button onClick={this.generatePassword}>
@@ -237,15 +232,15 @@ class AdminUserProfile extends React.Component {
                       </FormGroup>
                     </Col>
                   </Row>
-                ) : ''}
+                }
                 <Button type="submit" bsStyle="success">
                   {user ? 'Save Changes' : 'Create User'}
                 </Button>
-                {user ? (
+                {user &&
                   <Button bsStyle="danger" className="pull-right" onClick={this.handleDeleteUser}>
                     Delete User
                   </Button>
-                ) : ''}
+                }
               </Col>
             </Row>
           ) : ''}

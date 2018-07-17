@@ -34,7 +34,8 @@ class AdminUserSettingsModal extends React.Component {
   }
 
   attachValidation = () => {
-    validate(this.form, {
+    const component = this;
+    validate(component.form, {
       rules: {
         keyName: {
           required: true,
@@ -51,18 +52,18 @@ class AdminUserSettingsModal extends React.Component {
           required: 'What\'s a good label for this?',
         },
       },
-      submitHandler: () => { this.handleSubmit(); },
+      submitHandler: () => { component.handleSubmit(component.form); },
     });
   }
 
-  handleSubmit = () => {
+  handleSubmit = (form) => {
     const method = this.props.setting ? 'admin.updateUserSetting' : 'admin.addUserSetting';
     const setting = {
       isGDPR: this.isGDPR.state.toggled,
-      key: this.keyName.value,
-      label: this.label.value.trim(),
-      type: this.type.value,
-      value: this.defaultValue.value,
+      key: form.keyName.value,
+      label: form.label.value.trim(),
+      type: form.type.value,
+      value: form.defaultValue.value,
     };
 
     if (this.props.setting) {
