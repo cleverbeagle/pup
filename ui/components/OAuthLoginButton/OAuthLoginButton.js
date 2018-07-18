@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { darken } from 'polished';
-import { Meteor } from 'meteor/meteor';
-import { Bert } from 'meteor/themeteorchef:bert';
+// import { Meteor } from 'meteor/meteor';
+// import { Bert } from 'meteor/themeteorchef:bert';
 import Icon from '../Icon';
-
+// TODO figure out how to use Meteor packages in components
+// Options include: pass in as props, pass in via context, or something else
 const StyledOAuthLoginButton = styled.button`
   display: block;
   width: 100%;
@@ -75,9 +76,9 @@ const handleLogin = (service, callback) => {
   }[service];
 
   return {
-    facebook: Meteor.loginWithFacebook,
-    github: Meteor.loginWithGithub,
-    google: Meteor.loginWithGoogle,
+    // facebook: Meteor.loginWithFacebook,
+    // github: Meteor.loginWithGithub,
+    // google: Meteor.loginWithGoogle,
   }[service](options, callback);
 };
 
@@ -99,7 +100,7 @@ const OAuthLoginButton = ({ service, callback }) => (
 
 OAuthLoginButton.defaultProps = {
   callback: (error) => {
-    if (error) Bert.alert(error.message, 'danger');
+    // if (error) Bert.alert(error.message, 'danger');
   },
 };
 

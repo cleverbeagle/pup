@@ -1,3 +1,4 @@
-import OAuthLoginButtons from './OAuthLoginButtons.js';
+import component from './component';
+import data from './data';
 
-export default OAuthLoginButtons;
+export default data(component);
