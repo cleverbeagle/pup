@@ -47,7 +47,7 @@ const PageHeader = ({ title, subtitle }) => (
   <StyledPageHeader>
     <StyledPageHeaderContainer>
       <h1>{title}</h1>
-      {subtitle ? <p>{subtitle}</p> : ''}
+      {subtitle && <p>{subtitle}</p>}
     </StyledPageHeaderContainer>
   </StyledPageHeader>
 );

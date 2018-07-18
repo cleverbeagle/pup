@@ -53,7 +53,7 @@ class AdminUser extends React.Component {
           <Breadcrumb.Item active>{user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username}</Breadcrumb.Item>
         </Breadcrumb>
         <AdminUserHeader className="page-header">
-          {user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username} {user.service !== 'password' ? <span className={`label label-${user.service}`}>{user.service}</span> : ''}
+          {user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username} {user.service !== 'password' && <span className={`label label-${user.service}`}>{user.service}</span>}
         </AdminUserHeader>
         <AdminUserTabs animation={false} activeKey={this.state.activeTab} onSelect={activeTab => this.setState({ activeTab })} id="admin-user-tabs">
           <Tab eventKey="profile" title="Profile">
@@ -61,7 +61,7 @@ class AdminUser extends React.Component {
           </Tab>
           <Tab eventKey="settings" title="Settings">
             { /* Manually check the activeTab value to ensure we refetch settings on re-render of UserSettings */ }
-            {this.state.activeTab === 'settings' ? <UserSettings isAdmin userId={user._id} /> : ''}
+            {this.state.activeTab === 'settings' && <UserSettings isAdmin userId={user._id} />}
           </Tab>
         </AdminUserTabs>
       </div>

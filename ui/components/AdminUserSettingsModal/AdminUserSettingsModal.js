@@ -148,13 +148,13 @@ class AdminUserSettingsModal extends React.Component {
               </Col>
               <Col xs={12} sm={6}>
                 <ControlLabel>Default Value</ControlLabel>
-                {this.state.settingType === 'boolean' ? (
+                {this.state.settingType === 'boolean' &&
                   <select name="defaultValue" value={this.state.value} onChange={event => this.setState({ value: event.target.value })} className="form-control">
                     <option value="true">true</option>
                     <option value="false">false</option>
                   </select>
-                ) : ''}
-                {this.state.settingType === 'number' ? (
+                }
+                {this.state.settingType === 'number' &&
                   <input
                     type="number"
                     name="defaultValue"
@@ -163,8 +163,8 @@ class AdminUserSettingsModal extends React.Component {
                     onChange={event => this.setState({ value: parseInt(event.target.value, 10) })}
                     placeholder={5}
                   />
-                ) : ''}
-                {this.state.settingType === 'string' ? (
+                }
+                {this.state.settingType === 'string' &&
                   <input
                     type="text"
                     name="defaultValue"
@@ -173,7 +173,7 @@ class AdminUserSettingsModal extends React.Component {
                     onChange={event => this.setState({ value: event.target.value })}
                     placeholder="Squirrel?!"
                   />
-                ) : ''}
+                }
               </Col>
             </Row>
           </Modal.Body>

@@ -30,10 +30,11 @@ const EmailMessage = styled.p`
 const OAuthLoginButtons = ({ services, emailMessage }) => (services.length ? (
   <StyledOAuthLoginButtons emailMessage={emailMessage}>
     {services.map(service => <OAuthLoginButton key={service} service={service} />)}
-    {emailMessage ?
+    {emailMessage &&
       <EmailMessage offset={emailMessage.offset}>
         {emailMessage.text}
-      </EmailMessage> : ''}
+      </EmailMessage>
+    }
   </StyledOAuthLoginButtons>
 ) : <div />);
 

@@ -47,10 +47,10 @@ const SEO = ({
 
     <meta name="fb:app_id" content="196001354345637" />
 
-    {published ? <meta name="article:published_time" content={published} /> : ''}
-    {updated ? <meta name="article:modified_time" content={updated} /> : ''}
-    {category ? <meta name="article:section" content={category} /> : ''}
-    {tags ? <meta name="article:tag" content={tags} /> : ''}
+    {published && <meta name="article:published_time" content={published} />}
+    {updated && <meta name="article:modified_time" content={updated} />}
+    {category && <meta name="article:section" content={category} />}
+    {tags && <meta name="article:tag" content={tags} />}
   </Helmet>
 );
 

@@ -118,7 +118,7 @@ class AdminUserProfile extends React.Component {
     return (
       <div className="AdminUserProfile">
         <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
-          {!loading ? (
+          {!loading &&
             <Row>
               <Col xs={12} md={6}>
                 {user && user.profile && user.profile.name &&
@@ -243,7 +243,7 @@ class AdminUserProfile extends React.Component {
                 }
               </Col>
             </Row>
-          ) : ''}
+          }
         </form>
       </div>
     );

@@ -165,7 +165,7 @@ class AdminUsers extends React.Component {
     return (
       <div className="AdminUsers">
         <AdminUsersHeader className="page-header clearfix">
-          <h4 className="pull-left">Users {this.state.total ? <span>{this.state.total}</span> : ''}</h4>
+          <h4 className="pull-left">Users {this.state.total && <span>{this.state.total}</span>}</h4>
           <SearchInput
             placeholder="Search users..."
             onKeyUp={this.handleSearch}
@@ -177,11 +177,13 @@ class AdminUsers extends React.Component {
           }) => (
             <StyledListGroupItem key={_id}>
               <Link to={`/admin/users/${_id}`} />
-              <p>{profile ? `${profile.name.first} ${profile.name.last}` : username } <span>{emails[0].address}</span> {service !== 'password' ? <span className={`label label-${service}`}>{service}</span> : ''}</p>
+              <p>{profile ? `${profile.name.first} ${profile.name.last}` : username } <span>{emails[0].address}</span> {service !== 'password' && <span className={`label label-${service}`}>{service}</span>}</p>
             </StyledListGroupItem>
           ))}
         </StyledListGroup>
-        {this.state.total && !this.state.searching && this.state.total > this.state.usersPerPage ? this.renderPagination(this.state.total, this.state.usersPerPage, this.state.currentPage) : ''}
+        {this.state.total && !this.state.searching && this.state.total > this.state.usersPerPage &&
+          this.renderPagination(this.state.total, this.state.usersPerPage, this.state.currentPage)
+        }
       </div>
     );
   }

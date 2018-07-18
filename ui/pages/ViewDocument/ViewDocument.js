@@ -36,7 +36,7 @@ const renderDocument = (doc, match, history) => (doc ? (
     />
     <div className="page-header clearfix">
       <h4 className="pull-left">{ doc && doc.title }</h4>
-      {Meteor.isClient && Meteor.userId() ? (
+      {Meteor.isClient && Meteor.userId() &&
         <ButtonToolbar className="pull-right">
           <ButtonGroup bsSize="small">
             <Button onClick={() => history.push(`${match.url}/edit`)}>Edit</Button>
@@ -45,7 +45,7 @@ const renderDocument = (doc, match, history) => (doc ? (
             </Button>
           </ButtonGroup>
         </ButtonToolbar>
-      ) : ''}
+      }
     </div>
     { doc && doc.body }
   </div>

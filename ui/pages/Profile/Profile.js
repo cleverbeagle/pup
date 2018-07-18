@@ -284,7 +284,7 @@ class Profile extends React.Component {
           </Tab>
           <Tab eventKey="settings" title="Settings">
             { /* Manually check the activeTab value to ensure we refetch settings on re-render of UserSettings */ }
-            {this.state.activeTab === 'settings' ? <UserSettings /> : ''}
+            {this.state.activeTab === 'settings' && <UserSettings />}
           </Tab>
         </Tabs>
       </StyledProfile>
