@@ -1,11 +1,9 @@
-/* eslint-disable no-underscore-dangle */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import FileSaver from 'file-saver';
 import base64ToBlob from 'b64-to-blob';
 import { Row, Col, FormGroup, ControlLabel, Button, Tabs, Tab } from 'react-bootstrap';
-import _ from 'lodash';
+import { capitalize } from 'lodash';
 import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
@@ -124,9 +122,7 @@ class Profile extends React.Component {
     });
   }
 
-  getUserType = (user) => {
-    return user.service === 'password' ? 'password' : 'oauth';
-  }
+  getUserType = user => (user.service === 'password' ? 'password' : 'oauth');
 
   handleExportData = (event) => {
     event.preventDefault();
@@ -182,91 +178,88 @@ class Profile extends React.Component {
     }
   }
 
-  renderOAuthUser = (loading, user) => {
-    return !loading ? (
-      <div className="OAuthProfile">
-        <div key={user.service} className={`LoggedInWith ${user.service}`}>
-          <img src={`/${user.service}.svg`} alt={user.service} />
-          <p>{`You're logged in with ${_.capitalize(user.service)} using the email address ${user.emails[0].address}.`}</p>
-          <Button
-            className={`btn btn-${user.service}`}
-            href={{
-              facebook: 'https://www.facebook.com/settings',
-              google: 'https://myaccount.google.com/privacy#personalinfo',
-              github: 'https://github.com/settings/profile',
-            }[user.service]}
-            target="_blank"
-          >
-            Edit Profile on {_.capitalize(user.service)}
-          </Button>
-        </div>
-      </div>) : <div />;
-  }
-
-  renderPasswordUser = (loading, user) => {
-    return !loading ? (
-      <div>
-        <Row>
-          <Col xs={6}>
-            <FormGroup>
-              <ControlLabel>First Name</ControlLabel>
-              <input
-                type="text"
-                name="firstName"
-                defaultValue={user.profile.name.first}
-                className="form-control"
-              />
-            </FormGroup>
-          </Col>
-          <Col xs={6}>
-            <FormGroup>
-              <ControlLabel>Last Name</ControlLabel>
-              <input
-                type="text"
-                name="lastName"
-                defaultValue={user.profile.name.last}
-                className="form-control"
-              />
-            </FormGroup>
-          </Col>
-        </Row>
-        <FormGroup>
-          <ControlLabel>Email Address</ControlLabel>
-          <input
-            type="email"
-            name="emailAddress"
-            defaultValue={user.emails[0].address}
-            className="form-control"
-          />
-        </FormGroup>
-        <FormGroup>
-          <ControlLabel>Current Password</ControlLabel>
-          <input
-            type="password"
-            name="currentPassword"
-            className="form-control"
-          />
-        </FormGroup>
-        <FormGroup>
-          <ControlLabel>New Password</ControlLabel>
-          <input
-            type="password"
-            name="newPassword"
-            className="form-control"
-          />
-          <InputHint>Use at least six characters.</InputHint>
-        </FormGroup>
-        <Button type="submit" bsStyle="success">Save Profile</Button>
+  renderOAuthUser = user => (
+    <div className="OAuthProfile">
+      <div key={user.service} className={`LoggedInWith ${user.service}`}>
+        <img src={`/${user.service}.svg`} alt={user.service} />
+        <p>{`You're logged in with ${capitalize(user.service)} using the email address ${user.emails[0].address}.`}</p>
+        <Button
+          className={`btn btn-${user.service}`}
+          href={{
+            facebook: 'https://www.facebook.com/settings',
+            google: 'https://myaccount.google.com/privacy#personalinfo',
+            github: 'https://github.com/settings/profile',
+          }[user.service]}
+          target="_blank"
+        >
+          Edit Profile on {capitalize(user.service)}
+        </Button>
       </div>
-    ) : <div />;
-  }
+    </div>
+  );
 
-  renderProfileForm = (loading, user) => {
-    return !loading ? ({
+  renderPasswordUser = user => (
+    <div>
+      <Row>
+        <Col xs={6}>
+          <FormGroup>
+            <ControlLabel>First Name</ControlLabel>
+            <input
+              type="text"
+              name="firstName"
+              defaultValue={user.profile.name.first}
+              className="form-control"
+            />
+          </FormGroup>
+        </Col>
+        <Col xs={6}>
+          <FormGroup>
+            <ControlLabel>Last Name</ControlLabel>
+            <input
+              type="text"
+              name="lastName"
+              defaultValue={user.profile.name.last}
+              className="form-control"
+            />
+          </FormGroup>
+        </Col>
+      </Row>
+      <FormGroup>
+        <ControlLabel>Email Address</ControlLabel>
+        <input
+          type="email"
+          name="emailAddress"
+          defaultValue={user.emails[0].address}
+          className="form-control"
+        />
+      </FormGroup>
+      <FormGroup>
+        <ControlLabel>Current Password</ControlLabel>
+        <input
+          type="password"
+          name="currentPassword"
+          className="form-control"
+        />
+      </FormGroup>
+      <FormGroup>
+        <ControlLabel>New Password</ControlLabel>
+        <input
+          type="password"
+          name="newPassword"
+          className="form-control"
+        />
+        <InputHint>Use at least six characters.</InputHint>
+      </FormGroup>
+      <Button type="submit" bsStyle="success">Save Profile</Button>
+    </div>
+  );
+
+  renderProfileForm = (loading, user) => (
+    !loading && ({
       password: this.renderPasswordUser,
       oauth: this.renderOAuthUser,
-    }[this.getUserType(user)])(loading, user) : <div />;
-  }
+    }[this.getUserType(user)])(user)
+  );
 
   render() {
     const { loading, user } = this.props;

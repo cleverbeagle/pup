@@ -6,11 +6,6 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import validate from '../../../modules/validate';
 
 class ResetPassword extends React.Component {
-  constructor(props) {
-    super(props);
-    autoBind(this);
-  }
-
   componentDidMount() {
     const component = this;
 

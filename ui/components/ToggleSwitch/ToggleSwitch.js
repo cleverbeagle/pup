@@ -46,7 +46,7 @@ const StyledToggleSwitch = styled.div`
 `;
 
 class ToggleSwitch extends React.Component {
-  state = { toggled: props.toggled };
+  state = { toggled: this.props.toggled };
 
   componentWillReceiveProps(nextProps) {
     this.setState({ toggled: nextProps.toggled });
@@ -81,6 +81,14 @@ ToggleSwitch.propTypes = {
   onLabel: PropTypes.string,
   offLabel: PropTypes.string,
   onToggle: PropTypes.func,
+};
+// TODO remove id
+ToggleSwitch.defaultProps = {
+  id: '',
+  toggled: false,
+  onLabel: '',
+  offLabel: '',
+  onToggle: () => {},
 };
 
 export default ToggleSwitch;

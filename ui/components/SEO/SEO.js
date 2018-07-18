@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { Meteor } from 'meteor/meteor';
-import { _ } from 'meteor/underscore';
+import { sample } from 'lodash';
 
 const seoImages = {
   facebook: [
@@ -29,19 +29,19 @@ const SEO = ({
     <meta name="description" content={description} />
     <meta itemProp="name" content={title} />
     <meta itemProp="description" content={description} />
-    <meta itemProp="image" content={(images && images.google) || seoImageURL(_.sample(seoImages.google))} />
+    <meta itemProp="image" content={(images && images.google) || seoImageURL(sample(seoImages.google))} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@clvrbgl" />
     <meta name="twitter:title" content={`${title} | Pup`} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:creator" content={`@${twitter}` || '@clvrbgl'} />
-    <meta name="twitter:image:src" content={(images && images.twitter) || seoImageURL(_.sample(seoImages.twitter))} />
+    <meta name="twitter:image:src" content={(images && images.twitter) || seoImageURL(sample(seoImages.twitter))} />
 
     <meta property="og:title" content={`${title} | Pup`} />
     <meta property="og:type" content={contentType} />
     <meta property="og:url" content={seoURL(path)} />
-    <meta property="og:image" content={(images && images.facebook) || seoImageURL(_.sample(seoImages.facebook))} />
+    <meta property="og:image" content={(images && images.facebook) || seoImageURL(sample(seoImages.facebook))} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Pup" />
 

@@ -53,36 +53,48 @@ class UserSettings extends React.Component {
     });
   }
 
-  renderSettingValue = (type, key, value, onChange) => {
-    return {
-      boolean: () => (<ToggleSwitch id={key} toggled={value} onToggle={(id, toggled) => onChange({ key, value: toggled })} />),
-      number: () => (<input type="number" className="form-control" value={value} onChange={event => onChange({ key, value: parseInt(event.target.value, 10) })} />),
-      string: () => (<input type="text" className="form-control" value={value} onChange={event => onChange({ key, value: event.target.value })} />),
-    }[type]();
-  }
+  renderSettingValue = (type, key, value, onChange) => (
+    {
+      boolean: () => (
+        <ToggleSwitch id={key} toggled={value} onToggle={(id, toggled) => onChange({ key, value: toggled })} />
+      ),
+      number: () => (
+        <input type="number" className="form-control" value={value} onChange={event => onChange({ key, value: parseInt(event.target.value, 10) })} />
+      ),
+      string: () => (
+        <input type="text" className="form-control" value={value} onChange={event => onChange({ key, value: event.target.value })} />
+      ),
+    }[type]()
+  )
 
   render() {
     const { loading, settings } = this.state;
     return (
       <div className="UserSettings">
-        {!loading ? (
+        {!loading && (
           <ListGroup>
-            {settings.length > 0 ? settings.map(({ _id, key, label, type, value }) => (
-              <Setting key={key} className="clearfix">
-                <p>{label}</p>
-                <div>
-                  {this.renderSettingValue(type, key, value, update => this.handleUpdateSetting({ ...update, _id }))}
-                </div>
-              </Setting>
-            )) : (
-              <BlankState
-                icon={{ style: 'solid', symbol: 'cogs' }}
-                title={`No settings to manage ${this.props.isAdmin ? 'for this user' : 'yet'}.`}
-                subtitle={`${this.props.isAdmin ? 'GDPR-specific settings intentionally excluded. ' : ''} When there are settings to manage, they'll appear here.`}
-              />
+            {settings.length > 0 ? settings.map(({
+                _id,
+                key,
+                label,
+                type,
+                value,
+              }) => (
+                <Setting key={key} className="clearfix">
+                  <p>{label}</p>
+                  <div>
+                    {this.renderSettingValue(type, key, value, update => this.handleUpdateSetting({ ...update, _id }))}
+                  </div>
+                </Setting>
+              )) : (
+                <BlankState
+                  icon={{ style: 'solid', symbol: 'cogs' }}
+                  title={`No settings to manage ${this.props.isAdmin ? 'for this user' : 'yet'}.`}
+                  subtitle={`${this.props.isAdmin ? 'GDPR-specific settings intentionally excluded. ' : ''} When there are settings to manage, they'll appear here.`}
+                />
             )}
           </ListGroup>
-        ) : ''}
+        )}
       </div>
     );
   }

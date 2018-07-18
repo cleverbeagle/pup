@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Modal, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
@@ -48,7 +47,9 @@ class GDPRConsentModal extends React.Component {
             <h4>GDPR Consent</h4>
           </Modal.Header>
           <Modal.Body>
-            <p>In cooperation with the European Union's (EU) <a href="https://www.eugdpr.org/" target="_blank">General Data Protection Regulation</a> (GDPR), we need to obtain your consent for how we make use of your data. Please review each of the settings below to customize your experience.</p>
+            <p>
+              In cooperation with the European Union&apos;s (EU) <a href="https://www.eugdpr.org/" target="_blank" rel="noopener noreferrer">General Data Protection Regulation</a> (GDPR), we need to obtain your consent for how we make use of your data. Please review each of the settings below to customize your experience.
+            </p>
             <UserSettings gdpr />
           </Modal.Body>
           <Modal.Footer>
@@ -58,16 +59,14 @@ class GDPRConsentModal extends React.Component {
                 this.handleSaveSettings();
                 this.setState({ show: false });
               }}
-            >Save Settings</Button>
+            >
+              Save Settings
+            </Button>
           </Modal.Footer>
         </StyledGDPRConsentModal>
       </div>
     );
   }
 }
-
-GDPRConsentModal.propTypes = {
-  // prop: PropTypes.string.isRequired,
-};
 
 export default GDPRConsentModal;

@@ -5,6 +5,8 @@
     "start": "meteor --settings settings-development.json",
     "staging": "DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy <staging-subdomain>.meteorapp.com --settings settings-staging.json",
     "production": "DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy <production-subdomain>.meteorapp.com --settings settings-production.json",
+    "lint:all": "eslint .",
+    "lint:file": "eslint",
     "test": "jest"
   },
   "dependencies": {
@@ -42,12 +44,14 @@
     "styled-components": "^3.2.6"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.6",
     "babel-jest": "^22.4.3",
     "babel-plugin-lodash": "^3.3.2",
     "enzyme": "^3.3.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-import-resolver-meteor": "^0.4.0",
+    "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-meteor": "^4.2.0",
@@ -55,12 +59,14 @@
     "jest": "^22.4.3"
   },
   "eslintConfig": {
+    "parser": "babel-eslint",
     "parserOptions": {
       "ecmaFeatures": {
         "jsx": true
       }
     },
     "plugins": [
+      "babel",
       "meteor",
       "react"
     ],

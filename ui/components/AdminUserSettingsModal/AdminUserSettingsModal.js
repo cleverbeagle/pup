@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button, Row, Col, FormGroup, ControlLabel } from 'react-bootstrap';
-import _ from 'lodash';
+import { camelCase } from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import InputHint from '../InputHint';
@@ -86,7 +86,7 @@ class AdminUserSettingsModal extends React.Component {
     event.persist();
     this.setState({ keyName: event.target.value }, () => {
       delay(() => {
-        this.setState({ keyName: _.camelCase(event.target.value.trim()) });
+        this.setState({ keyName: camelCase(event.target.value.trim()) });
       }, 300);
     });
   }
@@ -109,7 +109,6 @@ class AdminUserSettingsModal extends React.Component {
                     name="keyName"
                     className="form-control"
                     value={this.state.keyName}
-                    ref={keyName => (this.keyName = keyName)}
                     onChange={this.handleSetKeyName}
                     placeholder="canWeSendYouMarketingEmails"
                   />
@@ -131,7 +130,6 @@ class AdminUserSettingsModal extends React.Component {
               <input
                 type="text"
                 name="label"
-                ref={label => (this.label = label)}
                 className="form-control"
                 value={this.state.label}
                 onChange={event => this.setState({ label: event.target.value })}
@@ -142,7 +140,7 @@ class AdminUserSettingsModal extends React.Component {
             <Row>
               <Col xs={12} sm={6}>
                 <ControlLabel>Type</ControlLabel>
-                <select name="type" ref={type => (this.type = type)} value={this.state.settingType} onChange={(event) => this.setState({ settingType: event.target.value })} className="form-control">
+                <select name="type" value={this.state.settingType} onChange={event => this.setState({ settingType: event.target.value })} className="form-control">
                   <option value="boolean">Boolean (true/false)</option>
                   <option value="number">Number</option>
                   <option value="string">String</option>
@@ -151,7 +149,7 @@ class AdminUserSettingsModal extends React.Component {
               <Col xs={12} sm={6}>
                 <ControlLabel>Default Value</ControlLabel>
                 {this.state.settingType === 'boolean' ? (
-                  <select name="defaultValue" value={this.state.value} onChange={event => this.setState({ value: event.target.value })} ref={defaultValue => (this.defaultValue = defaultValue)} className="form-control">
+                  <select name="defaultValue" value={this.state.value} onChange={event => this.setState({ value: event.target.value })} className="form-control">
                     <option value="true">true</option>
                     <option value="false">false</option>
                   </select>
@@ -160,7 +158,6 @@ class AdminUserSettingsModal extends React.Component {
                   <input
                     type="number"
                     name="defaultValue"
-                    ref={defaultValue => (this.defaultValue = defaultValue)}
                     className="form-control"
                     value={this.state.value}
                     onChange={event => this.setState({ value: parseInt(event.target.value, 10) })}
@@ -171,7 +168,6 @@ class AdminUserSettingsModal extends React.Component {
                   <input
                     type="text"
                     name="defaultValue"
-                    ref={defaultValue => (this.defaultValue = defaultValue)}
                     className="form-control"
                     value={this.state.value}
                     onChange={event => this.setState({ value: event.target.value })}

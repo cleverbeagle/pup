@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, ControlLabel, FormGroup, ListGroup, ListGroupItem, Checkbox, InputGroup, Button } from 'react-bootstrap';
-import _ from 'lodash';
+import { capitalize } from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { Random } from 'meteor/random';
@@ -188,7 +188,7 @@ class AdminUserProfile extends React.Component {
                         {roles.map(({ _id, name, inRole }) => (
                           <ListGroupItem key={_id}>
                             <Checkbox name="role" value={name} defaultChecked={inRole} inline>
-                              {_.capitalize(name)}
+                              {capitalize(name)}
                             </Checkbox>
                           </ListGroupItem>
                         ))}
