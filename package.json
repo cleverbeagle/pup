@@ -7,7 +7,9 @@
     "production": "DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy <production-subdomain>.meteorapp.com --settings settings-production.json",
     "lint:all": "eslint .",
     "lint:file": "eslint",
-    "test": "jest"
+    "test": "jest",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.44",
@@ -56,7 +58,12 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-meteor": "^4.2.0",
     "eslint-plugin-react": "^7.7.0",
-    "jest": "^22.4.3"
+    "jest": "^22.4.3",
+    "babel-root-slash-import": "^1.1.0",
+    "@storybook/react": "^3.4.8",
+    "@storybook/addon-actions": "^3.4.8",
+    "@storybook/addon-links": "^3.4.8",
+    "@storybook/addons": "^3.4.8"
   },
   "eslintConfig": {
     "parser": "babel-eslint",
