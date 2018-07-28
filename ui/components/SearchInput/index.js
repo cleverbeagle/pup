@@ -1,25 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import Icon from '../Icon';
-
-const StyledSearchInput = styled.div`
-  position: relative;
-
-  i {
-    position: absolute;
-    left: 12px;
-    top: 10px;
-    color: var(--gray-light);
-  }
-
-  .form-control {
-    padding-left: 30px;
-  }
-`;
+import Styles from './styles';
 
 const SearchInput = ({ placeholder, onKeyUp }) => (
-  <StyledSearchInput className="SearchInput">
+  <Styles.SearchInput className="SearchInput">
     <Icon iconStyle="solid" icon="search" />
     <input
       type="text"
@@ -28,7 +13,7 @@ const SearchInput = ({ placeholder, onKeyUp }) => (
       placeholder={placeholder}
       onKeyUp={onKeyUp}
     />
-  </StyledSearchInput>
+  </Styles.SearchInput>
 );
 
 SearchInput.defaultProps = {

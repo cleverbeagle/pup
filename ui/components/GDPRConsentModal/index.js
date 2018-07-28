@@ -1,19 +1,9 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import styled from 'styled-components';
+import { Button, Modal } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import UserSettings from '../UserSettings';
-
-const StyledGDPRConsentModal = styled(Modal)`
-  .modal-body > p {
-    margin-bottom: 15px;
-  }
-
-  .list-group {
-    margin-bottom: 0;
-  }
-`;
+import Styles from './styles';
 
 class GDPRConsentModal extends React.Component {
   state = { show: false };
@@ -42,7 +32,7 @@ class GDPRConsentModal extends React.Component {
   render() {
     return (
       <div className="GDPRConsentModal">
-        <StyledGDPRConsentModal backdrop="static" show={this.state.show} onHide={() => this.setState({ show: false })}>
+        <Styles.GDPRConsentModal backdrop="static" show={this.state.show} onHide={() => this.setState({ show: false })}>
           <Modal.Header>
             <h4>GDPR Consent</h4>
           </Modal.Header>
@@ -63,7 +53,7 @@ class GDPRConsentModal extends React.Component {
               Save Settings
             </Button>
           </Modal.Footer>
-        </StyledGDPRConsentModal>
+        </Styles.GDPRConsentModal>
       </div>
     );
   }

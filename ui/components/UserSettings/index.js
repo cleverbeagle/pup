@@ -1,27 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import styled from 'styled-components';
+import { ListGroup } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import ToggleSwitch from '../ToggleSwitch';
 import BlankState from '../BlankState';
-
-const Setting = styled(ListGroupItem)`
-  display: flexbox;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  p {
-    flex-grow: 1;
-    margin: 0 5px 0 0;
-  }
-
-  > div {
-    flex-grow: 0;
-  }
-`;
+import Styles from './styles';
 
 class UserSettings extends React.Component {
   state = { loading: true, settings: [] }
@@ -80,12 +64,12 @@ class UserSettings extends React.Component {
                 type,
                 value,
               }) => (
-                <Setting key={key} className="clearfix">
+                <Styles.Setting key={key} className="clearfix">
                   <p>{label}</p>
                   <div>
                     {this.renderSettingValue(type, key, value, update => this.handleUpdateSetting({ ...update, _id }))}
                   </div>
-                </Setting>
+                </Styles.Setting>
               )) : (
                 <BlankState
                   icon={{ style: 'solid', symbol: 'cogs' }}

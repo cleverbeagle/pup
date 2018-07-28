@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, ControlLabel, FormGroup, ListGroup, ListGroupItem, Checkbox, InputGroup, Button } from 'react-bootstrap';

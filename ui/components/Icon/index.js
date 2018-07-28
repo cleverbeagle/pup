@@ -8,7 +8,9 @@ const getIconStyle = iconStyle => ({
   brand: 'fab',
 }[iconStyle]);
 
-const Icon = ({ icon, iconStyle }) => (<i className={`${getIconStyle(iconStyle)} fa-${icon}`} />);
+const Icon = ({ icon, iconStyle }) => (
+  <i className={`${getIconStyle(iconStyle)} fa-${icon}`} />
+);
 
 Icon.defaultProps = {
   iconStyle: 'regular',
