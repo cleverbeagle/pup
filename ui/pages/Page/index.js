@@ -1,62 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
-import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import PageHeader from '../../components/PageHeader';
-
-const StyledPage = styled.div`
-  margin-bottom: 0px;
-
-  @include media screen and (min-width: 768px) {
-    margin-bottom: 30px;
-  }
-`;
-
-const Content = styled.div`
-  max-width: 700px;
-  margin: 0 auto;
-  font-size: 14px;
-  line-height: 22px;
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 30px 0 20px;
-  }
-
-  p {
-    margin-bottom: 20px;
-  }
-
-  > *:first-child {
-    margin-top: 0px;
-  }
-
-  > *:last-child {
-    margin-bottom: 0px;
-  }
-
-  @media screen and (min-width: 768px) {
-    max-width: 700px;
-    margin: 0 auto;
-    font-size: 16px;
-    line-height: 22px;
-  }
-`;
+import Styles from './styles';
 
 const Page = ({ title, subtitle, content }) => {
   if (Meteor.isClient) window.scrollTo(0, 0); // Force window to top of page.
   return (
-    <StyledPage>
+    <Styles.Page>
       <PageHeader title={title} subtitle={subtitle} />
-      <Content>
+      <Styles.Content>
         <ReactMarkdown source={content} />
-      </Content>
-    </StyledPage>
+      </Styles.Content>
+    </Styles.Page>
   );
 };
 

@@ -1,45 +1,14 @@
-/* eslint-disable no-underscore-dangle */
-
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Breadcrumb, Tabs, Tab } from 'react-bootstrap';
+import { Breadcrumb, Tab } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Roles } from 'meteor/alanning:roles';
 import AdminUserProfile from '../../components/AdminUserProfile';
 import UserSettings from '../../components/UserSettings';
 import getUserProfile from '../../../modules/getUserProfile';
-
-const AdminUserHeader = styled.h4`
-  .label {
-    position: relative;
-    top: -2px;
-    font-size: 10px;
-  }
-
-  .label-Facebook {
-    background: var(--facebook);
-    color: #fff;
-  }
-
-  .label-Google {
-    background: var(--google);
-    color: #fff;
-  }
-
-  .label-GitHub {
-    background: var(--github);
-    color: #fff;
-  }
-`;
-
-const AdminUserTabs = styled(Tabs)`
-  .nav.nav-tabs {
-    margin-bottom: 20px;
-  }
-`;
+import Styles from './styles';
 
 class AdminUser extends React.Component {
   state = { activeTab: 'profile' };
@@ -52,10 +21,10 @@ class AdminUser extends React.Component {
           <Breadcrumb.Item><Link to="/admin/users">Users</Link></Breadcrumb.Item>
           <Breadcrumb.Item active>{user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username}</Breadcrumb.Item>
         </Breadcrumb>
-        <AdminUserHeader className="page-header">
+        <Styles.AdminUserHeader className="page-header">
           {user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username} {user.service !== 'password' && <span className={`label label-${user.service}`}>{user.service}</span>}
-        </AdminUserHeader>
-        <AdminUserTabs animation={false} activeKey={this.state.activeTab} onSelect={activeTab => this.setState({ activeTab })} id="admin-user-tabs">
+        </Styles.AdminUserHeader>
+        <Styles.AdminUserTabs animation={false} activeKey={this.state.activeTab} onSelect={activeTab => this.setState({ activeTab })} id="admin-user-tabs">
           <Tab eventKey="profile" title="Profile">
             <AdminUserProfile {...this.props} />
           </Tab>
@@ -63,7 +32,7 @@ class AdminUser extends React.Component {
             { /* Manually check the activeTab value to ensure we refetch settings on re-render of UserSettings */ }
             {this.state.activeTab === 'settings' && <UserSettings isAdmin userId={user._id} />}
           </Tab>
-        </AdminUserTabs>
+        </Styles.AdminUserTabs>
       </div>
     ) : <div />;
   }

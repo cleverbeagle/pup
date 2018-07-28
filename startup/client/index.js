@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
-import App from '../../ui/layouts/App/App';
+import App from '../../ui/layouts/App';
 import mainReducer from '../../modules/redux/reducers';
 import '../both/api';
 
@@ -48,7 +48,7 @@ injectGlobal`
     position: relative;
     min-height: 100%;
   }
-  
+
   body {
     margin-bottom: 80px;
     margin: 0;

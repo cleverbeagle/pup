@@ -4,7 +4,6 @@ import FileSaver from 'file-saver';
 import base64ToBlob from 'b64-to-blob';
 import { Row, Col, FormGroup, ControlLabel, Button, Tabs, Tab } from 'react-bootstrap';
 import { capitalize } from 'lodash';
-import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -14,59 +13,7 @@ import AccountPageFooter from '../../components/AccountPageFooter';
 import UserSettings from '../../components/UserSettings';
 import validate from '../../../modules/validate';
 import getUserProfile from '../../../modules/getUserProfile';
-
-const StyledProfile = styled.div`
-  .nav.nav-tabs {
-    margin-bottom: 20px;
-  }
-
-  .LoggedInWith {
-    padding: 20px;
-    border-radius: 3px;
-    color: #fff;
-    border: 1px solid var(--gray-lighter);
-    text-align: center;
-
-    img {
-      width: 100px;
-    }
-
-    &.github img {
-      width: 125px;
-    }
-
-    p {
-      margin: 20px 0 0 0;
-      color: var(--gray-light);
-    }
-
-    .btn {
-      margin-top: 20px;
-
-      &.btn-facebook {
-        background: var(--facebook);
-        border-color: var(--facebook);
-        color: #fff;
-      }
-
-      &.btn-google {
-        background: var(--google);
-        border-color: var(--google);
-        color: #fff;
-      }
-
-      &.btn-github {
-        background: var(--github);
-        border-color: var(--github);
-        color: #fff;
-      }
-    }
-  }
-
-  .btn-export {
-    padding: 0;
-  }
-`;
+import Styles from './styles';
 
 class Profile extends React.Component {
   state = { activeTab: 'profile' };
@@ -264,7 +211,7 @@ class Profile extends React.Component {
   render() {
     const { loading, user } = this.props;
     return (
-      <StyledProfile>
+      <Styles.Profile>
         <h4 className="page-header">{user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username}</h4>
         <Tabs animation={false} activeKey={this.state.activeTab} onSelect={activeTab => this.setState({ activeTab })} id="admin-user-tabs">
           <Tab eventKey="profile" title="Profile">
@@ -287,7 +234,7 @@ class Profile extends React.Component {
             {this.state.activeTab === 'settings' && <UserSettings />}
           </Tab>
         </Tabs>
-      </StyledProfile>
+      </Styles.Profile>
     );
   }
 }

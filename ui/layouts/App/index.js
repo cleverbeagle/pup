@@ -4,7 +4,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Accounts } from 'meteor/accounts-base';
@@ -17,7 +16,7 @@ import Authenticated from '../../components/Authenticated';
 import Authorized from '../../components/Authorized';
 import Public from '../../components/Public';
 
-import Index from '../../pages/Index/Index';
+import Index from '../../pages/Index';
 
 import Documents from '../../pages/Documents';
 import NewDocument from '../../pages/NewDocument';
@@ -51,32 +50,7 @@ import { onLogin, onLogout } from '../../../modules/redux/actions';
 import withTrackerSsr from '../../../modules/withTrackerSsr';
 import getUserName from '../../../modules/getUserName';
 
-const StyledApp = styled.div`
-  visibility: ${props => (props.ready && !props.loading ? 'visible' : 'hidden')};
-
-  > .container {
-    margin-bottom: 80px;
-    padding-bottom: 20px;
-  }
-
-  .verify-email {
-    margin-bottom: 0;
-    padding: 0;
-    border-top: none;
-    border-bottom: 1px solid #e7e7e7;
-    background: #fff;
-    color: var(--gray-dark);
-    border-radius: 0;
-
-    p {
-      padding: 19px;
-    }
-
-    .btn {
-      padding: 0;
-    }
-  }
-`;
+import Styles from './styles';
 
 class App extends React.Component {
   state = { ready: false, afterLoginPath: null };
@@ -99,7 +73,7 @@ class App extends React.Component {
   render() {
     const { props, state, setAfterLoginPath } = this;
     return (
-      <StyledApp ready={this.state.ready} loading={props.loading}>
+      <Styles.App ready={this.state.ready} loading={props.loading}>
         {props.authenticated &&
           <VerifyEmailAlert
             userId={props.userId}
@@ -138,7 +112,7 @@ class App extends React.Component {
           </Switch>
         </Grid>
         <Footer />
-      </StyledApp>
+      </Styles.App>
     );
   }
 }

@@ -10,12 +10,7 @@ import DocumentsCollection from '../../../api/Documents';
 import { timeago, monthDayYearAtTime } from '../../../modules/dates';
 import Loading from '../../components/Loading';
 import BlankState from '../../components/BlankState';
-
-const StyledDocuments = styled.div`
-  table tbody tr td {
-    vertical-align: middle;
-  }
-`;
+import Styles from './styles';
 
 const handleRemove = (documentId) => {
   if (confirm('Are you sure? This is permanent!')) {
@@ -32,7 +27,7 @@ const handleRemove = (documentId) => {
 const Documents = ({
   loading, documents, match, history,
 }) => (!loading ? (
-  <StyledDocuments>
+  <Styles.Documents>
     <div className="page-header clearfix">
       <h4 className="pull-left">Documents</h4>
       <Link className="btn btn-success pull-right" to={`${match.url}/new`}>Add Document</Link>
@@ -87,7 +82,7 @@ const Documents = ({
           label: 'Create Your First Document',
         }}
       />}
-  </StyledDocuments>
+  </Styles.Documents>
 ) : <Loading />);
 
 Documents.propTypes = {
