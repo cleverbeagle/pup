@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 import { Helmet } from 'react-helmet';
 import { ServerStyleSheet } from 'styled-components';
 import { Meteor } from 'meteor/meteor';
-import App from '../../ui/layouts/App/App';
+import App from '../../ui/layouts/App';
 import mainReducer from '../../modules/redux/reducers';
 import parseUrlForSsr from '../../modules/parseUrlForSsr';
 
