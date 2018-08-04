@@ -1,0 +1,28 @@
+{
+  "name": "Pup - Boilerplate for Products",
+  "short_name": "Pup",
+  "start_url": "/",
+  "display": "fullscreen",
+  "background_color": "#000000",
+  "theme_color": "#4285F4",
+  "icons": [
+    {
+      "src": "/apple-touch-icon-precomposed.png",
+      "sizes": "36x36",
+      "type": "image/png",
+      "density": 1
+    },
+    {
+      "src": "/apple-touch-icon-precomposed.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "density": 1
+    },
+    {
+      "src": "/apple-touch-icon-precomposed.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "density": 1
+    }
+  ]
+}
