@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+
 const { productName } = Meteor.settings.public;
 
 const content = `
