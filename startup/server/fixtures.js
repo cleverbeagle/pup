@@ -2,7 +2,7 @@ import seeder from '@cleverbeagle/seeder';
 import { Meteor } from 'meteor/meteor';
 import Documents from '../../api/Documents/Documents';
 
-const documentsSeed = userId => ({
+const documentsSeed = (userId) => ({
   collection: Documents,
   environments: ['development', 'staging'],
   noLimit: true,
@@ -19,20 +19,22 @@ const documentsSeed = userId => ({
 seeder(Meteor.users, {
   environments: ['development', 'staging'],
   noLimit: true,
-  data: [{
-    email: 'admin@admin.com',
-    password: 'password',
-    profile: {
-      name: {
-        first: 'Andy',
-        last: 'Warhol',
+  data: [
+    {
+      email: 'admin@admin.com',
+      password: 'password',
+      profile: {
+        name: {
+          first: 'Andy',
+          last: 'Warhol',
+        },
+      },
+      roles: ['admin'],
+      data(userId) {
+        return documentsSeed(userId);
       },
     },
-    roles: ['admin'],
-    data(userId) {
-      return documentsSeed(userId);
-    },
-  }],
+  ],
   modelCount: 5,
   model(index, faker) {
     const userCount = index + 1;

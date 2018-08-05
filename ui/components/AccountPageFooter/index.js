@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import Styles from './styles';
 
 const AccountPageFooter = ({ children }) => (
-  <Styles.AccountPageFooter>
-    {children}
-  </Styles.AccountPageFooter>
+  <Styles.AccountPageFooter>{children}</Styles.AccountPageFooter>
 );
 
 AccountPageFooter.propTypes = {

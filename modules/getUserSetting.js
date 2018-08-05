@@ -6,11 +6,14 @@ export default (key, valueOnly, notCurrentUserId) => {
     return null;
   }
 
-  const userId = Meteor.isClient ? (notCurrentUserId || Meteor.userId()) : (notCurrentUserId || this.userId);
+  const userId = Meteor.isClient
+    ? notCurrentUserId || Meteor.userId()
+    : notCurrentUserId || this.userId;
 
   if (userId && key) {
     const user = Meteor.users.findOne({ _id: userId });
-    const foundSetting = user && user.settings ? user.settings.find(userSetting => userSetting.key === key) : null;
+    const foundSetting =
+      user && user.settings ? user.settings.find((userSetting) => userSetting.key === key) : null;
 
     if (foundSetting) {
       return valueOnly ? foundSetting.value : foundSetting;

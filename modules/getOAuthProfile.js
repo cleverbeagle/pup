@@ -1,4 +1,4 @@
-const parseGoogleData = service => ({
+const parseGoogleData = (service) => ({
   service: 'Google',
   email: service.email,
   name: {
@@ -19,7 +19,7 @@ const parseGithubData = (profile, service) => {
   };
 };
 
-const parseFacebookData = service => ({
+const parseFacebookData = (service) => ({
   service: 'Facebook',
   email: service.email,
   name: {

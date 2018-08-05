@@ -8,15 +8,18 @@ import getUserProfile from '../../modules/getUserProfile';
 import rateLimit from '../../modules/rateLimit';
 
 const fetchUsers = (query, projection) =>
-  Meteor.users.find(query, projection).fetch().map(user => getUserProfile(user));
+  Meteor.users
+    .find(query, projection)
+    .fetch()
+    .map((user) => getUserProfile(user));
 
 Meteor.methods({
-  'admin.fetchUsers': function adminFetchUsers(options) { // eslint-disable-line
+  'admin.fetchUsers': function adminFetchUsers(options) {
     check(options, Match.Maybe(Object));
 
     try {
       if (Roles.userIsInRole(this.userId, 'admin')) {
-        const skip = ((options.currentPage * options.perPage) - options.perPage);
+        const skip = options.currentPage * options.perPage - options.perPage;
         const searchRegex = options.search ? new RegExp(options.search, 'i') : null;
         const sort = {
           'profile.name.last': 1,
@@ -27,21 +30,26 @@ Meteor.methods({
 
         return {
           total: Meteor.users.find({ _id: { $ne: this.userId } }).count(),
-          users: options.search ? fetchUsers({
-            _id: { $ne: this.userId },
-            $or: [
-              { 'profile.name.first': searchRegex },
-              { 'profile.name.last': searchRegex },
-              { 'emails.address': searchRegex },
-              { 'services.facebook.first_name': searchRegex },
-              { 'services.facebook.last_name': searchRegex },
-              { 'services.facebook.email': searchRegex },
-              { 'services.google.name': searchRegex },
-              { 'services.google.email': searchRegex },
-              { 'services.github.email': searchRegex },
-              { 'services.github.username': searchRegex },
-            ],
-          }, { sort }) : fetchUsers({ _id: { $ne: this.userId } }, { limit: options.perPage, skip, sort }),
+          users: options.search
+            ? fetchUsers(
+                {
+                  _id: { $ne: this.userId },
+                  $or: [
+                    { 'profile.name.first': searchRegex },
+                    { 'profile.name.last': searchRegex },
+                    { 'emails.address': searchRegex },
+                    { 'services.facebook.first_name': searchRegex },
+                    { 'services.facebook.last_name': searchRegex },
+                    { 'services.facebook.email': searchRegex },
+                    { 'services.google.name': searchRegex },
+                    { 'services.google.email': searchRegex },
+                    { 'services.github.email': searchRegex },
+                    { 'services.github.username': searchRegex },
+                  ],
+                },
+                { sort },
+              )
+            : fetchUsers({ _id: { $ne: this.userId } }, { limit: options.perPage, skip, sort }),
         };
       }
 
@@ -50,7 +58,8 @@ Meteor.methods({
       handleMethodException(exception);
     }
   },
-  'admin.createUser': function adminCreateUser(user) { // eslint-disable-line
+  'admin.createUser': function adminCreateUser(user) {
+    // eslint-disable-line
     check(user, {
       _id: Match.Optional(String),
       email: String,
@@ -81,7 +90,8 @@ Meteor.methods({
       handleMethodException(exception);
     }
   },
-  'admin.editUser': function adminEditUser(user) { // eslint-disable-line
+  'admin.editUser': function adminEditUser(user) {
+    // eslint-disable-line
     check(user, {
       _id: String,
       email: Match.Maybe(String),
@@ -117,7 +127,8 @@ Meteor.methods({
       handleMethodException(exception);
     }
   },
-  'admin.fetchUserSettings': function adminFetchUserSettings() { // eslint-disable-line
+  'admin.fetchUserSettings': function adminFetchUserSettings() {
+    // eslint-disable-line
     try {
       if (Roles.userIsInRole(this.userId, 'admin')) {
         return UserSettings.find({}, { sort: { key: 1 } }).fetch();
@@ -128,20 +139,27 @@ Meteor.methods({
       handleMethodException(exception);
     }
   },
-  'admin.addUserSetting': function adminAddUserSetting(setting) { // eslint-disable-line
+  'admin.addUserSetting': function adminAddUserSetting(setting) {
+    // eslint-disable-line
     check(setting, Object);
 
     try {
       if (Roles.userIsInRole(this.userId, 'admin')) {
         if (!UserSettings.findOne({ key: setting.key })) {
           const settingId = UserSettings.insert(setting);
-          const userIds = Meteor.users.find({}, { fields: { _id: 1 } }).fetch().map(({ _id }) => _id);
+          const userIds = Meteor.users
+            .find({}, { fields: { _id: 1 } })
+            .fetch()
+            .map(({ _id }) => _id);
           userIds.forEach((userId) => {
-            Meteor.users.update({ _id: userId }, {
-              $addToSet: {
-                settings: { _id: settingId, ...setting },
+            Meteor.users.update(
+              { _id: userId },
+              {
+                $addToSet: {
+                  settings: { _id: settingId, ...setting },
+                },
               },
-            });
+            );
           });
           return true;
         }
@@ -152,33 +170,37 @@ Meteor.methods({
       handleMethodException(exception);
     }
   },
-  'admin.updateUserSetting': function updateUserSetting(setting) { // eslint-disable-line
+  'admin.updateUserSetting': function updateUserSetting(setting) {
+    // eslint-disable-line
     check(setting, Object);
 
     try {
       if (Roles.userIsInRole(this.userId, 'admin')) {
         const settingToUpdate = { ...setting }; // Copy here because schema cleans value on 160.
-        return UserSettings.update({ _id: setting._id }, {
-          $set: setting,
-        }, () => {
-          const users = Meteor.users.find({}, { fields: { _id: 1, settings: 1 } }).fetch();
-          users.forEach(({ _id, settings }) => {
-            const userSettings = [...settings];
-            const userSettingToUpdate = userSettings.find(settingOnUser => settingOnUser._id === settingToUpdate._id); // eslint-disable-line
+        return UserSettings.update(
+          { _id: setting._id },
+          {
+            $set: setting,
+          },
+          () => {
+            const users = Meteor.users.find({}, { fields: { _id: 1, settings: 1 } }).fetch();
+            users.forEach(({ _id, settings }) => {
+              const userSettings = [...settings];
+              const userSettingToUpdate = userSettings.find(
+                (settingOnUser) => settingOnUser._id === settingToUpdate._id,
+              ); // eslint-disable-line
 
-            // Manually set individual fields in memory before writing back to user.
-            userSettingToUpdate.isGDPR = setting.isGDPR;
-            userSettingToUpdate.type = setting.type;
-            userSettingToUpdate.value = setting.value;
-            userSettingToUpdate.key = setting.key;
-            userSettingToUpdate.label = setting.label;
+              // Manually set individual fields in memory before writing back to user.
+              userSettingToUpdate.isGDPR = setting.isGDPR;
+              userSettingToUpdate.type = setting.type;
+              userSettingToUpdate.value = setting.value;
+              userSettingToUpdate.key = setting.key;
+              userSettingToUpdate.label = setting.label;
 
-            Meteor.users.update(
-              { _id },
-              { $set: { settings: userSettings } },
-            );
-          });
-        });
+              Meteor.users.update({ _id }, { $set: { settings: userSettings } });
+            });
+          },
+        );
       }
 
       throw new Meteor.Error('403', 'Sorry, you need to be an administrator to do this.');
@@ -186,7 +208,8 @@ Meteor.methods({
       handleMethodException(exception);
     }
   },
-  'admin.deleteUserSetting': function adminDeleteUserSetting(settingId) { // eslint-disable-line
+  'admin.deleteUserSetting': function adminDeleteUserSetting(settingId) {
+    // eslint-disable-line
     check(settingId, String);
 
     try {

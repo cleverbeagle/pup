@@ -33,10 +33,10 @@ class Signup extends React.Component {
       },
       messages: {
         firstName: {
-          required: 'What\'s your first name?',
+          required: "What's your first name?",
         },
         lastName: {
-          required: 'What\'s your last name?',
+          required: "What's your last name?",
         },
         emailAddress: {
           required: 'Need an email address here.',
@@ -47,32 +47,37 @@ class Signup extends React.Component {
           minlength: 'Please use at least six characters.',
         },
       },
-      submitHandler() { component.handleSubmit(component.form); },
+      submitHandler() {
+        component.handleSubmit(component.form);
+      },
     });
   }
 
   handleSubmit = (form) => {
     const { history } = this.props;
 
-    Accounts.createUser({
-      email: form.emailAddress.value,
-      password: form.password.value,
-      profile: {
-        name: {
-          first: form.firstName.value,
-          last: form.lastName.value,
+    Accounts.createUser(
+      {
+        email: form.emailAddress.value,
+        password: form.password.value,
+        profile: {
+          name: {
+            first: form.firstName.value,
+            last: form.lastName.value,
+          },
         },
       },
-    }, (error) => {
-      if (error) {
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Meteor.call('users.sendVerificationEmail');
-        Bert.alert('Welcome!', 'success');
-        history.push('/documents');
-      }
-    });
-  }
+      (error) => {
+        if (error) {
+          Bert.alert(error.reason, 'danger');
+        } else {
+          Meteor.call('users.sendVerificationEmail');
+          Bert.alert('Welcome!', 'success');
+          history.push('/documents');
+        }
+      },
+    );
+  };
 
   render() {
     return (
@@ -91,49 +96,37 @@ class Signup extends React.Component {
                 />
               </Col>
             </Row>
-            <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+            <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
               <Row>
                 <Col xs={6}>
                   <FormGroup>
                     <ControlLabel>First Name</ControlLabel>
-                    <input
-                      type="text"
-                      name="firstName"
-                      className="form-control"
-                    />
+                    <input type="text" name="firstName" className="form-control" />
                   </FormGroup>
                 </Col>
                 <Col xs={6}>
                   <FormGroup>
                     <ControlLabel>Last Name</ControlLabel>
-                    <input
-                      type="text"
-                      name="lastName"
-                      className="form-control"
-                    />
+                    <input type="text" name="lastName" className="form-control" />
                   </FormGroup>
                 </Col>
               </Row>
               <FormGroup>
                 <ControlLabel>Email Address</ControlLabel>
-                <input
-                  type="email"
-                  name="emailAddress"
-                  className="form-control"
-                />
+                <input type="email" name="emailAddress" className="form-control" />
               </FormGroup>
               <FormGroup>
                 <ControlLabel>Password</ControlLabel>
-                <input
-                  type="password"
-                  name="password"
-                  className="form-control"
-                />
+                <input type="password" name="password" className="form-control" />
                 <InputHint>Use at least six characters.</InputHint>
               </FormGroup>
-              <Button type="submit" bsStyle="success">Sign Up</Button>
+              <Button type="submit" bsStyle="success">
+                Sign Up
+              </Button>
               <AccountPageFooter>
-                <p>Already have an account? <Link to="/login">Log In</Link>.</p>
+                <p>
+                  Already have an account? <Link to="/login">Log In</Link>.
+                </p>
               </AccountPageFooter>
             </form>
           </Col>

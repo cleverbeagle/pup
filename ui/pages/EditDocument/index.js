@@ -6,12 +6,15 @@ import Documents from '../../../api/Documents';
 import DocumentEditor from '../../components/DocumentEditor';
 import NotFound from '../NotFound';
 
-const EditDocument = ({ doc, history }) => (doc ? (
-  <div className="EditDocument">
-    <h4 className="page-header">{`Editing "${doc.title}"`}</h4>
-    <DocumentEditor doc={doc} history={history} />
-  </div>
-) : <NotFound />);
+const EditDocument = ({ doc, history }) =>
+  doc ? (
+    <div className="EditDocument">
+      <h4 className="page-header">{`Editing "${doc.title}"`}</h4>
+      <DocumentEditor doc={doc} history={history} />
+    </div>
+  ) : (
+    <NotFound />
+  );
 
 EditDocument.defaultProps = {
   doc: null,

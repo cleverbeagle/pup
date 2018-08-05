@@ -18,9 +18,7 @@ class Authorized extends React.Component {
   }
 
   checkIfAuthorized = () => {
-    const {
-      loading, userId, userRoles, userIsInRoles, pathAfterFailure,
-    } = this.props;
+    const { loading, userId, userRoles, userIsInRoles, pathAfterFailure } = this.props;
 
     if (!userId) this.props.history.push(pathAfterFailure || '/');
 
@@ -33,20 +31,20 @@ class Authorized extends React.Component {
         if (!this.state.authorized) this.setState({ authorized: true }); // eslint-disable-line
       }
     }
-  }
+  };
 
   render() {
-    const {
-      component, path, exact, ...rest
-    } = this.props;
+    const { component, path, exact, ...rest } = this.props;
 
-    return (this.state.authorized ? (
+    return this.state.authorized ? (
       <Route
         path={path}
         exact={exact}
-        render={props => (React.createElement(component, { ...rest, ...props }))}
+        render={(props) => React.createElement(component, { ...rest, ...props })}
       />
-    ) : <div />);
+    ) : (
+      <div />
+    );
   }
 }
 
@@ -73,11 +71,17 @@ Authorized.propTypes = {
   pathAfterFailure: PropTypes.string,
 };
 
-export default withRouter(withTracker(({ allowedRoles, allowedGroup }) => { // eslint-disable-line
-  return Meteor.isClient ? {
-    loading: Meteor.isClient ? !Roles.subscription.ready() : true,
-    userId: Meteor.userId(),
-    userRoles: Roles.getRolesForUser(Meteor.userId()),
-    userIsInRoles: Roles.userIsInRole(Meteor.userId(), allowedRoles, allowedGroup),
-  } : {};
-})(Authorized));
+export default withRouter(
+  withTracker(
+    ({ allowedRoles, allowedGroup }) =>
+    // eslint-disable-line
+      Meteor.isClient
+        ? {
+            loading: Meteor.isClient ? !Roles.subscription.ready() : true,
+            userId: Meteor.userId(),
+            userRoles: Roles.getRolesForUser(Meteor.userId()),
+            userIsInRoles: Roles.userIsInRole(Meteor.userId(), allowedRoles, allowedGroup),
+          }
+        : {},
+  )(Authorized),
+);

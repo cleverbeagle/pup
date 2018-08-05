@@ -5,8 +5,8 @@
     "start": "meteor --settings settings-development.json",
     "staging": "DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy <staging-subdomain>.meteorapp.com --settings settings-staging.json",
     "production": "DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy <production-subdomain>.meteorapp.com --settings settings-production.json",
-    "lint:all": "eslint .",
-    "lint:file": "eslint",
+    "lint:all": "eslint --fix .",
+    "lint:file": "eslint --fix",
     "test": "jest"
   },
   "dependencies": {
@@ -50,13 +50,16 @@
     "enzyme": "^3.3.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-import-resolver-meteor": "^0.4.0",
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-meteor": "^4.2.0",
+    "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.7.0",
-    "jest": "^22.4.3"
+    "jest": "^22.4.3",
+    "prettier": "1.14.0"
   },
   "eslintConfig": {
     "parser": "babel-eslint",
@@ -68,10 +71,12 @@
     "plugins": [
       "babel",
       "meteor",
+      "prettier",
       "react"
     ],
     "extends": [
       "airbnb",
+      "plugin:prettier/recommended",
       "plugin:meteor/recommended",
       "plugin:react/recommended"
     ],
@@ -81,10 +86,23 @@
     "globals": {
       "expect": false
     },
+    "overrides": [
+      {
+        "files": ["api/**/methods.js"],
+        "rules": {
+          "consistent-return": 0
+        }
+      }
+    ],
     "rules": {
+      "arrow-parens": [
+        2,
+        "always"
+      ],
       "import/no-unresolved": 0,
       "import/no-extraneous-dependencies": 0,
       "import/extensions": 0,
+      "indent": 0,
       "jsx-a11y/anchor-is-valid": [
         "error",
         {
@@ -117,12 +135,28 @@
         }
       ],
       "class-methods-use-this": 0,
+      "prettier/prettier": 2,
       "react/jsx-filename-extension": 0,
       "react/forbid-prop-types": 0
     },
     "settings": {
       "import/resolver": "meteor"
     }
+  },
+  "prettier": {
+    "printWidth": 100,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "arrowParens": "always",
+    "rangeStart": 0,
+    "rangeEnd": "Infinity",
+    "parser": "babylon",
+    "proseWrap": "preserve"
   },
   "version": "1.5.0",
   "description": "A boilerplate for products.",

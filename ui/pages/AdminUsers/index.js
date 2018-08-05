@@ -22,18 +22,22 @@ class AdminUsers extends React.Component {
   }
 
   fetchUsers = (search) => {
-    Meteor.call('admin.fetchUsers', {
-      currentPage: this.state.currentPage,
-      perPage: this.state.usersPerPage,
-      search,
-    }, (error, response) => {
-      if (error) {
-        Bert.alert(error.reason, 'danger');
-      } else {
-        this.setState({ ...response });
-      }
-    });
-  }
+    Meteor.call(
+      'admin.fetchUsers',
+      {
+        currentPage: this.state.currentPage,
+        perPage: this.state.usersPerPage,
+        search,
+      },
+      (error, response) => {
+        if (error) {
+          Bert.alert(error.reason, 'danger');
+        } else {
+          this.setState({ ...response });
+        }
+      },
+    );
+  };
 
   handleSearch = (event) => {
     event.persist();
@@ -44,14 +48,15 @@ class AdminUsers extends React.Component {
       this.setState({ searching: false });
       this.fetchUsers();
     }
-  }
+  };
 
   renderPagination = (totalUsers, perPage, currentPage) => {
     const pages = [];
     const pagesToGenerate = Math.ceil(totalUsers / perPage);
 
     for (let pageNumber = 1; pageNumber <= pagesToGenerate; pageNumber += 1) {
-      pages.push( // eslint-disable-line
+      pages.push(
+        // eslint-disable-line
         <li
           role="button"
           key={`pagination_${pageNumber}`}
@@ -59,41 +64,41 @@ class AdminUsers extends React.Component {
           onClick={() => this.setState({ currentPage: pageNumber }, () => this.fetchUsers())}
           onKeyDown={() => this.setState({ currentPage: pageNumber }, () => this.fetchUsers())}
         >
-          <a href="#" role="button" onClick={event => event.preventDefault()}>{pageNumber}</a>
+          <a href="#" role="button" onClick={(event) => event.preventDefault()}>
+            {pageNumber}
+          </a>
         </li>,
       ); // eslint-disable-line
     }
 
-    return (
-      <ul className="pagination pagination-md">
-        {pages}
-      </ul>
-    );
-  }
+    return <ul className="pagination pagination-md">{pages}</ul>;
+  };
 
   render() {
     return (
       <div className="AdminUsers">
         <Styles.AdminUsersHeader className="page-header clearfix">
           <h4 className="pull-left">Users {this.state.total && <span>{this.state.total}</span>}</h4>
-          <SearchInput
-            placeholder="Search users..."
-            onKeyUp={this.handleSearch}
-          />
+          <SearchInput placeholder="Search users..." onKeyUp={this.handleSearch} />
         </Styles.AdminUsersHeader>
         <Styles.ListGroup>
-          {this.state.users.map(({
-            _id, emails, username, profile, service,
-          }) => (
+          {this.state.users.map(({ _id, emails, username, profile, service }) => (
             <Styles.ListGroupItem key={_id}>
               <Link to={`/admin/users/${_id}`} />
-              <p>{profile ? `${profile.name.first} ${profile.name.last}` : username } <span>{emails[0].address}</span> {service !== 'password' && <span className={`label label-${service}`}>{service}</span>}</p>
+              <p>
+                {profile ? `${profile.name.first} ${profile.name.last}` : username}{' '}
+                <span>{emails[0].address}</span>{' '}
+                {service !== 'password' && (
+                  <span className={`label label-${service}`}>{service}</span>
+                )}
+              </p>
             </Styles.ListGroupItem>
           ))}
         </Styles.ListGroup>
-        {this.state.total && !this.state.searching && this.state.total > this.state.usersPerPage &&
-          this.renderPagination(this.state.total, this.state.usersPerPage, this.state.currentPage)
-        }
+        {this.state.total &&
+          !this.state.searching &&
+          this.state.total > this.state.usersPerPage &&
+          this.renderPagination(this.state.total, this.state.usersPerPage, this.state.currentPage)}
       </div>
     );
   }

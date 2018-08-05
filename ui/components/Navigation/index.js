@@ -6,7 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import PublicNavigation from '../PublicNavigation';
 import AuthenticatedNavigation from '../AuthenticatedNavigation';
 
-const Navigation = props => (
+const Navigation = (props) => (
   <Navbar collapseOnSelect>
     <Navbar.Header>
       <Navbar.Brand>

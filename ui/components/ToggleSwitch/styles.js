@@ -3,11 +3,11 @@ import styled from 'styled-components';
 const ToggleSwitch = styled.div`
   display: inline-block;
   min-width: 58px;
-  background: ${props => (props.toggled ? 'var(--success)' : '#ccc')};
+  background: ${(props) => (props.toggled ? 'var(--success)' : '#ccc')};
   border-radius: 100px;
   transition: background 200ms ease, padding 200ms ease;
   text-align: left;
-  padding: ${props => (props.toggled ? '4px 10px 4px 4px' : '4px 4px 4px 10px')};
+  padding: ${(props) => (props.toggled ? '4px 10px 4px 4px' : '4px 4px 4px 10px')};
 
   &:hover {
     cursor: pointer;
@@ -37,7 +37,7 @@ const ToggleSwitch = styled.div`
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
-      color: ${props => (props.toggled ? 'var(--success)' : '#ccc')};
+      color: ${(props) => (props.toggled ? 'var(--success)' : '#ccc')};
     }
   }
 `;

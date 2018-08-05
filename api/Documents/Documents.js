@@ -26,14 +26,14 @@ Documents.schema = new SimpleSchema({
     type: String,
     label: 'The date this document was created.',
     autoValue() {
-      if (this.isInsert) return (new Date()).toISOString();
+      if (this.isInsert) return new Date().toISOString();
     },
   },
   updatedAt: {
     type: String,
     label: 'The date this document was last updated.',
     autoValue() {
-      if (this.isInsert || this.isUpdate) return (new Date()).toISOString();
+      if (this.isInsert || this.isUpdate) return new Date().toISOString();
     },
   },
   title: {

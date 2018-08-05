@@ -16,7 +16,7 @@ class ToggleSwitch extends React.Component {
     this.setState({ toggled }, () => {
       if (this.props.onToggle) this.props.onToggle(this.props.id, toggled);
     });
-  }
+  };
 
   render() {
     const { onLabel, offLabel } = this.props;
@@ -25,7 +25,9 @@ class ToggleSwitch extends React.Component {
       <Styles.ToggleSwitch className="ToggleSwitch" toggled={toggled} onClick={this.toggleSwitch}>
         <div className="handle">
           <span className="handle-label">
-            {toggled ? onLabel || <Icon iconStyle="solid" icon="check" /> : offLabel || <Icon iconStyle="solid" icon="remove" />}
+            {toggled
+              ? onLabel || <Icon iconStyle="solid" icon="check" />
+              : offLabel || <Icon iconStyle="solid" icon="remove" />}
           </span>
         </div>
       </Styles.ToggleSwitch>

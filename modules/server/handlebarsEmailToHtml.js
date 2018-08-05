@@ -8,7 +8,10 @@ export default (handlebarsMarkup, context, options) => {
     const template = handlebars.compile(handlebarsMarkup);
     const content = template(context);
     const {
-      productName, twitterUsername, facebookUsername, productAddress,
+      productName,
+      twitterUsername,
+      facebookUsername,
+      productAddress,
     } = Meteor.settings.public;
 
     if (options && options.noBaseTemplate) {
@@ -30,5 +33,7 @@ export default (handlebarsMarkup, context, options) => {
     return options && !options.inlineCss ? base(baseContext) : juice(base(baseContext));
   }
 
-  throw new Error('[Pup] Please pass Handlebars markup to compile and a context object with data mapping to the Handlebars expressions used in your template (e.g., {{expressionToReplace}}).');
+  throw new Error(
+    '[Pup] Please pass Handlebars markup to compile and a context object with data mapping to the Handlebars expressions used in your template (e.g., {{expressionToReplace}}).',
+  );
 };

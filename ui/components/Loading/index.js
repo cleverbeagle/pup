@@ -2,7 +2,13 @@ import React from 'react';
 
 const Loading = () => (
   <div className="Loading">
-    <svg width="44" height="44" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg" stroke="#4285F4">
+    <svg
+      width="44"
+      height="44"
+      viewBox="0 0 44 44"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="#4285F4"
+    >
       <g fill="none" fillRule="evenodd" strokeWidth="2">
         <circle cx="22" cy="22" r="1">
           <animate

@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const getIconStyle = iconStyle => ({
-  regular: 'far',
-  solid: 'fas',
-  light: 'fal',
-  brand: 'fab',
-}[iconStyle]);
+const getIconStyle = (iconStyle) =>
+  ({
+    regular: 'far',
+    solid: 'fas',
+    light: 'fal',
+    brand: 'fab',
+  }[iconStyle]);
 
-const Icon = ({ icon, iconStyle }) => (
-  <i className={`${getIconStyle(iconStyle)} fa-${icon}`} />
-);
+const Icon = ({ icon, iconStyle }) => <i className={`${getIconStyle(iconStyle)} fa-${icon}`} />;
 
 Icon.defaultProps = {
   iconStyle: 'regular',

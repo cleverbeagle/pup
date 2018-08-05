@@ -18,23 +18,41 @@ class AdminUser extends React.Component {
     return !loading && user ? (
       <div className="AdminUser">
         <Breadcrumb>
-          <Breadcrumb.Item><Link to="/admin/users">Users</Link></Breadcrumb.Item>
-          <Breadcrumb.Item active>{user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username}</Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link to="/admin/users">Users</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active>
+            {user && user.profile
+              ? `${user.profile.name.first} ${user.profile.name.last}`
+              : user.username}
+          </Breadcrumb.Item>
         </Breadcrumb>
         <Styles.AdminUserHeader className="page-header">
-          {user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username} {user.service !== 'password' && <span className={`label label-${user.service}`}>{user.service}</span>}
+          {user && user.profile
+            ? `${user.profile.name.first} ${user.profile.name.last}`
+            : user.username}{' '}
+          {user.service !== 'password' && (
+            <span className={`label label-${user.service}`}>{user.service}</span>
+          )}
         </Styles.AdminUserHeader>
-        <Styles.AdminUserTabs animation={false} activeKey={this.state.activeTab} onSelect={activeTab => this.setState({ activeTab })} id="admin-user-tabs">
+        <Styles.AdminUserTabs
+          animation={false}
+          activeKey={this.state.activeTab}
+          onSelect={(activeTab) => this.setState({ activeTab })}
+          id="admin-user-tabs"
+        >
           <Tab eventKey="profile" title="Profile">
             <AdminUserProfile {...this.props} />
           </Tab>
           <Tab eventKey="settings" title="Settings">
-            { /* Manually check the activeTab value to ensure we refetch settings on re-render of UserSettings */ }
+            {/* Manually check the activeTab value to ensure we refetch settings on re-render of UserSettings */}
             {this.state.activeTab === 'settings' && <UserSettings isAdmin userId={user._id} />}
           </Tab>
         </Styles.AdminUserTabs>
       </div>
-    ) : <div />;
+    ) : (
+      <div />
+    );
   }
 }
 
@@ -51,10 +69,11 @@ export default withTracker(({ match }) => {
 
     return {
       loading: !subscription.ready(),
-      roles: Roles.getAllRoles().map((role) => {
-        role.inRole = Roles.userIsInRole(userId, role.name); // eslint-disable-line
-        return role;
-      }) || [],
+      roles:
+        Roles.getAllRoles().map((role) => {
+          role.inRole = Roles.userIsInRole(userId, role.name); // eslint-disable-line
+          return role;
+        }) || [],
       user: getUserProfile(Meteor.users.findOne({ _id: userId })) || {},
     };
   }

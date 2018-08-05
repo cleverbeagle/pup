@@ -27,18 +27,27 @@ class GDPRConsentModal extends React.Component {
         Bert.alert('Settings saved!', 'success');
       }
     });
-  }
+  };
 
   render() {
     return (
       <div className="GDPRConsentModal">
-        <Styles.GDPRConsentModal backdrop="static" show={this.state.show} onHide={() => this.setState({ show: false })}>
+        <Styles.GDPRConsentModal
+          backdrop="static"
+          show={this.state.show}
+          onHide={() => this.setState({ show: false })}
+        >
           <Modal.Header>
             <h4>GDPR Consent</h4>
           </Modal.Header>
           <Modal.Body>
             <p>
-              In cooperation with the European Union&apos;s (EU) <a href="https://www.eugdpr.org/" target="_blank" rel="noopener noreferrer">General Data Protection Regulation</a> (GDPR), we need to obtain your consent for how we make use of your data. Please review each of the settings below to customize your experience.
+              In cooperation with the European Union&apos;s (EU){' '}
+              <a href="https://www.eugdpr.org/" target="_blank" rel="noopener noreferrer">
+                General Data Protection Regulation
+              </a>{' '}
+              (GDPR), we need to obtain your consent for how we make use of your data. Please review
+              each of the settings below to customize your experience.
             </p>
             <UserSettings gdpr />
           </Modal.Body>
