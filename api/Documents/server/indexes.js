@@ -1,4 +1,4 @@
 import createIndex from '../../../modules/server/createIndex';
-import Documents from '../Documents';
+import Documents from '../';
 
 createIndex(Documents, { owner: 1 });
