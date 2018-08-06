@@ -24,7 +24,9 @@ class RecoverPassword extends React.Component {
           email: 'Is this email address correct?',
         },
       },
-      submitHandler() { component.handleSubmit(component.form); },
+      submitHandler() {
+        component.handleSubmit(component.form);
+      },
     });
   }
 
@@ -40,7 +42,7 @@ class RecoverPassword extends React.Component {
         history.push('/login');
       }
     });
-  }
+  };
 
   render() {
     return (
@@ -51,18 +53,18 @@ class RecoverPassword extends React.Component {
             <Alert bsStyle="info">
               Enter your email address below to receive a link to reset your password.
             </Alert>
-            <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+            <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
               <FormGroup>
                 <ControlLabel>Email Address</ControlLabel>
-                <input
-                  type="email"
-                  name="emailAddress"
-                  className="form-control"
-                />
+                <input type="email" name="emailAddress" className="form-control" />
               </FormGroup>
-              <Button type="submit" bsStyle="success">Recover Password</Button>
+              <Button type="submit" bsStyle="success">
+                Recover Password
+              </Button>
               <AccountPageFooter>
-                <p>Remember your password? <Link to="/login">Log In</Link>.</p>
+                <p>
+                  Remember your password? <Link to="/login">Log In</Link>.
+                </p>
               </AccountPageFooter>
             </form>
           </Col>

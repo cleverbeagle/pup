@@ -5,22 +5,27 @@ import { Meteor } from 'meteor/meteor';
 import { sample } from 'lodash';
 
 const seoImages = {
-  facebook: [
-    'open-graph-facebook.png',
-  ],
-  twitter: [
-    'open-graph-twitter.png',
-  ],
-  google: [
-    'open-graph-google.png',
-  ],
+  facebook: ['open-graph-facebook.png'],
+  twitter: ['open-graph-twitter.png'],
+  google: ['open-graph-google.png'],
 };
 
-const seoImageURL = file => `https://s3-us-west-2.amazonaws.com/cleverbeagle-assets/graphics/${file}`;
-const seoURL = path => Meteor.absoluteUrl(path);
+const seoImageURL = (file) =>
+  `https://s3-us-west-2.amazonaws.com/cleverbeagle-assets/graphics/${file}`;
+const seoURL = (path) => Meteor.absoluteUrl(path);
 
 const SEO = ({
-  schema, title, description, images, path, contentType, published, updated, category, tags, twitter,
+  schema,
+  title,
+  description,
+  images,
+  path,
+  contentType,
+  published,
+  updated,
+  category,
+  tags,
+  twitter,
 }) => (
   <Helmet>
     <html lang="en" itemScope itemType={`http://schema.org/${schema}`} />
@@ -29,19 +34,28 @@ const SEO = ({
     <meta name="description" content={description} />
     <meta itemProp="name" content={title} />
     <meta itemProp="description" content={description} />
-    <meta itemProp="image" content={(images && images.google) || seoImageURL(sample(seoImages.google))} />
+    <meta
+      itemProp="image"
+      content={(images && images.google) || seoImageURL(sample(seoImages.google))}
+    />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@clvrbgl" />
     <meta name="twitter:title" content={`${title} | Pup`} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:creator" content={`@${twitter}` || '@clvrbgl'} />
-    <meta name="twitter:image:src" content={(images && images.twitter) || seoImageURL(sample(seoImages.twitter))} />
+    <meta
+      name="twitter:image:src"
+      content={(images && images.twitter) || seoImageURL(sample(seoImages.twitter))}
+    />
 
     <meta property="og:title" content={`${title} | Pup`} />
     <meta property="og:type" content={contentType} />
     <meta property="og:url" content={seoURL(path)} />
-    <meta property="og:image" content={(images && images.facebook) || seoImageURL(sample(seoImages.facebook))} />
+    <meta
+      property="og:image"
+      content={(images && images.facebook) || seoImageURL(sample(seoImages.facebook))}
+    />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Pup" />
 

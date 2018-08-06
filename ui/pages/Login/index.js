@@ -30,7 +30,9 @@ class Login extends React.Component {
           required: 'Need a password here.',
         },
       },
-      submitHandler() { component.handleSubmit(component.form); },
+      submitHandler() {
+        component.handleSubmit(component.form);
+      },
     });
   }
 
@@ -42,7 +44,7 @@ class Login extends React.Component {
         Bert.alert('Welcome back!', 'success');
       }
     });
-  }
+  };
 
   render() {
     return (
@@ -61,29 +63,27 @@ class Login extends React.Component {
                 />
               </Col>
             </Row>
-            <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+            <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
               <FormGroup>
                 <ControlLabel>Email Address</ControlLabel>
-                <input
-                  type="email"
-                  name="emailAddress"
-                  className="form-control"
-                />
+                <input type="email" name="emailAddress" className="form-control" />
               </FormGroup>
               <FormGroup>
                 <ControlLabel className="clearfix">
                   <span className="pull-left">Password</span>
-                  <Link className="pull-right" to="/recover-password">Forgot password?</Link>
+                  <Link className="pull-right" to="/recover-password">
+                    Forgot password?
+                  </Link>
                 </ControlLabel>
-                <input
-                  type="password"
-                  name="password"
-                  className="form-control"
-                />
+                <input type="password" name="password" className="form-control" />
               </FormGroup>
-              <Button type="submit" bsStyle="success">Log In</Button>
+              <Button type="submit" bsStyle="success">
+                Log In
+              </Button>
               <AccountPageFooter>
-                <p>{'Don\'t have an account?'} <Link to="/signup">Sign Up</Link>.</p>
+                <p>
+                  {"Don't have an account?"} <Link to="/signup">Sign Up</Link>.
+                </p>
               </AccountPageFooter>
             </form>
           </Col>

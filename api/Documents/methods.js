@@ -44,7 +44,7 @@ Meteor.methods({
         return documentId; // Return _id so we can redirect to document after update.
       }
 
-      throw new Meteor.Error('403', 'Sorry, pup. You\'re not allowed to edit this document.');
+      throw new Meteor.Error('403', "Sorry, pup. You're not allowed to edit this document.");
     } catch (exception) {
       handleMethodException(exception);
     }
@@ -59,7 +59,7 @@ Meteor.methods({
         return Documents.remove(documentId);
       }
 
-      throw new Meteor.Error('403', 'Sorry, pup. You\'re not allowed to delete this document.');
+      throw new Meteor.Error('403', "Sorry, pup. You're not allowed to delete this document.");
     } catch (exception) {
       handleMethodException(exception);
     }
@@ -67,11 +67,7 @@ Meteor.methods({
 });
 
 rateLimit({
-  methods: [
-    'documents.insert',
-    'documents.update',
-    'documents.remove',
-  ],
+  methods: ['documents.insert', 'documents.update', 'documents.remove'],
   limit: 5,
   timeRange: 1000,
 });

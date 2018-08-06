@@ -8,16 +8,30 @@ import Styles from './styles';
 const { productName, copyrightStartYear } = Meteor.settings.public;
 const copyrightYear = () => {
   const currentYear = year();
-  return currentYear === copyrightStartYear ? copyrightStartYear : `${copyrightStartYear}-${currentYear}`;
+  return currentYear === copyrightStartYear
+    ? copyrightStartYear
+    : `${copyrightStartYear}-${currentYear}`;
 };
 
 const Footer = () => (
   <Styles.Footer>
     <Grid>
-      <p className="pull-left">&copy; {copyrightYear()} {productName}</p>
+      <p className="pull-left">
+        &copy; {copyrightYear()} {productName}
+      </p>
       <ul className="pull-right">
-        <li><Link to="/terms">Terms<span className="hidden-xs"> of Service</span></Link></li>
-        <li><Link to="/privacy">Privacy<span className="hidden-xs"> Policy</span></Link></li>
+        <li>
+          <Link to="/terms">
+            Terms
+            <span className="hidden-xs"> of Service</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/privacy">
+            Privacy
+            <span className="hidden-xs"> Policy</span>
+          </Link>
+        </li>
       </ul>
     </Grid>
   </Styles.Footer>

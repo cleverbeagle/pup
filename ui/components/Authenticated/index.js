@@ -5,25 +5,29 @@ import { Meteor } from 'meteor/meteor';
 
 class Authenticated extends React.Component {
   componentWillMount() {
-    if (Meteor.isClient) this.props.setAfterLoginPath(`${window.location.pathname}${window.location.search}`);
+    if (Meteor.isClient)
+      this.props.setAfterLoginPath(`${window.location.pathname}${window.location.search}`);
   }
 
   render() {
-    const {
-      loggingIn, authenticated, component, path, exact, ...rest
-    } = this.props;
+    const { loggingIn, authenticated, component, path, exact, ...rest } = this.props;
 
     return (
       <Route
         path={path}
         exact={exact}
-        render={props => (
-          authenticated ?
-            (React.createElement(component, {
-              ...props, ...rest, loggingIn, authenticated,
-            })) :
-            (<Redirect to="/login" />)
-        )}
+        render={(props) =>
+          authenticated ? (
+            React.createElement(component, {
+              ...props,
+              ...rest,
+              loggingIn,
+              authenticated,
+            })
+          ) : (
+            <Redirect to="/login" />
+          )
+        }
       />
     );
   }

@@ -98,15 +98,17 @@ injectGlobal`
 
 const theme = {};
 
-Meteor.startup(() => hydrate(
-  <ThemeProvider theme={theme}>
-    <Provider store={store}>
-      <BrowserRouter>
-        <Switch>
-          <App />
-        </Switch>
-      </BrowserRouter>
-    </Provider>
-  </ThemeProvider>,
-  document.getElementById('react-root'),
-));
+Meteor.startup(() =>
+  hydrate(
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <App />
+          </Switch>
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>,
+    document.getElementById('react-root'),
+  ),
+);

@@ -49,10 +49,10 @@ class Profile extends React.Component {
       },
       messages: {
         firstName: {
-          required: 'What\'s your first name?',
+          required: "What's your first name?",
         },
         lastName: {
-          required: 'What\'s your last name?',
+          required: "What's your last name?",
         },
         emailAddress: {
           required: 'Need an email address here.',
@@ -65,11 +65,13 @@ class Profile extends React.Component {
           required: 'Need your new password if changing.',
         },
       },
-      submitHandler() { component.handleSubmit(component.form); },
+      submitHandler() {
+        component.handleSubmit(component.form);
+      },
     });
   }
 
-  getUserType = user => (user.service === 'password' ? 'password' : 'oauth');
+  getUserType = (user) => (user.service === 'password' ? 'password' : 'oauth');
 
   handleExportData = (event) => {
     event.preventDefault();
@@ -80,7 +82,7 @@ class Profile extends React.Component {
         FileSaver.saveAs(base64ToBlob(exportData), `${Meteor.userId()}.zip`);
       }
     });
-  }
+  };
 
   handleDeleteAccount = () => {
     if (confirm('Are you sure? This will permanently delete your account and all of its data.')) {
@@ -92,7 +94,7 @@ class Profile extends React.Component {
         }
       });
     }
-  }
+  };
 
   handleSubmit = (form) => {
     const profile = {
@@ -123,20 +125,26 @@ class Profile extends React.Component {
         }
       });
     }
-  }
+  };
 
-  renderOAuthUser = user => (
+  renderOAuthUser = (user) => (
     <div className="OAuthProfile">
       <div key={user.service} className={`LoggedInWith ${user.service}`}>
         <img src={`/${user.service}.svg`} alt={user.service} />
-        <p>{`You're logged in with ${capitalize(user.service)} using the email address ${user.emails[0].address}.`}</p>
+        <p>
+          {`You're logged in with ${capitalize(user.service)} using the email address ${
+            user.emails[0].address
+          }.`}
+        </p>
         <Button
           className={`btn btn-${user.service}`}
-          href={{
-            facebook: 'https://www.facebook.com/settings',
-            google: 'https://myaccount.google.com/privacy#personalinfo',
-            github: 'https://github.com/settings/profile',
-          }[user.service]}
+          href={
+            {
+              facebook: 'https://www.facebook.com/settings',
+              google: 'https://myaccount.google.com/privacy#personalinfo',
+              github: 'https://github.com/settings/profile',
+            }[user.service]
+          }
           target="_blank"
         >
           Edit Profile on {capitalize(user.service)}
@@ -145,7 +153,7 @@ class Profile extends React.Component {
     </div>
   );
 
-  renderPasswordUser = user => (
+  renderPasswordUser = (user) => (
     <div>
       <Row>
         <Col xs={6}>
@@ -182,55 +190,69 @@ class Profile extends React.Component {
       </FormGroup>
       <FormGroup>
         <ControlLabel>Current Password</ControlLabel>
-        <input
-          type="password"
-          name="currentPassword"
-          className="form-control"
-        />
+        <input type="password" name="currentPassword" className="form-control" />
       </FormGroup>
       <FormGroup>
         <ControlLabel>New Password</ControlLabel>
-        <input
-          type="password"
-          name="newPassword"
-          className="form-control"
-        />
+        <input type="password" name="newPassword" className="form-control" />
         <InputHint>Use at least six characters.</InputHint>
       </FormGroup>
-      <Button type="submit" bsStyle="success">Save Profile</Button>
+      <Button type="submit" bsStyle="success">
+        Save Profile
+      </Button>
     </div>
   );
 
-  renderProfileForm = (loading, user) => (
-    !loading && ({
+  renderProfileForm = (loading, user) =>
+    !loading &&
+    {
       password: this.renderPasswordUser,
       oauth: this.renderOAuthUser,
-    }[this.getUserType(user)])(user)
-  );
+    }[this.getUserType(user)](user);
 
   render() {
     const { loading, user } = this.props;
     return (
       <Styles.Profile>
-        <h4 className="page-header">{user && user.profile ? `${user.profile.name.first} ${user.profile.name.last}` : user.username}</h4>
-        <Tabs animation={false} activeKey={this.state.activeTab} onSelect={activeTab => this.setState({ activeTab })} id="admin-user-tabs">
+        <h4 className="page-header">
+          {user && user.profile
+            ? `${user.profile.name.first} ${user.profile.name.last}`
+            : user.username}
+        </h4>
+        <Tabs
+          animation={false}
+          activeKey={this.state.activeTab}
+          onSelect={(activeTab) => this.setState({ activeTab })}
+          id="admin-user-tabs"
+        >
           <Tab eventKey="profile" title="Profile">
             <Row>
               <Col xs={12} sm={6} md={4}>
-                <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+                <form
+                  ref={(form) => (this.form = form)}
+                  onSubmit={(event) => event.preventDefault()}
+                >
                   {this.renderProfileForm(loading, user)}
                 </form>
                 <AccountPageFooter>
-                  <p><Button bsStyle="link" className="btn-export" onClick={this.handleExportData}>Export my data</Button> – Download all of your documents as .txt files in a .zip</p>
+                  <p>
+                    <Button bsStyle="link" className="btn-export" onClick={this.handleExportData}>
+                      Export my data
+                    </Button>{' '}
+                    {'-'}
+                    Download all of your documents as .txt files in a .zip
+                  </p>
                 </AccountPageFooter>
                 <AccountPageFooter>
-                  <Button bsStyle="danger" onClick={this.handleDeleteAccount}>Delete My Account</Button>
+                  <Button bsStyle="danger" onClick={this.handleDeleteAccount}>
+                    Delete My Account
+                  </Button>
                 </AccountPageFooter>
               </Col>
             </Row>
           </Tab>
           <Tab eventKey="settings" title="Settings">
-            { /* Manually check the activeTab value to ensure we refetch settings on re-render of UserSettings */ }
+            {/* Manually check the activeTab value to ensure we refetch settings on re-render of UserSettings */}
             {this.state.activeTab === 'settings' && <UserSettings />}
           </Tab>
         </Tabs>

@@ -7,8 +7,7 @@ let action;
 
 const generateZip = (zip) => {
   try {
-    zip.generateAsync({ type: 'base64' })
-      .then(content => action.resolve(content));
+    zip.generateAsync({ type: 'base64' }).then((content) => action.resolve(content));
   } catch (exception) {
     throw new Error(`[exportData.generateZip] ${exception.message}`);
   }
@@ -44,6 +43,5 @@ const exportData = ({ userId }, promise) => {
   }
 };
 
-export default options =>
-  new Promise((resolve, reject) =>
-    exportData(options, { resolve, reject }));
+export default (options) =>
+  new Promise((resolve, reject) => exportData(options, { resolve, reject }));

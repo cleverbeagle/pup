@@ -26,9 +26,7 @@ Meteor.methods({
 });
 
 rateLimit({
-  methods: [
-    'oauth.verifyConfiguration',
-  ],
+  methods: ['oauth.verifyConfiguration'],
   limit: 5,
   timeRange: 1000,
 });

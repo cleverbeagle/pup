@@ -4,11 +4,7 @@ import content from './content';
 
 const Terms = () => (
   <div className="Terms">
-    <Page
-      title="Terms of Service"
-      subtitle="Last updated May 29th, 2017"
-      content={content}
-    />
+    <Page title="Terms of Service" subtitle="Last updated May 29th, 2017" content={content} />
   </div>
 );
 

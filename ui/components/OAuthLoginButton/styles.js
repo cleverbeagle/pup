@@ -20,21 +20,27 @@ const OAuthLoginButton = styled.button`
     background: var(--facebook);
     color: #fff;
 
-    &:hover { background: ${darken(0.05, '#3b5998')}; }
+    &:hover {
+      background: ${darken(0.05, '#3b5998')};
+    }
   }
 
   &.OAuthLoginButton-google {
     background: var(--google);
     color: #fff;
 
-    &:hover { background: ${darken(0.05, '#ea4335')}; }
+    &:hover {
+      background: ${darken(0.05, '#ea4335')};
+    }
   }
 
   &.OAuthLoginButton-github {
     background: var(--github);
     color: #fff;
 
-    &:hover { background: ${darken(0.05, '#333333')}; }
+    &:hover {
+      background: ${darken(0.05, '#333333')};
+    }
   }
 
   &:active {

@@ -22,8 +22,7 @@ export default (oauthUser) => {
       firstName,
       welcomeUrl: Meteor.absoluteUrl('documents'), // e.g., returns http://localhost:3000/documents
     },
-  })
-    .catch((error) => {
-      throw new Meteor.Error('500', `${error}`);
-    });
+  }).catch((error) => {
+    throw new Meteor.Error('500', `${error}`);
+  });
 };

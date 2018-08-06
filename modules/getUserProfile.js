@@ -1,9 +1,7 @@
 // TODO use in place of getOAuthProfile
-const parseGoogleData = service => ({
+const parseGoogleData = (service) => ({
   service: 'google',
-  emails: [
-    { address: service.email },
-  ],
+  emails: [{ address: service.email }],
   profile: {
     name: {
       first: service.given_name,
@@ -12,19 +10,15 @@ const parseGoogleData = service => ({
   },
 });
 
-const parseGithubData = service => ({
+const parseGithubData = (service) => ({
   service: 'github',
-  emails: [
-    { address: service.email },
-  ],
+  emails: [{ address: service.email }],
   username: service.username,
 });
 
-const parseFacebookData = service => ({
+const parseFacebookData = (service) => ({
   service: 'facebook',
-  emails: [
-    { address: service.email },
-  ],
+  emails: [{ address: service.email }],
   profile: {
     name: {
       first: service.first_name,
@@ -43,7 +37,9 @@ const getDataForService = (services) => {
 export default (user) => {
   if (user) {
     const isOAuth = !user.services ? false : !user.services.password; // If services do not exist, it's the current user.
-    const userData = isOAuth ? { _id: user._id, ...getDataForService(user.services) } : { service: 'password', ...user };
+    const userData = isOAuth
+      ? { _id: user._id, ...getDataForService(user.services) }
+      : { service: 'password', ...user };
     return userData;
   }
 

@@ -23,35 +23,39 @@ const handleRemove = (documentId, history) => {
   }
 };
 
-const renderDocument = (doc, match, history) => (doc ? (
-  <div className="ViewDocument">
-    <SEO
-      title={doc.title}
-      description={doc.body}
-      url={`documents/${doc._id}`}
-      contentType="article"
-      published={doc.createdAt}
-      updated={doc.updatedAt}
-      twitter="clvrbgl"
-    />
-    <div className="page-header clearfix">
-      <h4 className="pull-left">{ doc && doc.title }</h4>
-      {Meteor.isClient && Meteor.userId() &&
-        <ButtonToolbar className="pull-right">
-          <ButtonGroup bsSize="small">
-            <Button onClick={() => history.push(`${match.url}/edit`)}>Edit</Button>
-            <Button onClick={() => handleRemove(doc._id, history)} className="text-danger">
-              Delete
-            </Button>
-          </ButtonGroup>
-        </ButtonToolbar>
-      }
+const renderDocument = (doc, match, history) =>
+  doc ? (
+    <div className="ViewDocument">
+      <SEO
+        title={doc.title}
+        description={doc.body}
+        url={`documents/${doc._id}`}
+        contentType="article"
+        published={doc.createdAt}
+        updated={doc.updatedAt}
+        twitter="clvrbgl"
+      />
+      <div className="page-header clearfix">
+        <h4 className="pull-left">{doc && doc.title}</h4>
+        {Meteor.isClient &&
+          Meteor.userId() && (
+            <ButtonToolbar className="pull-right">
+              <ButtonGroup bsSize="small">
+                <Button onClick={() => history.push(`${match.url}/edit`)}>Edit</Button>
+                <Button onClick={() => handleRemove(doc._id, history)} className="text-danger">
+                  Delete
+                </Button>
+              </ButtonGroup>
+            </ButtonToolbar>
+          )}
+      </div>
+      {doc && doc.body}
     </div>
-    { doc && doc.body }
-  </div>
-) : <NotFound />);
+  ) : (
+    <NotFound />
+  );
 
-const ViewDocument = ({ doc, match, history }) => (renderDocument(doc, match, history));
+const ViewDocument = ({ doc, match, history }) => renderDocument(doc, match, history);
 
 ViewDocument.defaultProps = {
   doc: null,
@@ -64,7 +68,7 @@ ViewDocument.propTypes = {
 };
 
 export default compose(
-  connect(state => ({ ...state })),
+  connect((state) => ({ ...state })),
   withTracker(({ match }) => {
     const documentId = match.params._id;
     if (Meteor.isClient) Meteor.subscribe('documents.view', documentId);

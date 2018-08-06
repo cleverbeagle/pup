@@ -29,15 +29,15 @@ const ListGroupItem = styled(BListGroupItem)`
   overflow: hidden;
 
   &:after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     width: 75px;
     display: block;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(255,255,255,1) 100%);
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 0) 0%, rgba(255, 255, 255, 1) 100%);
   }
 
   &:hover {

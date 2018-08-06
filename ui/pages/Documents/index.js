@@ -23,66 +23,66 @@ const handleRemove = (documentId) => {
   }
 };
 
-const Documents = ({
-  loading, documents, match, history,
-}) => (!loading ? (
-  <Styles.Documents>
-    <div className="page-header clearfix">
-      <h4 className="pull-left">Documents</h4>
-      <Link className="btn btn-success pull-right" to={`${match.url}/new`}>Add Document</Link>
-    </div>
-    {documents.length ?
-      <Table responsive>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Last Updated</th>
-            <th>Created</th>
-            <th />
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {documents.map(({
-            _id, title, createdAt, updatedAt,
-          }) => (
-            <tr key={_id}>
-              <td>{title}</td>
-              <td>{timeago(updatedAt)}</td>
-              <td>{monthDayYearAtTime(createdAt)}</td>
-              <td>
-                <Button
-                  bsStyle="primary"
-                  onClick={() => history.push(`${match.url}/${_id}`)}
-                  block
-                >
-                  View
-                </Button>
-              </td>
-              <td>
-                <Button
-                  bsStyle="danger"
-                  onClick={() => handleRemove(_id)}
-                  block
-                >
-                  Delete
-                </Button>
-              </td>
+const Documents = ({ loading, documents, match, history }) =>
+  !loading ? (
+    <Styles.Documents>
+      <div className="page-header clearfix">
+        <h4 className="pull-left">Documents</h4>
+        <Link className="btn btn-success pull-right" to={`${match.url}/new`}>
+          Add Document
+        </Link>
+      </div>
+      {documents.length ? (
+        <Table responsive>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Last Updated</th>
+              <th>Created</th>
+              <th />
+              <th />
             </tr>
-          ))}
-        </tbody>
-      </Table> : <BlankState
-        icon={{ style: 'solid', symbol: 'file-alt' }}
-        title="You're plum out of documents, friend!"
-        subtitle="Add your first document by clicking the button below."
-        action={{
-          style: 'success',
-          onClick: () => history.push(`${match.url}/new`),
-          label: 'Create Your First Document',
-        }}
-      />}
-  </Styles.Documents>
-) : <Loading />);
+          </thead>
+          <tbody>
+            {documents.map(({ _id, title, createdAt, updatedAt }) => (
+              <tr key={_id}>
+                <td>{title}</td>
+                <td>{timeago(updatedAt)}</td>
+                <td>{monthDayYearAtTime(createdAt)}</td>
+                <td>
+                  <Button
+                    bsStyle="primary"
+                    onClick={() => history.push(`${match.url}/${_id}`)}
+                    block
+                  >
+                    View
+                  </Button>
+                </td>
+                <td>
+                  <Button bsStyle="danger" onClick={() => handleRemove(_id)} block>
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      ) : (
+        <BlankState
+          icon={{ style: 'solid', symbol: 'file-alt' }}
+          title="You're plum out of documents, friend!"
+          subtitle="Add your first document by clicking the button below."
+          action={{
+            style: 'success',
+            onClick: () => history.push(`${match.url}/new`),
+            label: 'Create Your First Document',
+          }}
+        />
+      )}
+    </Styles.Documents>
+  ) : (
+    <Loading />
+  );
 
 Documents.propTypes = {
   loading: PropTypes.bool.isRequired,

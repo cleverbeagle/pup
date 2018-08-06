@@ -19,10 +19,14 @@ class AdminUserSettings extends React.Component {
         this.setState({ userSettings });
       }
     });
-  }
+  };
 
   handleDeleteSetting = (settingId) => {
-    if (confirm('Are you sure? Before deleting this setting make sure that it\'s no longer in use in your application!')) {
+    if (
+      confirm(
+        "Are you sure? Before deleting this setting make sure that it's no longer in use in your application!",
+      )
+    ) {
       Meteor.call('admin.deleteUserSetting', settingId, (error) => {
         if (error) {
           Bert.alert(error.reason, 'danger');
@@ -32,14 +36,20 @@ class AdminUserSettings extends React.Component {
         }
       });
     }
-  }
+  };
 
   render() {
     return (
       <div className="AdminUserSettings">
         <div className="page-header clearfix">
           <h4 className="pull-left">User Settings</h4>
-          <Button bsStyle="success" className="pull-right" onClick={() => this.setState({ showSettingsModal: true })}>Add Setting</Button>
+          <Button
+            bsStyle="success"
+            className="pull-right"
+            onClick={() => this.setState({ showSettingsModal: true })}
+          >
+            Add Setting
+          </Button>
         </div>
         <Table responsive bordered>
           <thead>
@@ -50,14 +60,28 @@ class AdminUserSettings extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.userSettings.map(setting => (
+            {this.state.userSettings.map((setting) => (
               <tr key={setting._id}>
                 <td>{setting.key}</td>
                 <td>
-                  <Button bsStyle="default" onClick={() => this.setState({ showSettingsModal: true, currentSetting: setting })} block>Edit</Button>
+                  <Button
+                    bsStyle="default"
+                    onClick={() =>
+                      this.setState({ showSettingsModal: true, currentSetting: setting })
+                    }
+                    block
+                  >
+                    Edit
+                  </Button>
                 </td>
                 <td>
-                  <Button bsStyle="danger" onClick={() => this.handleDeleteSetting(setting._id)} block>Delete</Button>
+                  <Button
+                    bsStyle="danger"
+                    onClick={() => this.handleDeleteSetting(setting._id)}
+                    block
+                  >
+                    Delete
+                  </Button>
                 </td>
               </tr>
             ))}

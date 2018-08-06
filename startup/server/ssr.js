@@ -32,12 +32,16 @@ onPageLoad((sink) => {
   const initialData = store.getState();
   const stylesheet = new ServerStyleSheet();
 
-  const app = renderToString(stylesheet.collectStyles( // eslint-disable-line
-    <Provider store={store}>
-      <StaticRouter location={sink.request.url} context={context}>
-        <App />
-      </StaticRouter>
-    </Provider>));
+  const app = renderToString(
+    stylesheet.collectStyles(
+      // eslint-disable-line
+      <Provider store={store}>
+        <StaticRouter location={sink.request.url} context={context}>
+          <App />
+        </StaticRouter>
+      </Provider>,
+    ),
+  );
 
   const helmet = Helmet.renderStatic();
   sink.appendToHead(helmet.meta.toString());

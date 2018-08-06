@@ -27,7 +27,9 @@ class DocumentEditor extends React.Component {
           required: 'This thneeds a body, please.',
         },
       },
-      submitHandler() { component.handleSubmit(component.form); },
+      submitHandler() {
+        component.handleSubmit(component.form);
+      },
     });
   }
 
@@ -52,12 +54,12 @@ class DocumentEditor extends React.Component {
         history.push(`/documents/${documentId}`);
       }
     });
-  }
+  };
 
   render() {
     const { doc } = this.props;
     return (
-      <form ref={form => (this.form = form)} onSubmit={event => event.preventDefault()}>
+      <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
         <FormGroup>
           <ControlLabel>Title</ControlLabel>
           <input

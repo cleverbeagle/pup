@@ -15,11 +15,12 @@ const handleResendVerificationEmail = (emailAddress) => {
   });
 };
 
-const VerifyEmailAlert = ({ userId, emailVerified, emailAddress }) => (
+const VerifyEmailAlert = ({ userId, emailVerified, emailAddress }) =>
   userId && !emailVerified ? (
     <Styles.VerifyEmailAlert>
       <Alert className="verify-email text-center">
-        <p>Hey friend! Can you <strong>verify your email address</strong> ({emailAddress}) for us?
+        <p>
+          Hey friend! Can you <strong>verify your email address</strong> ({emailAddress}) for us?
           <Button
             bsStyle="link"
             onClick={() => handleResendVerificationEmail(emailAddress)}
@@ -30,8 +31,7 @@ const VerifyEmailAlert = ({ userId, emailVerified, emailAddress }) => (
         </p>
       </Alert>
     </Styles.VerifyEmailAlert>
-  ) : null
-);
+  ) : null;
 
 VerifyEmailAlert.propTypes = {
   userId: PropTypes.string.isRequired,

@@ -6,5 +6,7 @@ export default (handlebarsMarkup, context) => {
     return template(context);
   }
 
-  throw new Error('Please pass Handlebars markup to compile and a context object with data mapping to the Handlebars expressions used in your template.');
+  throw new Error(
+    'Please pass Handlebars markup to compile and a context object with data mapping to the Handlebars expressions used in your template.',
+  );
 };

@@ -23,7 +23,7 @@ const UserSettingsSchema = new SimpleSchema({
   },
   key: {
     type: String,
-    label: 'What is the key value you\'ll access this setting with?',
+    label: "What is the key value you'll access this setting with?",
   },
   label: {
     type: String,
@@ -37,7 +37,8 @@ const UserSettingsSchema = new SimpleSchema({
   value: {
     type: SimpleSchema.oneOf(Boolean, Number, String),
     label: 'The value for the setting',
-    autoValue() { // eslint-disable-line
+    autoValue() {
+      // eslint-disable-line
       // NOTE: Pass default value as a string to get around this:
       // https://github.com/aldeed/simple-schema-js/issues/169
       const type = this.field('type');
@@ -48,6 +49,7 @@ const UserSettingsSchema = new SimpleSchema({
           number: parseInt(this.value, 10),
         }[type.value];
       }
+      return undefined;
     },
     optional: true,
   },

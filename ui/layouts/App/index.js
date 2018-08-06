@@ -64,38 +64,73 @@ class App extends React.Component {
 
   setPageReady = () => {
     this.setState({ ready: true });
-  }
+  };
 
   setAfterLoginPath = (afterLoginPath) => {
     this.setState({ afterLoginPath });
-  }
+  };
 
   render() {
     const { props, state, setAfterLoginPath } = this;
     return (
       <Styles.App ready={this.state.ready} loading={props.loading}>
-        {props.authenticated &&
+        {props.authenticated && (
           <VerifyEmailAlert
             userId={props.userId}
             emailVerified={props.emailVerified}
             emailAddress={props.emailAddress}
           />
-        }
+        )}
         {props.authenticated && <GDPRConsentModal userId={props.userId} />}
         <Navigation {...props} {...state} />
         <Grid>
           <Switch>
             <Route exact name="index" path="/" component={Index} />
 
-            <Authenticated exact path="/documents" component={Documents} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-            <Authenticated exact path="/documents/new" component={NewDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Authenticated
+              exact
+              path="/documents"
+              component={Documents}
+              setAfterLoginPath={setAfterLoginPath}
+              {...props}
+              {...state}
+            />
+            <Authenticated
+              exact
+              path="/documents/new"
+              component={NewDocument}
+              setAfterLoginPath={setAfterLoginPath}
+              {...props}
+              {...state}
+            />
             <Route exact path="/documents/:_id" component={ViewDocument} />
-            <Authenticated exact path="/documents/:_id/edit" component={EditDocument} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Authenticated
+              exact
+              path="/documents/:_id/edit"
+              component={EditDocument}
+              setAfterLoginPath={setAfterLoginPath}
+              {...props}
+              {...state}
+            />
 
-            <Authenticated exact path="/profile" component={Profile} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Authenticated
+              exact
+              path="/profile"
+              component={Profile}
+              setAfterLoginPath={setAfterLoginPath}
+              {...props}
+              {...state}
+            />
             <Public path="/signup" component={Signup} {...props} {...state} />
             <Public path="/login" component={Login} {...props} {...state} />
-            <Route path="/logout" render={routeProps => <Logout {...routeProps} setAfterLoginPath={setAfterLoginPath} />} {...props} {...state} />
+            <Route
+              path="/logout"
+              render={(routeProps) => (
+                <Logout {...routeProps} setAfterLoginPath={setAfterLoginPath} />
+              )}
+              {...props}
+              {...state}
+            />
 
             <Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
             <Route name="recover-password" path="/recover-password" component={RecoverPassword} />
@@ -105,9 +140,36 @@ class App extends React.Component {
             <Route name="privacy" path="/privacy" component={Privacy} />
             <Route name="examplePage" path="/example-page" component={ExamplePage} />
 
-            <Authorized exact allowedRoles={['admin']} path="/admin/users" pathAfterFailure="/" component={AdminUsers} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-            <Authorized exact allowedRoles={['admin']} path="/admin/users/settings" pathAfterFailure="/" component={AdminUserSettings} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
-            <Authorized exact allowedRoles={['admin']} path="/admin/users/:_id" pathAfterFailure="/" component={AdminUser} setAfterLoginPath={setAfterLoginPath} {...props} {...state} />
+            <Authorized
+              exact
+              allowedRoles={['admin']}
+              path="/admin/users"
+              pathAfterFailure="/"
+              component={AdminUsers}
+              setAfterLoginPath={setAfterLoginPath}
+              {...props}
+              {...state}
+            />
+            <Authorized
+              exact
+              allowedRoles={['admin']}
+              path="/admin/users/settings"
+              pathAfterFailure="/"
+              component={AdminUserSettings}
+              setAfterLoginPath={setAfterLoginPath}
+              {...props}
+              {...state}
+            />
+            <Authorized
+              exact
+              allowedRoles={['admin']}
+              path="/admin/users/:_id"
+              pathAfterFailure="/"
+              component={AdminUser}
+              setAfterLoginPath={setAfterLoginPath}
+              {...props}
+              {...state}
+            />
             <Route component={NotFound} />
           </Switch>
         </Grid>
@@ -132,14 +194,17 @@ App.propTypes = {
   handleOnLogout: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({ ...state });
-const mapDispatchToProps = dispatch => ({
-  handleOnLogin: data => dispatch(onLogin(data)),
-  handleOnLogout: data => dispatch(onLogout(data)),
+const mapStateToProps = (state) => ({ ...state });
+const mapDispatchToProps = (dispatch) => ({
+  handleOnLogin: (data) => dispatch(onLogin(data)),
+  handleOnLogout: (data) => dispatch(onLogout(data)),
 });
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
   withTrackerSsr(() => {
     const app = Meteor.subscribe('app');
     const loggingIn = Meteor.loggingIn();

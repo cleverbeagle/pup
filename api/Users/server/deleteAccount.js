@@ -32,6 +32,5 @@ const deleteAccount = ({ userId }, promise) => {
   }
 };
 
-export default options =>
-  new Promise((resolve, reject) =>
-    deleteAccount(options, { resolve, reject }));
+export default (options) =>
+  new Promise((resolve, reject) => deleteAccount(options, { resolve, reject }));
