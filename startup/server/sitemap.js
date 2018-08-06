@@ -1,7 +1,7 @@
 import xml from 'xml';
 import { Meteor } from 'meteor/meteor';
 import { Picker } from 'meteor/meteorhacks:picker';
-import Documents from '../../api/Documents';
+import Documents from '../../api/Documents/Documents';
 import { iso } from '../../modules/dates.js';
 
 /*

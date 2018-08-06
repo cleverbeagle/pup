@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 
 import JSZip from 'jszip';
-import Documents from '../../Documents';
+import Documents from '../../Documents/Documents';
 
 let action;
 

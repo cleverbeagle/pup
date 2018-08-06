@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import handleMethodException from '../../modules/handleMethodException';
 import rateLimit from '../../modules/rateLimit';
-import Documents from './';
+import Documents from './Documents';
 
 Meteor.methods({
   'documents.findOne': function documentsFindOne(documentId) {

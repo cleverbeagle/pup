@@ -1,6 +1,6 @@
 import seeder from '@cleverbeagle/seeder';
 import { Meteor } from 'meteor/meteor';
-import Documents from '../../api/Documents';
+import Documents from '../../api/Documents/Documents';
 
 const documentsSeed = (userId) => ({
   collection: Documents,

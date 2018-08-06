@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 
 import { Meteor } from 'meteor/meteor';
-import Documents from '../../Documents';
+import Documents from '../../Documents/Documents';
 
 let action;
 
