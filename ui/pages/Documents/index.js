@@ -5,7 +5,7 @@ import { Table, Button } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Bert } from 'meteor/themeteorchef:bert';
-import DocumentsCollection from '../../../api/Documents';
+import DocumentsCollection from '../../../api/Documents/Documents';
 import { timeago, monthDayYearAtTime } from '../../../modules/dates';
 import Loading from '../../components/Loading';
 import BlankState from '../../components/BlankState';

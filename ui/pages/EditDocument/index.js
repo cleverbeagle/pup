@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
-import Documents from '../../../api/Documents';
+import Documents from '../../../api/Documents/Documents';
 import DocumentEditor from '../../components/DocumentEditor';
 import NotFound from '../NotFound';
 
