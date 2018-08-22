@@ -5,10 +5,10 @@ The Ultimate Boilerplate for Products.
 
 ---
 
-> "With Clever Beagle, no matter what I made progress during mentor meetings each week, and I had more motivation to see what I could accomplish on my own. If you’re serious about building a product, Clever Beagle will dramatically increase your chances of getting it done."
-> 
-> Nicole Forrester<br />
-> Founder, [Sweet Victory](https://sweetvictory.io)
+"With Clever Beagle, no matter what I made progress during mentor meetings each week, and I had more motivation to see what I could accomplish on my own. If you’re serious about building a product, Clever Beagle will dramatically increase your chances of getting it done."
+
+Nicole Forrester<br />
+Founder, [Sweet Victory](https://sweetvictory.io)
 
 ---
 
