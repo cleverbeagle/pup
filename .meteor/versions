@@ -7,6 +7,7 @@ accounts-password@1.5.1
 alanning:roles@1.2.16
 aldeed:collection2-core@2.1.2
 allow-deny@1.1.0
+apollo@3.0.0
 audit-argument-checks@1.0.7
 autoupdate@1.4.0
 babel-compiler@7.1.1

@@ -4,5 +4,5 @@ import './api';
 import './fixtures';
 import './email';
 import './sitemap';
-import './ssr';
 import './graphql';
+import './ssr';

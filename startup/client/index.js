@@ -4,21 +4,27 @@ import React from 'react';
 import { hydrate } from 'react-dom';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { ThemeProvider, injectGlobal } from 'styled-components';
-import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import App from '../../ui/layouts/App';
-import mainReducer from '../../modules/redux/reducers';
 import '../both/api';
 
 Bert.defaults.style = 'growl-bottom-right';
 
-const preloadedState = window.__PRELOADED_STATE__;
-delete window.__PRELOADED_STATE__;
-
-const store = createStore(mainReducer, preloadedState, applyMiddleware(thunk));
+const apolloClient = new ApolloClient({
+  uri: Meteor.settings.public.graphQL.uri,
+  request: (operation) =>
+    operation.setContext(() => ({
+      headers: {
+        authorization: Accounts._storedLoginToken(),
+      },
+    })),
+  cache: new InMemoryCache(),
+});
 
 injectGlobal`
   :root {
@@ -96,18 +102,16 @@ injectGlobal`
   }
 `;
 
-const theme = {};
-
 Meteor.startup(() =>
   hydrate(
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
+    <ThemeProvider theme={{}}>
+      <ApolloProvider client={apolloClient}>
         <BrowserRouter>
           <Switch>
             <App />
           </Switch>
         </BrowserRouter>
-      </Provider>
+      </ApolloProvider>
     </ThemeProvider>,
     document.getElementById('react-root'),
   ),

@@ -1,5 +1,8 @@
 {
   "public": {
+    "graphQL": {
+      "uri": "http://localhost:3000/graphql"
+    },
     "productName": "Product Name",
     "copyrightStartYear": "2018",
     "twitterUsername": "product",

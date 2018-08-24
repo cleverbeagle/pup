@@ -1,58 +1,48 @@
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import { ApolloProvider, renderToStringWithData } from 'react-apollo';
+import { ApolloClient } from 'apollo-client';
+import { createHttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import 'isomorphic-fetch';
 import { onPageLoad } from 'meteor/server-render';
 import { StaticRouter } from 'react-router';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import { Helmet } from 'react-helmet';
 import { ServerStyleSheet } from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import App from '../../ui/layouts/App';
-import mainReducer from '../../modules/redux/reducers';
-import parseUrlForSsr from '../../modules/parseUrlForSsr';
 
-onPageLoad((sink) => {
-  const documentURL = parseUrlForSsr(sink.request.url, 'documents');
+onPageLoad(async (sink) => {
+  const apolloClient = new ApolloClient({
+    ssrMode: true,
+    link: createHttpLink({
+      uri: Meteor.settings.public.graphQL.uri,
+      credentials: 'same-origin',
+    }),
+    cache: new InMemoryCache(),
+  });
 
-  const context = {};
-  const data = {
-    loading: true,
-    loggingIn: false,
-    authenticated: false,
-    name: '',
-    roles: [],
-    userId: null,
-    emailAddress: '',
-    emailVerified: false,
-    doc: documentURL.isMatch ? Meteor.call('documents.findOne', documentURL.parts[1]) : '',
-  };
-
-  const store = createStore(mainReducer, data, applyMiddleware(thunk));
-  const initialData = store.getState();
   const stylesheet = new ServerStyleSheet();
-
-  const app = renderToString(
-    stylesheet.collectStyles(
-      // eslint-disable-line
-      <Provider store={store}>
-        <StaticRouter location={sink.request.url} context={context}>
-          <App />
-        </StaticRouter>
-      </Provider>,
-    ),
+  const app = stylesheet.collectStyles(
+    <ApolloProvider client={apolloClient}>
+      <StaticRouter location={sink.request.url} context={{}}>
+        <App />
+      </StaticRouter>
+    </ApolloProvider>,
   );
 
+  // NOTE: renderToStringWithData pre-fetches all queries in the component tree. This allows the data
+  // from our GraphQL queries to be ready at render time.
+  const content = await renderToStringWithData(app);
+  const initialState = apolloClient.extract();
   const helmet = Helmet.renderStatic();
+
   sink.appendToHead(helmet.meta.toString());
   sink.appendToHead(helmet.title.toString());
   sink.appendToHead(stylesheet.getStyleTags());
-
-  sink.renderIntoElementById('react-root', app);
-
+  sink.renderIntoElementById('react-root', content);
   sink.appendToBody(`
     <script>
-      window.__PRELOADED_STATE__ = ${JSON.stringify(initialData).replace(/</g, '\\u003c')}
+      window.__APOLLO_STATE__ = ${JSON.stringify(initialState).replace(/</g, '\\u003c')}
     </script>
   `);
 });

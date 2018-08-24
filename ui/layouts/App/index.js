@@ -4,8 +4,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
@@ -46,7 +44,6 @@ import ExamplePage from '../../pages/ExamplePage';
 import VerifyEmailAlert from '../../components/VerifyEmailAlert';
 import GDPRConsentModal from '../../components/GDPRConsentModal';
 
-import { onLogin, onLogout } from '../../../modules/redux/actions';
 import withTrackerSsr from '../../../modules/withTrackerSsr';
 import getUserName from '../../../modules/getUserName';
 
@@ -56,9 +53,6 @@ class App extends React.Component {
   state = { ready: false, afterLoginPath: null };
 
   componentDidMount() {
-    const { handleOnLogin, handleOnLogout } = this.props;
-    Accounts.onLogin(() => handleOnLogin());
-    Accounts.onLogout(() => handleOnLogout());
     this.setPageReady();
   }
 
@@ -190,39 +184,27 @@ App.propTypes = {
   emailAddress: PropTypes.string,
   emailVerified: PropTypes.bool.isRequired,
   authenticated: PropTypes.bool.isRequired,
-  handleOnLogin: PropTypes.func.isRequired,
-  handleOnLogout: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({ ...state });
-const mapDispatchToProps = (dispatch) => ({
-  handleOnLogin: (data) => dispatch(onLogin(data)),
-  handleOnLogout: (data) => dispatch(onLogout(data)),
-});
+// TODO: Completely remove this and rely on GraphQL???
 
-export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  ),
-  withTrackerSsr(() => {
-    const app = Meteor.subscribe('app');
-    const loggingIn = Meteor.loggingIn();
-    const user = Meteor.user();
-    const userId = Meteor.userId();
-    const loading = !app.ready() && !Roles.subscription.ready();
-    const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
-    const emailAddress = user && user.emails && user.emails[0].address;
+export default withTrackerSsr(() => {
+  const app = Meteor.subscribe('app');
+  const loggingIn = Meteor.loggingIn();
+  const user = Meteor.user();
+  const userId = Meteor.userId();
+  const loading = !app.ready() && !Roles.subscription.ready();
+  const name = user && user.profile && user.profile.name && getUserName(user.profile.name);
+  const emailAddress = user && user.emails && user.emails[0].address;
 
-    return {
-      loading,
-      loggingIn,
-      authenticated: !loggingIn && !!userId,
-      name: name || emailAddress,
-      roles: Roles.getRolesForUser(userId),
-      userId,
-      emailAddress,
-      emailVerified: user && user.emails ? user.emails[0] && user.emails[0].verified : true,
-    };
-  }),
-)(App);
+  return {
+    loading,
+    loggingIn,
+    authenticated: !loggingIn && !!userId,
+    name: name || emailAddress,
+    roles: Roles.getRolesForUser(userId),
+    userId,
+    emailAddress,
+    emailVerified: user && user.emails ? user.emails[0] && user.emails[0].verified : true,
+  };
+})(App);
