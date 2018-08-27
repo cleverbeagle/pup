@@ -3,7 +3,7 @@ import { WebApp } from 'meteor/webapp';
 import { getUser } from 'meteor/apollo';
 import schema from '../../api/GraphQL/schema';
 
-pupql({
+export default pupql({
   schema,
   databases: {
     mongodb: {

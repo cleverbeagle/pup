@@ -15,6 +15,9 @@ import '../both/api';
 
 Bert.defaults.style = 'growl-bottom-right';
 
+// TODO: Implement Apollo Client per these instructions: https://www.apollographql.com/docs/react/advanced/boost-migration.html
+// TODO: Implement subscriptions per these instructions: https://www.apollographql.com/docs/react/advanced/subscriptions.html
+
 const apolloClient = new ApolloClient({
   uri: Meteor.settings.public.graphQL.uri,
   request: (operation) =>

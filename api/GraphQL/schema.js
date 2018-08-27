@@ -1,7 +1,13 @@
 import typeDefs from './types';
-import resolvers from './resolvers';
+import queries from './queries';
+// import mutations from './mutations';
+// import subscriptions from './subscriptions';
 
 export default {
   typeDefs,
-  resolvers,
+  resolvers: {
+    ...queries,
+    // ...mutations,
+    // ...subscriptions,
+  },
 };
