@@ -1,7 +1,7 @@
-import types from './types';
+import typeDefs from './types';
 import resolvers from './resolvers';
 
 export default {
-  types,
+  typeDefs,
   resolvers,
 };

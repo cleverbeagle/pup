@@ -7,9 +7,9 @@ import Loading from '../Loading';
 const FetchData = ({ query, children, ...rest }) => (
   <Query query={gql(query)} {...rest}>
     {(renderProps) => {
-      // if (renderProps.loading) return <Loading />;
-      // if (renderProps.error) return <p>Error :(</p>;
-      return renderProps.data && children(renderProps);
+      if (renderProps.loading) return <Loading />;
+      if (renderProps.error) return <p>Error :(</p>;
+      return renderProps.data && children(renderProps.data);
     }}
   </Query>
 );

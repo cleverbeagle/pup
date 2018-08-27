@@ -1,12 +1,11 @@
 export default {
   Query: {
-    documents: (parent, args, { user, db }) => {
-      // const query = Object.assign({}, args, user && user._id ? { owner: user._id } : {});
-      return db.mongodb.collection('Documents').find({}).toArray();
-    },
-    document: (parent, args, { db }) => {
-      // const query = Object.assign({}, args, user && user._id ? { owner: user._id } : {});
-      return db.mongodb.collection('Documents').findOne({ _id: args._id });
-    },
+    documents: (parent, args, { user, db }) =>
+      db.mongodb
+        .collection('Documents')
+        .find({ owner: user._id })
+        .toArray(),
+    document: (parent, args, { db }) =>
+      db.mongodb.collection('Documents').findOne({ _id: args._id }),
   },
 };

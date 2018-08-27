@@ -25,7 +25,7 @@ const Documents = ({ match, history }) => (
   <FetchData
     query={`
       {
-        documents(owner: "${Meteor.userId()}") {
+        documents {
           _id
           title
           updatedAt
@@ -34,15 +34,15 @@ const Documents = ({ match, history }) => (
       }
     `}
   >
-    {({ loading, data }) => (
-      !loading && <Styles.Documents>
+    {({ documents }) => (
+      <Styles.Documents>
         <div className="page-header clearfix">
           <h4 className="pull-left">Documents</h4>
           <Link className="btn btn-success pull-right" to={`${match.url}/new`}>
             Add Document
           </Link>
         </div>
-        {data.documents.length ? (
+        {documents.length ? (
           <Table responsive>
             <thead>
               <tr>
@@ -54,7 +54,7 @@ const Documents = ({ match, history }) => (
               </tr>
             </thead>
             <tbody>
-              {data.documents.map(({ _id, title, createdAt, updatedAt }) => (
+              {documents.map(({ _id, title, createdAt, updatedAt }) => (
                 <tr key={_id}>
                   <td>{title}</td>
                   <td>{timeago(updatedAt)}</td>

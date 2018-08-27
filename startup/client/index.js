@@ -23,7 +23,7 @@ const apolloClient = new ApolloClient({
         authorization: Accounts._storedLoginToken(),
       },
     })),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache().restore(window.__APOLLO_STATE__),
 });
 
 injectGlobal`
