@@ -54,7 +54,12 @@ const ViewDocument = ({ match, history }) => (
               <ButtonToolbar className="pull-right">
                 <ButtonGroup bsSize="small">
                   <Button onClick={() => history.push(`${match.url}/edit`)}>Edit</Button>
-                  <Button onClick={() => handleRemove(document && document._id, history)} className="text-danger">
+                  <Button
+                    className="text-danger"
+                    onClick={() => {
+                      handleRemove(document && document._id, history);
+                    }}
+                  >
                     Delete
                   </Button>
                 </ButtonGroup>
@@ -67,12 +72,7 @@ const ViewDocument = ({ match, history }) => (
   </FetchData>
 );
 
-ViewDocument.defaultProps = {
-  doc: null,
-};
-
 ViewDocument.propTypes = {
-  doc: PropTypes.object,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };

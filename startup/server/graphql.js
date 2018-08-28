@@ -1,10 +1,9 @@
 import pupql from '@cleverbeagle/pupql';
-import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { getUser } from 'meteor/apollo';
-import schema from '../../api/GraphQL/schema';
+import schema from './api';
 
-export default pupql({
+pupql({
   schema,
   databases: {
     mongodb: {
