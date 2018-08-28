@@ -1,4 +1,5 @@
 import pupql from '@cleverbeagle/pupql';
+import { Meteor } from 'meteor/meteor';
 import { WebApp } from 'meteor/webapp';
 import { getUser } from 'meteor/apollo';
 import schema from '../../api/GraphQL/schema';
@@ -14,6 +15,7 @@ export default pupql({
     user: await getUser(req.headers.authorization),
   }),
   config: {
-    existingServer: WebApp.connectHandlers,
+    existingWebServer: WebApp.connectHandlers,
+    existingWebSocketServer: WebApp.httpServer,
   },
 });

@@ -25,7 +25,15 @@ export default gql`
     comments(document: String): [Comment]
   }
 
+  type Mutation {
+    addDocument(title: String, body: String): Document
+    updateDocument: Document
+    removeDocument: Document
+  }
+
   type Subscription {
     documentAdded: Document
+    documentUpdated: Document
+    documentRemoved: Document
   }
 `;
