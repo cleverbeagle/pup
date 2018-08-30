@@ -43,6 +43,10 @@ class DocumentEditor extends React.Component {
           Bert.alert(doc ? 'Document updated!' : 'Document added!', 'success');
           history.push(`/documents/${_id}`);
         }}
+        onError={(error) => {
+          console.log(error);
+          Bert.alert(error.message, 'danger');
+        }}
       >
         {(mutate) => (
           <Validation
