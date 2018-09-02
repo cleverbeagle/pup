@@ -156,8 +156,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "./.githooks/pre-commit.sh"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": ["./.githooks/pre-commit.sh", "git add"]
   },
   "prettier": {
     "printWidth": 100,
