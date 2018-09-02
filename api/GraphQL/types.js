@@ -8,6 +8,15 @@ export default gql`
     updatedAt: String
     body: String
     owner: String
+    comments: [Comment]
+  }
+
+  type Comment {
+    _id: String
+    userId: String
+    documentId: String
+    createdAt: String
+    text: String
   }
 
   type Query {

@@ -19,7 +19,7 @@ Documents.deny({
 
 Documents.schema = new SimpleSchema({
   owner: {
-    type: String,
+    type: SimpleSchema.RegEx.Id,
     label: 'The ID of the user this document belongs to.',
   },
   createdAt: {

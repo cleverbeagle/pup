@@ -8,4 +8,11 @@ export default {
     document: (parent, args, { db }) =>
       db.mongodb.collection('Documents').findOne({ _id: args._id }),
   },
+  Document: {
+    comments: (doc, args, { db }) =>
+      db.mongodb
+        .collection('Comments')
+        .find({ documentId: doc._id })
+        .fetch(),
+  },
 };
