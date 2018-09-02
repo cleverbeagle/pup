@@ -87,6 +87,11 @@ const ListGroupItem = styled(BListGroupItem)`
       background: var(--github);
       color: #fff;
     }
+
+    .roles {
+      position: absolute;
+      right: 60px;
+    }
   }
 `;
 

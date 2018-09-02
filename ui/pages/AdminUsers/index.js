@@ -82,7 +82,7 @@ class AdminUsers extends React.Component {
           <SearchInput placeholder="Search users..." onKeyUp={this.handleSearch} />
         </Styles.AdminUsersHeader>
         <Styles.ListGroup>
-          {this.state.users.map(({ _id, emails, username, profile, service }) => (
+          {this.state.users.map(({ _id, emails, username, profile, service, roles }) => (
             <Styles.ListGroupItem key={_id}>
               <Link to={`/admin/users/${_id}`} />
               <p>
@@ -91,6 +91,7 @@ class AdminUsers extends React.Component {
                 {service !== 'password' && (
                   <span className={`label label-${service}`}>{service}</span>
                 )}
+                <span className="roles">{roles.join(', ')}</span>
               </p>
             </Styles.ListGroupItem>
           ))}
