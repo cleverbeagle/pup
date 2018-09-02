@@ -1,6 +1,7 @@
 import './accounts';
 import '../both/api';
 import './api';
+import './browserPolicy';
 import './fixtures';
 import './email';
 import './sitemap';

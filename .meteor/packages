@@ -35,3 +35,4 @@ static-html
 server-render@0.3.1
 meteorhacks:picker
 apollo
+browser-policy
