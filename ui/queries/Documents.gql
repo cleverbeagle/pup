@@ -10,7 +10,9 @@ query documents {
 query document($_id: String) {
   document(_id: $_id) {
     _id
+    public
     title
+    body
     updatedAt
     createdAt
   }

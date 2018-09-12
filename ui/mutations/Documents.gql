@@ -9,9 +9,10 @@ mutation addDocument($title: String, $body: String) {
   }
 }
 
-mutation updateDocument($_id: String!, $title: String, $body: String) {
-  updateDocument(_id: $_id, title: $title, body: $body) {
+mutation updateDocument($_id: String!, $title: String, $body: String, $public: Boolean) {
+  updateDocument(_id: $_id, title: $title, body: $body, public: $public) {
     _id
+    public
     title
     body
     createdAt

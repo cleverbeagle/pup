@@ -11,24 +11,24 @@ import { documents } from '../../queries/Documents.gql';
 import { addDocument } from '../../mutations/Documents.gql';
 
 const Documents = ({ match, history }) => (
-  <FetchData query={documents}>
-    {(data) => (
-      <Mutation
-        mutation={addDocument}
-        onCompleted={(mutation) => {
-          history.push(`/documents/${mutation.addDocument._id}/edit`);
-        }}
-        update={(cache, response) => {
-          const query = cache.readQuery({ query: documents });
-          cache.writeQuery({
-            query: documents,
-            data: {
-              documents: query.documents.concat([response.data.addDocument]),
-            },
-          });
-        }}
-      >
-        {(mutate) => (
+  <Mutation
+    mutation={addDocument}
+    onCompleted={(mutation) => {
+      history.push(`/documents/${mutation.addDocument._id}/edit`);
+    }}
+    update={(cache, { data }) => {
+      const query = cache.readQuery({ query: documents });
+      cache.writeQuery({
+        query: documents,
+        data: {
+          documents: query.documents.concat([data.addDocument]),
+        },
+      });
+    }}
+  >
+    {(mutate) => (
+      <FetchData query={documents}>
+        {(data) => (
           <StyledDocuments>
             <header className="clearfix">
               <Button bsStyle="success" onClick={mutate}>
@@ -62,9 +62,9 @@ const Documents = ({ match, history }) => (
             )}
           </StyledDocuments>
         )}
-      </Mutation>
+      </FetchData>
     )}
-  </FetchData>
+  </Mutation>
 );
 
 Documents.propTypes = {

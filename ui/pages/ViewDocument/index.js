@@ -8,7 +8,7 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import SEO from '../../components/SEO';
 import FetchData from '../../components/FetchData';
 import NotFound from '../NotFound';
-import viewDocumentQuery from './queries.gql';
+import { document } from '../../queries/Documents.gql';
 
 const handleRemove = (documentId, history) => {
   if (confirm('Are you sure? This is permanent!')) {
@@ -24,20 +24,20 @@ const handleRemove = (documentId, history) => {
 };
 
 const ViewDocument = ({ match, history }) => (
-  <FetchData query={viewDocumentQuery} variables={{ _id: match.params._id }}>
-    {({ document }) => (
+  <FetchData query={document} variables={{ _id: match.params._id }}>
+    {(data) => (
       <div className="ViewDocument">
         <SEO
-          title={document && document.title}
-          description={document && document.body}
-          url={`documents/${document && document._id}`}
+          title={data.document && data.document.title}
+          description={data.document && data.document.body}
+          url={`documents/${data.document && data.document._id}`}
           contentType="article"
-          published={document && document.createdAt}
-          updated={document && document.updatedAt}
+          published={data.document && data.document.createdAt}
+          updated={data.document && data.document.updatedAt}
           twitter="clvrbgl"
         />
         <div className="page-header clearfix">
-          <h4 className="pull-left">{document && document.title}</h4>
+          <h4 className="pull-left">{data.document && data.document.title}</h4>
           {Meteor.isClient &&
             Meteor.userId() && (
               <ButtonToolbar className="pull-right">
@@ -46,7 +46,7 @@ const ViewDocument = ({ match, history }) => (
                   <Button
                     className="text-danger"
                     onClick={() => {
-                      handleRemove(document && document._id, history);
+                      handleRemove(data.document && data.document._id, history);
                     }}
                   >
                     Delete
@@ -55,7 +55,7 @@ const ViewDocument = ({ match, history }) => (
               </ButtonToolbar>
             )}
         </div>
-        {document && document.body}
+        {data.document && data.document.body}
       </div>
     )}
   </FetchData>

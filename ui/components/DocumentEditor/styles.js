@@ -1,8 +1,31 @@
 import styled from 'styled-components';
 
+export const DocumentEditorHeader = styled.div`
+  p {
+    float: right;
+    margin-top: 6px;
+    color: var(--gray-light);
+  }
+
+  .dropdown {
+    float: left;
+  }
+
+  .dropdown > button i,
+  .dropdown-menu > li > a > i {
+    display: inline-block;
+    margin-right: 5px;
+    color: var(--gray-light);
+  }
+
+  .dropdown-menu > li.active > a > i {
+    color: #fff;
+  }
+`;
+
 export const StyledDocumentEditor = styled.div`
   border: 1px solid var(--gray-lighter);
-  height: calc(100vh - 247px);
+  height: calc(100vh - 227px);
   border-radius: 3px;
   margin-top: 20px;
 
@@ -19,6 +42,11 @@ export const StyledDocumentEditor = styled.div`
   form {
     height: 100%;
   }
+
+  @media screen and (min-width: 768px) {
+    height: calc(100vh - 227px);
+    margin-top: 20px;
+  }
 `;
 
 export const DocumentEditorTitle = styled.div`
@@ -33,15 +61,13 @@ export const DocumentEditorTitle = styled.div`
 
 export const DocumentEditorBody = styled.div`
   height: calc(100% - 60px);
+  overflow: hidden;
 
   .form-control {
     height: calc(100% - 1px);
     font-size: 16px;
     line-height: 22px;
     resize: none;
+    background: transparent; /* Ensures this input doesn't overflow when resizing browser vertically. */
   }
-`;
-
-export const DocumentEditorFooter = styled.div`
-  padding: 25px 0;
 `;

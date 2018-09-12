@@ -6,14 +6,14 @@ import Documents from '../../../api/Documents/Documents';
 import FetchData from '../../components/FetchData';
 import DocumentEditor from '../../components/DocumentEditor';
 import NotFound from '../NotFound';
-import viewDocumentQuery from '../ViewDocument/queries.gql';
+import { document } from '../../queries/Documents.gql';
 
 const EditDocument = ({ match, history }) => (
-  <FetchData query={viewDocumentQuery} variables={{ _id: match.params._id }}>
-    {({ document }) =>
+  <FetchData query={document} variables={{ _id: match.params._id }}>
+    {(data) =>
       document ? (
         <React.Fragment>
-          <DocumentEditor doc={document} history={history} />
+          <DocumentEditor doc={data.document} history={history} />
         </React.Fragment>
       ) : (
         <NotFound />
