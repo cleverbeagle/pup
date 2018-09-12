@@ -1,0 +1,17 @@
+query documents {
+  documents {
+    _id
+    title
+    updatedAt
+    createdAt
+  }
+}
+
+query document($_id: String) {
+  document(_id: $_id) {
+    _id
+    title
+    updatedAt
+    createdAt
+  }
+}

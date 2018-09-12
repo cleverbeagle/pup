@@ -1,0 +1,9 @@
+query viewDocument($_id: String) {
+  document(_id: $_id) {
+    _id
+    title
+    body
+    createdAt
+    updatedAt
+  }
+}

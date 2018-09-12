@@ -8,6 +8,7 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import SEO from '../../components/SEO';
 import FetchData from '../../components/FetchData';
 import NotFound from '../NotFound';
+import viewDocumentQuery from './queries.gql';
 
 const handleRemove = (documentId, history) => {
   if (confirm('Are you sure? This is permanent!')) {
@@ -23,19 +24,7 @@ const handleRemove = (documentId, history) => {
 };
 
 const ViewDocument = ({ match, history }) => (
-  <FetchData
-    query={`
-      {
-        document(_id: "${match.params._id}") {
-          _id
-          title
-          body
-          createdAt
-          updatedAt
-        }
-      }
-    `}
-  >
+  <FetchData query={viewDocumentQuery} variables={{ _id: match.params._id }}>
     {({ document }) => (
       <div className="ViewDocument">
         <SEO

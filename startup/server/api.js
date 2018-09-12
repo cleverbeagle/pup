@@ -14,7 +14,7 @@ const schema = {
     ${CommentTypes}
 
     type Query {
-      documents(owner: String): [Document]
+      documents: [Document]
       document(_id: String): Document
       comments(document: String): [Comment]
     }

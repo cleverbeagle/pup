@@ -4,7 +4,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
-import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 
@@ -89,14 +88,14 @@ class App extends React.Component {
               {...props}
               {...state}
             />
-            <Authenticated
+            {/* <Authenticated
               exact
               path="/documents/new"
               component={NewDocument}
               setAfterLoginPath={setAfterLoginPath}
               {...props}
               {...state}
-            />
+            /> */}
             <Route exact path="/documents/:_id" component={ViewDocument} />
             <Authenticated
               exact

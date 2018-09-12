@@ -1,0 +1,8 @@
+query getDocuments {
+  documents {
+    _id
+    title
+    updatedAt
+    createdAt
+  }
+}
