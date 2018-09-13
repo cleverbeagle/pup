@@ -10,6 +10,8 @@ import InputHint from '../../components/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter';
 import validate from '../../../modules/validate';
 
+import StyledSignup from './styles';
+
 class Signup extends React.Component {
   componentDidMount() {
     const component = this;
@@ -81,9 +83,9 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div className="Signup">
+      <StyledSignup>
         <Row>
-          <Col xs={12} sm={6} md={5} lg={4}>
+          <Col xs={12}>
             <h4 className="page-header">Sign Up</h4>
             <Row>
               <Col xs={12}>
@@ -101,26 +103,46 @@ class Signup extends React.Component {
                 <Col xs={6}>
                   <FormGroup>
                     <ControlLabel>First Name</ControlLabel>
-                    <input type="text" name="firstName" className="form-control" />
+                    <input
+                      type="text"
+                      name="firstName"
+                      className="form-control"
+                      placeholder="First Name"
+                    />
                   </FormGroup>
                 </Col>
                 <Col xs={6}>
                   <FormGroup>
                     <ControlLabel>Last Name</ControlLabel>
-                    <input type="text" name="lastName" className="form-control" />
+                    <input
+                      type="text"
+                      name="lastName"
+                      className="form-control"
+                      placeholder="Last Name"
+                    />
                   </FormGroup>
                 </Col>
               </Row>
               <FormGroup>
                 <ControlLabel>Email Address</ControlLabel>
-                <input type="email" name="emailAddress" className="form-control" />
+                <input
+                  type="email"
+                  name="emailAddress"
+                  className="form-control"
+                  placeholder="Email Address"
+                />
               </FormGroup>
               <FormGroup>
                 <ControlLabel>Password</ControlLabel>
-                <input type="password" name="password" className="form-control" />
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="Password"
+                />
                 <InputHint>Use at least six characters.</InputHint>
               </FormGroup>
-              <Button type="submit" bsStyle="success">
+              <Button type="submit" bsStyle="success" block>
                 Sign Up
               </Button>
               <AccountPageFooter>
@@ -131,7 +153,7 @@ class Signup extends React.Component {
             </form>
           </Col>
         </Row>
-      </div>
+      </StyledSignup>
     );
   }
 }

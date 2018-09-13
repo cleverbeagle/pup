@@ -7,6 +7,8 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import AccountPageFooter from '../../components/AccountPageFooter';
 import validate from '../../../modules/validate';
 
+import StyledRecoverPassword from './styles';
+
 class RecoverPassword extends React.Component {
   componentDidMount() {
     const component = this;
@@ -46,9 +48,9 @@ class RecoverPassword extends React.Component {
 
   render() {
     return (
-      <div className="RecoverPassword">
+      <StyledRecoverPassword>
         <Row>
-          <Col xs={12} sm={6} md={5} lg={4}>
+          <Col xs={12}>
             <h4 className="page-header">Recover Password</h4>
             <Alert bsStyle="info">
               Enter your email address below to receive a link to reset your password.
@@ -56,9 +58,14 @@ class RecoverPassword extends React.Component {
             <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
               <FormGroup>
                 <ControlLabel>Email Address</ControlLabel>
-                <input type="email" name="emailAddress" className="form-control" />
+                <input
+                  type="email"
+                  name="emailAddress"
+                  className="form-control"
+                  placeholder="Email Address"
+                />
               </FormGroup>
-              <Button type="submit" bsStyle="success">
+              <Button type="submit" bsStyle="success" block>
                 Recover Password
               </Button>
               <AccountPageFooter>
@@ -69,7 +76,7 @@ class RecoverPassword extends React.Component {
             </form>
           </Col>
         </Row>
-      </div>
+      </StyledRecoverPassword>
     );
   }
 }

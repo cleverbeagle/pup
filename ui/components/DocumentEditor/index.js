@@ -12,6 +12,7 @@ import { documents } from '../../queries/Documents.gql';
 import { updateDocument } from '../../mutations/Documents.gql';
 import delay from '../../../modules/delay';
 import { timeago } from '../../../modules/dates';
+import handleUpdateApolloCache from '../../../modules/handleUpdateApolloCache';
 
 import {
   StyledDocumentEditor,
@@ -27,6 +28,14 @@ class DocumentEditor extends React.Component {
     autoBind(this);
   }
 
+  componentWillMount() {
+    document.body.classList.add('isDocumentEditor');
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove('isDocumentEditor');
+  }
+
   handleUpdateDocument(mutate) {
     this.setState({ saving: true }, () => {
       delay(() => {
@@ -37,24 +46,18 @@ class DocumentEditor extends React.Component {
             body: this.form.body.value.trim(),
           },
         });
-      }, 500);
+      }, 300);
     });
   }
 
   render() {
-    const { doc, match } = this.props;
+    const { doc, history } = this.props;
     return (
       <Mutation
         ignoreResults
         mutation={updateDocument}
-        update={(cache, { data }) => {
-          const query = cache.readQuery({ query: documents });
-          cache.writeQuery({
-            query: documents,
-            data: {
-              documents: query.documents.concat([data.updateDocument]),
-            },
-          });
+        update={(cache) => {
+          handleUpdateApolloCache(cache, { query: documents, field: 'documents' });
         }}
         onCompleted={() => {
           // NOTE: Delay set of this.state.saving to false so UI changes aren't jarring.
@@ -83,10 +86,8 @@ class DocumentEditor extends React.Component {
                 }
                 id="set-document-public"
               >
-                <MenuItem>
-                  <Link to={`/documents/${doc._id}`}>
-                    <Icon iconStyle="solid" icon="external-link-alt" /> View Document
-                  </Link>
+                <MenuItem onClick={() => history.push(`/documents/${doc._id}`)}>
+                  <Icon iconStyle="solid" icon="external-link-alt" /> View Document
                 </MenuItem>
                 <MenuItem divider />
                 <MenuItem header>Visibility</MenuItem>
@@ -104,7 +105,7 @@ class DocumentEditor extends React.Component {
                     });
                   }}
                 >
-                  <Icon iconStyle="solid" icon="globe" /> Public
+                  <Icon iconStyle="solid" icon="unlock" /> Public
                 </MenuItem>
                 <MenuItem
                   className={!doc.public && 'active'}
@@ -162,6 +163,7 @@ DocumentEditor.defaultProps = {
 
 DocumentEditor.propTypes = {
   doc: PropTypes.object,
+  history: PropTypes.object.isRequired,
 };
 
 export default DocumentEditor;

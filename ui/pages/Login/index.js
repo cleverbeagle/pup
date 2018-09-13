@@ -78,7 +78,12 @@ class Login extends React.Component {
             <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
               <FormGroup>
                 <ControlLabel>Email Address</ControlLabel>
-                <input type="email" name="emailAddress" className="form-control" />
+                <input
+                  type="email"
+                  name="emailAddress"
+                  className="form-control"
+                  placeholder="Email Address"
+                />
               </FormGroup>
               <FormGroup>
                 <ControlLabel className="clearfix">
@@ -87,9 +92,14 @@ class Login extends React.Component {
                     Forgot password?
                   </Link>
                 </ControlLabel>
-                <input type="password" name="password" className="form-control" />
+                <input
+                  type="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="Password"
+                />
               </FormGroup>
-              <Button type="submit" bsStyle="success">
+              <Button type="submit" bsStyle="success" block>
                 Log In
               </Button>
               <AccountPageFooter>

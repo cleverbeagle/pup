@@ -9,6 +9,7 @@ import BlankState from '../../components/BlankState';
 import { StyledDocuments, DocumentsList, Document } from './styles';
 import { documents } from '../../queries/Documents.gql';
 import { addDocument } from '../../mutations/Documents.gql';
+import handleUpdateApolloCache from '../../../modules/handleUpdateApolloCache';
 
 const Documents = ({ match, history }) => (
   <Mutation
@@ -17,13 +18,18 @@ const Documents = ({ match, history }) => (
       history.push(`/documents/${mutation.addDocument._id}/edit`);
     }}
     update={(cache, { data }) => {
-      const query = cache.readQuery({ query: documents });
-      cache.writeQuery({
+      handleUpdateApolloCache(cache, {
         query: documents,
-        data: {
-          documents: query.documents.concat([data.addDocument]),
-        },
+        field: 'documents',
+        update: data.addDocument,
       });
+      // const query = cache.readQuery({ query: documents });
+      // cache.writeQuery({
+      //   query: documents,
+      //   data: {
+      //     documents: query.documents.concat([data.addDocument]),
+      //   },
+      // });
     }}
   >
     {(mutate) => (

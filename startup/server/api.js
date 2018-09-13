@@ -6,6 +6,8 @@ import DocumentMutations from '../../api/Documents/mutations';
 import DocumentSubscriptions from '../../api/Documents/subscriptions';
 import '../../api/Documents/server/indexes';
 
+import '../../api/OAuth/server/methods';
+
 import CommentTypes from '../../api/Comments/types';
 
 const schema = {

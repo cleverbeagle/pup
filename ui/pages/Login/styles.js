@@ -15,20 +15,25 @@ export const StyledLogin = styled.div`
     margin: 0 !important;
   }
 
+  button[type='submit'] {
+    height: 41px;
+    margin-top: 20px;
+  }
+
   @media screen and (min-width: 768px) {
     padding: 0;
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
     flex-direction: row;
 
     > .row {
       width: 55%;
-      padding: 30px 25px;
+      padding: 40px 25px;
     }
   }
 
   @media screen and (min-width: 992px) {
-    max-width: 850px;
+    max-width: 900px;
 
     > .row {
       width: 50%;

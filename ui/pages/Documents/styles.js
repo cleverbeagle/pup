@@ -7,7 +7,7 @@ export const StyledDocuments = styled.div`
 
   @media screen and (min-width: 768px) {
     header {
-      margin: 10px 0 30px;
+      margin: 0 0 20px;
     }
   }
 `;
@@ -17,8 +17,8 @@ export const DocumentsList = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-auto-rows: 1fr;
-    grid-column-gap: 15px;
-    grid-row-gap: 15px;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
   }
 
   @media screen and (min-width: 992px) {
@@ -32,7 +32,7 @@ export const Document = styled.div`
   border-top: 5px solid var(--gray-lighter);
   padding: 20px;
   border-radius: 3px;
-  min-height: 200px;
+  min-height: 180px;
   transition: transform 0.3s ease-in-out;
 
   a {
@@ -44,7 +44,7 @@ export const Document = styled.div`
   }
 
   &:not(:last-child) {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 
   header {

@@ -95,6 +95,11 @@ injectGlobal`
     vertical-align: middle !important;
   }
 
+  /* Removes unnecessary bottom padding on .container */
+  body > #react-root > div > .container {
+    padding-bottom: 0;
+  }
+
   @media screen and (min-width: 768px) {
     .page-header {
       margin-top: 20px;

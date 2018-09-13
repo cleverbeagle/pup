@@ -25,7 +25,7 @@ export const DocumentEditorHeader = styled.div`
 
 export const StyledDocumentEditor = styled.div`
   border: 1px solid var(--gray-lighter);
-  height: calc(100vh - 227px);
+  height: calc(100vh - 207px);
   border-radius: 3px;
   margin-top: 20px;
 
@@ -44,7 +44,7 @@ export const StyledDocumentEditor = styled.div`
   }
 
   @media screen and (min-width: 768px) {
-    height: calc(100vh - 227px);
+    height: calc(100vh - 207px);
     margin-top: 20px;
   }
 `;
@@ -66,7 +66,7 @@ export const DocumentEditorBody = styled.div`
   .form-control {
     height: calc(100% - 1px);
     font-size: 16px;
-    line-height: 22px;
+    line-height: 26px;
     resize: none;
     background: transparent; /* Ensures this input doesn't overflow when resizing browser vertically. */
   }

@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Alert, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
+import AccountPageFooter from '../../components/AccountPageFooter';
 import validate from '../../../modules/validate';
+
+import StyledResetPassword from './styles';
 
 class ResetPassword extends React.Component {
   componentDidMount() {
@@ -52,9 +56,9 @@ class ResetPassword extends React.Component {
 
   render() {
     return (
-      <div className="ResetPassword">
+      <StyledResetPassword>
         <Row>
-          <Col xs={12} sm={6} md={4}>
+          <Col xs={12}>
             <h4 className="page-header">Reset Password</h4>
             <Alert bsStyle="info">
               To reset your password, enter a new one below. You will be logged in with your new
@@ -79,13 +83,18 @@ class ResetPassword extends React.Component {
                   placeholder="Repeat New Password"
                 />
               </FormGroup>
-              <Button type="submit" bsStyle="success">
+              <Button type="submit" bsStyle="success" block>
                 Reset Password &amp; Login
               </Button>
+              <AccountPageFooter>
+                <p>
+                  {"Not sure why you're here?"} <Link to="/login">Log In</Link>.
+                </p>
+              </AccountPageFooter>
             </form>
           </Col>
         </Row>
-      </div>
+      </StyledResetPassword>
     );
   }
 }
