@@ -15,7 +15,7 @@ const FetchData = ({ query, children, ...rest }) => (
           </Alert>
         );
       }
-      return renderProps.data && children(renderProps.data);
+      return renderProps.data && children(renderProps);
     }}
   </Query>
 );

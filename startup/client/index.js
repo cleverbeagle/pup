@@ -65,6 +65,14 @@ injectGlobal`
     line-height: 20px;
   }
 
+  body.isViewDocument {
+    padding-top: 20px;
+  }
+
+  body.isViewDocument .navbar {
+    display: none;
+  }
+
   .navbar {
     border-radius: 0;
     border-left: none;
@@ -103,6 +111,10 @@ injectGlobal`
   }
 
   @media screen and (min-width: 768px) {
+    body.isViewDocument {
+      padding-top: 40px;
+    }
+
     .page-header {
       margin-top: 20px;
     }

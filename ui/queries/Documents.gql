@@ -16,5 +16,6 @@ query document($_id: String) {
     body
     updatedAt
     createdAt
+    comments
   }
 }

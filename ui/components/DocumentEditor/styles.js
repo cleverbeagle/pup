@@ -44,7 +44,7 @@ export const StyledDocumentEditor = styled.div`
   }
 
   @media screen and (min-width: 768px) {
-    height: calc(100vh - 207px);
+    height: calc(100vh - 258px);
     margin-top: 20px;
   }
 `;
@@ -69,5 +69,31 @@ export const DocumentEditorBody = styled.div`
     line-height: 26px;
     resize: none;
     background: transparent; /* Ensures this input doesn't overflow when resizing browser vertically. */
+  }
+`;
+
+export const DocumentEditorFooter = styled.div`
+  padding: 15px 25px;
+  border: 1px solid var(--gray-lighter);
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+
+  svg {
+    float: left;
+    width: 25px;
+    height: auto;
+    margin-right: 10px;
+    position: relative;
+    top: 2px;
+  }
+
+  p {
+    float: left;
+    margin: 0;
+  }
+
+  p a {
+    text-decoration: underline;
+    color: var(--gray-light);
   }
 `;

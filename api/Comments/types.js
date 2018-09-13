@@ -1,9 +1,10 @@
 export default `
   type Comment {
     _id: String
-    document: String
     userId: String
-    text: String
+    documentId: String
+    comment: String
     createdAt: String
+    user: User
   }
 `;

@@ -11,7 +11,7 @@ import { documents } from '../../queries/Documents.gql';
 import { addDocument } from '../../mutations/Documents.gql';
 import handleUpdateApolloCache from '../../../modules/handleUpdateApolloCache';
 
-const Documents = ({ match, history }) => (
+const Documents = ({ history }) => (
   <Mutation
     mutation={addDocument}
     onCompleted={(mutation) => {
@@ -27,7 +27,7 @@ const Documents = ({ match, history }) => (
   >
     {(mutate) => (
       <FetchData query={documents}>
-        {(data) => (
+        {({ data }) => (
           <StyledDocuments>
             <header className="clearfix">
               <Button bsStyle="success" onClick={mutate}>
@@ -71,7 +71,6 @@ const Documents = ({ match, history }) => (
 );
 
 Documents.propTypes = {
-  match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 
