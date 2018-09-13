@@ -22,7 +22,7 @@ export const StyledLogin = styled.div`
 
   @media screen and (min-width: 768px) {
     padding: 0;
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
 

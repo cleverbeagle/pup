@@ -36,11 +36,15 @@ const Documents = ({ match, history }) => (
             </header>
             {data.documents.length ? (
               <DocumentsList>
-                {data.documents.map(({ _id, title, updatedAt }) => (
+                {data.documents.map(({ _id, isPublic, title, updatedAt }) => (
                   <Document key={_id}>
                     <Link to={`/documents/${_id}/edit`} />
                     <header>
-                      <span className="label label-success">Public</span>
+                      {isPublic ? (
+                        <span className="label label-success">Public</span>
+                      ) : (
+                        <span className="label label-default">Private</span>
+                      )}
                       <h2>{title}</h2>
                       <p>{timeago(updatedAt)}</p>
                     </header>
@@ -54,7 +58,7 @@ const Documents = ({ match, history }) => (
                 subtitle="Add your first document by clicking the button below."
                 action={{
                   style: 'success',
-                  onClick: () => history.push(`${match.url}/new`),
+                  onClick: mutate,
                   label: 'Create Your First Document',
                 }}
               />

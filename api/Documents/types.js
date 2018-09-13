@@ -1,7 +1,7 @@
 export default `
   type Document {
     _id: String
-    public: Boolean
+    isPublic: Boolean
     title: String
     createdAt: String
     updatedAt: String

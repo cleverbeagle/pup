@@ -5,7 +5,7 @@ export default {
     if (!user) throw new Error('Sorry, you must be logged in to add a new document.');
     const date = new Date().toISOString();
     const documentId = Documents.insert({
-      public: args.public || false,
+      isPublic: args.isPublic || false,
       title: args.title || `Untitled Document #${Documents.find().count() + 1}`,
       body: args.body || 'This is my document. There are many like it, but this one is mine.',
       owner: user._id,

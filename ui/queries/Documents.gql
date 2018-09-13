@@ -1,6 +1,7 @@
 query documents {
   documents {
     _id
+    isPublic
     title
     updatedAt
     createdAt
@@ -10,7 +11,7 @@ query documents {
 query document($_id: String) {
   document(_id: $_id) {
     _id
-    public
+    isPublic
     title
     body
     updatedAt

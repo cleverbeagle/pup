@@ -21,7 +21,7 @@ const StyledSignup = styled.div`
   }
 
   @media screen and (min-width: 768px) {
-    margin-top: 40px;
+    margin-top: 0px;
     padding: 40px 25px;
   }
 `;

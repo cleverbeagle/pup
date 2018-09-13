@@ -84,14 +84,14 @@ class DocumentEditor extends React.Component {
                 <MenuItem divider />
                 <MenuItem header>Visibility</MenuItem>
                 <MenuItem
-                  className={doc.public && 'active'}
+                  className={doc.isPublic && 'active'}
                   eventKey="1"
                   onClick={() => {
                     this.setState({ saving: true }, () => {
                       mutate({
                         variables: {
                           _id: doc._id,
-                          public: true,
+                          isPublic: true,
                         },
                       });
                     });
@@ -100,14 +100,14 @@ class DocumentEditor extends React.Component {
                   <Icon iconStyle="solid" icon="unlock" /> Public
                 </MenuItem>
                 <MenuItem
-                  className={!doc.public && 'active'}
+                  className={!doc.isPublic && 'active'}
                   eventKey="2"
                   onClick={() => {
                     this.setState({ saving: true }, () => {
                       mutate({
                         variables: {
                           _id: doc._id,
-                          public: false,
+                          isPublic: false,
                         },
                       });
                     });
