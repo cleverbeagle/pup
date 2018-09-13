@@ -26,6 +26,8 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache().restore(window.__APOLLO_STATE__),
 });
 
+Accounts.onLogout(() => apolloClient.resetStore());
+
 injectGlobal`
   :root {
     --primary: #337ab7;
