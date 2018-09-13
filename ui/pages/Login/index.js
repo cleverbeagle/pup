@@ -7,6 +7,8 @@ import OAuthLoginButtons from '../../components/OAuthLoginButtons';
 import AccountPageFooter from '../../components/AccountPageFooter';
 import validate from '../../../modules/validate';
 
+import { StyledLogin, LoginPromo } from './styles';
+
 class Login extends React.Component {
   componentDidMount() {
     const component = this;
@@ -48,9 +50,19 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="Login">
+      <StyledLogin>
+        <LoginPromo>
+          <header>
+            <img
+              src="http://cleverbeagle-assets.s3.amazonaws.com/graphics/pup-document-graphic.png"
+              alt="Clever Beagle"
+            />
+            <h4>Introducing Documents</h4>
+            <p>Keep track of your ideas, privately and publicly.</p>
+          </header>
+        </LoginPromo>
         <Row>
-          <Col xs={12} sm={6} md={5} lg={4}>
+          <Col xs={12}>
             <h4 className="page-header">Log In</h4>
             <Row>
               <Col xs={12}>
@@ -88,7 +100,7 @@ class Login extends React.Component {
             </form>
           </Col>
         </Row>
-      </div>
+      </StyledLogin>
     );
   }
 }
