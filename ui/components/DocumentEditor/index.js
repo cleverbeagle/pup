@@ -28,14 +28,6 @@ class DocumentEditor extends React.Component {
     autoBind(this);
   }
 
-  componentWillMount() {
-    document.body.classList.add('isDocumentEditor');
-  }
-
-  componentWillUnmount() {
-    document.body.classList.remove('isDocumentEditor');
-  }
-
   handleUpdateDocument(mutate) {
     this.setState({ saving: true }, () => {
       delay(() => {
