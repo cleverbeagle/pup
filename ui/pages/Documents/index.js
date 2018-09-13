@@ -23,13 +23,6 @@ const Documents = ({ match, history }) => (
         field: 'documents',
         update: data.addDocument,
       });
-      // const query = cache.readQuery({ query: documents });
-      // cache.writeQuery({
-      //   query: documents,
-      //   data: {
-      //     documents: query.documents.concat([data.addDocument]),
-      //   },
-      // });
     }}
   >
     {(mutate) => (
