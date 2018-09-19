@@ -7,6 +7,7 @@ jobs:
     steps:
       - checkout
       - run: echo "A first hello"
+      - run: npm run lint
 
 workflows:
   version: 2
