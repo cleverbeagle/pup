@@ -3,7 +3,9 @@ A boilerplate for products.
 
 [Read the Documentation](http://cleverbeagle.com/pup)
 
-Test for CircleCI
+2.0.0 - [![CircleCI](https://circleci.com/gh/cleverbeagle/pup/tree/2.0.0.svg?style=shield)](https://circleci.com/gh/cleverbeagle/pup/tree/2.0.0)
+
+master - [![CircleCI](https://circleci.com/gh/cleverbeagle/pup.svg?style=shield)](https://circleci.com/gh/cleverbeagle/pup)
 
 ---
 
