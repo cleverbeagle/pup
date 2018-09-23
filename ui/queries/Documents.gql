@@ -1,0 +1,21 @@
+query documents {
+  documents {
+    _id
+    isPublic
+    title
+    updatedAt
+    createdAt
+  }
+}
+
+query document($_id: String) {
+  document(_id: $_id) {
+    _id
+    isPublic
+    title
+    body
+    updatedAt
+    createdAt
+    comments
+  }
+}

@@ -26,6 +26,8 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache().restore(window.__APOLLO_STATE__),
 });
 
+Accounts.onLogout(() => apolloClient.resetStore());
+
 injectGlobal`
   :root {
     --primary: #337ab7;
@@ -63,6 +65,14 @@ injectGlobal`
     line-height: 20px;
   }
 
+  body.isViewDocument {
+    padding-top: 20px;
+  }
+
+  body.isViewDocument .navbar {
+    display: none;
+  }
+
   .navbar {
     border-radius: 0;
     border-left: none;
@@ -95,7 +105,16 @@ injectGlobal`
     vertical-align: middle !important;
   }
 
+  /* Removes unnecessary bottom padding on .container */
+  body > #react-root > div > .container {
+    padding-bottom: 0;
+  }
+
   @media screen and (min-width: 768px) {
+    body.isViewDocument {
+      padding-top: 40px;
+    }
+
     .page-header {
       margin-top: 20px;
     }

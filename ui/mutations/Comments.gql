@@ -1,0 +1,11 @@
+mutation addComment($documentId: String!, $comment: String!) {
+  addComment(documentId: $documentId, comment: $comment) {
+    _id
+    documentId
+    comment
+    createdAt
+    user {
+      name
+    }
+  }
+}

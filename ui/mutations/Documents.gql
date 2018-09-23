@@ -1,0 +1,29 @@
+mutation addDocument($title: String, $body: String) {
+  addDocument(title: $title, body: $body) {
+    _id
+    isPublic
+    title
+    body
+    createdAt
+    updatedAt
+    owner
+  }
+}
+
+mutation updateDocument($_id: String!, $title: String, $body: String, $isPublic: Boolean) {
+  updateDocument(_id: $_id, title: $title, body: $body, isPublic: $isPublic) {
+    _id
+    isPublic
+    title
+    body
+    createdAt
+    updatedAt
+    owner
+  }
+}
+
+mutation removeDocument($_id: String!) {
+  addDocument(_id: $title) {
+    _id
+  }
+}

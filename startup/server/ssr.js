@@ -16,7 +16,6 @@ onPageLoad(async (sink) => {
     ssrMode: true,
     link: createHttpLink({
       uri: Meteor.settings.public.graphQL.uri,
-      credentials: 'same-origin',
     }),
     cache: new InMemoryCache(),
   });
