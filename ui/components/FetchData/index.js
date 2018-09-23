@@ -11,10 +11,15 @@ const FetchData = ({ query, children, ...rest }) => (
       if (renderProps.error) {
         return (
           <Alert bsStyle="danger">
-            GraphQL Query Error: Check your browser console for details (see <code>[GraphQL error]</code> and <code>[Network error]</code>).
+            GraphQL Query Error: Check your browser console for details (see{' '}
+            <code>[GraphQL error]</code> and <code>[Network error]</code>
+            ).
           </Alert>
         );
       }
+      // TODO what if we make it simpler by passing data into children?
+      // If people want access to loading or error, we could do children(data, renderProps)
+      // Then it's simpler to use and you don't need `data.` everywhere
       return renderProps.data && children(renderProps);
     }}
   </Query>

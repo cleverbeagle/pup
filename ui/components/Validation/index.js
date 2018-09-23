@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import validate from '../../../modules/validate';
 
@@ -23,7 +22,9 @@ class Validation extends React.Component {
     }
 
     return (
-      <React.Fragment>{React.cloneElement(this.props.children, { ref: (form) => (this.form = form) })}</React.Fragment>
+      <React.Fragment>
+        {React.cloneElement(this.props.children, { ref: (form) => (this.form = form) })}
+      </React.Fragment>
     );
   }
 }

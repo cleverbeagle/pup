@@ -16,7 +16,7 @@ import Public from '../../components/Public';
 import Index from '../../pages/Index';
 
 import Documents from '../../pages/Documents';
-import NewDocument from '../../pages/NewDocument';
+// import NewDocument from '../../pages/NewDocument';
 import ViewDocument from '../../pages/ViewDocument';
 import EditDocument from '../../pages/EditDocument';
 

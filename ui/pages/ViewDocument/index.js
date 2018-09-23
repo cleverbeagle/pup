@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ButtonToolbar, ButtonGroup, Button } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
-import { Bert } from 'meteor/themeteorchef:bert';
 import SEO from '../../components/SEO';
 import FetchData from '../../components/FetchData';
 import BlankState from '../../components/BlankState';
@@ -23,9 +21,11 @@ class ViewDocument extends React.Component {
 
   render() {
     const { match } = this.props;
+    /* eslint-disable consistent-return */
     return (
       <FetchData query={documentQuery} variables={{ _id: match.params._id }} pollInterval={500}>
         {({ loading, data }) => {
+          // TODO do we need to handle loading since that is handled by FetchData?
           if (!loading && data.document) {
             console.log(data.document);
             return (
@@ -69,6 +69,7 @@ class ViewDocument extends React.Component {
         }}
       </FetchData>
     );
+    /* eslint-enable consistent-return */ // temporary until question above is answered
   }
 }
 

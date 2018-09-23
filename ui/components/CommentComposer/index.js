@@ -4,21 +4,23 @@ import { Mutation } from 'react-apollo';
 import { Button } from 'react-bootstrap';
 import Validation from '../Validation';
 import addComment from '../../mutations/Comments.gql';
-import { documents } from '../../queries/Documents.gql';
-import handleUpdateApolloCache from '../../../modules/handleUpdateApolloCache';
+// import { documents } from '../../queries/Documents.gql';
+// import handleUpdateApolloCache from '../../../modules/handleUpdateApolloCache';
 
 import StyledCommentComposer from './styles';
 
 const CommentComposer = ({ documentId }) => (
   <Mutation
     mutation={addComment}
-    update={(cache, { data }) => {
-      // handleUpdateApolloCache(cache, {
-      //   query: documents,
-      //   field: 'documents',
-      //   update: data.addComment,
-      // });
-    }}
+    update={
+      (/* cache, { data } */) => {
+        // handleUpdateApolloCache(cache, {
+        //   query: documents,
+        //   field: 'documents',
+        //   update: data.addComment,
+        // });
+      }
+    }
     onCompleted={() => {
       document.querySelector('[name="comment"]').value = '';
     }}
