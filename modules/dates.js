@@ -42,4 +42,6 @@ export const year = (timestamp, timezone) =>
 export const iso = (timestamp, timezone) =>
   !timezone
     ? moment(timestamp).format()
-    : moment(timestamp).tz(timezone).format();
+    : moment(timestamp)
+        .tz(timezone)
+        .format();
