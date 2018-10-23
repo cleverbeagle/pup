@@ -14,13 +14,6 @@ import CommentMutations from '../../api/Comments/mutations';
 import '../../api/Documents/server/indexes';
 import '../../api/OAuth/server/methods';
 
-/*
-  TODO:
-
-  Why are nested queries not working? The parent query works great, but once that's
-  resolved the subfields are _not_ resolved. What's up?
-*/
-
 const schema = {
   typeDefs: gql`
     ${UserTypes}
@@ -30,7 +23,6 @@ const schema = {
     type Query {
       documents: [Document]
       document(_id: String): Document
-      comments: [Comment]
       user: User
     }
 
@@ -45,12 +37,17 @@ const schema = {
   resolvers: {
     Query: {
       ...DocumentQueries,
-      ...CommentQueries,
       ...UserQueries,
     },
     Mutation: {
       ...DocumentMutations,
       ...CommentMutations,
+    },
+    Document: {
+      comments: CommentQueries.comments,
+    },
+    Comment: {
+      user: UserQueries.user,
     },
     // Subscription: {
     //   ...DocumentSubscriptions,

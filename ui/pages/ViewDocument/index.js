@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ButtonToolbar, ButtonGroup, Button } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
-import { Bert } from 'meteor/themeteorchef:bert';
 import SEO from '../../components/SEO';
 import FetchData from '../../components/FetchData';
 import BlankState from '../../components/BlankState';
@@ -24,10 +22,13 @@ class ViewDocument extends React.Component {
   render() {
     const { match } = this.props;
     return (
-      <FetchData query={documentQuery} variables={{ _id: match.params._id }} pollInterval={500}>
-        {({ loading, data }) => {
+      <FetchData query={documentQuery} variables={{ _id: match.params._id }}>
+        {({ loading, data, refetch }) => {
+          // NOTE: Because a user is not present when page is SSR'd, when client loads with user we need
+          // to immediately refetch so a user can access their own private document while logged in.
+          if (Meteor.isClient && Meteor.userId()) refetch();
+
           if (!loading && data.document) {
-            console.log(data.document);
             return (
               <React.Fragment>
                 <StyledViewDocument>

@@ -9,20 +9,17 @@ import BlankState from '../../components/BlankState';
 import { StyledDocuments, DocumentsList, Document } from './styles';
 import { documents } from '../../queries/Documents.gql';
 import { addDocument } from '../../mutations/Documents.gql';
-import handleUpdateApolloCache from '../../../modules/handleUpdateApolloCache';
+
+const handleNewDocument = (mutate) => {
+  mutate();
+};
 
 const Documents = ({ history }) => (
   <Mutation
     mutation={addDocument}
+    refetchQueries={[{ query: documents }]}
     onCompleted={(mutation) => {
       history.push(`/documents/${mutation.addDocument._id}/edit`);
-    }}
-    update={(cache, { data }) => {
-      handleUpdateApolloCache(cache, {
-        query: documents,
-        field: 'documents',
-        update: data.addDocument,
-      });
     }}
   >
     {(mutate) => (

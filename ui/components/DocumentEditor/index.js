@@ -5,14 +5,12 @@ import PropTypes from 'prop-types';
 import { ControlLabel, DropdownButton, MenuItem } from 'react-bootstrap';
 import { Mutation } from 'react-apollo';
 import autoBind from 'react-autobind';
-import { Link } from 'react-router-dom';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Icon from '../../components/Icon';
-import { documents } from '../../queries/Documents.gql';
-import { updateDocument } from '../../mutations/Documents.gql';
+import { document as documentQuery, documents } from '../../queries/Documents.gql';
+import { updateDocument, removeDocument } from '../../mutations/Documents.gql';
 import delay from '../../../modules/delay';
 import { timeago } from '../../../modules/dates';
-import handleUpdateApolloCache from '../../../modules/handleUpdateApolloCache';
 
 import {
   StyledDocumentEditor,
@@ -25,12 +23,12 @@ import {
 class DocumentEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { saving: false };
+    this.state = { saving: false, mutation: 'updateDocument' };
     autoBind(this);
   }
 
   handleUpdateDocument(mutate) {
-    this.setState({ saving: true }, () => {
+    this.setState({ mutation: 'updateDocument', saving: true }, () => {
       delay(() => {
         mutate({
           variables: {
@@ -38,9 +36,33 @@ class DocumentEditor extends React.Component {
             title: this.form.title.value.trim(),
             body: this.form.body.value.trim(),
           },
+          refetchQueries: [documentQuery],
         });
       }, 300);
     });
+  }
+
+  handleSetVisibility(mutate, isPublic) {
+    this.setState({ mutation: 'updateDocument', saving: true }, () => {
+      mutate({
+        variables: {
+          _id: this.props.doc._id,
+          isPublic: isPublic === 'public',
+        },
+      });
+    });
+  }
+
+  handleRemoveDocument(mutate) {
+    if (confirm('Are you sure? This is permanent!')) {
+      this.setState({ mutation: 'removeDocument' }, () => {
+        mutate({
+          variables: {
+            _id: this.props.doc._id,
+          },
+        });
+      });
+    }
   }
 
   render() {
@@ -48,13 +70,19 @@ class DocumentEditor extends React.Component {
     return (
       <Mutation
         ignoreResults
-        mutation={updateDocument}
-        update={(cache) => {
-          handleUpdateApolloCache(cache, { query: documents, field: 'documents' });
-        }}
+        mutation={{ updateDocument, removeDocument }[this.state.mutation]}
+        refetchQueries={this.state.mutation === 'removeDocument' ? [{ query: documents }] : []}
+        awaitRefetchQueries
         onCompleted={() => {
-          // NOTE: Delay set of this.state.saving to false so UI changes aren't jarring.
-          setTimeout(() => this.setState({ saving: false }), 1000);
+          if (this.state.mutation === 'updateDocument') {
+            // NOTE: Delay set of this.state.saving to false so UI changes aren't jarring.
+            setTimeout(() => this.setState({ saving: false }), 1000);
+          }
+
+          if (this.state.mutation === 'removeDocument') {
+            history.push('/documents');
+            Bert.alert('Document removed!', 'success');
+          }
         }}
         onError={(error) => {
           Bert.alert(error.message, 'danger');
@@ -87,37 +115,19 @@ class DocumentEditor extends React.Component {
                 <MenuItem
                   className={doc.isPublic && 'active'}
                   eventKey="1"
-                  onClick={() => {
-                    this.setState({ saving: true }, () => {
-                      mutate({
-                        variables: {
-                          _id: doc._id,
-                          isPublic: true,
-                        },
-                      });
-                    });
-                  }}
+                  onClick={() => this.handleSetVisibility(mutate, 'public')}
                 >
                   <Icon iconStyle="solid" icon="unlock" /> Public
                 </MenuItem>
                 <MenuItem
                   className={!doc.isPublic && 'active'}
                   eventKey="2"
-                  onClick={() => {
-                    this.setState({ saving: true }, () => {
-                      mutate({
-                        variables: {
-                          _id: doc._id,
-                          isPublic: false,
-                        },
-                      });
-                    });
-                  }}
+                  onClick={() => this.handleSetVisibility(mutate, 'private')}
                 >
                   <Icon iconStyle="solid" icon="lock" /> Private
                 </MenuItem>
                 <MenuItem divider />
-                <MenuItem onClick={() => console.log('Delete')}>
+                <MenuItem onClick={() => this.handleRemoveDocument(mutate)}>
                   <span className="text-danger">Delete Document</span>
                 </MenuItem>
               </DropdownButton>

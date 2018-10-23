@@ -173,16 +173,19 @@ class App extends React.Component {
 }
 
 App.defaultProps = {
+  loading: true,
   userId: '',
   emailAddress: '',
+  emailVerified: false,
+  authenticated: false,
 };
 
 App.propTypes = {
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
   userId: PropTypes.string,
   emailAddress: PropTypes.string,
-  emailVerified: PropTypes.bool.isRequired,
-  authenticated: PropTypes.bool.isRequired,
+  emailVerified: PropTypes.bool,
+  authenticated: PropTypes.bool,
 };
 
 // TODO: Completely remove this and rely on GraphQL???

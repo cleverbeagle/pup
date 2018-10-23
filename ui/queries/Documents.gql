@@ -16,6 +16,14 @@ query document($_id: String) {
     body
     updatedAt
     createdAt
-    comments
+    comments {
+      _id
+      comment
+      createdAt
+      user {
+        _id
+        name
+      }
+    }
   }
 }
