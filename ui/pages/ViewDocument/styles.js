@@ -34,9 +34,4 @@ export const DocumentBody = styled.div`
   > *:last-child {
     margin-bottom: 0;
   }
-
-  @media screen and (min-width: 768px) {
-    font-size: 18px;
-    line-height: 24px;
-  }
 `;

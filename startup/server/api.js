@@ -33,6 +33,10 @@ const schema = {
       addComment(documentId: String!, comment: String!): Comment
       removeComment(commentId: String!): Comment
     }
+
+    # type Subscription {
+    #   commentAdded: Comment
+    # }
   `,
   resolvers: {
     Query: {
@@ -43,15 +47,15 @@ const schema = {
       ...DocumentMutations,
       ...CommentMutations,
     },
+    // Subscription: {
+    //   ...DocumentSubscriptions,
+    // },
     Document: {
       comments: CommentQueries.comments,
     },
     Comment: {
       user: UserQueries.user,
     },
-    // Subscription: {
-    //   ...DocumentSubscriptions,
-    // },
   },
 };
 

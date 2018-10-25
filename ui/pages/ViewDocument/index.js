@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { graphql } from 'react-apollo';
 import { Meteor } from 'meteor/meteor';
 import SEO from '../../components/SEO';
 import FetchData from '../../components/FetchData';
@@ -20,61 +21,61 @@ class ViewDocument extends React.Component {
   }
 
   render() {
-    const { match } = this.props;
-    return (
-      <FetchData query={documentQuery} variables={{ _id: match.params._id }}>
-        {({ loading, data, refetch }) => {
-          // NOTE: Because a user is not present when page is SSR'd, when client loads with user we need
-          // to immediately refetch so a user can access their own private document while logged in.
-          if (Meteor.isClient && Meteor.userId()) refetch();
+    const { data } = this.props;
+    if (Meteor.isClient && Meteor.userId()) data.refetch();
 
-          if (!loading && data.document) {
-            return (
-              <React.Fragment>
-                <StyledViewDocument>
-                  <SEO
-                    title={data.document && data.document.title}
-                    description={data.document && data.document.body}
-                    url={`documents/${data.document && data.document._id}`}
-                    contentType="article"
-                    published={data.document && data.document.createdAt}
-                    updated={data.document && data.document.updatedAt}
-                    twitter="clvrbgl"
-                  />
-                  <React.Fragment>
-                    <h1>{data.document && data.document.title}</h1>
-                    <DocumentBody
-                      dangerouslySetInnerHTML={{
-                        __html: parseMarkdown(data.document && data.document.body),
-                      }}
-                    />
-                  </React.Fragment>
-                </StyledViewDocument>
-                <Comments
-                  documentId={data.document && data.document._id}
-                  comments={data.document && data.document.comments}
-                />
-              </React.Fragment>
-            );
-          }
-
-          if (!loading && !data.document) {
-            return (
-              <BlankState
-                icon={{ style: 'solid', symbol: 'file-alt' }}
-                title="No document here, friend!"
-                subtitle="Make sure to double check the URL! If it's correct, this is probably a private document."
+    if (!data.loading && data.document) {
+      return (
+        <React.Fragment>
+          <StyledViewDocument>
+            <SEO
+              title={data.document && data.document.title}
+              description={data.document && data.document.body}
+              url={`documents/${data.document && data.document._id}`}
+              contentType="article"
+              published={data.document && data.document.createdAt}
+              updated={data.document && data.document.updatedAt}
+              twitter="clvrbgl"
+            />
+            <React.Fragment>
+              <h1>{data.document && data.document.title}</h1>
+              <DocumentBody
+                dangerouslySetInnerHTML={{
+                  __html: parseMarkdown(data.document && data.document.body),
+                }}
               />
-            );
-          }
-        }}
-      </FetchData>
-    );
+            </React.Fragment>
+          </StyledViewDocument>
+          <Comments
+            documentId={data.document && data.document._id}
+            comments={data.document && data.document.comments}
+          />
+        </React.Fragment>
+      );
+    }
+
+    if (!data.loading && !data.document) {
+      return (
+        <BlankState
+          icon={{ style: 'solid', symbol: 'file-alt' }}
+          title="No document here, friend!"
+          subtitle="Make sure to double check the URL! If it's correct, this is probably a private document."
+        />
+      );
+    }
+
+    return null;
   }
 }
 
 ViewDocument.propTypes = {
-  match: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
 };
 
-export default ViewDocument;
+export default graphql(documentQuery, {
+  options: ({ match }) => ({
+    variables: {
+      _id: match.params._id,
+    },
+  }),
+})(ViewDocument);

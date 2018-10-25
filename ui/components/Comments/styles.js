@@ -6,10 +6,14 @@ export const StyledComments = styled.div`
 `;
 
 export const CommentsList = styled.ol`
-  margin-top: 20px;
-  padding: 20px 0 0;
-  border-top: 1px solid var(--gray-lighter);
+  margin-top: 40px;
+  padding: 0;
   list-style: none;
+
+  h3 {
+    font-size: 18px;
+    margin: 0 0 40px;
+  }
 `;
 
 export const Comment = styled.li`

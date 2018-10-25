@@ -10,6 +10,7 @@ const Comments = ({ documentId, comments }) => (
     <CommentComposer documentId={documentId} />
     {comments.length > 0 && (
       <CommentsList>
+        <h3>{comments.length === 1 ? '1 Comment' : `${comments.length} Comments`}</h3>
         {comments.map(({ _id, user, createdAt, comment }) => (
           <Comment key={_id}>
             <header>
