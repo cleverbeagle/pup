@@ -9,14 +9,15 @@ class GDPRConsentModal extends React.Component {
   state = { show: false };
 
   componentWillMount() {
-    Meteor.call('users.checkIfGDPRComplete', (error, complete) => {
-      if (error) {
-        console.warn(error);
-        Bert.alert(error.reason, 'danger');
-      } else {
-        this.setState({ show: !complete });
-      }
-    });
+    // TODO: Make this work via GraphQL
+    // Meteor.call('users.checkIfGDPRComplete', (error, complete) => {
+    //   if (error) {
+    //     console.warn(error);
+    //     Bert.alert(error.reason, 'danger');
+    //   } else {
+    //     this.setState({ show: !complete });
+    //   }
+    // });
   }
 
   handleSaveSettings = () => {

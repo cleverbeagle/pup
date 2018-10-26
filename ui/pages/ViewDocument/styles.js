@@ -14,6 +14,7 @@ export const StyledViewDocument = styled.div`
   }
 
   @media screen and (min-width: 768px) {
+    margin-top: 20px;
     padding: 50px;
   }
 `;

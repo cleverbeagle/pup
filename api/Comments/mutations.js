@@ -2,17 +2,23 @@ import { Roles } from 'meteor/alanning:roles';
 import Comments from './Comments';
 
 export default {
-  addComment(root, args, { user }) {
+  addComment(root, args, { user, pubsub }) {
     if (!user) throw new Error('Sorry, you must be logged in to add a new comment.');
+
     const date = new Date().toISOString();
-    const commentId = Comments.insert({
+    const commentToInsert = {
       documentId: args.documentId,
       comment: args.comment,
       userId: user._id,
       createdAt: date,
+    };
+
+    const commentId = Comments.insert(commentToInsert);
+    pubsub.publish('commentAdded', {
+      commentAdded: { _id: commentId, ...commentToInsert },
     });
-    const comment = Comments.findOne(commentId);
-    return comment;
+
+    return { _id: commentId, ...commentToInsert };
   },
   removeComment(root, args, { user }) {
     if (!user) throw new Error('Sorry, you must be logged in to remove a comment.');

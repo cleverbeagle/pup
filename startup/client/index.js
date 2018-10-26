@@ -4,27 +4,14 @@ import React from 'react';
 import { hydrate } from 'react-dom';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { ThemeProvider, injectGlobal } from 'styled-components';
-import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import { InMemoryCache } from 'apollo-cache-inmemory';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import App from '../../ui/layouts/App';
-import '../both/api';
+import apolloClient from './apollo';
 
 Bert.defaults.style = 'growl-bottom-right';
-
-const apolloClient = new ApolloClient({
-  uri: Meteor.settings.public.graphQL.uri,
-  request: (operation) =>
-    operation.setContext(() => ({
-      headers: {
-        authorization: Accounts._storedLoginToken(),
-      },
-    })),
-  cache: new InMemoryCache().restore(window.__APOLLO_STATE__),
-});
 
 Accounts.onLogout(() => apolloClient.resetStore());
 
@@ -63,14 +50,6 @@ injectGlobal`
     padding: 0;
     font-size: 14px;
     line-height: 20px;
-  }
-
-  body.isViewDocument {
-    padding-top: 20px;
-  }
-
-  body.isViewDocument .navbar {
-    display: none;
   }
 
   .navbar {

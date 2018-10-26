@@ -10,6 +10,7 @@ import DocumentMutations from '../../api/Documents/mutations';
 import CommentTypes from '../../api/Comments/types';
 import CommentQueries from '../../api/Comments/queries';
 import CommentMutations from '../../api/Comments/mutations';
+import CommentSubscriptions from '../../api/Comments/subscriptions';
 
 import '../../api/Documents/server/indexes';
 import '../../api/OAuth/server/methods';
@@ -34,9 +35,9 @@ const schema = {
       removeComment(commentId: String!): Comment
     }
 
-    # type Subscription {
-    #   commentAdded: Comment
-    # }
+    type Subscription {
+      commentAdded(documentId: String!): Comment
+    }
   `,
   resolvers: {
     Query: {
@@ -47,9 +48,9 @@ const schema = {
       ...DocumentMutations,
       ...CommentMutations,
     },
-    // Subscription: {
-    //   ...DocumentSubscriptions,
-    // },
+    Subscription: {
+      ...CommentSubscriptions,
+    },
     Document: {
       comments: CommentQueries.comments,
     },
