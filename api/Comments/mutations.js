@@ -1,3 +1,4 @@
+import sanitizeHtml from 'sanitize-html';
 import { Roles } from 'meteor/alanning:roles';
 import Comments from './Comments';
 
@@ -8,7 +9,7 @@ export default {
     const date = new Date().toISOString();
     const commentToInsert = {
       documentId: args.documentId,
-      comment: args.comment,
+      comment: sanitizeHtml(args.comment),
       userId: user._id,
       createdAt: date,
     };

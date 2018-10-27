@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 
+import sanitizeHtml from 'sanitize-html';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import handleMethodException from '../../modules/handleMethodException';
@@ -23,7 +24,11 @@ Meteor.methods({
     });
 
     try {
-      return Documents.insert({ owner: this.userId, ...doc });
+      return Documents.insert({
+        owner: this.userId,
+        body: sanitizeHtml(doc.body),
+        title: doc.title,
+      });
     } catch (exception) {
       handleMethodException(exception);
     }
@@ -40,7 +45,10 @@ Meteor.methods({
       const docToUpdate = Documents.findOne(documentId, { fields: { owner: 1 } });
 
       if (docToUpdate.owner === this.userId) {
-        Documents.update(documentId, { $set: doc });
+        Documents.update(documentId, { $set: {
+          ...doc,
+          body: sanitizeHtml(doc.body),
+        } });
         return documentId; // Return _id so we can redirect to document after update.
       }
 

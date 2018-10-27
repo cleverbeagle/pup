@@ -1,3 +1,4 @@
+import sanitizeHtml from 'sanitize-html';
 import Documents from './Documents';
 
 export default {
@@ -7,7 +8,7 @@ export default {
     const documentId = Documents.insert({
       isPublic: args.isPublic || false,
       title: args.title || `Untitled Document #${Documents.find().count() + 1}`,
-      body: args.body || 'This is my document. There are many like it, but this one is mine.',
+      body: sanitizeHtml(args.body) || 'This is my document. There are many like it, but this one is mine.',
       owner: user._id,
       createdAt: date,
       updatedAt: date,
@@ -17,7 +18,11 @@ export default {
   },
   updateDocument(root, args, { user, pubsub }) {
     if (!user) throw new Error('Sorry, you must be logged in to update a document.');
-    Documents.update({ _id: args._id }, { $set: { ...args, updatedAt: new Date().toISOString() } });
+    Documents.update({ _id: args._id }, { $set: {
+      ...args,
+      body: sanitizeHtml(args.body),
+      updatedAt: new Date().toISOString()
+    } });
     const doc = Documents.findOne(args._id);
     pubsub.publish('documentUpdated', doc);
     return doc;
