@@ -13,6 +13,7 @@ import CommentMutations from '../../api/Comments/mutations';
 
 import '../../api/Documents/server/indexes';
 import '../../api/OAuth/server/methods';
+import '../../api/webhooks';
 
 /*
   TODO:
