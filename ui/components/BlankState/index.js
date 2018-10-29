@@ -26,7 +26,7 @@ BlankState.defaultProps = {
 
 BlankState.propTypes = {
   image: PropTypes.string,
-  icon: PropTypes.string,
+  icon: PropTypes.object,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
   action: PropTypes.object,

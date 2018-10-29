@@ -1,0 +1,14 @@
+fragment UserAttributes on User {
+  _id
+  name {
+    first
+    last
+  }
+  username
+  emailAddress
+  roles {
+    _id
+    name
+    inRole
+  }
+}

@@ -22,7 +22,10 @@ class Comments extends React.Component {
               <Comment key={_id}>
                 <header>
                   <p>
-                    <strong>{user.name}</strong> <span>{timeago(createdAt)}</span>
+                    <strong>
+                      {user.name.first} {user.name.last}
+                    </strong>
+                    <span>{timeago(createdAt)}</span>
                   </p>
                 </header>
                 <div>

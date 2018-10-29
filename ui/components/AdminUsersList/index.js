@@ -47,11 +47,11 @@ class AdminUsersList extends React.Component {
         <StyledListGroup>
           {data.users &&
             data.users.users &&
-            data.users.users.map(({ _id, emailAddress, username, oAuthProvider }) => (
+            data.users.users.map(({ _id, emailAddress, name, username, oAuthProvider }) => (
               <StyledListGroupItem key={_id}>
                 <Link to={`/admin/users/${_id}`} />
                 <p>
-                  {name || username}
+                  {name ? `${name.first} ${name.last}` : username}
                   <span>{emailAddress}</span>
                   {oAuthProvider && (
                     <span className={`label label-${oAuthProvider}`}>{oAuthProvider}</span>
@@ -84,6 +84,7 @@ AdminUsersList.propTypes = {
 
 export default graphql(usersQuery, {
   options: ({ usersPerPage, currentPage, search }) => ({
+    // fetchPolicy: 'network-only',
     variables: {
       currentPage,
       usersPerPage,

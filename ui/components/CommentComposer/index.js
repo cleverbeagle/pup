@@ -57,8 +57,7 @@ CommentComposer.propTypes = {
 };
 
 export default graphql(addCommentMutation, {
-  options: ({ documentId }) => ({
-    // refetchQueries: [{ query: documentQuery, variables: { _id: documentId } }],
+  options: () => ({
     onCompleted: () => {
       document.querySelector('[name="comment"]').value = '';
     },

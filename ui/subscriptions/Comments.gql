@@ -6,7 +6,10 @@ subscription commentAdded($documentId: String!) {
     createdAt
     user {
       _id
-      name
+      name {
+        first
+        last
+      }
     }
   }
 }

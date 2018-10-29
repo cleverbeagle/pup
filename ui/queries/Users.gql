@@ -1,31 +1,22 @@
+#import "../fragments/Users.gql"
+
 query users($currentPage: Int, $usersPerPage: Int, $search: String) {
   users(currentPage: $currentPage, usersPerPage: $usersPerPage, search: $search) {
     total
     users {
       _id
-      name
+      name {
+        first
+        last
+      }
       emailAddress
       oAuthProvider
     }
   }
 }
 
-query user($_id: String) {
+query user($_id: String!) {
   user(_id: $_id) {
-    _id
-    isPublic
-    title
-    body
-    updatedAt
-    createdAt
-    comments {
-      _id
-      comment
-      createdAt
-      user {
-        _id
-        name
-      }
-    }
+    ...UserAttributes
   }
 }

@@ -16,7 +16,6 @@ import Public from '../../components/Public';
 import Index from '../../pages/Index';
 
 import Documents from '../../pages/Documents';
-import NewDocument from '../../pages/NewDocument';
 import ViewDocument from '../../pages/ViewDocument';
 import EditDocument from '../../pages/EditDocument';
 
@@ -88,14 +87,6 @@ class App extends React.Component {
               {...props}
               {...state}
             />
-            {/* <Authenticated
-              exact
-              path="/documents/new"
-              component={NewDocument}
-              setAfterLoginPath={setAfterLoginPath}
-              {...props}
-              {...state}
-            /> */}
             <Route exact path="/documents/:_id" component={ViewDocument} />
             <Authenticated
               exact
@@ -163,6 +154,7 @@ class App extends React.Component {
               {...props}
               {...state}
             />
+
             <Route component={NotFound} />
           </Switch>
         </Grid>
@@ -187,8 +179,6 @@ App.propTypes = {
   emailVerified: PropTypes.bool,
   authenticated: PropTypes.bool,
 };
-
-// TODO: Completely remove this and rely on GraphQL???
 
 export default withTrackerSsr(() => {
   const app = Meteor.subscribe('app');

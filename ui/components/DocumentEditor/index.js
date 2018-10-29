@@ -7,7 +7,7 @@ import { Mutation } from 'react-apollo';
 import autoBind from 'react-autobind';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Icon from '../../components/Icon';
-import { document as documentQuery, documents } from '../../queries/Documents.gql';
+import { editDocument as editDocumentQuery, documents } from '../../queries/Documents.gql';
 import { updateDocument, removeDocument } from '../../mutations/Documents.gql';
 import delay from '../../../modules/delay';
 import { timeago } from '../../../modules/dates';
@@ -36,7 +36,7 @@ class DocumentEditor extends React.Component {
             title: this.form.title.value.trim(),
             body: this.form.body.value.trim(),
           },
-          refetchQueries: [documentQuery],
+          refetchQueries: [{ query: editDocumentQuery }],
         });
       }, 300);
     });

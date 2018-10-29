@@ -4,7 +4,7 @@ import { graphql } from 'react-apollo';
 import DocumentEditor from '../../components/DocumentEditor';
 import Loading from '../../components/Loading';
 import NotFound from '../NotFound';
-import { document as documentQuery } from '../../queries/Documents.gql';
+import { editDocument as editDocumentQuery } from '../../queries/Documents.gql';
 
 const EditDocument = ({ data, history }) => (
   <React.Fragment>
@@ -23,7 +23,7 @@ EditDocument.propTypes = {
   history: PropTypes.object.isRequired,
 };
 
-export default graphql(documentQuery, {
+export default graphql(editDocumentQuery, {
   options: ({ match }) => ({
     variables: {
       _id: match.params._id,

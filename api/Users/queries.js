@@ -10,7 +10,7 @@ const fetchUsers = (query, projection) =>
       const userProfile = getUserProfile(user);
       return {
         _id: userProfile._id,
-        name: `${userProfile.profile.name.first} ${userProfile.profile.name.last}`,
+        name: userProfile.profile.name,
         emailAddress: userProfile.emails[0].address,
         oAuthProvider: userProfile.service !== 'password' ? userProfile.service : null,
       };
@@ -18,9 +18,9 @@ const fetchUsers = (query, projection) =>
 
 export default {
   users: (parent, args, { user }) => {
-    // if (!user || !Roles.userIsInRole(user._id, 'admin')) {
-    //   throw new Error('Sorry, you need to be an administrator to do this.');
-    // }
+    if (!user || !Roles.userIsInRole(user._id, 'admin')) {
+      throw new Error('Sorry, you need to be an administrator to do this.');
+    }
 
     const skip = args.currentPage * args.usersPerPage - args.usersPerPage;
     const searchRegex = args.search ? new RegExp(args.search, 'i') : null;
@@ -55,12 +55,22 @@ export default {
         : fetchUsers({ _id: { $ne: user._id } }, { limit: args.usersPerPage, skip, sort }),
     };
   },
-  user: ({ userId }) => {
-    const user = Meteor.users.findOne({ _id: userId });
+  user: (parent, { _id }) => {
+    const userIdFromParentQuery = parent && parent.userId;
+    const userProfile = getUserProfile(Meteor.users.findOne({ _id: userIdFromParentQuery || _id }));
+
+    console.log('Requested userId', userIdFromParentQuery || _id);
+
     return {
-      _id: user._id,
-      name: `${user.profile.name.first} ${user.profile.name.last}`,
-      emailAddress: user.emails[0].address,
+      _id: userIdFromParentQuery || _id,
+      name: userProfile.profile.name,
+      emailAddress: userProfile.emails[0].address,
+      roles:
+        Roles.getAllRoles().map((role) => {
+          role.inRole = Roles.userIsInRole(userIdFromParentQuery || _id, role.name); // eslint-disable-line
+          return role;
+        }) || [],
+      oAuthProvider: userProfile.service !== 'password' ? userProfile.service : null,
     };
   },
 };

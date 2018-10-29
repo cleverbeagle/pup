@@ -2,6 +2,7 @@ import gql from 'graphql-tag';
 
 import UserTypes from '../../api/Users/types';
 import UserQueries from '../../api/Users/queries';
+import UserMutations from '../../api/Users/mutations';
 
 import DocumentTypes from '../../api/Documents/types';
 import DocumentQueries from '../../api/Documents/queries';
@@ -24,7 +25,7 @@ const schema = {
     type Query {
       documents: [Document]
       document(_id: String): Document
-      user: User
+      user(_id: String!): User
       users(currentPage: Int, usersPerPage: Int, search: String): Users
     }
 
@@ -34,6 +35,8 @@ const schema = {
       removeDocument(_id: String!): Document
       addComment(documentId: String!, comment: String!): Comment
       removeComment(commentId: String!): Comment
+      updateUser(user: UserInput): User
+      removeUser(_id: String!): User
     }
 
     type Subscription {
@@ -48,6 +51,7 @@ const schema = {
     Mutation: {
       ...DocumentMutations,
       ...CommentMutations,
+      ...UserMutations,
     },
     Subscription: {
       ...CommentSubscriptions,
