@@ -1,0 +1,31 @@
+query users($currentPage: Int, $usersPerPage: Int, $search: String) {
+  users(currentPage: $currentPage, usersPerPage: $usersPerPage, search: $search) {
+    total
+    users {
+      _id
+      name
+      emailAddress
+      oAuthProvider
+    }
+  }
+}
+
+query user($_id: String) {
+  user(_id: $_id) {
+    _id
+    isPublic
+    title
+    body
+    updatedAt
+    createdAt
+    comments {
+      _id
+      comment
+      createdAt
+      user {
+        _id
+        name
+      }
+    }
+  }
+}

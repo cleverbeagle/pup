@@ -25,6 +25,7 @@ const schema = {
       documents: [Document]
       document(_id: String): Document
       user: User
+      users(currentPage: Int, usersPerPage: Int, search: String): Users
     }
 
     type Mutation {

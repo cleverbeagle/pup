@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Icon from '../Icon';
 import Styles from './styles';
 
-const SearchInput = ({ placeholder, onKeyUp }) => (
+const SearchInput = ({ placeholder, value, onChange }) => (
   <Styles.SearchInput className="SearchInput">
     <Icon iconStyle="solid" icon="search" />
     <input
@@ -11,7 +11,8 @@ const SearchInput = ({ placeholder, onKeyUp }) => (
       name="search"
       className="form-control"
       placeholder={placeholder}
-      onKeyUp={onKeyUp}
+      value={value}
+      onChange={onChange}
     />
   </Styles.SearchInput>
 );
@@ -22,7 +23,8 @@ SearchInput.defaultProps = {
 
 SearchInput.propTypes = {
   placeholder: PropTypes.string,
-  onKeyUp: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default SearchInput;
