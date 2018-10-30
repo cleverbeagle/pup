@@ -72,7 +72,7 @@ class AdminUserProfile extends React.Component {
 
   render() {
     const { user } = this.props;
-    console.log('before render', user);
+    console.log(user);
     return (
       <div className="AdminUserProfile">
         <Validation
@@ -180,7 +180,7 @@ class AdminUserProfile extends React.Component {
                         <ListGroup>
                           {user.roles.map(({ _id, name, inRole }) => (
                             <ListGroupItem key={_id}>
-                              <Checkbox name="role" value={name} checked={inRole} inline>
+                              <Checkbox name="role" value={name} defaultChecked={inRole} inline>
                                 {capitalize(name)}
                               </Checkbox>
                             </ListGroupItem>

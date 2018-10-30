@@ -20,7 +20,6 @@ class AdminUser extends React.Component {
   render() {
     const { loading, data, updateUser, removeUser } = this.props;
     const name = data.user && data.user.name;
-    console.log(data.user);
     return !loading && data.user ? (
       <div className="AdminUser">
         <Breadcrumb>
@@ -81,8 +80,9 @@ export default compose(
     options: ({ match }) => ({
       // NOTE: This ensures cache isn't too aggressive when moving between users.
       // Forces Apollo to perform userQuery as a user is loaded instead of falling
-      // back to the cache.
-      fetchPolicy: 'network-only',
+      // back to the cache. Users share similar data which gets cached and ends up
+      // breaking the UI.
+      fetchPolicy: 'no-cache',
       variables: {
         _id: match.params._id,
       },

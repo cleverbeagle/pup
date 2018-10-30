@@ -59,8 +59,6 @@ export default {
     const userIdFromParentQuery = parent && parent.userId;
     const userProfile = getUserProfile(Meteor.users.findOne({ _id: userIdFromParentQuery || _id }));
 
-    console.log('Requested userId', userIdFromParentQuery || _id);
-
     return {
       _id: userIdFromParentQuery || _id,
       name: userProfile.profile.name,
