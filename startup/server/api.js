@@ -4,6 +4,10 @@ import UserTypes from '../../api/Users/types';
 import UserQueries from '../../api/Users/queries';
 import UserMutations from '../../api/Users/mutations';
 
+import UserSettingsTypes from '../../api/UserSettings/types';
+import UserSettingsQueries from '../../api/UserSettings/queries';
+import UserSettingsMutations from '../../api/UserSettings/mutations';
+
 import DocumentTypes from '../../api/Documents/types';
 import DocumentQueries from '../../api/Documents/queries';
 import DocumentMutations from '../../api/Documents/mutations';
@@ -21,12 +25,14 @@ const schema = {
     ${UserTypes}
     ${DocumentTypes}
     ${CommentTypes}
+    ${UserSettingsTypes}
 
     type Query {
       documents: [Document]
       document(_id: String): Document
       user(_id: String!): User
       users(currentPage: Int, usersPerPage: Int, search: String): Users
+      userSettings: [UserSetting]
     }
 
     type Mutation {
@@ -37,6 +43,9 @@ const schema = {
       removeComment(commentId: String!): Comment
       updateUser(user: UserInput): User
       removeUser(_id: String!): User
+      addUserSetting(setting: UserSettingInput): UserSetting
+      updateUserSetting(setting: UserSettingInput): UserSetting
+      removeUserSetting(_id: String!): UserSetting
     }
 
     type Subscription {
@@ -47,11 +56,13 @@ const schema = {
     Query: {
       ...DocumentQueries,
       ...UserQueries,
+      ...UserSettingsQueries,
     },
     Mutation: {
       ...DocumentMutations,
       ...CommentMutations,
       ...UserMutations,
+      ...UserSettingsMutations,
     },
     Subscription: {
       ...CommentSubscriptions,

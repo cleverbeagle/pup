@@ -1,0 +1,11 @@
+query userSettings {
+  userSettings {
+    _id
+    isGDPR
+    key
+    label
+    type
+    value
+  }
+}
+ 

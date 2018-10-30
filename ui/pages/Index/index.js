@@ -9,7 +9,7 @@ const Index = () => (
       alt="Clever Beagle"
     />
     <h1>Pup</h1>
-    <p>A boilerplate for products.</p>
+    <p>The Ultimate Boilerplate for Products.</p>
     <div>
       <Button href="http://cleverbeagle.com/pup">Read the Docs</Button>
       <Button href="https://github.com/cleverbeagle/pup">
@@ -18,9 +18,9 @@ const Index = () => (
     </div>
     <footer>
       <p>
-        Want to ensure that your product sees the light of day?{' '}
-        <a href="https://cleverbeagle.com?utm_source=pup&utm_medium=app&utm_campaign=oss">
-          Work with Clever Beagle
+        Want to build your product with an experienced buddy?{' '}
+        <a href="https://cleverbeagle.com/together?utm_source=pup&utm_medium=app&utm_campaign=oss">
+          Check out Together by Clever Beagle
         </a>
         .
       </p>
