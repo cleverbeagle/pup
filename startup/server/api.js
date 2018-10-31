@@ -30,8 +30,8 @@ const schema = {
     type Query {
       documents: [Document]
       document(_id: String): Document
-      user(_id: String!): User
-      users(currentPage: Int, usersPerPage: Int, search: String): Users
+      user(_id: String): User
+      users(currentPage: Int, perPage: Int, search: String): Users
       userSettings: [UserSetting]
     }
 
@@ -42,7 +42,9 @@ const schema = {
       addComment(documentId: String!, comment: String!): Comment
       removeComment(commentId: String!): Comment
       updateUser(user: UserInput): User
+      updateUserAdmin(user: UserInput): User
       removeUser(_id: String!): User
+      removeUserAdmin(_id: String!): User
       addUserSetting(setting: UserSettingInput): UserSetting
       updateUserSetting(setting: UserSettingInput): UserSetting
       removeUserSetting(_id: String!): UserSetting

@@ -25,7 +25,7 @@ class AdminUsers extends React.Component {
         <AdminUsersList
           search={this.state.search}
           currentPage={this.state.currentPage}
-          usersPerPage={10}
+          perPage={10}
           onChangePage={(currentPage) => this.setState({ currentPage })}
         />
       </div>

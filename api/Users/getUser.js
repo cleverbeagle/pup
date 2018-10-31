@@ -1,9 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
-import getUserProfile from '../../modules/getUserProfile';
+import normalizeMeteorUserData from './actions/normalizeMeteorUserData';
 
 const mapUserToSchema = (user) => {
-  const userProfile = getUserProfile(user);
+  const userProfile = normalizeMeteorUserData(user);
   return {
     _id: userProfile._id,
     name: userProfile.profile.name,

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose, graphql } from 'react-apollo';
 import FileSaver from 'file-saver';
 import base64ToBlob from 'b64-to-blob';
 import { Row, Col, FormGroup, ControlLabel, Button, Tabs, Tab } from 'react-bootstrap';
@@ -7,71 +8,18 @@ import { capitalize } from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
-import { withTracker } from 'meteor/react-meteor-data';
+import Validation from '../../components/Validation';
 import InputHint from '../../components/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter';
 import UserSettings from '../../components/UserSettings';
-import validate from '../../../modules/validate';
-import getUserProfile from '../../../modules/getUserProfile';
+import { user as userQuery } from '../../queries/Users.gql';
+import { updateUser as updateUserMutation } from '../../mutations/Users.gql';
 import Styles from './styles';
 
 class Profile extends React.Component {
   state = { activeTab: 'profile' };
 
-  componentDidMount() {
-    const component = this;
-
-    validate(component.form, {
-      rules: {
-        firstName: {
-          required: true,
-        },
-        lastName: {
-          required: true,
-        },
-        emailAddress: {
-          required: true,
-          email: true,
-        },
-        currentPassword: {
-          required() {
-            // Only required if newPassword field has a value.
-            return component.form.newPassword.value.length > 0;
-          },
-        },
-        newPassword: {
-          required() {
-            // Only required if currentPassword field has a value.
-            return component.form.currentPassword.value.length > 0;
-          },
-          minlength: 6,
-        },
-      },
-      messages: {
-        firstName: {
-          required: "What's your first name?",
-        },
-        lastName: {
-          required: "What's your last name?",
-        },
-        emailAddress: {
-          required: 'Need an email address here.',
-          email: 'Is this email address correct?',
-        },
-        currentPassword: {
-          required: 'Need your current password if changing.',
-        },
-        newPassword: {
-          required: 'Need your new password if changing.',
-        },
-      },
-      submitHandler() {
-        component.handleSubmit(component.form);
-      },
-    });
-  }
-
-  getUserType = (user) => (user.service === 'password' ? 'password' : 'oauth');
+  getUserType = (user) => user.oAuthProvider || 'password';
 
   handleExportData = (event) => {
     event.preventDefault();
@@ -97,22 +45,18 @@ class Profile extends React.Component {
   };
 
   handleSubmit = (form) => {
-    const profile = {
-      emailAddress: form.emailAddress.value,
-      profile: {
-        name: {
-          first: form.firstName.value,
-          last: form.lastName.value,
+    this.props.updateUser({
+      variables: {
+        user: {
+          email: form.emailAddress.value,
+          profile: {
+            name: {
+              first: form.firstName.value,
+              last: form.lastName.value,
+            },
+          },
         },
       },
-    };
-
-    Meteor.call('users.editProfile', profile, (error) => {
-      if (error) {
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Bert.alert('Profile updated!', 'success');
-      }
     });
 
     if (form.newPassword.value) {
@@ -129,25 +73,25 @@ class Profile extends React.Component {
 
   renderOAuthUser = (user) => (
     <div className="OAuthProfile">
-      <div key={user.service} className={`LoggedInWith ${user.service}`}>
-        <img src={`/${user.service}.svg`} alt={user.service} />
+      <div key={user.oAuthProvider} className={`LoggedInWith ${user.oAuthProvider}`}>
+        <img src={`/${user.oAuthProvider}.svg`} alt={user.oAuthProvider} />
         <p>
-          {`You're logged in with ${capitalize(user.service)} using the email address ${
-            user.emails[0].address
+          {`You're logged in with ${capitalize(user.oAuthProvider)} using the email address ${
+            user.emailAddress
           }.`}
         </p>
         <Button
-          className={`btn btn-${user.service}`}
+          className={`btn btn-${user.oAuthProvider}`}
           href={
             {
               facebook: 'https://www.facebook.com/settings',
               google: 'https://myaccount.google.com/privacy#personalinfo',
               github: 'https://github.com/settings/profile',
-            }[user.service]
+            }[user.oAuthProvider]
           }
           target="_blank"
         >
-          Edit Profile on {capitalize(user.service)}
+          Edit Profile on {capitalize(user.oAuthProvider)}
         </Button>
       </div>
     </div>
@@ -162,7 +106,7 @@ class Profile extends React.Component {
             <input
               type="text"
               name="firstName"
-              defaultValue={user.profile.name.first}
+              defaultValue={user.name.first}
               className="form-control"
             />
           </FormGroup>
@@ -173,7 +117,7 @@ class Profile extends React.Component {
             <input
               type="text"
               name="lastName"
-              defaultValue={user.profile.name.last}
+              defaultValue={user.name.last}
               className="form-control"
             />
           </FormGroup>
@@ -184,7 +128,7 @@ class Profile extends React.Component {
         <input
           type="email"
           name="emailAddress"
-          defaultValue={user.emails[0].address}
+          defaultValue={user.emailAddress}
           className="form-control"
         />
       </FormGroup>
@@ -203,21 +147,19 @@ class Profile extends React.Component {
     </div>
   );
 
-  renderProfileForm = (loading, user) =>
-    !loading &&
+  renderProfileForm = (user) =>
+    user &&
     {
       password: this.renderPasswordUser,
       oauth: this.renderOAuthUser,
     }[this.getUserType(user)](user);
 
   render() {
-    const { loading, user } = this.props;
-    return (
+    const { data } = this.props;
+    return data.user ? (
       <Styles.Profile>
         <h4 className="page-header">
-          {user && user.profile
-            ? `${user.profile.name.first} ${user.profile.name.last}`
-            : user.username}
+          {data.user.name ? `${data.user.name.first} ${data.user.name.last}` : data.user.username}
         </h4>
         <Tabs
           animation={false}
@@ -228,12 +170,59 @@ class Profile extends React.Component {
           <Tab eventKey="profile" title="Profile">
             <Row>
               <Col xs={12} sm={6} md={4}>
-                <form
-                  ref={(form) => (this.form = form)}
-                  onSubmit={(event) => event.preventDefault()}
+                <Validation
+                  rules={{
+                    firstName: {
+                      required: true,
+                    },
+                    lastName: {
+                      required: true,
+                    },
+                    emailAddress: {
+                      required: true,
+                      email: true,
+                    },
+                    currentPassword: {
+                      required() {
+                        // Only required if newPassword field has a value.
+                        return this.form.newPassword.value.length > 0;
+                      },
+                    },
+                    newPassword: {
+                      required() {
+                        // Only required if currentPassword field has a value.
+                        return this.form.currentPassword.value.length > 0;
+                      },
+                      minlength: 6,
+                    },
+                  }}
+                  messages={{
+                    firstName: {
+                      required: "What's your first name?",
+                    },
+                    lastName: {
+                      required: "What's your last name?",
+                    },
+                    emailAddress: {
+                      required: 'Need an email address here.',
+                      email: 'Is this email address correct?',
+                    },
+                    currentPassword: {
+                      required: 'Need your current password if changing.',
+                    },
+                    newPassword: {
+                      required: 'Need your new password if changing.',
+                    },
+                  }}
+                  submitHandler={() => this.handleSubmit(this.form)}
                 >
-                  {this.renderProfileForm(loading, user)}
-                </form>
+                  <form
+                    ref={(form) => (this.form = form)}
+                    onSubmit={(event) => event.preventDefault()}
+                  >
+                    {this.renderProfileForm(data.user)}
+                  </form>
+                </Validation>
                 <AccountPageFooter>
                   <p>
                     <Button bsStyle="link" className="btn-export" onClick={this.handleExportData}>
@@ -257,20 +246,26 @@ class Profile extends React.Component {
           </Tab>
         </Tabs>
       </Styles.Profile>
+    ) : (
+      <div />
     );
   }
 }
 
 Profile.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
+  updateUser: PropTypes.func.isRequired,
 };
 
-export default withTracker(() => {
-  const subscription = Meteor.subscribe('users.editProfile');
-
-  return {
-    loading: !subscription.ready(),
-    user: getUserProfile(Meteor.users.findOne({ _id: Meteor.userId() })),
-  };
-})(Profile);
+export default compose(
+  graphql(userQuery),
+  graphql(updateUserMutation, {
+    name: 'updateUser',
+    options: () => ({
+      refetchQueries: [{ query: userQuery }],
+      onCompleted: () => {
+        Bert.alert('Profile updated!', 'success');
+      },
+    }),
+  }),
+)(Profile);

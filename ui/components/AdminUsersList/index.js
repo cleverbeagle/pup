@@ -15,9 +15,9 @@ class AdminUsersList extends React.Component {
   }
 
   renderPagination = () => {
-    const { data, usersPerPage, currentPage, onChangePage } = this.props;
+    const { data, perPage, currentPage, onChangePage } = this.props;
     const pages = [];
-    const pagesToGenerate = Math.ceil(data.users.total / usersPerPage);
+    const pagesToGenerate = Math.ceil(data.users.total / perPage);
 
     for (let pageNumber = 1; pageNumber <= pagesToGenerate; pageNumber += 1) {
       pages.push(
@@ -39,7 +39,7 @@ class AdminUsersList extends React.Component {
   };
 
   render() {
-    const { data, search, usersPerPage } = this.props;
+    const { data, search, perPage } = this.props;
 
     if (data.loading) return <Loading />;
     return (
@@ -63,7 +63,7 @@ class AdminUsersList extends React.Component {
         {data.users &&
           data.users.total &&
           search.trim() === '' &&
-          data.users.total > usersPerPage &&
+          data.users.total > perPage &&
           this.renderPagination()}
       </React.Fragment>
     );
@@ -77,17 +77,16 @@ AdminUsersList.defaultProps = {
 AdminUsersList.propTypes = {
   data: PropTypes.object.isRequired,
   search: PropTypes.string,
-  usersPerPage: PropTypes.number.isRequired,
+  perPage: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
   onChangePage: PropTypes.func.isRequired,
 };
 
 export default graphql(usersQuery, {
-  options: ({ usersPerPage, currentPage, search }) => ({
-    // fetchPolicy: 'network-only',
+  options: ({ perPage, currentPage, search }) => ({
     variables: {
+      perPage,
       currentPage,
-      usersPerPage,
       search,
     },
   }),

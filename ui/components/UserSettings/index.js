@@ -25,7 +25,7 @@ class UserSettings extends React.Component {
             },
           },
         });
-      }, 1000);
+      }, 750);
     });
   };
 
@@ -91,13 +91,14 @@ UserSettings.defaultProps = {
   userId: null,
   isAdmin: false,
   settings: [],
+  updateUser: null,
 };
 
 UserSettings.propTypes = {
   userId: PropTypes.string,
   isAdmin: PropTypes.bool,
   settings: PropTypes.array,
-  updateUser: PropTypes.func.isRequired,
+  updateUser: PropTypes.func,
 };
 
 export default UserSettings;

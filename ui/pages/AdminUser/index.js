@@ -8,8 +8,8 @@ import AdminUserProfile from '../../components/AdminUserProfile';
 import UserSettings from '../../components/UserSettings';
 import { user as userQuery, users as usersQuery } from '../../queries/Users.gql';
 import {
-  updateUser as updateUserMutation,
-  removeUser as removeUserMutation,
+  updateUserAdmin as updateUserAdminMutation,
+  removeUserAdmin as removeUserAdminMutation,
 } from '../../mutations/Users.gql';
 
 import Styles from './styles';
@@ -18,20 +18,20 @@ class AdminUser extends React.Component {
   state = { activeTab: 'profile' };
 
   render() {
-    const { loading, data, updateUser, removeUser } = this.props;
+    const { data, updateUser, removeUser } = this.props;
     const name = data.user && data.user.name;
+    const username = data.user && data.user.username;
+
     return data.user ? (
       <div className="AdminUser">
         <Breadcrumb>
-          <Breadcrumb.Item>
+          <li>
             <Link to="/admin/users">Users</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item active>
-            {name ? `${name.first} ${name.last}` : data.user.username}
-          </Breadcrumb.Item>
+          </li>
+          <Breadcrumb.Item active>{name ? `${name.first} ${name.last}` : username}</Breadcrumb.Item>
         </Breadcrumb>
         <Styles.AdminUserHeader className="page-header">
-          {name ? `${name.first} ${name.last}` : data.user.username}
+          {name ? `${name.first} ${name.last}` : username}
           {data.user.oAuthProvider && (
             <span className={`label label-${data.user.oAuthProvider}`}>
               {data.user.oAuthProvider}
@@ -73,7 +73,6 @@ class AdminUser extends React.Component {
 }
 
 AdminUser.propTypes = {
-  loading: PropTypes.bool.isRequired,
   data: PropTypes.object.isRequired,
   updateUser: PropTypes.func.isRequired,
   removeUser: PropTypes.func.isRequired,
@@ -92,7 +91,7 @@ export default compose(
       },
     }),
   }),
-  graphql(updateUserMutation, {
+  graphql(updateUserAdminMutation, {
     name: 'updateUser',
     options: ({ match }) => ({
       refetchQueries: [{ query: userQuery, variables: { _id: match.params._id } }],
@@ -101,7 +100,7 @@ export default compose(
       },
     }),
   }),
-  graphql(removeUserMutation, {
+  graphql(removeUserAdminMutation, {
     name: 'removeUser',
     options: ({ history }) => ({
       refetchQueries: [{ query: usersQuery }],
