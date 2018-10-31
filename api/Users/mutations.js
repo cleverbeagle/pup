@@ -10,14 +10,24 @@ export default {
     }
 
     if (args.user.password) Accounts.setPassword(args.user._id, args.user.password);
-    if (args.user.roles.length) Roles.setUserRoles(args.user._id, args.user.roles);
+    if (args.user.roles && args.user.roles.length > 0) {
+      Roles.setUserRoles(args.user._id, args.user.roles);
+    }
     if (args.user.email || args.user.profile) {
-      console.log(args);
       Meteor.users.update(args.user._id, {
         $set: {
           'emails.0.address': args.user.email,
           'profile.name.first': args.user.profile.name.first,
           'profile.name.last': args.user.profile.name.last,
+        },
+      });
+    }
+
+    if (args.user.settings) {
+      console.log(args.user.settings);
+      Meteor.users.update(args.user._id, {
+        $set: {
+          settings: args.user.settings,
         },
       });
     }

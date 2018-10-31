@@ -8,6 +8,7 @@ const fetchUsers = (query, projection) =>
     .fetch()
     .map((user) => {
       const userProfile = getUserProfile(user);
+      console.log(user);
       return {
         _id: userProfile._id,
         name: userProfile.profile.name,
@@ -57,7 +58,8 @@ export default {
   },
   user: (parent, { _id }) => {
     const userIdFromParentQuery = parent && parent.userId;
-    const userProfile = getUserProfile(Meteor.users.findOne({ _id: userIdFromParentQuery || _id }));
+    const user = Meteor.users.findOne({ _id: userIdFromParentQuery || _id });
+    const userProfile = getUserProfile(user);
 
     return {
       _id: userIdFromParentQuery || _id,
@@ -69,6 +71,7 @@ export default {
           return role;
         }) || [],
       oAuthProvider: userProfile.service !== 'password' ? userProfile.service : null,
+      settings: user.settings,
     };
   },
 };

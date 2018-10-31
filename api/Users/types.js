@@ -25,6 +25,7 @@ export default `
     password: String,
     profile: ProfileInput,
     roles: [String],
+    settings: [UserSettingInput] # From /api/UserSettings/types.js
   }
 
   type User {
@@ -34,6 +35,7 @@ export default `
     emailAddress: String
     oAuthProvider: String
     roles: [Role]
+    settings: [UserSetting] # From /api/UserSettings/types.js
   }
 
   type Users {

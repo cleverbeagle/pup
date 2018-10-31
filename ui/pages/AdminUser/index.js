@@ -20,7 +20,7 @@ class AdminUser extends React.Component {
   render() {
     const { loading, data, updateUser, removeUser } = this.props;
     const name = data.user && data.user.name;
-    return !loading && data.user ? (
+    return data.user ? (
       <div className="AdminUser">
         <Breadcrumb>
           <Breadcrumb.Item>
@@ -57,8 +57,12 @@ class AdminUser extends React.Component {
             />
           </Tab>
           <Tab eventKey="settings" title="Settings">
-            {/* Manually check the activeTab value to ensure we refetch settings on re-render of UserSettings */}
-            {/* {this.state.activeTab === 'settings' && <UserSettings isAdmin userId={user._id} />} */}
+            <UserSettings
+              isAdmin
+              userId={data.user._id}
+              settings={data.user.settings}
+              updateUser={updateUser}
+            />
           </Tab>
         </Styles.AdminUserTabs>
       </div>
