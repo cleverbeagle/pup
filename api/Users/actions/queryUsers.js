@@ -73,7 +73,7 @@ const validateOptions = (options) => {
 const queryUsers = (options) => {
   try {
     validateOptions(options);
-    checkIfAuthorized({ as: 'admin', userId: options.currentUser._id });
+    checkIfAuthorized({ as: ['admin'], userId: options.currentUser._id });
 
     action.resolve({
       total: getTotalUserCount(options.currentUser._id),

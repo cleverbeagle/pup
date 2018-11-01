@@ -8,8 +8,8 @@ import AdminUserProfile from '../../components/AdminUserProfile';
 import UserSettings from '../../components/UserSettings';
 import { user as userQuery, users as usersQuery } from '../../queries/Users.gql';
 import {
-  updateUserAdmin as updateUserAdminMutation,
-  removeUserAdmin as removeUserAdminMutation,
+  updateUser as updateUserMutation,
+  removeUser as removeUserMutation,
 } from '../../mutations/Users.gql';
 
 import Styles from './styles';
@@ -91,7 +91,7 @@ export default compose(
       },
     }),
   }),
-  graphql(updateUserAdminMutation, {
+  graphql(updateUserMutation, {
     name: 'updateUser',
     options: ({ match }) => ({
       refetchQueries: [{ query: userQuery, variables: { _id: match.params._id } }],
@@ -100,7 +100,7 @@ export default compose(
       },
     }),
   }),
-  graphql(removeUserAdminMutation, {
+  graphql(removeUserMutation, {
     name: 'removeUser',
     options: ({ history }) => ({
       refetchQueries: [{ query: usersQuery }],

@@ -42,9 +42,7 @@ const schema = {
       addComment(documentId: String!, comment: String!): Comment
       removeComment(commentId: String!): Comment
       updateUser(user: UserInput): User
-      updateUserAdmin(user: UserInput): User
       removeUser(_id: String!): User
-      removeUserAdmin(_id: String!): User
       addUserSetting(setting: UserSettingInput): UserSetting
       updateUserSetting(setting: UserSettingInput): UserSetting
       removeUserSetting(_id: String!): UserSetting

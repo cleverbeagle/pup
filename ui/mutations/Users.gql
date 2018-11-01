@@ -6,20 +6,8 @@ mutation updateUser($user: UserInput) {
   }
 }
 
-mutation updateUserAdmin($user: UserInput) {
-  updateUserAdmin(user: $user) {
-    ...UserAttributes
-  }
-}
-
 mutation removeUser($_id: String!) {
   removeUser(_id: $_id) {
-    _id
-  }
-}
-
-mutation removeUserAdmin($_id: String!) {
-  removeUserAdmin(_id: $_id) {
     _id
   }
 }
