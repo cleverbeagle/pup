@@ -30,7 +30,7 @@ const getEmailOptions = (user) => {
 const validateOptions = (options) => {
   try {
     if (!options) throw new Error('options object is required.');
-    if (!options.someOption) throw new Error('options.someOption is required.');
+    if (!options.user) throw new Error('options.user is required.');
   } catch (exception) {
     throw new Error(`[sendWelcomeEmail.validateOptions] ${exception.message}`);
   }
