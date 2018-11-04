@@ -69,16 +69,24 @@ const updateUser = (options) => {
   try {
     validateOptions(options);
     checkIfAuthorized({
-      as: ['admin', () => options.currentUser._id === options.user._id],
+      as: ['admin', () => !options.user._id],
       userId: options.currentUser._id,
       errorMessage: 'Sorry, you need to be an admin or the passed user to do this.',
     });
 
-    if (options.user.password) updateUserPassword(options.user);
-    if (options.user.roles && isAdmin(options.currentUser._id)) updateUserRoles(options.user);
-    if (options.user.email) updateUserEmail(options.user);
-    if (options.user.profile) updateUserProfile(options.user);
-    if (options.user.settings) updateUserSettings(options.user);
+    const userToUpdate = options.user;
+
+    if (userToUpdate && !userToUpdate._id && !isAdmin(options.currentUser._id)) {
+      // NOTE: If passed user doesn't have an _id, we know we're updating the
+      // currently logged in user (i.e., via the /profile page).
+      userToUpdate._id = options.currentUser._id;
+    }
+
+    if (userToUpdate.password) updateUserPassword(userToUpdate);
+    if (userToUpdate.roles && isAdmin(options.currentUser._id)) updateUserRoles(userToUpdate);
+    if (userToUpdate.email) updateUserEmail(userToUpdate);
+    if (userToUpdate.profile) updateUserProfile(userToUpdate);
+    if (userToUpdate.settings) updateUserSettings(userToUpdate);
 
     action.resolve();
   } catch (exception) {

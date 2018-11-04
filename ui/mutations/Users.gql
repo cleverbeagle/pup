@@ -6,7 +6,7 @@ mutation updateUser($user: UserInput) {
   }
 }
 
-mutation removeUser($_id: String!) {
+mutation removeUser($_id: String) {
   removeUser(_id: $_id) {
     _id
   }

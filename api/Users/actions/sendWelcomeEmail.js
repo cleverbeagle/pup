@@ -39,7 +39,7 @@ const validateOptions = (options) => {
 export default (options) => {
   try {
     validateOptions(options);
-    const user = normalizeMeteorUserData(options.user);
+    const user = normalizeMeteorUserData({ user: options.user });
     const emailOptions = getEmailOptions(user);
 
     sendEmail(emailOptions).catch((error) => {

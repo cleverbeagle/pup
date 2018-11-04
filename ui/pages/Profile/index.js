@@ -13,7 +13,10 @@ import InputHint from '../../components/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter';
 import UserSettings from '../../components/UserSettings';
 import { user as userQuery } from '../../queries/Users.gql';
-import { updateUser as updateUserMutation } from '../../mutations/Users.gql';
+import {
+  updateUser as updateUserMutation,
+  removeUser as removeUserMutation,
+} from '../../mutations/Users.gql';
 import Styles from './styles';
 
 class Profile extends React.Component {
@@ -34,13 +37,7 @@ class Profile extends React.Component {
 
   handleDeleteAccount = () => {
     if (confirm('Are you sure? This will permanently delete your account and all of its data.')) {
-      Meteor.call('users.deleteAccount', (error) => {
-        if (error) {
-          Bert.alert(error.reason, 'danger');
-        } else {
-          Bert.alert('Account deleted!', 'success');
-        }
-      });
+      this.props.removeUser();
     }
   };
 
@@ -155,7 +152,7 @@ class Profile extends React.Component {
     }[this.getUserType(user)](user);
 
   render() {
-    const { data } = this.props;
+    const { data, updateUser } = this.props;
     return data.user ? (
       <Styles.Profile>
         <h4 className="page-header">
@@ -183,15 +180,16 @@ class Profile extends React.Component {
                       email: true,
                     },
                     currentPassword: {
-                      required() {
+                      required: (form, blah) => {
+                        console.log(form, blah);
                         // Only required if newPassword field has a value.
-                        return this.form.newPassword.value.length > 0;
+                        return document.querySelector('[name="newPassword"]').value.length > 0;
                       },
                     },
                     newPassword: {
                       required() {
                         // Only required if currentPassword field has a value.
-                        return this.form.currentPassword.value.length > 0;
+                        return document.querySelector('[name="currentPassword"]').value.length > 0;
                       },
                       minlength: 6,
                     },
@@ -214,7 +212,7 @@ class Profile extends React.Component {
                       required: 'Need your new password if changing.',
                     },
                   }}
-                  submitHandler={() => this.handleSubmit(this.form)}
+                  submitHandler={(form) => this.handleSubmit(form)}
                 >
                   <form
                     ref={(form) => (this.form = form)}
@@ -241,8 +239,7 @@ class Profile extends React.Component {
             </Row>
           </Tab>
           <Tab eventKey="settings" title="Settings">
-            {/* Manually check the activeTab value to ensure we refetch settings on re-render of UserSettings */}
-            {this.state.activeTab === 'settings' && <UserSettings />}
+            <UserSettings settings={data.user.settings} updateUser={updateUser} />
           </Tab>
         </Tabs>
       </Styles.Profile>
@@ -255,6 +252,7 @@ class Profile extends React.Component {
 Profile.propTypes = {
   data: PropTypes.object.isRequired,
   updateUser: PropTypes.func.isRequired,
+  removeUser: PropTypes.func.isRequired,
 };
 
 export default compose(
@@ -265,6 +263,20 @@ export default compose(
       refetchQueries: [{ query: userQuery }],
       onCompleted: () => {
         Bert.alert('Profile updated!', 'success');
+      },
+      onError: (error) => {
+        Bert.alert(error.message, 'danger');
+      },
+    }),
+  }),
+  graphql(removeUserMutation, {
+    name: 'removeUser',
+    options: () => ({
+      onCompleted: () => {
+        Bert.alert('User removed!', 'success');
+      },
+      onError: (error) => {
+        Bert.alert(error.message, 'danger');
       },
     }),
   }),

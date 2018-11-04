@@ -1,5 +1,6 @@
 import updateUser from './actions/updateUser';
 import queryUser from './actions/queryUser';
+import removeUser from './actions/removeUser';
 
 export default {
   updateUser: async (parent, args, context) => {
@@ -10,11 +11,9 @@ export default {
 
     return queryUser({ userIdToQuery: args.user._id });
   },
-  removeUser: (parent, args, { user }) => {
-    if (!user || args.user._id !== user._id) {
-      throw new Error('Sorry, users can only remove themselves.');
-    }
-
-    console.log(args);
-  },
+  removeUser: (parent, args, { user }) =>
+    removeUser({
+      currentUser: user,
+      user: args,
+    }),
 };
