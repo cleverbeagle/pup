@@ -3,41 +3,41 @@ defaults: &defaults
     - image: circleci/node:8.11.3-browsers
 
 shared_steps: &shared_steps
-  - checkout
-  - restore_cache:
-      keys:
-      - v1-dependencies-{{ checksum "package.json" }}
-      - v1-dependencies-
-  - run: npm install
-  - save_cache:
-      paths:
-        - node_modules
-        - ~/.meteor
-        - ~/.npm
-      key: v1-dependencies-{{ checksum "package.json" }}
-  - run: curl https://install.meteor.com | /bin/sh
-  - run: meteor npm test
-  - run:
-      command: meteor npm run dev
-      background: true
-  - run: sleep 100 # Wait for app to run before starting e2e tests.
-  - run: meteor npm run test-e2e
+  steps:
+    - checkout
+    - restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "package.json" }}
+        - v1-dependencies-
+    - run: npm install
+    - save_cache:
+        paths:
+          - node_modules
+          - ~/.meteor
+          - ~/.npm
+        key: v1-dependencies-{{ checksum "package.json" }}
+    - run: curl https://install.meteor.com | /bin/sh
+    - run: meteor npm test
+    - run:
+        command: meteor npm run dev
+        background: true
+    - run: sleep 100 # Wait for app to run before starting e2e tests.
+    - run: meteor npm run test-e2e
 
 version: 2
 jobs:
   build:
     <<: *defaults
-    steps:
-      <<: *shared_steps
+    <<: *shared_steps
   stage:
     <<: *defaults
+    <<: *shared_steps
     steps:
-      <<: *shared_steps
       - run: meteor npm run staging
   deploy:
     <<: *defaults
+    <<: *shared_steps
     steps:
-      <<: *shared_steps
       - run: meteor npm run production
 
 workflows:
