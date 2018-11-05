@@ -25,6 +25,7 @@
     "apollo-server": "^2.1.0",
     "apollo-utilities": "^1.0.24",
     "b64-to-blob": "^1.2.19",
+    "babel-plugin-lodash": "^3.3.4",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^2.0.1",
     "commonmark": "^0.28.1",
@@ -66,7 +67,6 @@
   "devDependencies": {
     "babel-eslint": "^8.2.6",
     "babel-jest": "^22.4.3",
-    "babel-plugin-lodash": "^3.3.2",
     "enzyme": "^3.3.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
