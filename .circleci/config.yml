@@ -28,16 +28,16 @@ jobs:
   build:
     <<: *defaults
     steps:
-      <<: &shared_steps
+      <<: *shared_steps
   stage:
     <<: *defaults
     steps:
-      <<: &shared_steps
+      <<: *shared_steps
       - run: meteor npm run staging
   deploy:
     <<: *defaults
     steps:
-      <<: &shared_steps
+      <<: *shared_steps
       - run: meteor npm run production
 
 workflows:
