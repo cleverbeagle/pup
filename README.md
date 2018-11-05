@@ -5,8 +5,6 @@ The Ultimate Boilerplate for Products.
 
 [![CircleCI](https://circleci.com/gh/cleverbeagle/pup.svg?style=shield)](https://circleci.com/gh/cleverbeagle/pup)
 
----
-
 Want to work side-by-side with an experienced, trusted mentor? [Check out Clever Beagle](http://cleverbeagle.com).
 
 ---
