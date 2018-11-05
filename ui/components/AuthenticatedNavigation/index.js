@@ -29,7 +29,7 @@ const AuthenticatedNavigation = ({ name, history, userId }) => (
       )}
     </Nav>
     <Nav pullRight>
-      <NavDropdown eventKey={2} title={name} id="user-nav-dropdown">
+      <NavDropdown eventKey={2} title={name} data-test="user-nav-dropdown" id="user-nav-dropdown">
         <LinkContainer to="/profile">
           <NavItem eventKey={2.1} href="/profile">
             Profile

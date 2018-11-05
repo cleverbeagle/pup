@@ -77,6 +77,7 @@ class Login extends React.Component {
                     name="emailAddress"
                     className="form-control"
                     placeholder="Email Address"
+                    data-test="emailAddress"
                   />
                 </FormGroup>
                 <FormGroup>
@@ -91,6 +92,7 @@ class Login extends React.Component {
                     name="password"
                     className="form-control"
                     placeholder="Password"
+                    data-test="password"
                   />
                 </FormGroup>
                 <Button type="submit" bsStyle="success" block>

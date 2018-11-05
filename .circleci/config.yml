@@ -1,93 +1,90 @@
 defaults: &defaults
-  working_directory: /tmp/workspace
   docker:
-    - image: circleci/node:8.11.3
+    - image: circleci/node:8.11.3-browsers
 
-branches_list: &branches_list
-  - master
-  - 2.0.0
-  - /feature\/.*/
-  - /refactor\/.*/
-  - /bug\/.*/
-  - /chore\/.*/
+aliases:
+  - &restore-cache
+    keys:
+      - v1-dependencies-{{ checksum "package.json" }}
+      - v1-dependencies-
 
+  - &save-cache
+    paths:
+      - node_modules
+      - ~/.meteor
+      - ~/.npm
+    key: v1-dependencies-{{ checksum "package.json" }}
+
+  - &install-meteor |
+    curl https://install.meteor.com | /bin/sh
+  
+  - &run-e2e-tests |
+    sleep 100 # Wait for app to run before starting e2e tests.
+    meteor npm run test-e2e
 
 version: 2
 jobs:
   build:
     <<: *defaults
     steps:
-      - attach_workspace:
-          at: /tmp/workspace
       - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
+      - restore_cache: *restore-cache
       - run: npm install
-      - run: ls /tmp/workspace
-      - persist_to_workspace:
-          root: /tmp/workspace
-          paths:
-            - ./*
-      - save_cache:
-          paths:
-            - node_modules
-            - ~/.meteor
-            - ~/.npm
-          key: v1-dependencies-{{ checksum "package.json" }}
-      - run: curl https://install.meteor.com | /bin/sh
-
-  lint:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - run: ls /tmp/workspace
-      - run: npm run lint
-
-  test_unit:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - run: meteor npm test
-
-  test_e2e:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
+      - save_cache: *save-cache
+      - run: *install-meteor
+      - run: npm test
       - run:
           command: meteor npm run dev
           background: true
-      - run: sleep 100 # Wait for app to run before starting e2e tests.
-      - run: meteor npm run test-e2e
-
+      - run: *run-e2e-tests
+  stage:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore-cache
+      - run: npm install
+      - save_cache: *save-cache
+      - run: *install-meteor
+      - run: npm test
+      - run:
+          command: meteor npm run dev
+          background: true
+      - run: *run-e2e-tests
+      - run: npm run staging
+  deploy:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore-cache
+      - run: npm install
+      - save_cache: *save-cache
+      - run: *install-meteor
+      - run: npm test
+      - run:
+          command: meteor npm run dev
+          background: true
+      - run: *run-e2e-tests
+      - run: npm run production
 
 workflows:
   version: 2
-  build_and_lint:
+  build:
     jobs:
       - build:
           filters:
             branches:
               only:
-                - master
-                - 2.0.0
                 - /feature\/.*/
                 - /refactor\/.*/
                 - /bug\/.*/
                 - /chore\/.*/
-      - lint:
-          requires:
-            - build
+      - stage:
+          filters:
+            branches:
+              only:
+                - development
+      - deploy:
           filters:
             branches:
               only:
                 - master
-                - 2.0.0
-                - /feature\/.*/
-                - /refactor\/.*/
-                - /bug\/.*/
-                - /chore\/.*/
