@@ -2,13 +2,15 @@
   "name": "pup",
   "private": true,
   "scripts": {
-    "start": "meteor --settings settings-development.json",
-    "staging": "DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy <staging-subdomain>.meteorapp.com --settings settings-staging.json",
-    "production": "DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy <production-subdomain>.meteorapp.com --settings settings-production.json",
+    "dev": "meteor --settings settings-development.json",
+    "staging": "DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy pup-staging.cleverbeagle.com --settings settings-staging.json",
+    "production": "DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy pup.cleverbeagle.com --settings settings-production.json",
     "lint": "eslint .",
     "lint:all": "eslint --fix .",
     "lint:file": "eslint --fix",
-    "test": "jest"
+    "test": "jest",
+    "test-watch": "",
+    "test-e2e": ""
   },
   "dependencies": {
     "@babel/runtime": "^7.1.2",
@@ -109,16 +111,6 @@
     "globals": {
       "expect": false
     },
-    "overrides": [
-      {
-        "files": [
-          "api/**/methods.js"
-        ],
-        "rules": {
-          "consistent-return": 0
-        }
-      }
-    ],
     "rules": {
       "arrow-parens": [
         2,
