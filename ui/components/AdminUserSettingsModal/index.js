@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button, Row, Col, FormGroup, ControlLabel } from 'react-bootstrap';
 import { camelCase } from 'lodash';
-import { Meteor } from 'meteor/meteor';
-import { Bert } from 'meteor/themeteorchef:bert';
+import Validation from '../Validation';
 import InputHint from '../InputHint';
 import ToggleSwitch from '../ToggleSwitch';
 import delay from '../../../modules/delay';
-import validate from '../../../modules/validate';
 
 const defaultState = {
   keyName: '',
@@ -33,35 +31,6 @@ class AdminUserSettingsModal extends React.Component {
       this.setState(defaultState);
     }
   }
-
-  componentDidUpdate() {
-    if (this.props.show) setTimeout(() => this.attachValidation(), 0);
-  }
-
-  attachValidation = () => {
-    const component = this;
-    validate(component.form, {
-      rules: {
-        keyName: {
-          required: true,
-        },
-        label: {
-          required: true,
-        },
-      },
-      messages: {
-        keyName: {
-          required: "What's a good keyName for this?",
-        },
-        label: {
-          required: "What's a good label for this?",
-        },
-      },
-      submitHandler: () => {
-        component.handleSubmit(component.form);
-      },
-    });
-  };
 
   handleSubmit = (form) => {
     const mutation = this.props.setting ? this.props.updateUserSetting : this.props.addUserSetting;
@@ -106,101 +75,125 @@ class AdminUserSettingsModal extends React.Component {
         <Modal.Header>
           <Modal.Title>{setting ? 'Edit' : 'Add a'} User Setting</Modal.Title>
         </Modal.Header>
-        <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
-          <Modal.Body>
-            <Row>
-              <Col xs={12} sm={6}>
-                <FormGroup>
-                  <ControlLabel>Key Name</ControlLabel>
-                  <input
-                    type="text"
-                    name="keyName"
-                    className="form-control"
-                    value={this.state.keyName}
-                    onChange={this.handleSetKeyName}
-                    placeholder="canWeSendYouMarketingEmails"
-                  />
-                </FormGroup>
-              </Col>
-              <Col xs={12} sm={6}>
-                <FormGroup>
-                  <ControlLabel>Is this a GDPR setting?</ControlLabel>
-                  <ToggleSwitch
-                    ref={(isGDPR) => (this.isGDPR = isGDPR)}
-                    toggled={this.state.isGDPR}
-                    onToggle={(id, toggled) => this.setState({ isGDPR: toggled })}
-                  />
-                </FormGroup>
-              </Col>
-            </Row>
-            <FormGroup>
-              <ControlLabel>Label</ControlLabel>
-              <input
-                type="text"
-                name="label"
-                className="form-control"
-                value={this.state.label}
-                onChange={(event) => this.setState({ label: event.target.value })}
-                placeholder="Can we send you marketing emails?"
-              />
-              <InputHint>This is what users will see in their settings panel.</InputHint>
-            </FormGroup>
-            <Row>
-              <Col xs={12} sm={6}>
-                <ControlLabel>Type</ControlLabel>
-                <select
-                  name="type"
-                  value={this.state.settingType}
-                  onChange={(event) => this.setState({ settingType: event.target.value })}
+        <Validation
+          rules={{
+            keyName: {
+              required: true,
+            },
+            label: {
+              required: true,
+            },
+          }}
+          messages={{
+            keyName: {
+              required: "What's a good keyName for this?",
+            },
+            label: {
+              required: "What's a good label for this?",
+            },
+          }}
+          submitHandler={(form) => {
+            this.handleSubmit(form);
+          }}
+        >
+          <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
+            <Modal.Body>
+              <Row>
+                <Col xs={12} sm={6}>
+                  <FormGroup>
+                    <ControlLabel>Key Name</ControlLabel>
+                    <input
+                      type="text"
+                      name="keyName"
+                      className="form-control"
+                      value={this.state.keyName}
+                      onChange={this.handleSetKeyName}
+                      placeholder="canWeSendYouMarketingEmails"
+                    />
+                  </FormGroup>
+                </Col>
+                <Col xs={12} sm={6}>
+                  <FormGroup>
+                    <ControlLabel>Is this a GDPR setting?</ControlLabel>
+                    <ToggleSwitch
+                      ref={(isGDPR) => (this.isGDPR = isGDPR)}
+                      toggled={this.state.isGDPR}
+                      onToggle={(id, toggled) => this.setState({ isGDPR: toggled })}
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
+              <FormGroup>
+                <ControlLabel>Label</ControlLabel>
+                <input
+                  type="text"
+                  name="label"
                   className="form-control"
-                >
-                  <option value="boolean">Boolean (true/false)</option>
-                  <option value="number">Number</option>
-                  <option value="string">String</option>
-                </select>
-              </Col>
-              <Col xs={12} sm={6}>
-                <ControlLabel>Default Value</ControlLabel>
-                {this.state.settingType === 'boolean' && (
+                  value={this.state.label}
+                  onChange={(event) => this.setState({ label: event.target.value })}
+                  placeholder="Can we send you marketing emails?"
+                />
+                <InputHint>This is what users will see in their settings panel.</InputHint>
+              </FormGroup>
+              <Row>
+                <Col xs={12} sm={6}>
+                  <ControlLabel>Type</ControlLabel>
                   <select
-                    name="defaultValue"
-                    value={this.state.value}
-                    onChange={(event) => this.setState({ value: event.target.value })}
+                    name="type"
+                    value={this.state.settingType}
+                    onChange={(event) => this.setState({ settingType: event.target.value })}
                     className="form-control"
                   >
-                    <option value="true">true</option>
-                    <option value="false">false</option>
+                    <option value="boolean">Boolean (true/false)</option>
+                    <option value="number">Number</option>
+                    <option value="string">String</option>
                   </select>
-                )}
-                {this.state.settingType === 'number' && (
-                  <input
-                    type="number"
-                    name="defaultValue"
-                    className="form-control"
-                    value={this.state.value}
-                    onChange={(event) => this.setState({ value: parseInt(event.target.value, 10) })}
-                    placeholder={5}
-                  />
-                )}
-                {this.state.settingType === 'string' && (
-                  <input
-                    type="text"
-                    name="defaultValue"
-                    className="form-control"
-                    value={this.state.value}
-                    onChange={(event) => this.setState({ value: event.target.value })}
-                    placeholder="Squirrel?!"
-                  />
-                )}
-              </Col>
-            </Row>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button type="submit" bsStyle="success">
-              {setting ? 'Save' : 'Add'} Setting
-            </Button>
-          </Modal.Footer>
-        </form>
+                </Col>
+                <Col xs={12} sm={6}>
+                  <ControlLabel>Default Value</ControlLabel>
+                  {this.state.settingType === 'boolean' && (
+                    <select
+                      name="defaultValue"
+                      value={this.state.value}
+                      onChange={(event) => this.setState({ value: event.target.value })}
+                      className="form-control"
+                    >
+                      <option value="true">true</option>
+                      <option value="false">false</option>
+                    </select>
+                  )}
+                  {this.state.settingType === 'number' && (
+                    <input
+                      type="number"
+                      name="defaultValue"
+                      className="form-control"
+                      value={this.state.value}
+                      onChange={(event) => {
+                        this.setState({ value: parseInt(event.target.value, 10) });
+                      }}
+                      placeholder={5}
+                    />
+                  )}
+                  {this.state.settingType === 'string' && (
+                    <input
+                      type="text"
+                      name="defaultValue"
+                      className="form-control"
+                      value={this.state.value}
+                      onChange={(event) => this.setState({ value: event.target.value })}
+                      placeholder="Squirrel?!"
+                    />
+                  )}
+                </Col>
+              </Row>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button type="submit" bsStyle="success">
+                {setting ? 'Save' : 'Add'} Setting
+              </Button>
+            </Modal.Footer>
+          </form>
+        </Validation>
       </Modal>
     );
   }

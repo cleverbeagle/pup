@@ -15,7 +15,7 @@ export default {
     }
 
     const settingId = UserSettings.insert(args.setting);
-    addSettingToUsers({ _id: settingId, ...args.setting });
+    addSettingToUsers({ setting: { _id: settingId, ...args.setting } });
 
     return {
       _id: settingId,

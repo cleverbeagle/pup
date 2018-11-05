@@ -4,43 +4,11 @@ import { Row, Col, Alert, FormGroup, ControlLabel, Button } from 'react-bootstra
 import { Link } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
+import Validation from '../../components/Validation';
 import AccountPageFooter from '../../components/AccountPageFooter';
-import validate from '../../../modules/validate';
-
 import StyledResetPassword from './styles';
 
 class ResetPassword extends React.Component {
-  componentDidMount() {
-    const component = this;
-
-    validate(component.form, {
-      rules: {
-        newPassword: {
-          required: true,
-          minlength: 6,
-        },
-        repeatNewPassword: {
-          required: true,
-          minlength: 6,
-          equalTo: '[name="newPassword"]',
-        },
-      },
-      messages: {
-        newPassword: {
-          required: 'Enter a new password, please.',
-          minlength: 'Use at least six characters, please.',
-        },
-        repeatNewPassword: {
-          required: 'Repeat your new password, please.',
-          equalTo: "Hmm, your passwords don't match. Try again?",
-        },
-      },
-      submitHandler() {
-        component.handleSubmit(component.form);
-      },
-    });
-  }
-
   handleSubmit = (form) => {
     const { match, history } = this.props;
     const { token } = match.params;
@@ -64,34 +32,61 @@ class ResetPassword extends React.Component {
               To reset your password, enter a new one below. You will be logged in with your new
               password.
             </Alert>
-            <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
-              <FormGroup>
-                <ControlLabel>New Password</ControlLabel>
-                <input
-                  type="password"
-                  className="form-control"
-                  name="newPassword"
-                  placeholder="New Password"
-                />
-              </FormGroup>
-              <FormGroup>
-                <ControlLabel>Repeat New Password</ControlLabel>
-                <input
-                  type="password"
-                  className="form-control"
-                  name="repeatNewPassword"
-                  placeholder="Repeat New Password"
-                />
-              </FormGroup>
-              <Button type="submit" bsStyle="success" block>
-                Reset Password &amp; Login
-              </Button>
-              <AccountPageFooter>
-                <p>
-                  {"Not sure why you're here?"} <Link to="/login">Log In</Link>.
-                </p>
-              </AccountPageFooter>
-            </form>
+            <Validation
+              rules={{
+                newPassword: {
+                  required: true,
+                  minlength: 6,
+                },
+                repeatNewPassword: {
+                  required: true,
+                  minlength: 6,
+                  equalTo: '[name="newPassword"]',
+                },
+              }}
+              messages={{
+                newPassword: {
+                  required: 'Enter a new password, please.',
+                  minlength: 'Use at least six characters, please.',
+                },
+                repeatNewPassword: {
+                  required: 'Repeat your new password, please.',
+                  equalTo: "Hmm, your passwords don't match. Try again?",
+                },
+              }}
+              submitHandler={(form) => {
+                this.handleSubmit(form);
+              }}
+            >
+              <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
+                <FormGroup>
+                  <ControlLabel>New Password</ControlLabel>
+                  <input
+                    type="password"
+                    className="form-control"
+                    name="newPassword"
+                    placeholder="New Password"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <ControlLabel>Repeat New Password</ControlLabel>
+                  <input
+                    type="password"
+                    className="form-control"
+                    name="repeatNewPassword"
+                    placeholder="Repeat New Password"
+                  />
+                </FormGroup>
+                <Button type="submit" bsStyle="success" block>
+                  Reset Password &amp; Login
+                </Button>
+                <AccountPageFooter>
+                  <p>
+                    {"Not sure why you're here?"} <Link to="/login">Log In</Link>.
+                  </p>
+                </AccountPageFooter>
+              </form>
+            </Validation>
           </Col>
         </Row>
       </StyledResetPassword>
