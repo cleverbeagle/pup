@@ -2,44 +2,69 @@ defaults: &defaults
   docker:
     - image: circleci/node:8.11.3-browsers
 
-shared_steps: &shared_steps
-  steps:
-    - checkout
-    - restore_cache:
-        keys:
-        - v1-dependencies-{{ checksum "package.json" }}
-        - v1-dependencies-
-    - run: npm install
-    - save_cache:
-        paths:
-          - node_modules
-          - ~/.meteor
-          - ~/.npm
-        key: v1-dependencies-{{ checksum "package.json" }}
-    - run: curl https://install.meteor.com | /bin/sh
-    - run: meteor npm test
-    - run:
-        command: meteor npm run dev
-        background: true
-    - run: sleep 100 # Wait for app to run before starting e2e tests.
-    - run: meteor npm run test-e2e
+aliases:
+  - &restore-cache
+    keys:
+      - v1-dependencies-{{ checksum "package.json" }}
+      - v1-dependencies-
+
+  - &save-cache
+    paths:
+      - node_modules
+      - ~/.meteor
+      - ~/.npm
+    key: v1-dependencies-{{ checksum "package.json" }}
+
+  - &install-meteor |
+    curl https://install.meteor.com | /bin/sh
+  
+  - &run-e2e-tests |
+    sleep 100 # Wait for app to run before starting e2e tests.
+    meteor npm run test-e2e
 
 version: 2
 jobs:
   build:
     <<: *defaults
-    <<: *shared_steps
-        - run: meteor npm run staging
+    steps:
+      - checkout
+      - restore_cache: *restore-cache
+      - run: npm install
+      - save_cache: *save-cache
+      - run: *install-meteor
+      - run: npm test
+      - run:
+          command: meteor npm run dev
+          background: true
+      - run: *run-e2e-tests
   stage:
     <<: *defaults
-    <<: *shared_steps
     steps:
-      - run: meteor npm run staging
+      - checkout
+      - restore_cache: *restore-cache
+      - run: npm install
+      - save_cache: *save-cache
+      - run: *install-meteor
+      - run: npm test
+      - run:
+          command: meteor npm run dev
+          background: true
+      - run: *run-e2e-tests
+      - run: npm run staging
   deploy:
     <<: *defaults
-    <<: *shared_steps
     steps:
-      - run: meteor npm run production
+      - checkout
+      - restore_cache: *restore-cache
+      - run: npm install
+      - save_cache: *save-cache
+      - run: *install-meteor
+      - run: npm test
+      - run:
+          command: meteor npm run dev
+          background: true
+      - run: *run-e2e-tests
+      - run: npm run production
 
 workflows:
   version: 2
