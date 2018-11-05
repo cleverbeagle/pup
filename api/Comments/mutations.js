@@ -1,31 +1,31 @@
-import { Roles } from 'meteor/alanning:roles';
 import Comments from './Comments';
+import { isAdmin } from '../Users/actions/checkIfAuthorized';
 
 export default {
-  addComment(root, args, { user, pubsub }) {
-    if (!user) throw new Error('Sorry, you must be logged in to add a new comment.');
+  addComment(root, args, context) {
+    if (!context.user) throw new Error('Sorry, you must be logged in to add a new comment.');
 
     const date = new Date().toISOString();
     const commentToInsert = {
       documentId: args.documentId,
       comment: args.comment,
-      userId: user._id,
+      userId: context.user._id,
       createdAt: date,
     };
 
     const commentId = Comments.insert(commentToInsert);
-    pubsub.publish('commentAdded', {
+    context.pubsub.publish('commentAdded', {
       commentAdded: { _id: commentId, ...commentToInsert },
     });
 
     return { _id: commentId, ...commentToInsert };
   },
-  removeComment(root, args, { user }) {
-    if (!user) throw new Error('Sorry, you must be logged in to remove a comment.');
+  removeComment(root, args, context) {
+    if (!context.user) throw new Error('Sorry, you must be logged in to remove a comment.');
 
     const comment = Comments.findOne({ _id: args._id }, { fields: { userId: 1 } });
 
-    if (!Roles.userIsRole(user._id, 'admin') || comment.userId !== user._id) {
+    if (!isAdmin(context.user._id) || comment.userId !== context.user._id) {
       throw new Error('Sorry, you must be logged in to remove a comment.');
     }
 

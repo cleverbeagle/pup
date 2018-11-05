@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
-import { ReactiveVar } from 'meteor/reactive-var';
+import { graphql } from 'react-apollo';
 import OAuthLoginButton from '../OAuthLoginButton';
+import oAuthServicesQuery from '../../queries/OAuth.gql';
 import Styles from './styles';
 
 const OAuthLoginButtons = ({ services, emailMessage }) =>
@@ -25,22 +24,10 @@ OAuthLoginButtons.propTypes = {
   emailMessage: PropTypes.object.isRequired,
 };
 
-const verificationComplete = new ReactiveVar(false);
-const verifiedServices = new ReactiveVar([]);
-
-export default withTracker(({ services }) => {
-  if (!verificationComplete.get()) {
-    Meteor.call('oauth.verifyConfiguration', services, (error, response) => {
-      if (error) {
-        console.warn(error);
-      } else {
-        verifiedServices.set(response);
-        verificationComplete.set(true);
-      }
-    });
-  }
-
-  return {
-    services: verifiedServices.get(),
-  };
+export default graphql(oAuthServicesQuery, {
+  options: ({ services }) => ({
+    variables: {
+      services,
+    },
+  }),
 })(OAuthLoginButtons);

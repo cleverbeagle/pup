@@ -17,8 +17,9 @@ import CommentQueries from '../../api/Comments/queries';
 import CommentMutations from '../../api/Comments/mutations';
 import CommentSubscriptions from '../../api/Comments/subscriptions';
 
+import OAuthQueries from '../../api/OAuth/queries';
+
 import '../../api/Documents/server/indexes';
-import '../../api/OAuth/server/methods';
 import '../../api/webhooks';
 
 const schema = {
@@ -35,6 +36,7 @@ const schema = {
       users(currentPage: Int, perPage: Int, search: String): Users
       userSettings: [UserSetting]
       exportUserData: UserDataExport
+      oAuthServices(services: [String]): [String]
     }
 
     type Mutation {
@@ -61,6 +63,7 @@ const schema = {
       ...DocumentQueries,
       ...UserQueries,
       ...UserSettingsQueries,
+      ...OAuthQueries,
     },
     Mutation: {
       ...DocumentMutations,

@@ -1,51 +1,51 @@
 import { Meteor } from 'meteor/meteor';
-import { Roles } from 'meteor/alanning:roles';
 import UserSettings from './UserSettings';
-import updateSettingOnUsers from './updateSettingOnUsers';
-import addSettingToUsers from './addSettingToUsers';
+import { isAdmin } from '../Users/actions/checkIfAuthorized';
+import updateSettingOnUsers from './actions/updateSettingOnUsers';
+import addSettingToUsers from './actions/addSettingToUsers';
 
 export default {
-  addUserSetting(parent, { setting }, { user }) {
-    if (!Roles.userIsInRole(user._id, 'admin')) {
+  addUserSetting(parent, args, context) {
+    if (!isAdmin(context.user._id)) {
       throw new Error('Sorry, you must be an admin to do this.');
     }
 
-    if (UserSettings.findOne({ key: setting.key })) {
+    if (UserSettings.findOne({ key: args.setting.key })) {
       throw new Error('Sorry, this user setting already exists.');
     }
 
-    const settingId = UserSettings.insert(setting);
-    addSettingToUsers({ _id: settingId, ...setting });
+    const settingId = UserSettings.insert(args.setting);
+    addSettingToUsers({ _id: settingId, ...args.setting });
 
     return {
       _id: settingId,
-      ...setting,
+      ...args.setting,
     };
   },
-  updateUserSetting(parent, { setting }, { user }) {
-    if (!Roles.userIsInRole(user._id, 'admin')) {
+  updateUserSetting(parent, args, context) {
+    if (!isAdmin(context.user._id)) {
       throw new Error('Sorry, you must be an admin to do this.');
     }
 
     UserSettings.update(
-      { _id: setting._id },
+      { _id: args.setting._id },
       {
-        $set: setting,
+        $set: args.setting,
       },
       () => {
-        updateSettingOnUsers(setting);
+        updateSettingOnUsers({ setting: args.setting });
       },
     );
   },
-  removeUserSetting(parent, { _id }, { user }) {
-    if (!Roles.userIsInRole(user._id, 'admin')) {
+  removeUserSetting(parent, args, context) {
+    if (!isAdmin(context.user._id)) {
       throw new Error('Sorry, you must be an admin to do this.');
     }
 
-    Meteor.users.update({}, { $pull: { settings: { _id } } }, { multi: true }, () => {
-      UserSettings.remove({ _id });
+    Meteor.users.update({}, { $pull: { settings: { _id: args._id } } }, { multi: true }, () => {
+      UserSettings.remove({ _id: args._id });
     });
 
-    return { _id };
+    return { _id: args._id };
   },
 };

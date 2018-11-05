@@ -4,14 +4,9 @@ import { Picker } from 'meteor/meteorhacks:picker';
 import Documents from '../../api/Documents/Documents';
 import { iso } from '../../modules/dates.js';
 
-/*
-  TODO:
-  - Find a way to automate route pulls (don't do it now, rabbit hole).
-*/
-
 const baseUrl = Meteor.absoluteUrl();
 
-// No slash at front because it comes with baseUrl.
+// NOTE: Slash are omitted at front because it comes with baseUrl.
 const routes = [
   { base: 'signup' },
   { base: 'login' },
@@ -27,7 +22,7 @@ const routes = [
   {
     base: 'documents',
     collection: Documents,
-    // edit this query to limit what you publish
+    // NOTE: Edit this query to limit what you publish.
     query: {},
     projection: { fields: { _id: 1, createdAt: 1 }, sort: { createdAt: -1 } },
   },

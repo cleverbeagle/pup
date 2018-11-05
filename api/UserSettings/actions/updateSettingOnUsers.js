@@ -42,10 +42,20 @@ const getUsers = () => {
   }
 };
 
-export default (setting) => {
+const validateOptions = (options) => {
   try {
+    if (!options) throw new Error('options object is required.');
+    if (!options.setting) throw new Error('options.setting is required.');
+  } catch (exception) {
+    throw new Error(`[updateSettingOnUsers.validateOptions] ${exception.message}`);
+  }
+};
+
+export default (options) => {
+  try {
+    validateOptions(options);
     const users = getUsers();
-    updateUsersSettings(users, setting);
+    updateUsersSettings(users, options.setting);
   } catch (exception) {
     throw new Error(`[updateSettingOnUsers] ${exception.message}`);
   }
