@@ -42,7 +42,7 @@ ToggleSwitch.propTypes = {
   offLabel: PropTypes.string,
   onToggle: PropTypes.func,
 };
-// TODO remove id
+
 ToggleSwitch.defaultProps = {
   id: '',
   toggled: false,
