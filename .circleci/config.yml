@@ -29,6 +29,7 @@ jobs:
   build:
     <<: *defaults
     <<: *shared_steps
+    - run: meteor npm run staging
   stage:
     <<: *defaults
     <<: *shared_steps

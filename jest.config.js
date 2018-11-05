@@ -11,5 +11,5 @@ module.exports = {
     '/^imports\\/.*\\.scss?$/',
     '/^node_modules/',
   ],
-  reporters: ['<rootDir>/tests/reporter.js'],
+  reporters: ['<rootDir>/tests/jest-reporter.js'],
 };
