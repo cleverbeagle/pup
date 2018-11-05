@@ -9,8 +9,9 @@
     "lint:all": "eslint --fix .",
     "lint:file": "eslint --fix",
     "test": "jest",
-    "test-watch": "",
-    "test-e2e": ""
+    "test-watch": "jest --watch --verbose false",
+    "test-e2e": "testcafe chrome imports/ui/**/*.e2e.js",
+    "test-e2e-watch": "testcafe-live chrome:headless imports/ui/**/*.e2e.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.1.2",
@@ -69,7 +70,8 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
-    "babel-jest": "^22.4.3",
+    "babel-jest": "^23.6.0",
+    "chalk": "^2.4.1",
     "enzyme": "^3.3.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
@@ -77,14 +79,18 @@
     "eslint-import-resolver-meteor": "^0.4.0",
     "eslint-plugin-babel": "^5.1.0",
     "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jest": "^21.27.1",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-meteor": "^4.2.0",
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-testcafe": "^0.2.1",
     "husky": "^1.0.0-rc.13",
-    "jest": "^22.4.3",
+    "jest": "^23.6.0",
+    "jest-cli": "^23.6.0",
     "lint-staged": "^7.2.2",
-    "prettier": "1.14.0"
+    "prettier": "1.14.0",
+    "testcafe": "^0.23.0"
   },
   "eslintConfig": {
     "parser": "babel-eslint",
@@ -95,15 +101,19 @@
     },
     "plugins": [
       "babel",
+      "jest",
       "meteor",
       "prettier",
-      "react"
+      "react",
+      "testcafe"
     ],
     "extends": [
       "airbnb",
       "plugin:prettier/recommended",
       "plugin:meteor/recommended",
-      "plugin:react/recommended"
+      "plugin:react/recommended",
+      "plugin:testcafe/recommended",
+      "plugin:jest/recommended"
     ],
     "env": {
       "browser": true
