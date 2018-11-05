@@ -1,5 +1,4 @@
 import './accounts';
-import '../both/api';
 import './api';
 import './browserPolicy';
 import './fixtures';

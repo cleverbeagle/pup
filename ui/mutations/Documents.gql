@@ -23,7 +23,7 @@ mutation updateDocument($_id: String!, $title: String, $body: String, $isPublic:
 }
 
 mutation removeDocument($_id: String!) {
-  addDocument(_id: $title) {
+  removeDocument(_id: $_id) {
     _id
   }
 }

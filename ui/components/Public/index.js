@@ -22,13 +22,14 @@ const Public = ({ loggingIn, authenticated, afterLoginPath, component, path, exa
 );
 
 Public.defaultProps = {
+  loggingIn: false,
   path: '',
   exact: false,
   afterLoginPath: null,
 };
 
 Public.propTypes = {
-  loggingIn: PropTypes.bool.isRequired,
+  loggingIn: PropTypes.bool,
   authenticated: PropTypes.bool.isRequired,
   component: PropTypes.func.isRequired,
   afterLoginPath: PropTypes.string,

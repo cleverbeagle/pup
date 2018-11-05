@@ -1,0 +1,42 @@
+#import "../fragments/Users.gql"
+
+query users($currentPage: Int, $perPage: Int, $search: String) {
+  users(currentPage: $currentPage, perPage: $perPage, search: $search) {
+    total
+    users {
+      _id
+      name {
+        first
+        last
+      }
+      emailAddress
+      oAuthProvider
+    }
+  }
+}
+
+query user($_id: String) {
+  user(_id: $_id) {
+    ...UserAttributes
+  }
+}
+
+query userSettings {
+  user {
+    settings {
+      _id
+      isGDPR
+      key
+      label
+      type
+      value
+      lastUpdatedByUser
+    }
+  }
+}
+
+query exportUserData {
+  exportUserData {
+    zip
+  }
+}

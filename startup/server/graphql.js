@@ -15,6 +15,5 @@ pupql({
   }),
   config: {
     existingWebServer: WebApp.connectHandlers,
-    existingWebSocketServer: WebApp.httpServer,
   },
 });

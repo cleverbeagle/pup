@@ -1,0 +1,17 @@
+mutation addUserSetting($setting: UserSettingInput) {
+  addUserSetting(setting: $setting) {
+    _id
+  }
+}
+
+mutation updateUserSetting($setting: UserSettingInput) {
+  updateUserSetting(setting: $setting) {
+    _id
+  }
+}
+
+mutation removeUserSetting($_id: String!) {
+  removeUserSetting(_id: $_id) {
+    _id
+  }
+}

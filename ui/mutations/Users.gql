@@ -1,0 +1,25 @@
+#import "../queries/Users.gql"
+
+mutation updateUser($user: UserInput) {
+  updateUser(user: $user) {
+    ...UserAttributes
+  }
+}
+
+mutation removeUser($_id: String) {
+  removeUser(_id: $_id) {
+    _id
+  }
+}
+
+mutation sendVerificationEmail {
+  sendVerificationEmail {
+    _id
+  }
+}
+
+mutation sendWelcomeEmail {
+  sendWelcomeEmail {
+    _id
+  }
+}

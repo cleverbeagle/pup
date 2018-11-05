@@ -5,7 +5,11 @@ mutation addComment($documentId: String!, $comment: String!) {
     comment
     createdAt
     user {
-      name
+      _id
+      name {
+        first
+        last
+      }
     }
   }
 }

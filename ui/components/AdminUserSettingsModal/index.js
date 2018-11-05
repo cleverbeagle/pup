@@ -9,13 +9,16 @@ import ToggleSwitch from '../ToggleSwitch';
 import delay from '../../../modules/delay';
 import validate from '../../../modules/validate';
 
+const defaultState = {
+  keyName: '',
+  isGDPR: false,
+  settingType: 'boolean',
+  value: '',
+  label: '',
+};
+
 class AdminUserSettingsModal extends React.Component {
-  state = {
-    keyName: '',
-    isGDPR: false,
-    settingType: 'boolean',
-    value: '',
-  };
+  state = defaultState;
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.setting) {
@@ -26,6 +29,8 @@ class AdminUserSettingsModal extends React.Component {
         value: nextProps.setting.value,
         label: nextProps.setting.label,
       });
+    } else {
+      this.setState(defaultState);
     }
   }
 
@@ -59,7 +64,7 @@ class AdminUserSettingsModal extends React.Component {
   };
 
   handleSubmit = (form) => {
-    const method = this.props.setting ? 'admin.updateUserSetting' : 'admin.addUserSetting';
+    const mutation = this.props.setting ? this.props.updateUserSetting : this.props.addUserSetting;
     const setting = {
       isGDPR: this.isGDPR.state.toggled,
       key: form.keyName.value,
@@ -76,14 +81,13 @@ class AdminUserSettingsModal extends React.Component {
       if (!confirmUpdate) return;
     }
 
-    Meteor.call(method, setting, (error) => {
-      if (error) {
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Bert.alert(this.props.setting ? 'Setting updated!' : 'Setting added!', 'success');
-        this.props.onHide();
-      }
+    mutation({
+      variables: {
+        setting,
+      },
     });
+
+    this.props.onHide();
   };
 
   handleSetKeyName = (event) => {
@@ -210,6 +214,8 @@ AdminUserSettingsModal.propTypes = {
   show: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
   setting: PropTypes.object,
+  addUserSetting: PropTypes.func.isRequired,
+  updateUserSetting: PropTypes.func.isRequired,
 };
 
 export default AdminUserSettingsModal;

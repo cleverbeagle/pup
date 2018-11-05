@@ -7,6 +7,6 @@ export default `
     updatedAt: String
     body: String
     owner: String
-    comments(documentId: String): [Comment]
+    comments: [Comment]
   }
 `;

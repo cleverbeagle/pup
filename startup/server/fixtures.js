@@ -1,56 +1,93 @@
 import seeder from '@cleverbeagle/seeder';
 import { Meteor } from 'meteor/meteor';
 import Documents from '../../api/Documents/Documents';
+import Comments from '../../api/Comments/Comments';
 
-const documentsSeed = (userId, userCount = 0) => ({
-  collection: Documents,
-  environments: ['development', 'staging'],
-  noLimit: true,
-  modelCount: 5,
-  model(dataIndex) {
-    return {
-      owner: userId,
-      title: `Document #${userCount}.${dataIndex + 1}`,
-      body: `This is the body of document #${userCount}.${dataIndex + 1}`,
-    };
-  },
-});
-
-seeder(Meteor.users, {
-  environments: ['development', 'staging'],
-  noLimit: true,
-  data: [
-    {
-      email: 'admin@admin.com',
-      password: 'password',
-      profile: {
-        name: {
-          first: 'Andy',
-          last: 'Warhol',
+const commentsSeed = (userId, date, documentId) => {
+  seeder(Comments, {
+    seedIfExistingData: true,
+    environments: ['development', 'staging'],
+    data: {
+      dynamic: {
+        count: 3,
+        seed(commentIteration, faker) {
+          return {
+            userId,
+            documentId,
+            comment: faker.hacker.phrase(),
+            createdAt: date,
+          };
         },
-      },
-      roles: ['admin'],
-      data(userId) {
-        return documentsSeed(userId);
       },
     },
-  ],
-  modelCount: 5,
-  model(index, faker) {
-    const userCount = index + 1;
-    return {
-      email: `user+${userCount}@test.com`,
-      password: 'password',
-      profile: {
-        name: {
-          first: faker.name.firstName(),
-          last: faker.name.lastName(),
+  });
+};
+
+const documentsSeed = (userId) => {
+  seeder(Documents, {
+    seedIfExistingData: true,
+    environments: ['development', 'staging'],
+    data: {
+      dynamic: {
+        count: 5,
+        seed(iteration) {
+          const date = new Date().toISOString();
+          return {
+            isPublic: false,
+            createdAt: date,
+            updatedAt: date,
+            owner: userId,
+            title: `Document #${iteration + 1}`,
+            body: `This is the body of document #${iteration + 1}`,
+            dependentData(documentId) {
+              commentsSeed(userId, date, documentId);
+            },
+          };
         },
       },
-      roles: ['user'],
-      data(userId) {
-        return documentsSeed(userId, userCount);
+    },
+  });
+};
+
+seeder(Meteor.users, {
+  seedIfExistingData: true,
+  environments: ['development', 'staging'],
+  data: {
+    static: [
+      {
+        email: 'admin@admin.com',
+        password: 'password',
+        profile: {
+          name: {
+            first: 'Andy',
+            last: 'Warhol',
+          },
+        },
+        roles: ['admin'],
+        dependentData(userId) {
+          documentsSeed(userId);
+        },
       },
-    };
+    ],
+    dynamic: {
+      count: 100,
+      seed(iteration, faker) {
+        const userCount = iteration + 1;
+        return {
+          email: `user+${userCount}@test.com`,
+          password: 'password',
+          profile: {
+            name: {
+              first: faker.name.firstName(),
+              last: faker.name.lastName(),
+            },
+          },
+          roles: ['user'],
+          dependentData(userId) {
+            documentsSeed(userId);
+          },
+        };
+      },
+    },
   },
 });

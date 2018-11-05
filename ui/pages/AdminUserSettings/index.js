@@ -1,44 +1,55 @@
 import React from 'react';
-import { Button, Table } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { compose, graphql } from 'react-apollo';
+import styled from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AdminUserSettingsModal from '../../components/AdminUserSettingsModal';
+import BlankState from '../../components/BlankState';
+import userSettingsQuery from '../../queries/UserSettings.gql';
+import {
+  addUserSetting as addUserSettingMutation,
+  updateUserSetting as updateUserSettingMutation,
+  removeUserSetting as removeUserSettingMutation,
+} from '../../mutations/UserSettings.gql';
 
-class AdminUserSettings extends React.Component {
-  state = { userSettings: [], showSettingsModal: false, currentSetting: null };
+const Setting = styled(ListGroupItem)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  componentWillMount() {
-    this.fetchSettings();
+  p {
+    margin: 0;
+    word-break: break-word;
   }
 
-  fetchSettings = () => {
-    Meteor.call('admin.fetchUserSettings', (error, userSettings) => {
-      if (error) {
-        Bert.alert(error.reason, 'danger');
-      } else {
-        this.setState({ userSettings });
-      }
-    });
-  };
+  .btn:last-child {
+    margin-left: 10px;
+    margin-right: -5px;
+  }
+`;
+
+class AdminUserSettings extends React.Component {
+  state = { showSettingsModal: false, currentSetting: null };
 
   handleDeleteSetting = (settingId) => {
+    const { removeUserSetting } = this.props;
     if (
       confirm(
         "Are you sure? Before deleting this setting make sure that it's no longer in use in your application!",
       )
     ) {
-      Meteor.call('admin.deleteUserSetting', settingId, (error) => {
-        if (error) {
-          Bert.alert(error.reason, 'danger');
-        } else {
-          Bert.alert('Setting deleted!', 'success');
-          this.fetchSettings();
-        }
+      removeUserSetting({
+        variables: {
+          _id: settingId,
+        },
       });
     }
   };
 
   render() {
+    const { data, addUserSetting, updateUserSetting } = this.props;
     return (
       <div className="AdminUserSettings">
         <div className="page-header clearfix">
@@ -46,51 +57,50 @@ class AdminUserSettings extends React.Component {
           <Button
             bsStyle="success"
             className="pull-right"
-            onClick={() => this.setState({ showSettingsModal: true })}
+            onClick={() => this.setState({ showSettingsModal: true, currentSetting: null })}
           >
             Add Setting
           </Button>
         </div>
-        <Table responsive bordered>
-          <thead>
-            <tr>
-              <th>Key</th>
-              <th width="15%" />
-              <th width="15%" />
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.userSettings.map((setting) => (
-              <tr key={setting._id}>
-                <td>{setting.key}</td>
-                <td>
+        {data.userSettings && data.userSettings.length > 0 ? (
+          <ListGroup>
+            {data.userSettings.map((setting) => (
+              <Setting key={setting._id}>
+                <p>{setting.key}</p>
+                <div>
                   <Button
                     bsStyle="default"
                     onClick={() =>
                       this.setState({ showSettingsModal: true, currentSetting: setting })
                     }
-                    block
                   >
                     Edit
                   </Button>
-                </td>
-                <td>
-                  <Button
-                    bsStyle="danger"
-                    onClick={() => this.handleDeleteSetting(setting._id)}
-                    block
-                  >
+                  <Button bsStyle="danger" onClick={() => this.handleDeleteSetting(setting._id)}>
                     Delete
                   </Button>
-                </td>
-              </tr>
+                </div>
+              </Setting>
             ))}
-          </tbody>
-        </Table>
+          </ListGroup>
+        ) : (
+          <BlankState
+            icon={{ style: 'solid', symbol: 'gear' }}
+            title="No user settings here, friend."
+            subtitle="Add your first setting by clicking the button below."
+            action={{
+              style: 'success',
+              onClick: () => this.setState({ showSettingsModal: true, currentSetting: null }),
+              label: 'Create Your First Setting',
+            }}
+          />
+        )}
         <AdminUserSettingsModal
           show={this.state.showSettingsModal}
-          onHide={() => this.setState({ showSettingsModal: false }, () => this.fetchSettings())}
+          onHide={() => this.setState({ showSettingsModal: false, currentSetting: null })}
           setting={this.state.currentSetting}
+          addUserSetting={addUserSetting}
+          updateUserSetting={updateUserSetting}
         />
       </div>
     );
@@ -98,7 +108,39 @@ class AdminUserSettings extends React.Component {
 }
 
 AdminUserSettings.propTypes = {
-  // prop: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
+  addUserSetting: PropTypes.func.isRequired,
+  updateUserSetting: PropTypes.func.isRequired,
+  removeUserSetting: PropTypes.func.isRequired,
 };
 
-export default AdminUserSettings;
+export default compose(
+  graphql(userSettingsQuery),
+  graphql(addUserSettingMutation, {
+    name: 'addUserSetting',
+    options: () => ({
+      refetchQueries: [{ query: userSettingsQuery }],
+      onCompleted: () => {
+        Bert.alert('Setting added!', 'success');
+      },
+    }),
+  }),
+  graphql(updateUserSettingMutation, {
+    name: 'updateUserSetting',
+    options: () => ({
+      refetchQueries: [{ query: userSettingsQuery }],
+      onCompleted: () => {
+        Bert.alert('Setting updated!', 'success');
+      },
+    }),
+  }),
+  graphql(removeUserSettingMutation, {
+    name: 'removeUserSetting',
+    options: () => ({
+      refetchQueries: [{ query: userSettingsQuery }],
+      onCompleted: () => {
+        Bert.alert('Setting removed!', 'success');
+      },
+    }),
+  }),
+)(AdminUserSettings);

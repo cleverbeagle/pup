@@ -5,7 +5,7 @@ export const StyledViewDocument = styled.div`
   padding: 25px;
   border-radius: 3px;
   max-width: 750px;
-  margin: 0 auto;
+  margin: 0 auto 20px;
 
   h1 {
     margin: 0 0 25px;
@@ -14,7 +14,7 @@ export const StyledViewDocument = styled.div`
   }
 
   @media screen and (min-width: 768px) {
-    margin: 0 auto 20px;
+    margin-top: 20px;
     padding: 50px;
   }
 `;
@@ -34,10 +34,5 @@ export const DocumentBody = styled.div`
 
   > *:last-child {
     margin-bottom: 0;
-  }
-
-  @media screen and (min-width: 768px) {
-    font-size: 18px;
-    line-height: 24px;
   }
 `;

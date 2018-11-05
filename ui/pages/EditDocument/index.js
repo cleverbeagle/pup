@@ -1,27 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FetchData from '../../components/FetchData';
+import { graphql } from 'react-apollo';
 import DocumentEditor from '../../components/DocumentEditor';
+import Loading from '../../components/Loading';
 import NotFound from '../NotFound';
-import { document } from '../../queries/Documents.gql';
+import { editDocument as editDocumentQuery } from '../../queries/Documents.gql';
 
-const EditDocument = ({ match, history }) => (
-  <FetchData query={document} variables={{ _id: match.params._id }}>
-    {({ data }) =>
-      data.document ? (
-        <React.Fragment>
-          <DocumentEditor doc={data.document} history={history} />
-        </React.Fragment>
-      ) : (
-        <NotFound />
-      )
-    }
-  </FetchData>
+const EditDocument = ({ data, history }) => (
+  <React.Fragment>
+    {!data.loading ? (
+      <React.Fragment>
+        {data.document ? <DocumentEditor doc={data.document} history={history} /> : <NotFound />}
+      </React.Fragment>
+    ) : (
+      <Loading />
+    )}
+  </React.Fragment>
 );
 
 EditDocument.propTypes = {
+  data: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
 };
 
-export default EditDocument;
+export default graphql(editDocumentQuery, {
+  options: ({ match }) => ({
+    variables: {
+      _id: match.params._id,
+    },
+  }),
+})(EditDocument);

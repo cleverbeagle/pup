@@ -1,35 +1,50 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Button, Modal } from 'react-bootstrap';
-import { Meteor } from 'meteor/meteor';
-import { Bert } from 'meteor/themeteorchef:bert';
+import { compose, graphql } from 'react-apollo';
 import UserSettings from '../UserSettings';
+import { userSettings as userSettingsQuery } from '../../queries/Users.gql';
+import { updateUser as updateUserMutation } from '../../mutations/Users.gql';
+import unfreezeApolloCacheValue from '../../../modules/unfreezeApolloCacheValue';
 import Styles from './styles';
 
 class GDPRConsentModal extends React.Component {
   state = { show: false };
 
-  componentWillMount() {
-    Meteor.call('users.checkIfGDPRComplete', (error, complete) => {
-      if (error) {
-        console.warn(error);
-        Bert.alert(error.reason, 'danger');
-      } else {
-        this.setState({ show: !complete });
-      }
-    });
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data && nextProps.data.user && nextProps.data.user.settings) {
+      let gdprComplete = true;
+      const gdprSettings = nextProps.data.user.settings.filter(
+        (setting) => setting.isGDPR === true,
+      );
+      gdprSettings.forEach(({ lastUpdatedByUser }) => {
+        if (!lastUpdatedByUser) gdprComplete = false;
+      });
+      this.setState({ show: !gdprComplete });
+    }
   }
 
   handleSaveSettings = () => {
-    Meteor.call('users.saveGDPRSettings', (error) => {
-      if (error) {
-        Bert.alert(error.reason, 'danger');
-      } else {
-        Bert.alert('Settings saved!', 'success');
-      }
-    });
+    const { data } = this.props;
+    if (data && data.user && data.user.settings) {
+      this.props.updateUser({
+        variables: {
+          user: {
+            settings: unfreezeApolloCacheValue(data && data.user && data.user.settings).map(
+              (setting) => {
+                const settingToUpdate = setting;
+                settingToUpdate.lastUpdatedByUser = new Date().toISOString();
+                return settingToUpdate;
+              },
+            ),
+          },
+        },
+      });
+    }
   };
 
   render() {
+    const { data, updateUser } = this.props;
     return (
       <div className="GDPRConsentModal">
         <Styles.GDPRConsentModal
@@ -49,7 +64,7 @@ class GDPRConsentModal extends React.Component {
               (GDPR), we need to obtain your consent for how we make use of your data. Please review
               each of the settings below to customize your experience.
             </p>
-            <UserSettings gdpr />
+            <UserSettings settings={data.user && data.user.settings} updateUser={updateUser} />
           </Modal.Body>
           <Modal.Footer>
             <Button
@@ -68,4 +83,20 @@ class GDPRConsentModal extends React.Component {
   }
 }
 
-export default GDPRConsentModal;
+GDPRConsentModal.propTypes = {
+  data: PropTypes.object.isRequired,
+  updateUser: PropTypes.func.isRequired,
+};
+
+export default compose(
+  graphql(userSettingsQuery, {
+    options: () => ({
+      fetchPolicy: 'no-cache',
+    }),
+  }),
+  graphql(updateUserMutation, {
+    name: 'updateUser',
+    refetchQueries: [{ query: userSettingsQuery }],
+    options: () => ({}),
+  }),
+)(GDPRConsentModal);

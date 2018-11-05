@@ -2,6 +2,11 @@ import gql from 'graphql-tag';
 
 import UserTypes from '../../api/Users/types';
 import UserQueries from '../../api/Users/queries';
+import UserMutations from '../../api/Users/mutations';
+
+import UserSettingsTypes from '../../api/UserSettings/types';
+import UserSettingsQueries from '../../api/UserSettings/queries';
+import UserSettingsMutations from '../../api/UserSettings/mutations';
 
 import DocumentTypes from '../../api/Documents/types';
 import DocumentQueries from '../../api/Documents/queries';
@@ -10,29 +15,26 @@ import DocumentMutations from '../../api/Documents/mutations';
 import CommentTypes from '../../api/Comments/types';
 import CommentQueries from '../../api/Comments/queries';
 import CommentMutations from '../../api/Comments/mutations';
+import CommentSubscriptions from '../../api/Comments/subscriptions';
 
 import '../../api/Documents/server/indexes';
 import '../../api/OAuth/server/methods';
 import '../../api/webhooks';
-
-/*
-  TODO:
-
-  Why are nested queries not working? The parent query works great, but once that's
-  resolved the subfields are _not_ resolved. What's up?
-*/
 
 const schema = {
   typeDefs: gql`
     ${UserTypes}
     ${DocumentTypes}
     ${CommentTypes}
+    ${UserSettingsTypes}
 
     type Query {
       documents: [Document]
       document(_id: String): Document
-      comments: [Comment]
-      user: User
+      user(_id: String): User
+      users(currentPage: Int, perPage: Int, search: String): Users
+      userSettings: [UserSetting]
+      exportUserData: UserDataExport
     }
 
     type Mutation {
@@ -41,21 +43,40 @@ const schema = {
       removeDocument(_id: String!): Document
       addComment(documentId: String!, comment: String!): Comment
       removeComment(commentId: String!): Comment
+      updateUser(user: UserInput): User
+      removeUser(_id: String): User
+      addUserSetting(setting: UserSettingInput): UserSetting
+      updateUserSetting(setting: UserSettingInput): UserSetting
+      removeUserSetting(_id: String!): UserSetting
+      sendVerificationEmail: User
+      sendWelcomeEmail: User
+    }
+
+    type Subscription {
+      commentAdded(documentId: String!): Comment
     }
   `,
   resolvers: {
     Query: {
       ...DocumentQueries,
-      ...CommentQueries,
       ...UserQueries,
+      ...UserSettingsQueries,
     },
     Mutation: {
       ...DocumentMutations,
       ...CommentMutations,
+      ...UserMutations,
+      ...UserSettingsMutations,
     },
-    // Subscription: {
-    //   ...DocumentSubscriptions,
-    // },
+    Subscription: {
+      ...CommentSubscriptions,
+    },
+    Document: {
+      comments: CommentQueries.comments,
+    },
+    Comment: {
+      user: UserQueries.user,
+    },
   },
 };
 

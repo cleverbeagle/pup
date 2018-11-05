@@ -1,3 +1,5 @@
+#import "../fragments/Documents.gql"
+
 query documents {
   documents {
     _id
@@ -8,14 +10,26 @@ query documents {
   }
 }
 
+query editDocument($_id: String) {
+  document(_id: $_id) {
+    ...DocumentAttributes
+  }
+}
+
 query document($_id: String) {
   document(_id: $_id) {
-    _id
-    isPublic
-    title
-    body
-    updatedAt
-    createdAt
-    comments
+    ...DocumentAttributes
+    comments {
+      _id
+      comment
+      createdAt
+      user {
+        _id
+        name {
+          first
+          last
+        }
+      }
+    }
   }
 }

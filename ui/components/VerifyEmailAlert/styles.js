@@ -16,6 +16,9 @@ const VerifyEmailAlert = styled.div`
 
     .btn {
       padding: 0;
+      text-decoration: underline;
+      margin-left: 5px;
+      margin-top: -2px;
     }
   }
 `;

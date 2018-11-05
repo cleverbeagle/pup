@@ -4,14 +4,14 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import UserSettings from '../UserSettings/UserSettings';
 import handleMethodException from '../../modules/handleMethodException';
-import getUserProfile from '../../modules/getUserProfile';
+import normalizeMeteorUserData from '../../api/Users/actions/normalizeMeteorUserData';
 import rateLimit from '../../modules/rateLimit';
 
 const fetchUsers = (query, projection) =>
   Meteor.users
     .find(query, projection)
     .fetch()
-    .map((user) => getUserProfile(user));
+    .map((user) => normalizeMeteorUserData(user));
 
 Meteor.methods({
   'admin.fetchUsers': function adminFetchUsers(options) {

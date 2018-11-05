@@ -1,5 +1,5 @@
 ### Pup
-A boilerplate for products.
+The Ultimate Boilerplate for Products.
 
 [Read the Documentation](http://cleverbeagle.com/pup)
 

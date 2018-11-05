@@ -1,38 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose, graphql } from 'react-apollo';
 import { Breadcrumb, Tab } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
-import { Roles } from 'meteor/alanning:roles';
+import { Bert } from 'meteor/themeteorchef:bert';
 import AdminUserProfile from '../../components/AdminUserProfile';
 import UserSettings from '../../components/UserSettings';
-import getUserProfile from '../../../modules/getUserProfile';
+import { user as userQuery, users as usersQuery } from '../../queries/Users.gql';
+import {
+  updateUser as updateUserMutation,
+  removeUser as removeUserMutation,
+} from '../../mutations/Users.gql';
+
 import Styles from './styles';
 
 class AdminUser extends React.Component {
   state = { activeTab: 'profile' };
 
   render() {
-    const { loading, user } = this.props;
-    return !loading && user ? (
+    const { data, updateUser, removeUser } = this.props;
+    const name = data.user && data.user.name;
+    const username = data.user && data.user.username;
+
+    return data.user ? (
       <div className="AdminUser">
         <Breadcrumb>
-          <Breadcrumb.Item>
+          <li>
             <Link to="/admin/users">Users</Link>
-          </Breadcrumb.Item>
-          <Breadcrumb.Item active>
-            {user && user.profile
-              ? `${user.profile.name.first} ${user.profile.name.last}`
-              : user.username}
-          </Breadcrumb.Item>
+          </li>
+          <Breadcrumb.Item active>{name ? `${name.first} ${name.last}` : username}</Breadcrumb.Item>
         </Breadcrumb>
         <Styles.AdminUserHeader className="page-header">
-          {user && user.profile
-            ? `${user.profile.name.first} ${user.profile.name.last}`
-            : user.username}{' '}
-          {user.service !== 'password' && (
-            <span className={`label label-${user.service}`}>{user.service}</span>
+          {name ? `${name.first} ${name.last}` : username}
+          {data.user.oAuthProvider && (
+            <span className={`label label-${data.user.oAuthProvider}`}>
+              {data.user.oAuthProvider}
+            </span>
           )}
         </Styles.AdminUserHeader>
         <Styles.AdminUserTabs
@@ -42,11 +45,24 @@ class AdminUser extends React.Component {
           id="admin-user-tabs"
         >
           <Tab eventKey="profile" title="Profile">
-            <AdminUserProfile {...this.props} />
+            <AdminUserProfile
+              user={data.user}
+              updateUser={(options, callback) => {
+                // NOTE: Do this to allow us to perform work inside of AdminUserProfile
+                // after a successful update. Not ideal, but hey, c'est la vie.
+                updateUser(options);
+                if (callback) callback();
+              }}
+              removeUser={removeUser}
+            />
           </Tab>
           <Tab eventKey="settings" title="Settings">
-            {/* Manually check the activeTab value to ensure we refetch settings on re-render of UserSettings */}
-            {this.state.activeTab === 'settings' && <UserSettings isAdmin userId={user._id} />}
+            <UserSettings
+              isAdmin
+              userId={data.user._id}
+              settings={data.user.settings}
+              updateUser={updateUser}
+            />
           </Tab>
         </Styles.AdminUserTabs>
       </div>
@@ -57,26 +73,41 @@ class AdminUser extends React.Component {
 }
 
 AdminUser.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
-  name: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
+  updateUser: PropTypes.func.isRequired,
+  removeUser: PropTypes.func.isRequired,
 };
 
-export default withTracker(({ match }) => {
-  if (Meteor.isClient) {
-    const userId = match.params._id;
-    const subscription = Meteor.subscribe('admin.user', userId);
-
-    return {
-      loading: !subscription.ready(),
-      roles:
-        Roles.getAllRoles().map((role) => {
-          role.inRole = Roles.userIsInRole(userId, role.name); // eslint-disable-line
-          return role;
-        }) || [],
-      user: getUserProfile(Meteor.users.findOne({ _id: userId })) || {},
-    };
-  }
-
-  return {};
-})(AdminUser);
+export default compose(
+  graphql(userQuery, {
+    options: ({ match }) => ({
+      // NOTE: This ensures cache isn't too aggressive when moving between users.
+      // Forces Apollo to perform userQuery as a user is loaded instead of falling
+      // back to the cache. Users share similar data which gets cached and ends up
+      // breaking the UI.
+      fetchPolicy: 'no-cache',
+      variables: {
+        _id: match.params._id,
+      },
+    }),
+  }),
+  graphql(updateUserMutation, {
+    name: 'updateUser',
+    options: ({ match }) => ({
+      refetchQueries: [{ query: userQuery, variables: { _id: match.params._id } }],
+      onCompleted: () => {
+        Bert.alert('User updated!', 'success');
+      },
+    }),
+  }),
+  graphql(removeUserMutation, {
+    name: 'removeUser',
+    options: ({ history }) => ({
+      refetchQueries: [{ query: usersQuery }],
+      onCompleted: () => {
+        Bert.alert('User deleted!', 'success');
+        history.push('/admin/users');
+      },
+    }),
+  }),
+)(AdminUser);
