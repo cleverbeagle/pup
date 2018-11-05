@@ -1,3 +1,4 @@
+import sanitizeHtml from 'sanitize-html';
 import Comments from './Comments';
 import { isAdmin } from '../Users/actions/checkIfAuthorized';
 
@@ -8,7 +9,7 @@ export default {
     const date = new Date().toISOString();
     const commentToInsert = {
       documentId: args.documentId,
-      comment: args.comment,
+      comment: sanitizeHtml(args.comment),
       userId: context.user._id,
       createdAt: date,
     };

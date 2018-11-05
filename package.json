@@ -59,6 +59,7 @@
     "react-router-dom": "^4.2.2",
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
+    "sanitize-html": "^1.19.1",
     "simpl-schema": "^1.5.0",
     "styled-components": "^4.0.2",
     "subscriptions-transport-ws": "^0.9.14",

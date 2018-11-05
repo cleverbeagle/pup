@@ -1,3 +1,4 @@
+import sanitizeHtml from 'sanitize-html';
 import Documents from './Documents';
 
 export default {
@@ -9,7 +10,9 @@ export default {
       title:
         args.title ||
         `Untitled Document #${Documents.find({ owner: context.user._id }).count() + 1}`,
-      body: args.body || 'This is my document. There are many like it, but this one is mine.',
+      body: args.body
+        ? sanitizeHtml(args.body)
+        : 'This is my document. There are many like it, but this one is mine.',
       owner: context.user._id,
       createdAt: date,
       updatedAt: date,
@@ -21,7 +24,16 @@ export default {
     if (!context.user) throw new Error('Sorry, you must be logged in to update a document.');
     if (!Documents.findOne({ _id: args._id, owner: context.user._id }))
       throw new Error('Sorry, you need to be the owner of this document to update it.');
-    Documents.update({ _id: args._id }, { $set: { ...args, updatedAt: new Date().toISOString() } });
+    Documents.update(
+      { _id: args._id },
+      {
+        $set: {
+          ...args,
+          body: sanitizeHtml(args.body),
+          updatedAt: new Date().toISOString(),
+        },
+      },
+    );
     const doc = Documents.findOne(args._id);
     return doc;
   },
