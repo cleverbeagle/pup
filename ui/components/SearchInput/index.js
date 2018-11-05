@@ -19,11 +19,12 @@ const SearchInput = ({ placeholder, value, onChange }) => (
 
 SearchInput.defaultProps = {
   placeholder: 'Search...',
+  value: '',
 };
 
 SearchInput.propTypes = {
   placeholder: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
 

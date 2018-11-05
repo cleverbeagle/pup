@@ -1,6 +1,20 @@
 {
   "name": "pup",
+  "version": "2.0.0",
+  "description": "The Ultimate Boilerplate for Products.",
   "private": true,
+  "repository": {
+    "url": "git@cleverbeagle:cleverbeagle/pup.git",
+    "type": "git"
+  },
+  "author": "cleverbeagle <business@cleverbeagle.com>",
+  "license": "MIT",
+  "meteor": {
+    "mainModule": {
+      "client": "startup/client/index.js",
+      "server": "startup/server/index.js"
+    }
+  },
   "scripts": {
     "dev": "meteor --settings settings-development.json",
     "staging": "DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy pup-staging.cleverbeagle.com --settings settings-staging.json",
@@ -10,8 +24,7 @@
     "lint:file": "eslint --fix",
     "test": "jest",
     "test-watch": "jest --watch --verbose false",
-    "test-e2e": "testcafe chrome imports/ui/**/*.e2e.js",
-    "test-e2e-watch": "testcafe-live chrome:headless imports/ui/**/*.e2e.js"
+    "test-e2e": "testcafe chrome:headless ui/**/*.e2e.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.1.2",
@@ -29,7 +42,6 @@
     "apollo-utilities": "^1.0.24",
     "b64-to-blob": "^1.2.19",
     "babel-plugin-lodash": "^3.3.4",
-    "babel-runtime": "^6.26.0",
     "bcrypt": "^2.0.1",
     "commonmark": "^0.28.1",
     "core-js": "^2.5.5",
@@ -69,9 +81,12 @@
     "xml": "^1.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.6.0",
-    "chalk": "^2.4.1",
     "enzyme": "^3.3.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
@@ -195,20 +210,5 @@
     "rangeEnd": "Infinity",
     "parser": "babylon",
     "proseWrap": "preserve"
-  },
-  "version": "1.5.0",
-  "description": "A boilerplate for products.",
-  "main": "index.js",
-  "repository": {
-    "url": "git@cleverbeagle:cleverbeagle/pup.git",
-    "type": "git"
-  },
-  "author": "cleverbeagle <ryan.glover@cleverbeagle.com>",
-  "license": "MIT",
-  "meteor": {
-    "mainModule": {
-      "client": "startup/client/index.js",
-      "server": "startup/server/index.js"
-    }
   }
 }
