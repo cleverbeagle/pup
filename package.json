@@ -11,7 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.44",
+    "@babel/runtime": "^7.1.2",
     "@cleverbeagle/pupql": "0.0.4",
     "@cleverbeagle/seeder": "^2.0.3",
     "apollo-boost": "^0.1.14",
