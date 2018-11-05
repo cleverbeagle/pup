@@ -6,7 +6,7 @@ export default {
     const date = new Date().toISOString();
     const documentId = Documents.insert({
       isPublic: args.isPublic || false,
-      title: args.title || `Untitled Document #${Documents.find().count() + 1}`,
+      title: args.title || `Untitled Document #${Documents.find({ owner: user._id }).count() + 1}`,
       body: args.body || 'This is my document. There are many like it, but this one is mine.',
       owner: user._id,
       createdAt: date,

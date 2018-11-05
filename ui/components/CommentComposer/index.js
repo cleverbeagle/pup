@@ -6,8 +6,6 @@ import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Validation from '../Validation';
 import addCommentMutation from '../../mutations/Comments.gql';
-import { document as documentQuery } from '../../queries/Documents.gql';
-
 import StyledCommentComposer from './styles';
 
 const CommentComposer = ({ mutate, documentId }) => (
@@ -32,6 +30,8 @@ const CommentComposer = ({ mutate, documentId }) => (
               comment: form.comment.value.trim(),
             },
           });
+
+          document.querySelector('[name="comment"]').value = '';
         } else {
           Bert.alert('Sorry, you need to be logged in to comment!', 'danger');
         }
@@ -56,10 +56,4 @@ CommentComposer.propTypes = {
   mutate: PropTypes.func.isRequired,
 };
 
-export default graphql(addCommentMutation, {
-  options: () => ({
-    onCompleted: () => {
-      document.querySelector('[name="comment"]').value = '';
-    },
-  }),
-})(CommentComposer);
+export default graphql(addCommentMutation)(CommentComposer);

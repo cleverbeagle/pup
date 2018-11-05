@@ -42,4 +42,8 @@ export default `
     total: Int
     users: [User]
   }
+
+  type UserDataExport {
+    zip: String
+  }
 `;

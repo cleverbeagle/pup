@@ -1,5 +1,6 @@
 import queryUsers from './actions/queryUsers';
 import queryUser from './actions/queryUser';
+import exportUserData from './actions/exportUserData';
 
 export default {
   users: (parent, args, context) =>
@@ -16,9 +17,13 @@ export default {
       },
     }),
   user: (parent, args, context) => {
-    const userIdFromParentQuery = parent && parent.userIdToQuery;
+    const userIdFromParentQuery = parent && parent.userId;
     return queryUser({
       userIdToQuery: userIdFromParentQuery || args._id || context.user._id,
     });
   },
+  exportUserData: (parent, args, { user }) =>
+    exportUserData({
+      user,
+    }),
 };

@@ -15,6 +15,8 @@ class UserSettings extends React.Component {
     const settingToUpdate = settings.find(({ _id }) => _id === setting._id);
     settingToUpdate.value = setting.value;
 
+    if (!this.props.userId) settingToUpdate.lastUpdatedByUser = new Date().toISOString();
+
     this.setState({ settings }, () => {
       delay(() => {
         this.props.updateUser({

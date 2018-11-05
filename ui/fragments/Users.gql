@@ -6,6 +6,7 @@ fragment UserAttributes on User {
   }
   username
   emailAddress
+  oAuthProvider
   roles {
     _id
     name

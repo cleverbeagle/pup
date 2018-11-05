@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose, graphql } from 'react-apollo';
+import { compose, graphql, withApollo } from 'react-apollo';
 import FileSaver from 'file-saver';
 import base64ToBlob from 'b64-to-blob';
 import { Row, Col, FormGroup, ControlLabel, Button, Tabs, Tab } from 'react-bootstrap';
@@ -12,7 +12,7 @@ import Validation from '../../components/Validation';
 import InputHint from '../../components/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter';
 import UserSettings from '../../components/UserSettings';
-import { user as userQuery } from '../../queries/Users.gql';
+import { user as userQuery, exportUserData as exportUserDataQuery } from '../../queries/Users.gql';
 import {
   updateUser as updateUserMutation,
   removeUser as removeUserMutation,
@@ -22,17 +22,15 @@ import Styles from './styles';
 class Profile extends React.Component {
   state = { activeTab: 'profile' };
 
-  getUserType = (user) => user.oAuthProvider || 'password';
+  getUserType = (user) => (user.oAuthProvider ? 'oauth' : 'password');
 
-  handleExportData = (event) => {
+  handleExportData = async (event) => {
     event.preventDefault();
-    Meteor.call('users.exportData', (error, exportData) => {
-      if (error) {
-        Bert.alert(error.reason, 'danger');
-      } else {
-        FileSaver.saveAs(base64ToBlob(exportData), `${Meteor.userId()}.zip`);
-      }
+    const { data } = await this.props.client.query({
+      query: exportUserDataQuery,
     });
+
+    FileSaver.saveAs(base64ToBlob(data.exportUserData.zip), `${Meteor.userId()}.zip`);
   };
 
   handleDeleteAccount = () => {
@@ -253,6 +251,7 @@ Profile.propTypes = {
   data: PropTypes.object.isRequired,
   updateUser: PropTypes.func.isRequired,
   removeUser: PropTypes.func.isRequired,
+  client: PropTypes.object.isRequired,
 };
 
 export default compose(
@@ -280,4 +279,4 @@ export default compose(
       },
     }),
   }),
-)(Profile);
+)(withApollo(Profile));

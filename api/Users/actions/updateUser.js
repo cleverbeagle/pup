@@ -76,7 +76,7 @@ const updateUser = (options) => {
 
     const userToUpdate = options.user;
 
-    if (userToUpdate && !userToUpdate._id && !isAdmin(options.currentUser._id)) {
+    if (userToUpdate && !userToUpdate._id) {
       // NOTE: If passed user doesn't have an _id, we know we're updating the
       // currently logged in user (i.e., via the /profile page).
       userToUpdate._id = options.currentUser._id;

@@ -12,6 +12,7 @@ export default `
     label: String
     type: String
     value: String
+    lastUpdatedByUser: String
   }
 
   type UserSetting {
@@ -21,5 +22,10 @@ export default `
     label: String # The user-facing label for the setting.
     type: AllowedSettingType
     value: String
+    lastUpdatedByUser: String
+  }
+
+  type GDPRComplete {
+    complete: Boolean
   }
 `;

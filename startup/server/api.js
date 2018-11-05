@@ -33,6 +33,7 @@ const schema = {
       user(_id: String): User
       users(currentPage: Int, perPage: Int, search: String): Users
       userSettings: [UserSetting]
+      exportUserData: UserDataExport
     }
 
     type Mutation {
@@ -46,6 +47,8 @@ const schema = {
       addUserSetting(setting: UserSettingInput): UserSetting
       updateUserSetting(setting: UserSettingInput): UserSetting
       removeUserSetting(_id: String!): UserSetting
+      sendVerificationEmail: User
+      sendWelcomeEmail: User
     }
 
     type Subscription {

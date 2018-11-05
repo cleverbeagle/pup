@@ -20,3 +20,23 @@ query user($_id: String) {
     ...UserAttributes
   }
 }
+
+query userSettings {
+  user {
+    settings {
+      _id
+      isGDPR
+      key
+      label
+      type
+      value
+      lastUpdatedByUser
+    }
+  }
+}
+
+query exportUserData {
+  exportUserData {
+    zip
+  }
+}

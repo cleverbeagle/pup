@@ -11,3 +11,15 @@ mutation removeUser($_id: String) {
     _id
   }
 }
+
+mutation sendVerificationEmail {
+  sendVerificationEmail {
+    _id
+  }
+}
+
+mutation sendWelcomeEmail {
+  sendWelcomeEmail {
+    _id
+  }
+}
