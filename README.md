@@ -11,6 +11,10 @@ Want to work side-by-side with an experienced, trusted mentor? [Check out Clever
 
 ---
 
+**NOTE:** The following represents example `README.md` content for your product. **_The information below should be customized for your product._**
+
+---
+
 1. Infrastructure
 2. Settings & Configuration
 3. Dependencies
@@ -162,7 +166,7 @@ Upon restarting the app, the databased will be reseeded with the default test da
 
 #### Writing Tests
 
-[Read the "Writing automated tests" tutorial in the Pup docs](https://cleverbeagle.com/pup/v2/tutorials/writing-automated-tests)
+[Read the "Writing and running automated tests" tutorial in the Pup docs](https://cleverbeagle.com/pup/v2/tutorials/writing-and-running-automated-tests)
 
 ### 7. Releasing
 
