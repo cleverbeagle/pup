@@ -6,7 +6,7 @@ import { iso } from '../../modules/dates.js';
 
 const baseUrl = Meteor.absoluteUrl();
 
-// NOTE: Slash are omitted at front because it comes with baseUrl.
+// NOTE: Slashes are omitted at front because it comes with baseUrl.
 const routes = [
   { base: 'signup' },
   { base: 'login' },

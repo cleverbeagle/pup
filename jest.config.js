@@ -6,9 +6,5 @@ module.exports = {
     '\\.(css|scss)$': 'identity-obj-proxy', // NOTE: https://jestjs.io/docs/en/webpack#mocking-css-modules
     '^meteor/(.*):(.*)$': '<rootDir>/tests/__mocks__/meteor/$1_$2',
   },
-  unmockedModulePathPatterns: [
-    '/^imports\\/.*\\.jsx?$/',
-    '/^imports\\/.*\\.scss?$/',
-    '/^node_modules/',
-  ],
+  unmockedModulePathPatterns: ['/^node_modules/'],
 };
