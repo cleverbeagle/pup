@@ -1,7 +1,7 @@
 ### Pup
 The Ultimate Boilerplate for Products.
 
-[Read the Documentation](http://cleverbeagle.com/pup)
+[Read the Documentation](https://cleverbeagle.com/pup)
 
 [![CircleCI](https://circleci.com/gh/cleverbeagle/pup.svg?style=shield)](https://circleci.com/gh/cleverbeagle/pup)
 

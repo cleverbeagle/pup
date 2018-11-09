@@ -1,5 +1,6 @@
 ## v.NEXT
 
+- Add [#193](https://github.com/cleverbeagle/pup/issues/193). Ability to manage roles via admin UI.
 - Add [#124](https://github.com/cleverbeagle/pup/issues/124). Add documentation for `afterLoginPath` redirects to routing.
 - Add [#103](https://github.com/cleverbeagle/pup/issues/103). i18n support with example language file (Spanish?)
 
