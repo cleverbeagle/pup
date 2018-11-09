@@ -4,7 +4,7 @@
 - Add [#124](https://github.com/cleverbeagle/pup/issues/124). Add documentation for `afterLoginPath` redirects to routing.
 - Add [#103](https://github.com/cleverbeagle/pup/issues/103). i18n support with example language file (Spanish?)
 
-## v2.0.0, November 8th, 2018
+## v2.0.0, November 9th, 2018
 
 - Add [#125](https://github.com/cleverbeagle/pup/issues/125) GraphQL support to replace usage of Meteor's publications and subscriptions.
 - Add [#174](https://github.com/cleverbeagle/pup/issues/174) Add sitemap.xml generator (h/t @merlinpatt for this).
