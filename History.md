@@ -3,6 +3,23 @@
 - Add [#124](https://github.com/cleverbeagle/pup/issues/124). Add documentation for `afterLoginPath` redirects to routing.
 - Add [#103](https://github.com/cleverbeagle/pup/issues/103). i18n support with example language file (Spanish?)
 
+## v2.0.0, November 8th, 2018
+
+- Add [#125](https://github.com/cleverbeagle/pup/issues/125) GraphQL support to replace usage of Meteor's publications and subscriptions.
+- Add [#174](https://github.com/cleverbeagle/pup/issues/174) Add sitemap.xml generator (h/t @merlinpatt for this).
+- Improve [#183](https://github.com/cleverbeagle/pup/issues/183) Folder structure to simplify import paths (h/t @merlinpatt for this).
+- Add [#204](https://github.com/cleverbeagle/pup/issues/204) Add prettier and pre-commit hook (h/t @merlinpatt for this).
+- Add [#208](https://github.com/cleverbeagle/pup/issues/208) Add browser-policy support (h/t @merlinpatt for this).
+- Add [#211](https://github.com/cleverbeagle/pup/issues/211) Add webhooks template (h/t @merlinpatt for this).
+- Improve [#220](https://github.com/cleverbeagle/pup/issues/220) Overhaul documents feature to include public/private documents and a new comments feature.
+- Improve [#225](https://github.com/cleverbeagle/pup/issues/225) Migrate to v4 of `styled-components` (h/t @merlinpatt for this).
+- Add [#235](https://github.com/cleverbeagle/pup/issues/235) Add input sanitization when editing documents (h/t @merlinpatt for this).
+- Improve [#239](https://github.com/cleverbeagle/pup/issues/239) Migrate `babel-plugin-lodash` to a production dependency (h/t @fknipp for this).
+- Improve [#240](https://github.com/cleverbeagle/pup/issues/240) Move actions to dedicated /actions directory under each /api directory.
+- Add [#250](https://github.com/cleverbeagle/pup/issues/250) Unit, integration, and end-to-end testing.
+- Add [#255](https://github.com/cleverbeagle/pup/issues/255) Continuous integration support via CircleCI (h/t @merlinpatt for this).
+- Improve [#259](https://github.com/cleverbeagle/pup/issues/259) Update Meteor to v1.8.
+
 ## v1.6.1, June 26th, 2018
 
 - Fix [#176](https://github.com/cleverbeagle/pup/issues/176). Fix flash of /login page while SSR is loading. Needed to do a patch because the fix for this was breaking SSR.
