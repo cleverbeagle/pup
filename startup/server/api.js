@@ -8,6 +8,9 @@ import UserSettingsTypes from '../../api/UserSettings/types';
 import UserSettingsQueries from '../../api/UserSettings/queries';
 import UserSettingsMutations from '../../api/UserSettings/mutations';
 
+import ContractTypes from '../../api/Contracts/types';
+import ContractQueries from '../../api/Contracts/queries';
+
 import DocumentTypes from '../../api/Documents/types';
 import DocumentQueries from '../../api/Documents/queries';
 import DocumentMutations from '../../api/Documents/mutations';
@@ -25,11 +28,13 @@ import '../../api/webhooks';
 const schema = {
   typeDefs: gql`
     ${UserTypes}
+    ${ContractTypes}
     ${DocumentTypes}
     ${CommentTypes}
     ${UserSettingsTypes}
 
     type Query {
+      contracts: [Contract]
       documents: [Document]
       document(_id: String): Document
       user(_id: String): User
@@ -60,6 +65,7 @@ const schema = {
   `,
   resolvers: {
     Query: {
+      ...ContractQueries,
       ...DocumentQueries,
       ...UserQueries,
       ...UserSettingsQueries,

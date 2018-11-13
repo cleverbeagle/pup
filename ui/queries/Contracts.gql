@@ -1,0 +1,5 @@
+query contracts {
+  contracts {
+    title
+  }
+}

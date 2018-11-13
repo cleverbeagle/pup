@@ -1,5 +1,5 @@
-const get = (request) => {
-  console.log('GET', request.query);
+const get = (request, params) => {
+  console.log('GET', params);
 };
 
 const post = (request) => {

@@ -15,10 +15,10 @@ export default {
   //
   // curl http://localhost:3000/webhooks/curl --data '{"username":"xyz","password":"xyz"}' -H "Content-Type: application/json"
   // curl http://localhost:3000/webhooks/curl?something=42 --data '{"username":"xyz","password":"xyz"}' -H "Content-Type: application/json" --request GET
-  curl(request) {
+  curl(request, params) {
     const type = request.method.toLowerCase();
     const handler = curl[type];
-    if (handler) return handler(request);
+    if (handler) return handler(request, params);
     return `${type} is not supported.`;
   },
 };

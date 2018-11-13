@@ -4,7 +4,7 @@
       "httpUri": "http://localhost:3000/graphql",
       "wsUri": "ws://localhost:4001/graphql"
     },
-    "productName": "Product Name",
+    "productName": "Wabbit",
     "copyrightStartYear": "2018",
     "twitterUsername": "product",
     "facebookUsername": "product",

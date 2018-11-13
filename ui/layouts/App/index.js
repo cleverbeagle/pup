@@ -15,6 +15,8 @@ import Public from '../../components/Public';
 
 import Index from '../../pages/Index';
 
+import Contracts from '../../pages/Contracts';
+
 import Documents from '../../pages/Documents';
 import ViewDocument from '../../pages/ViewDocument';
 import EditDocument from '../../pages/EditDocument';
@@ -78,6 +80,15 @@ class App extends React.Component {
         <Grid>
           <Switch>
             <Route exact name="index" path="/" component={Index} />
+
+            <Authenticated
+              exact
+              path="/contracts"
+              component={Contracts}
+              setAfterLoginPath={setAfterLoginPath}
+              {...props}
+              {...state}
+            />
 
             <Authenticated
               exact
