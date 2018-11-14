@@ -6,7 +6,7 @@ Picker.middleware(bodyParser.json());
 
 Picker.route('/webhooks/:service', (params, request, response) => {
   const service = handleWebhook[params.service];
-  if (service) service(request);
+  if (service) service({ params, request });
   response.writeHead(200);
   response.end('[200] Webhook received.');
 });
