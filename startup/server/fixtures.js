@@ -70,7 +70,7 @@ seeder(Meteor.users, {
       },
     ],
     dynamic: {
-      count: 100,
+      count: 5,
       seed(iteration, faker) {
         const userCount = iteration + 1;
         return {
