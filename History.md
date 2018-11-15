@@ -1,8 +1,8 @@
-## v.NEXT
+## v2.0.1, November 15th, 2018
 
-- Add [#193](https://github.com/cleverbeagle/pup/issues/193). Ability to manage roles via admin UI.
-- Add [#124](https://github.com/cleverbeagle/pup/issues/124). Add documentation for `afterLoginPath` redirects to routing.
-- Add [#103](https://github.com/cleverbeagle/pup/issues/103). i18n support with example language file (Spanish?)
+- Fix [#265](https://github.com/cleverbeagle/pup/issues/265) Fix seeder creating 100 instead of 5 users.
+- Fix [#267](https://github.com/cleverbeagle/pup/issues/267) Fix webhooks not receiving query params.
+- Fix [#270](https://github.com/cleverbeagle/pup/issues/270) Fix GDPR modal not closing when moving between pages after user clicks "Save Settings."
 
 ## v2.0.0, November 9th, 2018
 
