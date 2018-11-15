@@ -39,6 +39,7 @@ class GDPRConsentModal extends React.Component {
             ),
           },
         },
+        refetchQueries: [{ query: userSettingsQuery }],
       });
     }
   };
@@ -89,14 +90,8 @@ GDPRConsentModal.propTypes = {
 };
 
 export default compose(
-  graphql(userSettingsQuery, {
-    options: () => ({
-      fetchPolicy: 'no-cache',
-    }),
-  }),
+  graphql(userSettingsQuery),
   graphql(updateUserMutation, {
     name: 'updateUser',
-    refetchQueries: [{ query: userSettingsQuery }],
-    options: () => ({}),
   }),
 )(GDPRConsentModal);
