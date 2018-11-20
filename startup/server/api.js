@@ -76,6 +76,7 @@ const schema = {
     },
     Document: {
       comments: CommentQueries.comments,
+      commentsCount: CommentQueries.commentsCount,
     },
     Comment: {
       user: UserQueries.user,

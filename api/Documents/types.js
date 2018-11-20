@@ -8,5 +8,6 @@ export default `
     body: String
     owner: String
     comments: [Comment]
+    commentsCount: Int
   }
 `;

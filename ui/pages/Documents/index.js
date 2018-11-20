@@ -18,7 +18,7 @@ const Documents = ({ data, mutate }) => (
     </header>
     {data.documents && data.documents.length ? (
       <DocumentsList>
-        {data.documents.map(({ _id, isPublic, title, updatedAt }) => (
+        {data.documents.map(({ _id, isPublic, title, updatedAt, commentsCount }) => (
           <Document key={_id}>
             <Link to={`/documents/${_id}/edit`} />
             <header>
@@ -28,6 +28,7 @@ const Documents = ({ data, mutate }) => (
                 <span className="label label-default">Private</span>
               )}
               <h2>{title}</h2>
+              <p>{commentsCount} comments</p>
               <p>{timeago(updatedAt)}</p>
             </header>
           </Document>
