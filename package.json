@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.1.2",
-    "@cleverbeagle/pupql": "0.0.4",
     "@cleverbeagle/seeder": "^2.0.3",
     "apollo-boost": "^0.1.14",
     "apollo-cache-inmemory": "^1.2.9",

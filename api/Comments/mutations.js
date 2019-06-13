@@ -15,10 +15,6 @@ export default {
     };
 
     const commentId = Comments.insert(commentToInsert);
-    context.pubsub.publish('commentAdded', {
-      commentAdded: { _id: commentId, ...commentToInsert },
-    });
-
     return { _id: commentId, ...commentToInsert };
   },
   removeComment(root, args, context) {

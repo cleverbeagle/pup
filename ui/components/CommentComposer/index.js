@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Validation from '../Validation';
 import addCommentMutation from '../../mutations/Comments.gql';
+import { document as documentQuery } from '../../queries/Documents.gql';
 import StyledCommentComposer from './styles';
 
 const CommentComposer = ({ mutate, documentId }) => (
@@ -56,4 +57,13 @@ CommentComposer.propTypes = {
   mutate: PropTypes.func.isRequired,
 };
 
-export default graphql(addCommentMutation)(CommentComposer);
+export default graphql(addCommentMutation, {
+  options: ({ documentId }) => ({
+    refetchQueries: [
+      {
+        query: documentQuery,
+        variables: { _id: documentId },
+      },
+    ],
+  }),
+})(CommentComposer);
