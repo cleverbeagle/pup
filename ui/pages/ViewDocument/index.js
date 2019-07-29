@@ -6,7 +6,6 @@ import SEO from '../../components/SEO';
 import BlankState from '../../components/BlankState';
 import Comments from '../../components/Comments';
 import { document as documentQuery } from '../../queries/Documents.gql';
-import commentAdded from '../../subscriptions/Comments.gql';
 import parseMarkdown from '../../../modules/parseMarkdown';
 
 import { StyledViewDocument, DocumentBody } from './styles';
@@ -43,24 +42,6 @@ class ViewDocument extends React.Component {
             </React.Fragment>
           </StyledViewDocument>
           <Comments
-            subscribeToNewComments={() =>
-              data.subscribeToMore({
-                document: commentAdded,
-                variables: {
-                  documentId: data.document && data.document._id,
-                },
-                updateQuery: (existingData, { subscriptionData }) => {
-                  if (!subscriptionData.data) return existingData;
-                  const newComment = subscriptionData.data.commentAdded;
-                  return {
-                    document: {
-                      ...existingData.document,
-                      comments: [...existingData.document.comments, newComment],
-                    },
-                  };
-                },
-              })
-            }
             documentId={data.document && data.document._id}
             comments={data.document && data.document.comments}
           />
