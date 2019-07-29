@@ -1,8 +1,7 @@
 {
   "public": {
     "graphQL": {
-      "httpUri": "http://localhost:3000/graphql",
-      "wsUri": "ws://localhost:4001/graphql"
+      "httpUri": "http://localhost:3000/graphql"
     },
     "productName": "Product Name",
     "copyrightStartYear": "2018",

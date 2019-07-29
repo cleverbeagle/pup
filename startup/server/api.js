@@ -15,7 +15,6 @@ import DocumentMutations from '../../api/Documents/mutations';
 import CommentTypes from '../../api/Comments/types';
 import CommentQueries from '../../api/Comments/queries';
 import CommentMutations from '../../api/Comments/mutations';
-import CommentSubscriptions from '../../api/Comments/subscriptions';
 
 import OAuthQueries from '../../api/OAuth/queries';
 
@@ -70,9 +69,6 @@ const schema = {
       ...CommentMutations,
       ...UserMutations,
       ...UserSettingsMutations,
-    },
-    Subscription: {
-      ...CommentSubscriptions,
     },
     Document: {
       comments: CommentQueries.comments,
