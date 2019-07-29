@@ -37,14 +37,14 @@ const CommentComposer = ({ mutate, documentId }) => (
         }
       }}
     >
-      <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
+      <form onSubmit={(event) => event.preventDefault()}>
         <textarea
           className="form-control"
           name="comment"
           placeholder="Have a comment about this?"
         />
         <Button type="submit" bsStyle="success">
-          Share
+          Post Comment
         </Button>
       </form>
     </Validation>
