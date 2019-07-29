@@ -63,7 +63,7 @@ class App extends React.Component {
   render() {
     const { props, state, setAfterLoginPath } = this;
     return (
-      <Styles.App ready={state.ready} loading={props.loading}>
+      <Styles.App ready={state.ready} loading={`${props.loading}`}>
         {props.authenticated && (
           <VerifyEmailAlert
             userId={props.userId}
