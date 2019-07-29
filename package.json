@@ -29,7 +29,6 @@
   "dependencies": {
     "@babel/runtime": "^7.5.5",
     "@cleverbeagle/seeder": "^2.0.3",
-    "apollo-boost": "^0.4.3",
     "apollo-cache-inmemory": "^1.6.2",
     "apollo-client": "^2.6.3",
     "apollo-link": "^1.2.12",
