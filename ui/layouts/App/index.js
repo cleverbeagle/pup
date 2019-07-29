@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-href */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
@@ -65,7 +63,7 @@ class App extends React.Component {
   render() {
     const { props, state, setAfterLoginPath } = this;
     return (
-      <Styles.App ready={this.state.ready} loading={props.loading}>
+      <Styles.App ready={state.ready} loading={props.loading}>
         {props.authenticated && (
           <VerifyEmailAlert
             userId={props.userId}
