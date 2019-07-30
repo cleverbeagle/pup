@@ -17,6 +17,23 @@ export const CommentsList = styled.ol`
   }
 `;
 
+export const CommentsListHeader = styled.header`
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+
+  h3 {
+    margin: 0;
+  }
+
+  select {
+    margin-left: auto;
+    display: inline-block;
+    width: auto;
+    min-width: 120px;
+  }
+`;
+
 export const Comment = styled.li`
   border: 1px solid var(--gray-lighter);
   padding: 20px;

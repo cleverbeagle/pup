@@ -16,10 +16,10 @@ query editDocument($_id: String) {
   }
 }
 
-query document($_id: String) {
+query document($_id: String, $sortBy: String) {
   document(_id: $_id) {
     ...DocumentAttributes
-    comments {
+    comments(sortBy: $sortBy) {
       _id
       comment
       createdAt
