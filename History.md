@@ -1,3 +1,20 @@
+## v2.1.0, July 29th, 2019
+
+Special thanks to @ayhid, @MichelFloyd, @mrwisu, @h4de5, and @aferreol for help on this release :)
+
+- Document [#25](https://github.com/cleverbeagle/pup/issues/25) Add documentation about ESLint to docs.
+- Complete [#205](https://github.com/cleverbeagle/pup/issues/205) Remove unnecessary yarn.lock file.
+- Add [#234](https://github.com/cleverbeagle/pup/issues/234) Add ability to blacklist certain routes from SSR.
+- Improve [#261](https://github.com/cleverbeagle/pup/issues/261) Rename "Share" button to "Post Comment" in comment composer.
+- Add [#263](https://github.com/cleverbeagle/pup/issues/263) Add sorting option to comments (newest or oldest first) on documents.
+- Complete [#277](https://github.com/cleverbeagle/pup/issues/277) Correct path in error message in createIndex.js module.
+- Improve [#283](https://github.com/cleverbeagle/pup/issues/283) Update Meteor and NPM dependencies.
+- Add [#284](https://github.com/cleverbeagle/pup/issues/284) Merge PupQL functionality into Pup and deprecate @cleverbeagle/pupql.
+- Fix [#293](https://github.com/cleverbeagle/pup/issues/293) Fix sendEmail always sending text template.
+- Fix [#299](https://github.com/cleverbeagle/pup/issues/299) Fix old sendVerificationEmail Meteor method being used instead of GraphQL mutation.
+- Fix [#307](https://github.com/cleverbeagle/pup/issues/307) Fix incorrect image size in manifest.json.
+- Complete [#314](https://github.com/cleverbeagle/pup/issues/314) Fix linter errors.
+
 ## v2.0.1, November 15th, 2018
 
 - Fix [#265](https://github.com/cleverbeagle/pup/issues/265) Fix seeder creating 100 instead of 5 users.
