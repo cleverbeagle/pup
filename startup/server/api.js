@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import { makeExecutableSchema } from 'graphql-tools';
 
 import UserTypes from '../../api/Users/types';
 import UserQueries from '../../api/Users/queries';
@@ -79,4 +80,4 @@ const schema = {
   },
 };
 
-export default schema;
+export default makeExecutableSchema(schema);
