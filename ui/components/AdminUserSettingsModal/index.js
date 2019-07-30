@@ -33,8 +33,9 @@ class AdminUserSettingsModal extends React.Component {
   }
 
   handleSubmit = (form) => {
-    const mutation = this.props.setting ? this.props.updateUserSetting : this.props.addUserSetting;
-    const setting = {
+    const { setting, updateUserSetting, addUserSetting, onHide } = this.props;
+    const mutation = setting ? updateUserSetting : addUserSetting;
+    const settingToAddOrUpdate = {
       isGDPR: this.isGDPR.state.toggled,
       key: form.keyName.value,
       label: form.label.value.trim(),
@@ -42,8 +43,8 @@ class AdminUserSettingsModal extends React.Component {
       value: form.defaultValue.value,
     };
 
-    if (this.props.setting) {
-      setting._id = this.props.setting._id;
+    if (setting) {
+      settingToAddOrUpdate._id = setting._id;
       const confirmUpdate = confirm(
         "Are you sure? This will overwrite this setting for all users immediately. If you're changing the Key Name or Type, double-check that your UI can support this to avoid rendering errors.",
       );
@@ -52,11 +53,11 @@ class AdminUserSettingsModal extends React.Component {
 
     mutation({
       variables: {
-        setting,
+        setting: settingToAddOrUpdate,
       },
     });
 
-    this.props.onHide();
+    onHide();
   };
 
   handleSetKeyName = (event) => {
@@ -70,10 +71,15 @@ class AdminUserSettingsModal extends React.Component {
 
   render() {
     const { show, onHide, setting } = this.props;
+    const { keyName, isGDPR, label, settingType, value } = this.state;
+
     return (
       <Modal show={show} onHide={onHide}>
         <Modal.Header>
-          <Modal.Title>{setting ? 'Edit' : 'Add a'} User Setting</Modal.Title>
+          <Modal.Title>
+            {setting ? 'Edit' : 'Add a'}
+            User Setting
+          </Modal.Title>
         </Modal.Header>
         <Validation
           rules={{
@@ -106,7 +112,7 @@ class AdminUserSettingsModal extends React.Component {
                       type="text"
                       name="keyName"
                       className="form-control"
-                      value={this.state.keyName}
+                      value={keyName}
                       onChange={this.handleSetKeyName}
                       placeholder="canWeSendYouMarketingEmails"
                     />
@@ -116,8 +122,8 @@ class AdminUserSettingsModal extends React.Component {
                   <FormGroup>
                     <ControlLabel>Is this a GDPR setting?</ControlLabel>
                     <ToggleSwitch
-                      ref={(isGDPR) => (this.isGDPR = isGDPR)}
-                      toggled={this.state.isGDPR}
+                      ref={(isGDPRToggle) => (this.isGDPR = isGDPRToggle)}
+                      toggled={isGDPR}
                       onToggle={(id, toggled) => this.setState({ isGDPR: toggled })}
                     />
                   </FormGroup>
@@ -129,7 +135,7 @@ class AdminUserSettingsModal extends React.Component {
                   type="text"
                   name="label"
                   className="form-control"
-                  value={this.state.label}
+                  value={label}
                   onChange={(event) => this.setState({ label: event.target.value })}
                   placeholder="Can we send you marketing emails?"
                 />
@@ -140,7 +146,7 @@ class AdminUserSettingsModal extends React.Component {
                   <ControlLabel>Type</ControlLabel>
                   <select
                     name="type"
-                    value={this.state.settingType}
+                    value={settingType}
                     onChange={(event) => this.setState({ settingType: event.target.value })}
                     className="form-control"
                   >
@@ -151,10 +157,10 @@ class AdminUserSettingsModal extends React.Component {
                 </Col>
                 <Col xs={12} sm={6}>
                   <ControlLabel>Default Value</ControlLabel>
-                  {this.state.settingType === 'boolean' && (
+                  {settingType === 'boolean' && (
                     <select
                       name="defaultValue"
-                      value={this.state.value}
+                      value={value}
                       onChange={(event) => this.setState({ value: event.target.value })}
                       className="form-control"
                     >
@@ -162,24 +168,24 @@ class AdminUserSettingsModal extends React.Component {
                       <option value="false">false</option>
                     </select>
                   )}
-                  {this.state.settingType === 'number' && (
+                  {settingType === 'number' && (
                     <input
                       type="number"
                       name="defaultValue"
                       className="form-control"
-                      value={this.state.value}
+                      value={value}
                       onChange={(event) => {
                         this.setState({ value: parseInt(event.target.value, 10) });
                       }}
                       placeholder={5}
                     />
                   )}
-                  {this.state.settingType === 'string' && (
+                  {settingType === 'string' && (
                     <input
                       type="text"
                       name="defaultValue"
                       className="form-control"
-                      value={this.state.value}
+                      value={value}
                       onChange={(event) => this.setState({ value: event.target.value })}
                       placeholder="Squirrel?!"
                     />
@@ -189,7 +195,8 @@ class AdminUserSettingsModal extends React.Component {
             </Modal.Body>
             <Modal.Footer>
               <Button type="submit" bsStyle="success">
-                {setting ? 'Save' : 'Add'} Setting
+                {setting ? 'Save' : 'Add'}
+                {' Setting'}
               </Button>
             </Modal.Footer>
           </form>

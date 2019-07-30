@@ -8,22 +8,29 @@ import delay from '../../../modules/delay';
 import Styles from './styles';
 
 class UserSettings extends React.Component {
-  state = { settings: unfreezeApolloCacheValue([...this.props.settings]) };
+  constructor(props) {
+    super(props);
+    const { settings } = props;
+    this.state = { settings: unfreezeApolloCacheValue([...settings]) };
+  }
 
   handleUpdateSetting = (setting) => {
-    const settings = [...this.state.settings];
-    const settingToUpdate = settings.find(({ _id }) => _id === setting._id);
+    const { userId, updateUser } = this.props;
+    const { settings } = this.state;
+    const settingsUpdate = [...settings];
+    const settingToUpdate = settingsUpdate.find(({ _id }) => _id === setting._id);
+
     settingToUpdate.value = setting.value;
 
-    if (!this.props.userId) settingToUpdate.lastUpdatedByUser = new Date().toISOString();
+    if (!userId) settingToUpdate.lastUpdatedByUser = new Date().toISOString();
 
     this.setState({ settings }, () => {
       delay(() => {
-        this.props.updateUser({
+        updateUser({
           variables: {
             user: {
-              _id: this.props.userId,
-              settings,
+              _id: userId,
+              settings: settingsUpdate,
             },
           },
         });
@@ -59,6 +66,7 @@ class UserSettings extends React.Component {
     }[type]());
 
   render() {
+    const { isAdmin } = this.props;
     const { settings } = this.state;
     return (
       <div className="UserSettings">
@@ -77,9 +85,9 @@ class UserSettings extends React.Component {
           ) : (
             <BlankState
               icon={{ style: 'solid', symbol: 'cogs' }}
-              title={`No settings to manage ${this.props.isAdmin ? 'for this user' : 'yet'}.`}
+              title={`No settings to manage ${isAdmin ? 'for this user' : 'yet'}.`}
               subtitle={`${
-                this.props.isAdmin ? 'GDPR-specific settings intentionally excluded. ' : ''
+                isAdmin ? 'GDPR-specific settings intentionally excluded. ' : ''
               } When there are settings to manage, they'll appear here.`}
             />
           )}

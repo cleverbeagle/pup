@@ -21,7 +21,8 @@ class AdminUserProfile extends React.Component {
   state = { showPassword: false, password: '' };
 
   handleSubmit = (form) => {
-    const existingUser = this.props.user;
+    const { user, updateUser } = this.props;
+    const existingUser = user;
     const isPasswordUser = existingUser && !existingUser.oAuthProvider;
     const password = isPasswordUser ? form.password.value : null;
     const roleCheckboxes = document.querySelectorAll('[name="role"]:checked');
@@ -30,10 +31,10 @@ class AdminUserProfile extends React.Component {
       roles.push(role.value);
     });
 
-    let user;
+    let userUpdate;
 
     if (isPasswordUser) {
-      user = {
+      userUpdate = {
         email: form.emailAddress.value,
         password,
         profile: {
@@ -47,20 +48,21 @@ class AdminUserProfile extends React.Component {
     }
 
     if (!isPasswordUser) {
-      user = {
+      userUpdate = {
         roles,
       };
     }
 
-    if (existingUser) user._id = existingUser._id;
-    this.props.updateUser({ variables: { user } }, () => this.setState({ password: '' }));
+    if (existingUser) userUpdate._id = existingUser._id;
+    updateUser({ variables: { user: userUpdate } }, () => this.setState({ password: '' }));
   };
 
   handleDeleteUser = () => {
+    const { removeUser, user } = this.props;
     if (confirm("Are you sure? This will permanently delete this user's account!")) {
-      this.props.removeUser({
+      removeUser({
         variables: {
-          _id: this.props.user._id,
+          _id: user._id,
         },
       });
     }
@@ -72,6 +74,8 @@ class AdminUserProfile extends React.Component {
 
   render() {
     const { user } = this.props;
+    const { showPassword, password } = this.state;
+
     return (
       <div className="AdminUserProfile">
         <Validation
@@ -111,52 +115,50 @@ class AdminUserProfile extends React.Component {
             {user && (
               <Row>
                 <Col xs={12} md={6}>
-                  {user &&
-                    user.name && (
-                      <Row>
-                        <Col xs={6}>
-                          <FormGroup>
-                            <ControlLabel>First Name</ControlLabel>
-                            <input
-                              disabled={user && user.oAuthProvider}
-                              type="text"
-                              name="firstName"
-                              className="form-control"
-                              defaultValue={user && user.name && user.name.first}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col xs={6}>
-                          <FormGroup>
-                            <ControlLabel>Last Name</ControlLabel>
-                            <input
-                              disabled={user && user.oAuthProvider}
-                              type="text"
-                              name="lastName"
-                              className="form-control"
-                              defaultValue={user && user.name && user.name.last}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                    )}
-                  {user &&
-                    user.username && (
-                      <Row>
-                        <Col xs={12}>
-                          <FormGroup>
-                            <ControlLabel>Username</ControlLabel>
-                            <input
-                              disabled={user && user.oAuthProvider}
-                              type="text"
-                              name="username"
-                              className="form-control"
-                              defaultValue={user && user.username}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                    )}
+                  {user && user.name && (
+                    <Row>
+                      <Col xs={6}>
+                        <FormGroup>
+                          <ControlLabel>First Name</ControlLabel>
+                          <input
+                            disabled={user && user.oAuthProvider}
+                            type="text"
+                            name="firstName"
+                            className="form-control"
+                            defaultValue={user && user.name && user.name.first}
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col xs={6}>
+                        <FormGroup>
+                          <ControlLabel>Last Name</ControlLabel>
+                          <input
+                            disabled={user && user.oAuthProvider}
+                            type="text"
+                            name="lastName"
+                            className="form-control"
+                            defaultValue={user && user.name && user.name.last}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  )}
+                  {user && user.username && (
+                    <Row>
+                      <Col xs={12}>
+                        <FormGroup>
+                          <ControlLabel>Username</ControlLabel>
+                          <input
+                            disabled={user && user.oAuthProvider}
+                            type="text"
+                            name="username"
+                            className="form-control"
+                            defaultValue={user && user.username}
+                          />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  )}
                   <Row>
                     <Col xs={12}>
                       <FormGroup>
@@ -188,48 +190,48 @@ class AdminUserProfile extends React.Component {
                       </FormGroup>
                     </Col>
                   </Row>
-                  {user &&
-                    !user.oAuthProvider && (
-                      <Row>
-                        <Col xs={12}>
-                          <FormGroup>
-                            <ControlLabel>
-                              Password
-                              <Checkbox
-                                inline
-                                checked={this.state.showPassword}
-                                className="pull-right"
-                                onChange={() =>
-                                  this.setState({
-                                    showPassword: !this.state.showPassword,
-                                  })
-                                }
-                              >
-                                Show Password
-                              </Checkbox>
-                            </ControlLabel>
-                            <InputGroup>
-                              <input
-                                type={this.state.showPassword ? 'text' : 'password'}
-                                name="password"
-                                className="form-control"
-                                autoComplete="off"
-                                value={this.state.password}
-                                onChange={(event) => {
-                                  this.setState({ password: event.target.value });
-                                }}
-                              />
-                              <InputGroup.Button>
-                                <Button onClick={this.generatePassword}>
-                                  <Icon iconStyle="solid" icon="refresh" /> Generate
-                                </Button>
-                              </InputGroup.Button>
-                            </InputGroup>
-                            <InputHint>Use at least six characters.</InputHint>
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                    )}
+                  {user && !user.oAuthProvider && (
+                    <Row>
+                      <Col xs={12}>
+                        <FormGroup>
+                          <ControlLabel>
+                            Password
+                            <Checkbox
+                              inline
+                              checked={showPassword}
+                              className="pull-right"
+                              onChange={() =>
+                                this.setState({
+                                  showPassword: !showPassword,
+                                })
+                              }
+                            >
+                              Show Password
+                            </Checkbox>
+                          </ControlLabel>
+                          <InputGroup>
+                            <input
+                              type={showPassword ? 'text' : 'password'}
+                              name="password"
+                              className="form-control"
+                              autoComplete="off"
+                              value={password}
+                              onChange={(event) => {
+                                this.setState({ password: event.target.value });
+                              }}
+                            />
+                            <InputGroup.Button>
+                              <Button onClick={this.generatePassword}>
+                                <Icon iconStyle="solid" icon="refresh" />
+                                {' Generate'}
+                              </Button>
+                            </InputGroup.Button>
+                          </InputGroup>
+                          <InputHint>Use at least six characters.</InputHint>
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  )}
                   <Button type="submit" bsStyle="success">
                     {user ? 'Save Changes' : 'Create User'}
                   </Button>

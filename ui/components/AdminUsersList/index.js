@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import autoBind from 'react-autobind';
@@ -22,13 +24,13 @@ class AdminUsersList extends React.Component {
     for (let pageNumber = 1; pageNumber <= pagesToGenerate; pageNumber += 1) {
       pages.push(
         <li
-          role="button"
+          role="presentation"
           key={`pagination_${pageNumber}`}
           className={pageNumber === currentPage ? 'active' : ''}
           onClick={() => onChangePage(pageNumber)}
           onKeyDown={() => onChangePage(pageNumber)}
         >
-          <a href="#" role="button" onClick={(event) => event.preventDefault()}>
+          <a href="#" onClick={(event) => event.preventDefault()}>
             {pageNumber}
           </a>
         </li>,

@@ -13,12 +13,13 @@ const Index = () => (
     <div>
       <Button href="http://cleverbeagle.com/pup">Read the Docs</Button>
       <Button href="https://github.com/cleverbeagle/pup">
-        <i className="fa fa-star" /> Star on GitHub
+        <i className="fa fa-star" />
+        {' Star on GitHub'}
       </Button>
     </div>
     <footer>
       <p>
-        Want to build your product with an experienced buddy?{' '}
+        {'Want to learn how to build a really solid MVP with Pup? '}
         <a href="https://cleverbeagle.com/together?utm_source=pup&utm_medium=app&utm_campaign=oss">
           Check out Together by Clever Beagle
         </a>

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { compose, graphql } from 'react-apollo';
 import styled from 'styled-components';
-import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AdminUserSettingsModal from '../../components/AdminUserSettingsModal';
 import BlankState from '../../components/BlankState';
@@ -50,6 +49,7 @@ class AdminUserSettings extends React.Component {
 
   render() {
     const { data, addUserSetting, updateUserSetting } = this.props;
+    const { showSettingsModal, currentSetting } = this.state;
     return (
       <div className="AdminUserSettings">
         <div className="page-header clearfix">
@@ -96,9 +96,9 @@ class AdminUserSettings extends React.Component {
           />
         )}
         <AdminUserSettingsModal
-          show={this.state.showSettingsModal}
+          show={showSettingsModal}
           onHide={() => this.setState({ showSettingsModal: false, currentSetting: null })}
-          setting={this.state.currentSetting}
+          setting={currentSetting}
           addUserSetting={addUserSetting}
           updateUserSetting={updateUserSetting}
         />

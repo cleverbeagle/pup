@@ -16,7 +16,10 @@ const VerifyEmailAlert = ({ userId, emailVerified, emailAddress, sendVerificatio
     <Styles.VerifyEmailAlert>
       <Alert className="verify-email text-center">
         <p>
-          Hey friend! Can you <strong>verify your email address</strong> ({emailAddress}) for us?
+          {'Hey friend! Can you '}
+          <strong>verify your email address</strong>
+          {` (${emailAddress}) `}
+          for us?
           <Button
             bsStyle="link"
             onClick={() => handleResendVerificationEmail(emailAddress, sendVerificationEmail)}

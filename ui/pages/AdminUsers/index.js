@@ -4,7 +4,7 @@ import React from 'react';
 import SearchInput from '../../components/SearchInput';
 import AdminUsersList from '../../components/AdminUsersList';
 
-import { AdminUsersHeader } from './styles';
+import AdminUsersHeader from './styles';
 
 class AdminUsers extends React.Component {
   state = {
@@ -12,21 +12,23 @@ class AdminUsers extends React.Component {
   };
 
   render() {
+    const { search, currentPage } = this.state;
+
     return (
       <div className="AdminUsers">
         <AdminUsersHeader className="page-header clearfix">
           <h4 className="pull-left">Users</h4>
           <SearchInput
             placeholder="Search users..."
-            value={this.state.search}
+            value={search}
             onChange={(event) => this.setState({ search: event.target.value })}
           />
         </AdminUsersHeader>
         <AdminUsersList
-          search={this.state.search}
-          currentPage={this.state.currentPage}
+          search={search}
+          currentPage={currentPage}
           perPage={10}
-          onChangePage={(currentPage) => this.setState({ currentPage })}
+          onChangePage={(newPage) => this.setState({ currentPage: newPage })}
         />
       </div>
     );

@@ -14,7 +14,9 @@ class Validation extends React.Component {
   }
 
   render() {
-    if (!React.Children.only(this.props.children) || this.props.children.type !== 'form') {
+    const { children } = this.props;
+
+    if (!React.Children.only(children) || children.type !== 'form') {
       console.warn(
         '[Pup] A single <form></form> element is the only allowed child of the Validation component.',
       );
@@ -23,7 +25,7 @@ class Validation extends React.Component {
 
     return (
       <React.Fragment>
-        {React.cloneElement(this.props.children, { ref: (form) => (this.form = form) })}
+        {React.cloneElement(children, { ref: (form) => (this.form = form) })}
       </React.Fragment>
     );
   }

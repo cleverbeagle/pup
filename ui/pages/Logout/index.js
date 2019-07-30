@@ -8,7 +8,8 @@ const { productName, twitterUsername, facebookUsername } = Meteor.settings.publi
 
 class Logout extends React.Component {
   componentDidMount() {
-    Meteor.logout(() => this.props.setAfterLoginPath(null));
+    const { setAfterLoginPath } = this.props;
+    Meteor.logout(() => setAfterLoginPath(null));
   }
 
   render() {

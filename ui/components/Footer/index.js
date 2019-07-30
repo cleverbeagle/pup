@@ -17,7 +17,8 @@ const Footer = () => (
   <Styles.Footer>
     <Grid>
       <p className="pull-left">
-        &copy; {copyrightYear()} {productName}
+        &copy;
+        {` ${copyrightYear()} ${productName}`}
       </p>
       <ul className="pull-right">
         <li>

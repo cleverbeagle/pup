@@ -25,9 +25,9 @@ class GDPRConsentModal extends React.Component {
   }
 
   handleSaveSettings = () => {
-    const { data } = this.props;
+    const { data, updateUser } = this.props;
     if (data && data.user && data.user.settings) {
-      this.props.updateUser({
+      updateUser({
         variables: {
           user: {
             settings: unfreezeApolloCacheValue(data && data.user && data.user.settings).map(
@@ -46,11 +46,13 @@ class GDPRConsentModal extends React.Component {
 
   render() {
     const { data, updateUser } = this.props;
+    const { show } = this.state;
+
     return (
       <div className="GDPRConsentModal">
         <Styles.GDPRConsentModal
           backdrop="static"
-          show={this.state.show}
+          show={show}
           onHide={() => this.setState({ show: false })}
         >
           <Modal.Header>
@@ -58,12 +60,13 @@ class GDPRConsentModal extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <p>
-              In cooperation with the European Union&apos;s (EU){' '}
+              {"In cooperation with the European Union's (EU) "}
               <a href="https://www.eugdpr.org/" target="_blank" rel="noopener noreferrer">
-                General Data Protection Regulation
-              </a>{' '}
-              (GDPR), we need to obtain your consent for how we make use of your data. Please review
-              each of the settings below to customize your experience.
+                {'General Data Protection Regulation'}
+              </a>
+              {
+                ' (GDPR), we need to obtain your consent for how we make use of your data. Please review each of the settings below to customize your experience.'
+              }
             </p>
             <UserSettings settings={data.user && data.user.settings} updateUser={updateUser} />
           </Modal.Body>
