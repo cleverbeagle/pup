@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle, no-unused-expressions */
 
 import React from 'react';
-import { hydrate } from 'react-dom';
+import { hydrate, render } from 'react-dom';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { ApolloProvider } from 'react-apollo';
@@ -16,8 +16,9 @@ Bert.defaults.style = 'growl-bottom-right';
 
 Accounts.onLogout(() => apolloClient.resetStore());
 
-Meteor.startup(() =>
-  hydrate(
+Meteor.startup(() => {
+  const target = document.getElementById('react-root');
+  const app = (
     <ThemeProvider theme={{}}>
       <ApolloProvider client={apolloClient}>
         <GlobalStyle />
@@ -27,7 +28,8 @@ Meteor.startup(() =>
           </Switch>
         </BrowserRouter>
       </ApolloProvider>
-    </ThemeProvider>,
-    document.getElementById('react-root'),
-  ),
-);
+    </ThemeProvider>
+  );
+
+  return !window.noSSR ? hydrate(app, target) : render(app, target);
+});

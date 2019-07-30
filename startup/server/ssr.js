@@ -10,8 +10,19 @@ import { Helmet } from 'react-helmet';
 import { ServerStyleSheet } from 'styled-components';
 import { Meteor } from 'meteor/meteor';
 import App from '../../ui/layouts/App';
+import checkIfBlacklisted from '../../modules/server/checkIfBlacklisted';
 
 onPageLoad(async (sink) => {
+  if (checkIfBlacklisted(sink.request.url.path)) {
+    sink.appendToBody(`
+      <script>
+        window.noSSR = true;
+      </script>
+    `);
+
+    return;
+  }
+
   const apolloClient = new ApolloClient({
     ssrMode: true,
     link: createHttpLink({
