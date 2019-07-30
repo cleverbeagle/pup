@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Validation from '../Validation';
+import { document as documentQuery } from '../../queries/Documents.gql';
 import addCommentMutation from '../../mutations/Comments.gql';
 import StyledCommentComposer from './styles';
 
@@ -29,6 +30,9 @@ const CommentComposer = ({ mutate, documentId }) => (
               documentId,
               comment: form.comment.value.trim(),
             },
+            refetchQueries: [
+              { query: documentQuery, variables: { _id: documentId, sortBy: 'newestFirst' } },
+            ],
           });
 
           document.querySelector('[name="comment"]').value = '';
