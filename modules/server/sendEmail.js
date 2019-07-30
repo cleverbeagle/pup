@@ -18,13 +18,15 @@ const sendEmail = (options, { resolve, reject }) => {
 export default ({ text, html, template, templateVars, ...rest }) => {
   if (text || html || template) {
     return new Promise((resolve, reject) => {
-      const templateFile = template && getPrivateFile(`email-templates/${template}.txt`);
+      const textTemplate = template && getPrivateFile(`email-templates/${template}.txt`);
+      const htmlTemplate = template && getPrivateFile(`email-templates/${template}.html`);
       const context = templateVars || {};
+
       sendEmail(
         {
           ...rest,
-          text: template ? templateToText(templateFile, context) : text,
-          html: template ? templateToHtml(templateFile, context) : html,
+          text: template ? templateToText(textTemplate, context) : text,
+          html: template ? templateToHtml(htmlTemplate, context) : html,
         },
         { resolve, reject },
       );

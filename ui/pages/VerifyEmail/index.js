@@ -10,7 +10,7 @@ class VerifyEmail extends React.Component {
   state = { error: null };
 
   componentDidMount() {
-    const { match, history } = this.props;
+    const { match, history, sendWelcomeEmail } = this.props;
     Accounts.verifyEmail(match.params.token, (error) => {
       if (error) {
         Bert.alert(error.reason, 'danger');
@@ -18,7 +18,7 @@ class VerifyEmail extends React.Component {
       } else {
         setTimeout(() => {
           Bert.alert('All set, thanks!', 'success');
-          this.props.sendWelcomeEmail();
+          sendWelcomeEmail();
           history.push('/documents');
         }, 1500);
       }
@@ -26,11 +26,10 @@ class VerifyEmail extends React.Component {
   }
 
   render() {
+    const { error } = this.state;
     return (
       <div className="VerifyEmail">
-        <Alert bsStyle={!this.state.error ? 'info' : 'danger'}>
-          {!this.state.error ? 'Verifying...' : this.state.error}
-        </Alert>
+        <Alert bsStyle={!error ? 'info' : 'danger'}>{!error ? 'Verifying...' : error}</Alert>
       </div>
     );
   }
