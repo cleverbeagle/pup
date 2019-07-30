@@ -73,6 +73,7 @@
     "sanitize-html": "^1.20.1",
     "simpl-schema": "^1.5.5",
     "styled-components": "^4.3.2",
+    "url-pattern": "^1.0.3",
     "xml": "^1.0.1"
   },
   "devDependencies": {
