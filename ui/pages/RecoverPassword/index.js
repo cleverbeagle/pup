@@ -64,7 +64,9 @@ class RecoverPassword extends React.Component {
                 </Button>
                 <AccountPageFooter>
                   <p>
-                    Remember your password? <Link to="/login">Log In</Link>.
+                    {'Remember your password? '}
+                    <Link to="/login">Log In</Link>
+                    {'.'}
                   </p>
                 </AccountPageFooter>
               </form>

@@ -203,7 +203,7 @@
     "jsxBracketSameLine": false,
     "arrowParens": "always",
     "rangeStart": 0,
-    "parser": "babylon",
+    "parser": "babel",
     "proseWrap": "preserve"
   }
 }

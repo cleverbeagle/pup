@@ -82,7 +82,9 @@ class ResetPassword extends React.Component {
                 </Button>
                 <AccountPageFooter>
                   <p>
-                    {"Not sure why you're here?"} <Link to="/login">Log In</Link>.
+                    {"Not sure why you're here? "}
+                    <Link to="/login">Log In</Link>
+                    {'.'}
                   </p>
                 </AccountPageFooter>
               </form>

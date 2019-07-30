@@ -19,6 +19,7 @@ class AdminUser extends React.Component {
 
   render() {
     const { data, updateUser, removeUser } = this.props;
+    const { activeTab } = this.state;
     const name = data.user && data.user.name;
     const username = data.user && data.user.username;
 
@@ -40,8 +41,8 @@ class AdminUser extends React.Component {
         </Styles.AdminUserHeader>
         <Styles.AdminUserTabs
           animation={false}
-          activeKey={this.state.activeTab}
-          onSelect={(activeTab) => this.setState({ activeTab })}
+          activeKey={activeTab}
+          onSelect={(selectedTab) => this.setState({ activeTab: selectedTab })}
           id="admin-user-tabs"
         >
           <Tab eventKey="profile" title="Profile">

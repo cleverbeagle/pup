@@ -32,17 +32,20 @@ const handleLogin = (service, callback) => {
 const serviceLabel = {
   facebook: (
     <span>
-      <Icon iconStyle="brand" icon="facebook" /> Log In with Facebook
+      <Icon iconStyle="brand" icon="facebook" />
+      {' Log In with Facebook'}
     </span>
   ),
   github: (
     <span>
-      <Icon iconStyle="brand" icon="github" /> Log In with GitHub
+      <Icon iconStyle="brand" icon="github" />
+      {' Log In with GitHub'}
     </span>
   ),
   google: (
     <span>
-      <Icon iconStyle="brand" icon="google" /> Log In with Google
+      <Icon iconStyle="brand" icon="google" />
+      {' Log In with Google'}
     </span>
   ),
 };

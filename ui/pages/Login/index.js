@@ -100,7 +100,9 @@ class Login extends React.Component {
                 </Button>
                 <AccountPageFooter>
                   <p>
-                    {"Don't have an account?"} <Link to="/signup">Sign Up</Link>.
+                    {"Don't have an account? "}
+                    <Link to="/signup">Sign Up</Link>
+                    {'.'}
                   </p>
                 </AccountPageFooter>
               </form>

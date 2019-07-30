@@ -6,19 +6,22 @@ import { Meteor } from 'meteor/meteor';
 import PublicNavigation from '../PublicNavigation';
 import AuthenticatedNavigation from '../AuthenticatedNavigation';
 
-const Navigation = (props) => (
-  <Navbar collapseOnSelect>
-    <Navbar.Header>
-      <Navbar.Brand>
-        <Link to="/">{Meteor.settings.public.productName}</Link>
-      </Navbar.Brand>
-      <Navbar.Toggle />
-    </Navbar.Header>
-    <Navbar.Collapse>
-      {!props.authenticated ? <PublicNavigation /> : <AuthenticatedNavigation {...props} />}
-    </Navbar.Collapse>
-  </Navbar>
-);
+const Navigation = (props) => {
+  const { authenticated } = props;
+  return (
+    <Navbar collapseOnSelect>
+      <Navbar.Header>
+        <Navbar.Brand>
+          <Link to="/">{Meteor.settings.public.productName}</Link>
+        </Navbar.Brand>
+        <Navbar.Toggle />
+      </Navbar.Header>
+      <Navbar.Collapse>
+        {!authenticated ? <PublicNavigation /> : <AuthenticatedNavigation {...props} />}
+      </Navbar.Collapse>
+    </Navbar>
+  );
+};
 
 Navigation.defaultProps = {
   name: '',

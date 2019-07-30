@@ -1,3 +1,5 @@
+/* eslint-disable react/no-this-in-sfc */
+
 import { Meteor } from 'meteor/meteor';
 
 export default (key, valueOnly, notCurrentUserId) => {

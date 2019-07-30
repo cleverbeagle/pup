@@ -25,8 +25,9 @@ class Profile extends React.Component {
   getUserType = (user) => (user.oAuthProvider ? 'oauth' : 'password');
 
   handleExportData = async (event) => {
+    const { client } = this.props;
     event.preventDefault();
-    const { data } = await this.props.client.query({
+    const { data } = await client.query({
       query: exportUserDataQuery,
     });
 
@@ -34,13 +35,15 @@ class Profile extends React.Component {
   };
 
   handleDeleteAccount = () => {
+    const { removeUser } = this.props;
     if (confirm('Are you sure? This will permanently delete your account and all of its data.')) {
-      this.props.removeUser();
+      removeUser();
     }
   };
 
   handleSubmit = (form) => {
-    this.props.updateUser({
+    const { updateUser } = this.props;
+    updateUser({
       variables: {
         user: {
           email: form.emailAddress.value,
@@ -86,7 +89,8 @@ class Profile extends React.Component {
           }
           target="_blank"
         >
-          Edit Profile on {capitalize(user.oAuthProvider)}
+          {'Edit Profile on '}
+          {capitalize(user.oAuthProvider)}
         </Button>
       </div>
     </div>
@@ -151,6 +155,8 @@ class Profile extends React.Component {
 
   render() {
     const { data, updateUser } = this.props;
+    const { activeTab } = this.state;
+
     return data.user ? (
       <Styles.Profile>
         <h4 className="page-header">
@@ -158,8 +164,8 @@ class Profile extends React.Component {
         </h4>
         <Tabs
           animation={false}
-          activeKey={this.state.activeTab}
-          onSelect={(activeTab) => this.setState({ activeTab })}
+          activeKey={activeTab}
+          onSelect={(newTab) => this.setState({ activeTab: newTab })}
           id="admin-user-tabs"
         >
           <Tab eventKey="profile" title="Profile">
@@ -223,8 +229,8 @@ class Profile extends React.Component {
                   <p>
                     <Button bsStyle="link" className="btn-export" onClick={this.handleExportData}>
                       Export my data
-                    </Button>{' '}
-                    {'-'}
+                    </Button>
+                    {' - '}
                     Download all of your documents as .txt files in a .zip
                   </p>
                 </AccountPageFooter>
