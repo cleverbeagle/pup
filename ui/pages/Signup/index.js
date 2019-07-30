@@ -2,9 +2,10 @@ import React from 'react';
 import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Meteor } from 'meteor/meteor';
+import { graphql } from 'react-apollo';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
+import { sendVerificationEmail as sendVerificationEmailMutation } from '../../mutations/Users.gql';
 import Validation from '../../components/Validation';
 import OAuthLoginButtons from '../../components/OAuthLoginButtons';
 import InputHint from '../../components/InputHint';
@@ -13,7 +14,7 @@ import StyledSignup from './styles';
 
 class Signup extends React.Component {
   handleSubmit = (form) => {
-    const { history } = this.props;
+    const { history, sendVerificationEmail } = this.props;
 
     Accounts.createUser(
       {
@@ -30,7 +31,7 @@ class Signup extends React.Component {
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
-          Meteor.call('users.sendVerificationEmail');
+          sendVerificationEmail();
           Bert.alert('Welcome!', 'success');
           history.push('/documents');
         }
@@ -141,7 +142,9 @@ class Signup extends React.Component {
                 </Button>
                 <AccountPageFooter>
                   <p>
-                    Already have an account? <Link to="/login">Log In</Link>.
+                    Already have an account?
+                    <Link to="/login">Log In</Link>
+                    {'.'}
                   </p>
                 </AccountPageFooter>
               </form>
@@ -155,6 +158,9 @@ class Signup extends React.Component {
 
 Signup.propTypes = {
   history: PropTypes.object.isRequired,
+  sendVerificationEmail: PropTypes.func.isRequired,
 };
 
-export default Signup;
+export default graphql(sendVerificationEmailMutation, {
+  name: 'sendVerificationEmail',
+})(Signup);
