@@ -143,7 +143,6 @@ class Profile extends React.Component {
           {data.user.name ? `${data.user.name.first} ${data.user.name.last}` : data.user.username}
         </h4>
         <Tabs
-          animation={false}
           activeKey={activeTab}
           onSelect={(newTab) => this.setState({ activeTab: newTab })}
           id="admin-user-tabs"

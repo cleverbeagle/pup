@@ -66,6 +66,13 @@ class DocumentEditor extends React.Component {
 
   render() {
     const { doc, history } = this.props;
+    const { saving } = this.state;
+
+    const settingsIcon = (
+      <span>
+        <Icon iconStyle="solid" icon="gear" />
+      </span>
+    );
 
     return (
       <Mutation
@@ -92,21 +99,9 @@ class DocumentEditor extends React.Component {
           <div>
             <DocumentEditorHeader className="clearfix">
               <p>
-                {this.state.saving ? (
-                  <em>Saving...</em>
-                ) : (
-                  <span>Last edit was {timeago(doc.updatedAt)}</span>
-                )}
+                {saving ? <em>Saving...</em> : <span>Last edit was {timeago(doc.updatedAt)}</span>}
               </p>
-              <DropdownButton
-                variant="default"
-                title={
-                  <span>
-                    <Icon iconStyle="solid" icon="gear" />
-                  </span>
-                }
-                id="set-document-public"
-              >
+              <DropdownButton variant="default" title={<settingsIcon />} id="set-document-public">
                 <Dropdown.Item onClick={() => history.push(`/documents/${doc._id}`)}>
                   <Icon iconStyle="solid" icon="external-link-alt" /> View Document
                 </Dropdown.Item>

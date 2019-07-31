@@ -70,6 +70,8 @@ class AdminUserSettingsModal extends React.Component {
 
   render() {
     const { show, onHide, setting } = this.props;
+    const { keyName, isGDPR, label, settingType, value } = this.state;
+
     return (
       <Modal show={show} onHide={onHide}>
         <Modal.Header>
@@ -105,7 +107,7 @@ class AdminUserSettingsModal extends React.Component {
                     <Form.Control
                       type="text"
                       name="keyName"
-                      value={this.state.keyName}
+                      value={keyName}
                       onChange={this.handleSetKeyName}
                       placeholder="canWeSendYouMarketingEmails"
                     />
@@ -115,8 +117,8 @@ class AdminUserSettingsModal extends React.Component {
                   <Form.Group>
                     <Form.Label>Is this a GDPR setting?</Form.Label>
                     <ToggleSwitch
-                      ref={(isGDPR) => (this.isGDPR = isGDPR)}
-                      toggled={this.state.isGDPR}
+                      ref={(isGDPRToggle) => (this.isGDPR = isGDPRToggle)}
+                      toggled={isGDPR}
                       onToggle={(id, toggled) => this.setState({ isGDPR: toggled })}
                     />
                   </Form.Group>
@@ -127,7 +129,7 @@ class AdminUserSettingsModal extends React.Component {
                 <Form.Control
                   type="text"
                   name="label"
-                  value={this.state.label}
+                  value={label}
                   onChange={(event) => this.setState({ label: event.target.value })}
                   placeholder="Can we send you marketing emails?"
                 />
@@ -138,7 +140,7 @@ class AdminUserSettingsModal extends React.Component {
                   <Form.Label>Type</Form.Label>
                   <select
                     name="type"
-                    value={this.state.settingType}
+                    value={settingType}
                     onChange={(event) => this.setState({ settingType: event.target.value })}
                   >
                     <option value="boolean">Boolean (true/false)</option>
@@ -148,32 +150,32 @@ class AdminUserSettingsModal extends React.Component {
                 </Col>
                 <Col xs={12} sm={6}>
                   <Form.Label>Default Value</Form.Label>
-                  {this.state.settingType === 'boolean' && (
+                  {settingType === 'boolean' && (
                     <select
                       name="defaultValue"
-                      value={this.state.value}
+                      value={value}
                       onChange={(event) => this.setState({ value: event.target.value })}
                     >
                       <option value="true">true</option>
                       <option value="false">false</option>
                     </select>
                   )}
-                  {this.state.settingType === 'number' && (
+                  {settingType === 'number' && (
                     <Form.Control
                       type="number"
                       name="defaultValue"
-                      value={this.state.value}
+                      value={value}
                       onChange={(event) => {
                         this.setState({ value: parseInt(event.target.value, 10) });
                       }}
                       placeholder={5}
                     />
                   )}
-                  {this.state.settingType === 'string' && (
+                  {settingType === 'string' && (
                     <Form.Control
                       type="text"
                       name="defaultValue"
-                      value={this.state.value}
+                      value={value}
                       onChange={(event) => this.setState({ value: event.target.value })}
                       placeholder="Squirrel?!"
                     />

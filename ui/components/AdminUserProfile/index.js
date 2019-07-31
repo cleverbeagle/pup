@@ -62,6 +62,7 @@ class AdminUserProfile extends React.Component {
 
   render() {
     const { user } = this.props;
+    const { showPassword, password } = this.state;
     return (
       <div className="AdminUserProfile">
         <Validation
@@ -188,23 +189,23 @@ class AdminUserProfile extends React.Component {
                               Password
                               <Form.Check
                                 inline
-                                checked={this.state.showPassword}
+                                checked={showPassword}
                                 className="pull-right"
                                 label="Show Password"
                                 type="checkbox"
                                 onChange={() =>
                                   this.setState({
-                                    showPassword: !this.state.showPassword,
+                                    showPassword: !showPassword,
                                   })
                                 }
                               />
                             </Form.Label>
                             <InputGroup>
                               <Form.Control
-                                type={this.state.showPassword ? 'text' : 'password'}
+                                type={showPassword ? 'text' : 'password'}
                                 name="password"
                                 autoComplete="off"
-                                value={this.state.password}
+                                value={password}
                                 onChange={(event) => {
                                   this.setState({ password: event.target.value });
                                 }}
