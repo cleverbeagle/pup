@@ -136,14 +136,16 @@ class Profile extends React.Component {
 
   render() {
     const { data, updateUser } = this.props;
+    const { activeTab } = this.state;
     return data.user ? (
       <Styles.Profile>
         <h4 className="page-header">
           {data.user.name ? `${data.user.name.first} ${data.user.name.last}` : data.user.username}
         </h4>
         <Tabs
-          activeKey={this.state.activeTab}
-          onSelect={(activeTab) => this.setState({ activeTab })}
+          animation={false}
+          activeKey={activeTab}
+          onSelect={(newTab) => this.setState({ activeTab: newTab })}
           id="admin-user-tabs"
         >
           <Tab eventKey="profile" title="Profile">
@@ -162,7 +164,7 @@ class Profile extends React.Component {
                       email: true,
                     },
                     currentPassword: {
-                      required: (form, blah) =>
+                      required: () =>
                         // Only required if newPassword field has a value.
                         document.querySelector('[name="newPassword"]').value.length > 0,
                     },
