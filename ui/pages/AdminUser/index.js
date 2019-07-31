@@ -18,16 +18,14 @@ class AdminUser extends React.Component {
   state = { activeTab: 'profile' };
 
   render() {
-    const { data, updateUser, removeUser } = this.props;
+    const { data, updateUser, removeUser, history } = this.props;
     const name = data.user && data.user.name;
     const username = data.user && data.user.username;
 
     return data.user ? (
       <div className="AdminUser">
         <Breadcrumb>
-          <li>
-            <Link to="/admin/users">Users</Link>
-          </li>
+          <Breadcrumb.Item onClick={() => history.push('/admin/users')}>Home</Breadcrumb.Item>
           <Breadcrumb.Item active>{name ? `${name.first} ${name.last}` : username}</Breadcrumb.Item>
         </Breadcrumb>
         <Styles.AdminUserHeader className="page-header">
@@ -39,7 +37,6 @@ class AdminUser extends React.Component {
           )}
         </Styles.AdminUserHeader>
         <Styles.AdminUserTabs
-          animation={false}
           activeKey={this.state.activeTab}
           onSelect={(activeTab) => this.setState({ activeTab })}
           id="admin-user-tabs"

@@ -16,4 +16,6 @@ export const AdminUsersHeader = styled.div`
     float: right;
     width: 200px;
   }
+
+  margin: 20px;
 `;

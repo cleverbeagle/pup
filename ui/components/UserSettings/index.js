@@ -41,17 +41,15 @@ class UserSettings extends React.Component {
         />
       ),
       number: () => (
-        <input
+        <Form.Control
           type="number"
-          className="form-control"
           value={value}
           onChange={(event) => onChange({ key, value: parseInt(event.target.value, 10) })}
         />
       ),
       string: () => (
-        <input
+        <Form.Control
           type="text"
-          className="form-control"
           value={value}
           onChange={(event) => onChange({ key, value: event.target.value })}
         />

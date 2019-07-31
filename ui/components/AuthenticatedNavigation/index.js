@@ -1,44 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Nav, NavDropdown } from 'react-bootstrap';
 import { Roles } from 'meteor/alanning:roles';
 
 const AuthenticatedNavigation = ({ name, history, userId }) => (
   <div>
-    <Nav>
-      <LinkContainer to="/documents">
-        <NavItem eventKey={1} href="/documents">
-          Documents
-        </NavItem>
-      </LinkContainer>
+    <Nav className="justify-content-end">
+      <Nav.Item eventkey="/documents">
+        <Nav.Link onClick={() => history.push('/documents')}>Documents</Nav.Link>
+      </Nav.Item>
       {Roles.userIsInRole(userId, 'admin') && (
-        <NavDropdown eventKey={2} title="Admin" id="admin-nav-dropdown">
-          <LinkContainer exact to="/admin/users">
-            <NavItem eventKey={2.1} href="/admin/users">
-              Users
-            </NavItem>
-          </LinkContainer>
-          <LinkContainer exact to="/admin/users/settings">
-            <NavItem eventKey={2.2} href="/admin/users/settings">
-              User Settings
-            </NavItem>
-          </LinkContainer>
+        <NavDropdown title="Admin" id="admin-nav-dropdown">
+          <NavDropdown.Item eventkey="/admin/users/" onClick={() => history.push('/admin/users/')}>
+            Users
+          </NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item
+            eventkey="/admin/users/settings"
+            onClick={() => history.push('/admin/users/settings')}
+          >
+            Settings
+          </NavDropdown.Item>
         </NavDropdown>
       )}
-    </Nav>
-    <Nav pullRight>
-      <NavDropdown eventKey={2} title={name} data-test="user-nav-dropdown" id="user-nav-dropdown">
-        <LinkContainer to="/profile">
-          <NavItem eventKey={2.1} href="/profile">
-            Profile
-          </NavItem>
-        </LinkContainer>
-        <MenuItem divider />
-        <MenuItem eventKey={2.2} onClick={() => history.push('/logout')}>
+
+      <NavDropdown eventkey={3} title={name} id="user-nav-dropdown">
+        <NavDropdown.Item eventkey="/profile" onClick={() => history.push('/profile')}>
+          Profile
+        </NavDropdown.Item>
+        <NavDropdown.Divider />
+        <NavDropdown.Item eventkey="logout" onClick={() => history.push('/logout')}>
           Logout
-        </MenuItem>
+        </NavDropdown.Item>
       </NavDropdown>
     </Nav>
   </div>

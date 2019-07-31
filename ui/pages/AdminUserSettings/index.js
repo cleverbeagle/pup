@@ -55,7 +55,7 @@ class AdminUserSettings extends React.Component {
         <div className="page-header clearfix">
           <h4 className="pull-left">User Settings</h4>
           <Button
-            bsStyle="success"
+            variant="success"
             className="pull-right"
             onClick={() => this.setState({ showSettingsModal: true, currentSetting: null })}
           >
@@ -69,14 +69,14 @@ class AdminUserSettings extends React.Component {
                 <p>{setting.key}</p>
                 <div>
                   <Button
-                    bsStyle="default"
+                    variant="default"
                     onClick={() =>
                       this.setState({ showSettingsModal: true, currentSetting: setting })
                     }
                   >
                     Edit
                   </Button>
-                  <Button bsStyle="danger" onClick={() => this.handleDeleteSetting(setting._id)}>
+                  <Button variant="danger" onClick={() => this.handleDeleteSetting(setting._id)}>
                     Delete
                   </Button>
                 </div>

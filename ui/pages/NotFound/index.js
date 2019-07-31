@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 
 const NotFound = () => (
   <div className="NotFound">
-    <Alert bsStyle="danger">
+    <Alert variant="danger">
       <p>
         <strong>Error [404]</strong>: {Meteor.isClient ? window.location.pathname : ''} does not
         exist.

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Row, Col, Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
@@ -95,48 +95,28 @@ class Signup extends React.Component {
               <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
                 <Row>
                   <Col xs={6}>
-                    <FormGroup>
-                      <ControlLabel>First Name</ControlLabel>
-                      <input
-                        type="text"
-                        name="firstName"
-                        className="form-control"
-                        placeholder="First Name"
-                      />
-                    </FormGroup>
+                    <Form.Group>
+                      <Form.Label>First Name</Form.Label>
+                      <Form.Control type="text" name="firstName" placeholder="First Name" />
+                    </Form.Group>
                   </Col>
                   <Col xs={6}>
-                    <FormGroup>
-                      <ControlLabel>Last Name</ControlLabel>
-                      <input
-                        type="text"
-                        name="lastName"
-                        className="form-control"
-                        placeholder="Last Name"
-                      />
-                    </FormGroup>
+                    <Form.Group>
+                      <Form.Label>Last Name</Form.Label>
+                      <Form.Control type="text" name="lastName" placeholder="Last Name" />
+                    </Form.Group>
                   </Col>
                 </Row>
-                <FormGroup>
-                  <ControlLabel>Email Address</ControlLabel>
-                  <input
-                    type="email"
-                    name="emailAddress"
-                    className="form-control"
-                    placeholder="Email Address"
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>Password</ControlLabel>
-                  <input
-                    type="password"
-                    name="password"
-                    className="form-control"
-                    placeholder="Password"
-                  />
+                <Form.Group>
+                  <Form.Label>Email Address</Form.Label>
+                  <Form.Control type="email" name="emailAddress" placeholder="Email Address" />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control type="password" name="password" placeholder="Password" />
                   <InputHint>Use at least six characters.</InputHint>
-                </FormGroup>
-                <Button type="submit" bsStyle="success" block>
+                </Form.Group>
+                <Button type="submit" variant="success" block>
                   Sign Up
                 </Button>
                 <AccountPageFooter>

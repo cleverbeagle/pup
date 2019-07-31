@@ -28,7 +28,7 @@ class VerifyEmail extends React.Component {
   render() {
     return (
       <div className="VerifyEmail">
-        <Alert bsStyle={!this.state.error ? 'info' : 'danger'}>
+        <Alert variant={!this.state.error ? 'info' : 'danger'}>
           {!this.state.error ? 'Verifying...' : this.state.error}
         </Alert>
       </div>

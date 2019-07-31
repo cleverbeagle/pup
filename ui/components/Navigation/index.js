@@ -7,14 +7,10 @@ import PublicNavigation from '../PublicNavigation';
 import AuthenticatedNavigation from '../AuthenticatedNavigation';
 
 const Navigation = (props) => (
-  <Navbar collapseOnSelect>
-    <Navbar.Header>
-      <Navbar.Brand>
-        <Link to="/">{Meteor.settings.public.productName}</Link>
-      </Navbar.Brand>
-      <Navbar.Toggle />
-    </Navbar.Header>
-    <Navbar.Collapse>
+  <Navbar collapseOnSelect bg="light">
+    <Navbar.Brand href="/">{Meteor.settings.public.productName}</Navbar.Brand>
+    <Navbar.Toggle />
+    <Navbar.Collapse className="justify-content-end">
       {!props.authenticated ? <PublicNavigation /> : <AuthenticatedNavigation {...props} />}
     </Navbar.Collapse>
   </Navbar>

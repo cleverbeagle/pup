@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { compose, graphql, withApollo } from 'react-apollo';
 import FileSaver from 'file-saver';
 import base64ToBlob from 'b64-to-blob';
-import { Row, Col, FormGroup, ControlLabel, Button, Tabs, Tab } from 'react-bootstrap';
+import { Row, Col, Form, Button, Tabs, Tab } from 'react-bootstrap';
 import { capitalize } from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
@@ -96,47 +96,32 @@ class Profile extends React.Component {
     <div>
       <Row>
         <Col xs={6}>
-          <FormGroup>
-            <ControlLabel>First Name</ControlLabel>
-            <input
-              type="text"
-              name="firstName"
-              defaultValue={user.name.first}
-              className="form-control"
-            />
-          </FormGroup>
+          <Form.Group>
+            <Form.Label>First Name</Form.Label>
+            <Form.Control type="text" name="firstName" defaultValue={user.name.first} />
+          </Form.Group>
         </Col>
         <Col xs={6}>
-          <FormGroup>
-            <ControlLabel>Last Name</ControlLabel>
-            <input
-              type="text"
-              name="lastName"
-              defaultValue={user.name.last}
-              className="form-control"
-            />
-          </FormGroup>
+          <Form.Group>
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control type="text" name="lastName" defaultValue={user.name.last} />
+          </Form.Group>
         </Col>
       </Row>
-      <FormGroup>
-        <ControlLabel>Email Address</ControlLabel>
-        <input
-          type="email"
-          name="emailAddress"
-          defaultValue={user.emailAddress}
-          className="form-control"
-        />
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>Current Password</ControlLabel>
-        <input type="password" name="currentPassword" className="form-control" />
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>New Password</ControlLabel>
-        <input type="password" name="newPassword" className="form-control" />
+      <Form.Group>
+        <Form.Label>Email Address</Form.Label>
+        <Form.Control type="email" name="emailAddress" defaultValue={user.emailAddress} />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Current Password</Form.Label>
+        <Form.Control type="password" name="currentPassword" />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>New Password</Form.Label>
+        <Form.Control type="password" name="newPassword" />
         <InputHint>Use at least six characters.</InputHint>
-      </FormGroup>
-      <Button type="submit" bsStyle="success">
+      </Form.Group>
+      <Button type="submit" variant="success">
         Save Profile
       </Button>
     </div>
@@ -157,7 +142,6 @@ class Profile extends React.Component {
           {data.user.name ? `${data.user.name.first} ${data.user.name.last}` : data.user.username}
         </h4>
         <Tabs
-          animation={false}
           activeKey={this.state.activeTab}
           onSelect={(activeTab) => this.setState({ activeTab })}
           id="admin-user-tabs"
@@ -178,11 +162,9 @@ class Profile extends React.Component {
                       email: true,
                     },
                     currentPassword: {
-                      required: (form, blah) => {
-                        console.log(form, blah);
+                      required: (form, blah) =>
                         // Only required if newPassword field has a value.
-                        return document.querySelector('[name="newPassword"]').value.length > 0;
-                      },
+                        document.querySelector('[name="newPassword"]').value.length > 0,
                     },
                     newPassword: {
                       required() {
@@ -221,7 +203,7 @@ class Profile extends React.Component {
                 </Validation>
                 <AccountPageFooter>
                   <p>
-                    <Button bsStyle="link" className="btn-export" onClick={this.handleExportData}>
+                    <Button variant="link" className="btn-export" onClick={this.handleExportData}>
                       Export my data
                     </Button>{' '}
                     {'-'}
@@ -229,7 +211,7 @@ class Profile extends React.Component {
                   </p>
                 </AccountPageFooter>
                 <AccountPageFooter>
-                  <Button bsStyle="danger" onClick={this.handleDeleteAccount}>
+                  <Button variant="danger" onClick={this.handleDeleteAccount}>
                     Delete My Account
                   </Button>
                 </AccountPageFooter>
