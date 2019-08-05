@@ -7,6 +7,7 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import Validation from '../Validation';
 import { document as documentQuery } from '../../queries/Documents.gql';
 import addCommentMutation from '../../mutations/Comments.gql';
+
 import StyledCommentComposer from './styles';
 
 const CommentComposer = ({ mutate, documentId }) => (

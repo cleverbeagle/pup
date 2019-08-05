@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../Icon';
-import Styles from './styles';
+
+import StyledToggleSwitch from './styles';
 
 class ToggleSwitch extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class ToggleSwitch extends React.Component {
     const { onLabel, offLabel } = this.props;
     const { toggled } = this.state;
     return (
-      <Styles.ToggleSwitch className="ToggleSwitch" toggled={toggled} onClick={this.toggleSwitch}>
+      <StyledToggleSwitch className="ToggleSwitch" toggled={toggled} onClick={this.toggleSwitch}>
         <div className="handle">
           <span className="handle-label">
             {toggled
@@ -40,7 +41,7 @@ class ToggleSwitch extends React.Component {
               : offLabel || <Icon iconStyle="solid" icon="remove" />}
           </span>
         </div>
-      </Styles.ToggleSwitch>
+      </StyledToggleSwitch>
     );
   }
 }

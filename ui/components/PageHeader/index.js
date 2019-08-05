@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Styles from './styles';
+
+import { StyledPageHeader, PageHeaderContainer } from './styles';
 
 const PageHeader = ({ title, subtitle }) => (
-  <Styles.PageHeader>
-    <Styles.PageHeaderContainer>
+  <StyledPageHeader>
+    <PageHeaderContainer>
       <h1>{title}</h1>
       {subtitle && <p>{subtitle}</p>}
-    </Styles.PageHeaderContainer>
-  </Styles.PageHeader>
+    </PageHeaderContainer>
+  </StyledPageHeader>
 );
 
 PageHeader.defaultProps = {

@@ -5,7 +5,8 @@ import ToggleSwitch from '../ToggleSwitch';
 import BlankState from '../BlankState';
 import unfreezeApolloCacheValue from '../../../modules/unfreezeApolloCacheValue';
 import delay from '../../../modules/delay';
-import Styles from './styles';
+
+import Setting from './styles';
 
 class UserSettings extends React.Component {
   constructor(props) {
@@ -73,14 +74,14 @@ class UserSettings extends React.Component {
         <ListGroup>
           {settings.length > 0 ? (
             settings.map(({ _id, key, label, type, value }) => (
-              <Styles.Setting key={key} className="clearfix">
+              <Setting key={key} className="clearfix">
                 <p>{label}</p>
                 <div>
                   {this.renderSettingValue(type, key, value, (update) =>
                     this.handleUpdateSetting({ ...update, _id }),
                   )}
                 </div>
-              </Styles.Setting>
+              </Setting>
             ))
           ) : (
             <BlankState

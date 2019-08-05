@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Icon from '../Icon';
-import Styles from './styles';
+
+import StyledOAuthLoginButton from './styles';
 
 const handleLogin = (service, callback) => {
   const options = {
@@ -51,13 +52,13 @@ const serviceLabel = {
 };
 
 const OAuthLoginButton = ({ service, callback }) => (
-  <Styles.OAuthLoginButton
+  <StyledOAuthLoginButton
     className={`OAuthLoginButton OAuthLoginButton-${service}`}
     type="button"
     onClick={() => handleLogin(service, callback)}
   >
     {serviceLabel[service]}
-  </Styles.OAuthLoginButton>
+  </StyledOAuthLoginButton>
 );
 
 OAuthLoginButton.defaultProps = {

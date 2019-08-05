@@ -4,7 +4,8 @@ import { Alert, Button } from 'react-bootstrap';
 import { graphql } from 'react-apollo';
 import { Bert } from 'meteor/themeteorchef:bert';
 import { sendVerificationEmail as sendVerificationEmailMutation } from '../../mutations/Users.gql';
-import Styles from './styles';
+
+import StyledVerifyEmailAlert from './styles';
 
 const handleResendVerificationEmail = (emailAddress, sendVerificationEmail) => {
   sendVerificationEmail();
@@ -13,7 +14,7 @@ const handleResendVerificationEmail = (emailAddress, sendVerificationEmail) => {
 
 const VerifyEmailAlert = ({ userId, emailVerified, emailAddress, sendVerificationEmail }) => {
   return userId && !emailVerified ? (
-    <Styles.VerifyEmailAlert>
+    <StyledVerifyEmailAlert>
       <Alert className="verify-email text-center">
         <p>
           {'Hey friend! Can you '}
@@ -29,7 +30,7 @@ const VerifyEmailAlert = ({ userId, emailVerified, emailAddress, sendVerificatio
           </Button>
         </p>
       </Alert>
-    </Styles.VerifyEmailAlert>
+    </StyledVerifyEmailAlert>
   ) : null;
 };
 

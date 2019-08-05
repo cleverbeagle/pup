@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const PageHeader = styled.div`
+export const StyledPageHeader = styled.div`
   border-bottom: 1px solid var(--gray-lighter);
   padding: 0px 0 20px;
   margin-bottom: 20px;
@@ -37,11 +37,6 @@ const PageHeader = styled.div`
   }
 `;
 
-const PageHeaderContainer = styled.div`
+export const PageHeaderContainer = styled.div`
   text-align: center;
 `;
-
-export default {
-  PageHeader,
-  PageHeaderContainer,
-};

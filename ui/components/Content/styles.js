@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Content = styled.div`
+export default styled.div`
   max-width: 700px;
   margin: 0 auto;
   font-size: 14px;
@@ -32,7 +32,3 @@ const Content = styled.div`
     line-height: 22px;
   }
 `;
-
-export default {
-  Content,
-};

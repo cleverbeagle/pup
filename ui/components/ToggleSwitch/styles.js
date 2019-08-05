@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ToggleSwitch = styled.div`
+export default styled.div`
   display: inline-block;
   min-width: 58px;
   background: ${(props) => (props.toggled ? 'var(--success)' : '#ccc')};
@@ -41,7 +41,3 @@ const ToggleSwitch = styled.div`
     }
   }
 `;
-
-export default {
-  ToggleSwitch,
-};

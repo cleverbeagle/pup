@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledCommentComposer = styled.div`
+export default styled.div`
   border: 1px solid var(--gray-lighter);
   border-radius: 3px;
 
@@ -25,5 +25,3 @@ const StyledCommentComposer = styled.div`
     margin: 20px;
   }
 `;
-
-export default StyledCommentComposer;

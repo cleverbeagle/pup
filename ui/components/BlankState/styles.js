@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const BlankState = styled.div`
+export default styled.div`
   padding: 40px 0;
   text-align: center;
 
@@ -35,7 +35,3 @@ const BlankState = styled.div`
     margin-bottom: 0 !important;
   }
 `;
-
-export default {
-  BlankState,
-};
