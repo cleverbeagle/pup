@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { ListGroupItem as BListGroupItem } from 'react-bootstrap';
+import { ListGroupItem } from 'react-bootstrap';
 
-const Setting = styled(BListGroupItem)`
+export default styled(ListGroupItem)`
   display: flexbox;
   flex-direction: row;
   justify-content: center;
@@ -16,7 +16,3 @@ const Setting = styled(BListGroupItem)`
     flex-grow: 0;
   }
 `;
-
-export default {
-  Setting,
-};

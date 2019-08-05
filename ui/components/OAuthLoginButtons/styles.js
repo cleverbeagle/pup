@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const OAuthLoginButtons = styled.div`
+export const StyledOAuthLoginButtons = styled.div`
   margin-bottom: 25px;
 
   ${(props) =>
@@ -14,7 +14,7 @@ const OAuthLoginButtons = styled.div`
       : ''};
 `;
 
-const EmailMessage = styled.p`
+export const EmailMessage = styled.p`
   display: inline-block;
   background: #fff;
   padding: 0 10px;
@@ -23,8 +23,3 @@ const EmailMessage = styled.p`
   left: 50%;
   margin-left: -${(props) => props.offset}px;
 `;
-
-export default {
-  OAuthLoginButtons,
-  EmailMessage,
-};

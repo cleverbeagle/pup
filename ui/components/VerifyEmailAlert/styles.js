@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const VerifyEmailAlert = styled.div`
+export default styled.div`
   .alert {
     margin-bottom: 0;
     padding: 0;
@@ -22,7 +22,3 @@ const VerifyEmailAlert = styled.div`
     }
   }
 `;
-
-export default {
-  VerifyEmailAlert,
-};

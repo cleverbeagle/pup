@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
-const Page = styled.div`
+export const StyledPage = styled.div`
   margin-bottom: 0px;
 
-  @include media screen and (min-width: 768px) {
+  @media screen and (min-width: 768px) {
     margin-bottom: 30px;
   }
 `;
 
-const Content = styled.div`
+export const Content = styled.div`
   max-width: 700px;
   margin: 0 auto;
   font-size: 14px;
@@ -42,8 +42,3 @@ const Content = styled.div`
     line-height: 22px;
   }
 `;
-
-export default {
-  Page,
-  Content,
-};

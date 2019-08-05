@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SearchInput = styled.div`
+export default styled.div`
   position: relative;
 
   i {
@@ -14,7 +14,3 @@ const SearchInput = styled.div`
     padding-left: 30px;
   }
 `;
-
-export default {
-  SearchInput,
-};

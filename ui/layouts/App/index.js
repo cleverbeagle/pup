@@ -43,7 +43,7 @@ import GDPRConsentModal from '../../components/GDPRConsentModal';
 import withTrackerSsr from '../../../modules/withTrackerSsr';
 import getUserName from '../../../modules/getUserName';
 
-import Styles from './styles';
+import StyledApp from './styles';
 
 class App extends React.Component {
   state = { ready: false, afterLoginPath: null };
@@ -63,7 +63,7 @@ class App extends React.Component {
   render() {
     const { props, state, setAfterLoginPath } = this;
     return (
-      <Styles.App ready={state.ready} loading={`${props.loading}`}>
+      <StyledApp ready={state.ready} loading={`${props.loading}`}>
         {props.authenticated && (
           <VerifyEmailAlert
             userId={props.userId}
@@ -157,7 +157,7 @@ class App extends React.Component {
           </Switch>
         </Grid>
         <Footer />
-      </Styles.App>
+      </StyledApp>
     );
   }
 }

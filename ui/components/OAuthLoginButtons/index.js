@@ -4,7 +4,8 @@ import { graphql } from 'react-apollo';
 import OAuthLoginButton from '../OAuthLoginButton';
 import Loading from '../Loading';
 import oAuthServicesQuery from '../../queries/OAuth.gql';
-import Styles from './styles';
+
+import { StyledOAuthLoginButtons, EmailMessage } from './styles';
 
 const OAuthLoginButtons = ({ emailMessage, data: { oAuthServices, loading } }) => (
   <React.Fragment>
@@ -13,16 +14,14 @@ const OAuthLoginButtons = ({ emailMessage, data: { oAuthServices, loading } }) =
     ) : (
       <React.Fragment>
         {oAuthServices.length ? (
-          <Styles.OAuthLoginButtons emailMessage={emailMessage}>
+          <StyledOAuthLoginButtons emailMessage={emailMessage}>
             {oAuthServices.map((service) => (
               <OAuthLoginButton key={service} service={service} />
             ))}
             {emailMessage && (
-              <Styles.EmailMessage offset={emailMessage.offset}>
-                {emailMessage.text}
-              </Styles.EmailMessage>
+              <EmailMessage offset={emailMessage.offset}>{emailMessage.text}</EmailMessage>
             )}
-          </Styles.OAuthLoginButtons>
+          </StyledOAuthLoginButtons>
         ) : (
           <React.Fragment />
         )}

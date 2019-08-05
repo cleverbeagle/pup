@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
 
-const OAuthLoginButton = styled.button`
+export default styled.button`
   display: block;
   width: 100%;
   padding: 10px 15px;
@@ -57,7 +57,3 @@ const OAuthLoginButton = styled.button`
     margin-top: 10px;
   }
 `;
-
-export default {
-  OAuthLoginButton,
-};

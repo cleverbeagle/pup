@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledResetPassword = styled.div`
+export default styled.div`
   border: 1px solid var(--gray-lighter);
   padding: 25px;
   max-width: 425px;
@@ -25,5 +25,3 @@ const StyledResetPassword = styled.div`
     padding: 40px 25px;
   }
 `;
-
-export default StyledResetPassword;

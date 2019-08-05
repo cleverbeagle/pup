@@ -6,6 +6,7 @@ import { Bert } from 'meteor/themeteorchef:bert';
 import Validation from '../../components/Validation';
 import OAuthLoginButtons from '../../components/OAuthLoginButtons';
 import AccountPageFooter from '../../components/AccountPageFooter';
+
 import { StyledLogin, LoginPromo } from './styles';
 
 class Login extends React.Component {

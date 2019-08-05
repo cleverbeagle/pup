@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { Grid } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { year } from '../../../modules/dates';
-import Styles from './styles';
+
+import StyledFooter from './styles';
 
 const { productName, copyrightStartYear } = Meteor.settings.public;
 const copyrightYear = () => {
@@ -14,7 +15,7 @@ const copyrightYear = () => {
 };
 
 const Footer = () => (
-  <Styles.Footer>
+  <StyledFooter>
     <Grid>
       <p className="pull-left">
         &copy;
@@ -35,7 +36,7 @@ const Footer = () => (
         </li>
       </ul>
     </Grid>
-  </Styles.Footer>
+  </StyledFooter>
 );
 
 Footer.propTypes = {};

@@ -6,7 +6,8 @@ import UserSettings from '../UserSettings';
 import { userSettings as userSettingsQuery } from '../../queries/Users.gql';
 import { updateUser as updateUserMutation } from '../../mutations/Users.gql';
 import unfreezeApolloCacheValue from '../../../modules/unfreezeApolloCacheValue';
-import Styles from './styles';
+
+import StyledGDPRConsentModal from './styles';
 
 class GDPRConsentModal extends React.Component {
   state = { show: false };
@@ -50,7 +51,7 @@ class GDPRConsentModal extends React.Component {
 
     return (
       <div className="GDPRConsentModal">
-        <Styles.GDPRConsentModal
+        <StyledGDPRConsentModal
           backdrop="static"
           show={show}
           onHide={() => this.setState({ show: false })}
@@ -81,7 +82,7 @@ class GDPRConsentModal extends React.Component {
               Save Settings
             </Button>
           </Modal.Footer>
-        </Styles.GDPRConsentModal>
+        </StyledGDPRConsentModal>
       </div>
     );
   }

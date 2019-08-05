@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import Styles from './styles';
+
+import StyledIndex from './styles';
 
 const Index = () => (
-  <Styles.Index>
+  <StyledIndex>
     <img
       src="https://s3-us-west-2.amazonaws.com/cleverbeagle-assets/graphics/email-icon.png"
       alt="Clever Beagle"
@@ -26,7 +27,7 @@ const Index = () => (
         .
       </p>
     </footer>
-  </Styles.Index>
+  </StyledIndex>
 );
 
 export default Index;
