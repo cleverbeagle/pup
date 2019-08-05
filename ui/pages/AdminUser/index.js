@@ -12,7 +12,7 @@ import {
   removeUser as removeUserMutation,
 } from '../../mutations/Users.gql';
 
-import Styles from './styles';
+import { AdminUserHeader, AdminUserTabs } from './styles';
 
 class AdminUser extends React.Component {
   state = { activeTab: 'profile' };
@@ -31,15 +31,15 @@ class AdminUser extends React.Component {
           </li>
           <Breadcrumb.Item active>{name ? `${name.first} ${name.last}` : username}</Breadcrumb.Item>
         </Breadcrumb>
-        <Styles.AdminUserHeader className="page-header">
+        <AdminUserHeader className="page-header">
           {name ? `${name.first} ${name.last}` : username}
           {data.user.oAuthProvider && (
             <span className={`label label-${data.user.oAuthProvider}`}>
               {data.user.oAuthProvider}
             </span>
           )}
-        </Styles.AdminUserHeader>
-        <Styles.AdminUserTabs
+        </AdminUserHeader>
+        <AdminUserTabs
           animation={false}
           activeKey={activeTab}
           onSelect={(selectedTab) => this.setState({ activeTab: selectedTab })}
@@ -65,7 +65,7 @@ class AdminUser extends React.Component {
               updateUser={updateUser}
             />
           </Tab>
-        </Styles.AdminUserTabs>
+        </AdminUserTabs>
       </div>
     ) : (
       <div />

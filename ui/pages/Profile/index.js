@@ -17,7 +17,8 @@ import {
   updateUser as updateUserMutation,
   removeUser as removeUserMutation,
 } from '../../mutations/Users.gql';
-import Styles from './styles';
+
+import StyledProfile from './styles';
 
 class Profile extends React.Component {
   state = { activeTab: 'profile' };
@@ -158,7 +159,7 @@ class Profile extends React.Component {
     const { activeTab } = this.state;
 
     return data.user ? (
-      <Styles.Profile>
+      <StyledProfile>
         <h4 className="page-header">
           {data.user.name ? `${data.user.name.first} ${data.user.name.last}` : data.user.username}
         </h4>
@@ -246,7 +247,7 @@ class Profile extends React.Component {
             <UserSettings settings={data.user.settings} updateUser={updateUser} />
           </Tab>
         </Tabs>
-      </Styles.Profile>
+      </StyledProfile>
     ) : (
       <div />
     );

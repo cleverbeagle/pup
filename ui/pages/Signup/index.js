@@ -10,6 +10,7 @@ import Validation from '../../components/Validation';
 import OAuthLoginButtons from '../../components/OAuthLoginButtons';
 import InputHint from '../../components/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter';
+
 import StyledSignup from './styles';
 
 class Signup extends React.Component {

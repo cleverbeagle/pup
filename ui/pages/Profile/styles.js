@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Profile = styled.div`
+export default styled.div`
   .nav.nav-tabs {
     margin-bottom: 20px;
   }
@@ -52,7 +52,3 @@ const Profile = styled.div`
     padding: 0;
   }
 `;
-
-export default {
-  Profile,
-};

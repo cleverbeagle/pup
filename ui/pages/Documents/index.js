@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import { compose, graphql } from 'react-apollo';
 import { timeago } from '../../../modules/dates';
 import BlankState from '../../components/BlankState';
-import { StyledDocuments, DocumentsList, Document } from './styles';
 import { documents } from '../../queries/Documents.gql';
 import { addDocument } from '../../mutations/Documents.gql';
+
+import { StyledDocuments, DocumentsList, Document } from './styles';
 
 const Documents = ({ data, mutate }) => (
   <StyledDocuments>

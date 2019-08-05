@@ -3,7 +3,7 @@ import { lighten, darken } from 'polished';
 
 const textColor = '#4285F4';
 
-const Index = styled.div`
+export default styled.div`
   padding: 20px;
   background: var(--cb-blue);
   text-align: center;
@@ -71,7 +71,3 @@ const Index = styled.div`
     }
   }
 `;
-
-export default {
-  Index,
-};

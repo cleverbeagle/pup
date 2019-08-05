@@ -6,6 +6,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Validation from '../../components/Validation';
 import AccountPageFooter from '../../components/AccountPageFooter';
+
 import StyledResetPassword from './styles';
 
 class ResetPassword extends React.Component {
