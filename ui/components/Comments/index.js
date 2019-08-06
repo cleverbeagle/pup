@@ -8,16 +8,16 @@ import { StyledComments, CommentsList, CommentsListHeader, Comment } from './sty
 const Comments = ({ sortBy, onChangeSortBy, documentId, comments }) => (
   <StyledComments>
     <CommentComposer documentId={documentId} />
-    {comments.length > 0 && (
-      <CommentsList>
-        <CommentsListHeader>
-          <h3>{comments.length === 1 ? '1 Comment' : `${comments.length} Comments`}</h3>
-          <select name="sortBy" className="form-control" value={sortBy} onChange={onChangeSortBy}>
-            <option value="newestFirst">Newest First</option>
-            <option value="oldestFirst">Oldest First</option>
-          </select>
-        </CommentsListHeader>
-        {comments.map(({ _id, user, createdAt, comment }) => {
+    <CommentsList>
+      <CommentsListHeader>
+        {comments && <h3>{comments.length === 1 ? '1 Comment' : `${comments.length} Comments`}</h3>}
+        <select name="sortBy" className="form-control" value={sortBy} onChange={onChangeSortBy}>
+          <option value="newestFirst">Newest First</option>
+          <option value="oldestFirst">Oldest First</option>
+        </select>
+      </CommentsListHeader>
+      {comments &&
+        comments.map(({ _id, user, createdAt, comment }) => {
           const name = user && user.name;
           return (
             <Comment key={_id}>
@@ -35,8 +35,7 @@ const Comments = ({ sortBy, onChangeSortBy, documentId, comments }) => (
             </Comment>
           );
         })}
-      </CommentsList>
-    )}
+    </CommentsList>
   </StyledComments>
 );
 

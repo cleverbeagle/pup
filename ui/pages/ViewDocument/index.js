@@ -33,38 +33,6 @@ class ViewDocument extends React.Component {
     const { data } = this.props;
     const { sortBy } = this.state;
 
-    if (!data.loading && data.document) {
-      return (
-        <React.Fragment>
-          <StyledViewDocument>
-            <SEO
-              title={data.document && data.document.title}
-              description={data.document && data.document.body}
-              url={`documents/${data.document && data.document._id}`}
-              contentType="article"
-              published={data.document && data.document.createdAt}
-              updated={data.document && data.document.updatedAt}
-              twitter="clvrbgl"
-            />
-            <React.Fragment>
-              <h1>{data.document && data.document.title}</h1>
-              <DocumentBody
-                dangerouslySetInnerHTML={{
-                  __html: parseMarkdown(data.document && data.document.body),
-                }}
-              />
-            </React.Fragment>
-          </StyledViewDocument>
-          <Comments
-            documentId={data.document && data.document._id}
-            comments={data.document && data.document.comments}
-            sortBy={sortBy}
-            onChangeSortBy={this.handleChangeCommentSort}
-          />
-        </React.Fragment>
-      );
-    }
-
     if (!data.loading && !data.document) {
       return (
         <BlankState
@@ -75,7 +43,37 @@ class ViewDocument extends React.Component {
       );
     }
 
-    return null;
+    return (
+      <React.Fragment>
+        <StyledViewDocument>
+          <SEO
+            title={data.document && data.document.title}
+            description={data.document && data.document.body}
+            url={`documents/${data.document && data.document._id}`}
+            contentType="article"
+            published={data.document && data.document.createdAt}
+            updated={data.document && data.document.updatedAt}
+            twitter="clvrbgl"
+          />
+          {data && data.document && (
+            <React.Fragment>
+              <h1>{data.document && data.document.title}</h1>
+              <DocumentBody
+                dangerouslySetInnerHTML={{
+                  __html: parseMarkdown(data.document && data.document.body),
+                }}
+              />
+            </React.Fragment>
+          )}
+        </StyledViewDocument>
+        <Comments
+          documentId={data.document && data.document._id}
+          comments={data.document && data.document.comments}
+          sortBy={sortBy}
+          onChangeSortBy={this.handleChangeCommentSort}
+        />
+      </React.Fragment>
+    );
   }
 }
 

@@ -26,6 +26,7 @@ const CommentComposer = ({ mutate, documentId }) => (
       }}
       submitHandler={(form) => {
         if (Meteor.userId()) {
+          console.log('SUBMIT HANDLER', form.getAttribute('data-documentId'));
           mutate({
             variables: {
               documentId,
@@ -42,7 +43,7 @@ const CommentComposer = ({ mutate, documentId }) => (
         }
       }}
     >
-      <form onSubmit={(event) => event.preventDefault()}>
+      <form onSubmit={(event) => event.preventDefault()} data-documentId={documentId}>
         <textarea
           className="form-control"
           name="comment"
