@@ -24,7 +24,6 @@ accounts-facebook@1.3.2
 accounts-github@1.4.2
 accounts-google@1.3.2
 themeteorchef:bert
-fortawesome:fontawesome
 audit-argument-checks@1.0.7
 ddp-rate-limiter@1.0.7
 dynamic-import@0.5.1
