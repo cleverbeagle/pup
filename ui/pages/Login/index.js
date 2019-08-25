@@ -68,7 +68,12 @@ class Login extends React.Component {
                 this.handleSubmit(form);
               }}
             >
-              <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
+              <form
+                ref={(form) => {
+                  this.form = form;
+                }}
+                onSubmit={(event) => event.preventDefault()}
+              >
                 <FormGroup>
                   <ControlLabel>Email Address</ControlLabel>
                   <input
@@ -94,7 +99,7 @@ class Login extends React.Component {
                     data-test="password"
                   />
                 </FormGroup>
-                <Button type="submit" bsStyle="success" block>
+                <Button type="submit" variant="success" block>
                   Log In
                 </Button>
                 <AccountPageFooter>

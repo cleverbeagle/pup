@@ -102,7 +102,12 @@ class AdminUserSettingsModal extends React.Component {
             this.handleSubmit(form);
           }}
         >
-          <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
+          <form
+            ref={(form) => {
+              this.form = form;
+            }}
+            onSubmit={(event) => event.preventDefault()}
+          >
             <Modal.Body>
               <Row>
                 <Col xs={12} sm={6}>
@@ -122,7 +127,9 @@ class AdminUserSettingsModal extends React.Component {
                   <FormGroup>
                     <ControlLabel>Is this a GDPR setting?</ControlLabel>
                     <ToggleSwitch
-                      ref={(isGDPRToggle) => (this.isGDPR = isGDPRToggle)}
+                      ref={(isGDPRToggle) => {
+                        this.isGDPR = isGDPRToggle;
+                      }}
                       toggled={isGDPR}
                       onToggle={(id, toggled) => this.setState({ isGDPR: toggled })}
                     />
@@ -194,7 +201,7 @@ class AdminUserSettingsModal extends React.Component {
               </Row>
             </Modal.Body>
             <Modal.Footer>
-              <Button type="submit" bsStyle="success">
+              <Button type="submit" variant="success">
                 {setting ? 'Save' : 'Add'}
                 {' Setting'}
               </Button>

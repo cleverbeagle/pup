@@ -100,7 +100,7 @@ class DocumentEditor extends React.Component {
         }}
       >
         {(mutate) => (
-          <React.Fragment>
+          <>
             <DocumentEditorHeader className="clearfix">
               <p>
                 {saving ? (
@@ -112,7 +112,7 @@ class DocumentEditor extends React.Component {
                   </span>
                 )}
               </p>
-              <DropdownButton bsStyle="default" title={settingsIcon} id="set-document-public">
+              <DropdownButton variant="default" title={settingsIcon} id="set-document-public">
                 <MenuItem onClick={() => history.push(`/documents/${doc._id}`)}>
                   <Icon iconStyle="solid" icon="external-link-alt" />
                   {' View Document'}
@@ -187,7 +187,7 @@ class DocumentEditor extends React.Component {
                 </p>
               </span>
             </DocumentEditorFooter>
-          </React.Fragment>
+          </>
         )}
       </Mutation>
     );

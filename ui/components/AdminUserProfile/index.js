@@ -111,7 +111,12 @@ class AdminUserProfile extends React.Component {
           }}
           submitHandler={(form) => this.handleSubmit(form)}
         >
-          <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
+          <form
+            ref={(form) => {
+              this.form = form;
+            }}
+            onSubmit={(event) => event.preventDefault()}
+          >
             {user && (
               <Row>
                 <Col xs={12} md={6}>
@@ -232,11 +237,11 @@ class AdminUserProfile extends React.Component {
                       </Col>
                     </Row>
                   )}
-                  <Button type="submit" bsStyle="success">
+                  <Button type="submit" variant="success">
                     {user ? 'Save Changes' : 'Create User'}
                   </Button>
                   {user && (
-                    <Button bsStyle="danger" className="pull-right" onClick={this.handleDeleteUser}>
+                    <Button variant="danger" className="pull-right" onClick={this.handleDeleteUser}>
                       Delete User
                     </Button>
                   )}

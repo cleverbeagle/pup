@@ -92,7 +92,12 @@ class Signup extends React.Component {
                 this.handleSubmit(form);
               }}
             >
-              <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
+              <form
+                ref={(form) => {
+                  this.form = form;
+                }}
+                onSubmit={(event) => event.preventDefault()}
+              >
                 <Row>
                   <Col xs={6}>
                     <FormGroup>
@@ -136,7 +141,7 @@ class Signup extends React.Component {
                   />
                   <InputHint>Use at least six characters.</InputHint>
                 </FormGroup>
-                <Button type="submit" bsStyle="success" block>
+                <Button type="submit" variant="success" block>
                   Sign Up
                 </Button>
                 <AccountPageFooter>

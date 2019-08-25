@@ -28,7 +28,7 @@ class ResetPassword extends React.Component {
         <Row>
           <Col xs={12}>
             <h4 className="page-header">Reset Password</h4>
-            <Alert bsStyle="info">
+            <Alert variant="info">
               To reset your password, enter a new one below. You will be logged in with your new
               password.
             </Alert>
@@ -58,7 +58,12 @@ class ResetPassword extends React.Component {
                 this.handleSubmit(form);
               }}
             >
-              <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
+              <form
+                ref={(form) => {
+                  this.form = form;
+                }}
+                onSubmit={(event) => event.preventDefault()}
+              >
                 <FormGroup>
                   <ControlLabel>New Password</ControlLabel>
                   <input
@@ -77,7 +82,7 @@ class ResetPassword extends React.Component {
                     placeholder="Repeat New Password"
                   />
                 </FormGroup>
-                <Button type="submit" bsStyle="success" block>
+                <Button type="submit" variant="success" block>
                   Reset Password &amp; Login
                 </Button>
                 <AccountPageFooter>

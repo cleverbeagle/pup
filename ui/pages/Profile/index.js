@@ -140,7 +140,7 @@ class Profile extends React.Component {
         <input type="password" name="newPassword" className="form-control" />
         <InputHint>Use at least six characters.</InputHint>
       </FormGroup>
-      <Button type="submit" bsStyle="success">
+      <Button type="submit" variant="success">
         Save Profile
       </Button>
     </div>
@@ -219,7 +219,9 @@ class Profile extends React.Component {
                   submitHandler={(form) => this.handleSubmit(form)}
                 >
                   <form
-                    ref={(form) => (this.form = form)}
+                    ref={(form) => {
+                      this.form = form;
+                    }}
                     onSubmit={(event) => event.preventDefault()}
                   >
                     {this.renderProfileForm(data.user)}
@@ -227,7 +229,7 @@ class Profile extends React.Component {
                 </Validation>
                 <AccountPageFooter>
                   <p>
-                    <Button bsStyle="link" className="btn-export" onClick={this.handleExportData}>
+                    <Button variant="link" className="btn-export" onClick={this.handleExportData}>
                       Export my data
                     </Button>
                     {' - '}
@@ -235,7 +237,7 @@ class Profile extends React.Component {
                   </p>
                 </AccountPageFooter>
                 <AccountPageFooter>
-                  <Button bsStyle="danger" onClick={this.handleDeleteAccount}>
+                  <Button variant="danger" onClick={this.handleDeleteAccount}>
                     Delete My Account
                   </Button>
                 </AccountPageFooter>

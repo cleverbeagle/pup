@@ -29,7 +29,7 @@ class RecoverPassword extends React.Component {
         <Row>
           <Col xs={12}>
             <h4 className="page-header">Recover Password</h4>
-            <Alert bsStyle="info">
+            <Alert variant="info">
               Enter your email address below to receive a link to reset your password.
             </Alert>
             <Validation
@@ -49,7 +49,12 @@ class RecoverPassword extends React.Component {
                 this.handleSubmit(form);
               }}
             >
-              <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
+              <form
+                ref={(form) => {
+                  this.form = form;
+                }}
+                onSubmit={(event) => event.preventDefault()}
+              >
                 <FormGroup>
                   <ControlLabel>Email Address</ControlLabel>
                   <input
@@ -59,7 +64,7 @@ class RecoverPassword extends React.Component {
                     placeholder="Email Address"
                   />
                 </FormGroup>
-                <Button type="submit" bsStyle="success" block>
+                <Button type="submit" variant="success" block>
                   Recover Password
                 </Button>
                 <AccountPageFooter>
