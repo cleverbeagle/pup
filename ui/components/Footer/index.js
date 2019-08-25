@@ -24,13 +24,13 @@ const Footer = () => (
         <li>
           <Link to="/terms">
             Terms
-            <span className="d-none d-sm-block"> of Service</span>
+            <span className="d-none d-sm-inline"> of Service</span>
           </Link>
         </li>
         <li>
           <Link to="/privacy">
             Privacy
-            <span className="d-none d-sm-block"> Policy</span>
+            <span className="d-none d-sm-inline"> Policy</span>
           </Link>
         </li>
       </ul>

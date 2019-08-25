@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import PublicNavigation from '../PublicNavigation';
@@ -10,13 +10,15 @@ const Navigation = (props) => {
   const { authenticated } = props;
   return (
     <Navbar collapseOnSelect bg="light" expand="lg">
-      <LinkContainer to="/">
-        <Navbar.Brand>{Meteor.settings.public.productName}</Navbar.Brand>
-      </LinkContainer>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav" className={!authenticated && 'justify-content-end'}>
-        {authenticated ? <AuthenticatedNavigation {...props} /> : <PublicNavigation {...props} />}
-      </Navbar.Collapse>
+      <Container>
+        <LinkContainer to="/">
+          <Navbar.Brand>{Meteor.settings.public.productName}</Navbar.Brand>
+        </LinkContainer>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav" className={!authenticated && 'justify-content-end'}>
+          {authenticated ? <AuthenticatedNavigation {...props} /> : <PublicNavigation {...props} />}
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 };

@@ -69,7 +69,7 @@ class AdminUserSettings extends React.Component {
                 <p>{setting.key}</p>
                 <div>
                   <Button
-                    variant="default"
+                    variant="light"
                     onClick={() =>
                       this.setState({ showSettingsModal: true, currentSetting: setting })
                     }

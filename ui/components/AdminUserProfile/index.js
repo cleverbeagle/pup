@@ -226,7 +226,7 @@ class AdminUserProfile extends React.Component {
                               }}
                             />
                             <InputGroup.Button>
-                              <Button onClick={this.generatePassword}>
+                              <Button variant="light" onClick={this.generatePassword}>
                                 <Icon iconStyle="solid" icon="refresh" />
                                 {' Generate'}
                               </Button>

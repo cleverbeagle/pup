@@ -79,6 +79,7 @@ class Profile extends React.Component {
           }.`}
         </p>
         <Button
+          variant="light"
           className={`btn btn-${user.oAuthProvider}`}
           href={
             {

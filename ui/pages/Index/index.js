@@ -11,8 +11,10 @@ const Index = () => (
     <h1>Pup</h1>
     <p>The Ultimate Boilerplate for Products.</p>
     <div>
-      <Button href="http://cleverbeagle.com/pup">Read the Docs</Button>
-      <Button href="https://github.com/cleverbeagle/pup">
+      <Button variant="light" href="http://cleverbeagle.com/pup">
+        Read the Docs
+      </Button>
+      <Button variant="light" href="https://github.com/cleverbeagle/pup">
         <i className="fa fa-star" />
         {' Star on GitHub'}
       </Button>

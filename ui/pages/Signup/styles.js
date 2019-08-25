@@ -7,10 +7,6 @@ const StyledSignup = styled.div`
   margin: 0 auto;
   border-radius: 3px;
 
-  .page-header {
-    margin-top: 0;
-  }
-
   > .row {
     margin: 0 !important;
   }

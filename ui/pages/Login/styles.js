@@ -7,10 +7,6 @@ export const StyledLogin = styled.div`
   max-width: 768px;
   margin: 0 auto;
 
-  .page-header {
-    margin-top: 0;
-  }
-
   > .row {
     margin: 0 !important;
   }

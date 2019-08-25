@@ -45,32 +45,16 @@ const GlobalStyle = createGlobalStyle`
     display: none;
   }
 
-  .navbar {
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-  }
-
   form label {
     display: block;
   }
-
-  form .control-label {
-    display: block;
-    margin-bottom: 7px;
-  }
-
+  
   form label.error {
     display: block;
     margin-top: 8px;
     font-size: 13px;
     font-weight: normal;
     color: var(--danger);
-  }
-
-  .page-header {
-    margin-top: 0;
   }
 
   .table tr td {
@@ -85,10 +69,6 @@ const GlobalStyle = createGlobalStyle`
   @media screen and (min-width: 768px) {
     body.isViewDocument {
       padding-top: 40px;
-    }
-
-    .page-header {
-      margin-top: 20px;
     }
   }
 `;
