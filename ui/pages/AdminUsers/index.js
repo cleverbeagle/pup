@@ -17,7 +17,7 @@ class AdminUsers extends React.Component {
     return (
       <div className="AdminUsers">
         <AdminUsersHeader className="page-header clearfix">
-          <h4 className="pull-left">Users</h4>
+          <h4 className="float-left">Users</h4>
           <SearchInput
             placeholder="Search users..."
             value={search}

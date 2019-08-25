@@ -110,7 +110,7 @@ class AdminUserSettingsModal extends React.Component {
           >
             <Modal.Body>
               <Row>
-                <Col xs={12} sm={6}>
+                <Col xs={12} md={6}>
                   <FormGroup>
                     <ControlLabel>Key Name</ControlLabel>
                     <input
@@ -123,7 +123,7 @@ class AdminUserSettingsModal extends React.Component {
                     />
                   </FormGroup>
                 </Col>
-                <Col xs={12} sm={6}>
+                <Col xs={12} md={6}>
                   <FormGroup>
                     <ControlLabel>Is this a GDPR setting?</ControlLabel>
                     <ToggleSwitch
@@ -149,7 +149,7 @@ class AdminUserSettingsModal extends React.Component {
                 <InputHint>This is what users will see in their settings panel.</InputHint>
               </FormGroup>
               <Row>
-                <Col xs={12} sm={6}>
+                <Col xs={12} md={6}>
                   <ControlLabel>Type</ControlLabel>
                   <select
                     name="type"
@@ -162,7 +162,7 @@ class AdminUserSettingsModal extends React.Component {
                     <option value="string">String</option>
                   </select>
                 </Col>
-                <Col xs={12} sm={6}>
+                <Col xs={12} md={6}>
                   <ControlLabel>Default Value</ControlLabel>
                   {settingType === 'boolean' && (
                     <select

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
-import { Grid } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 
@@ -62,6 +62,7 @@ class App extends React.Component {
 
   render() {
     const { props, state, setAfterLoginPath } = this;
+    const propsToPass = { ...props, ...state };
     return (
       <Styles.App ready={state.ready} loading={`${props.loading}`}>
         {props.authenticated && (
@@ -72,8 +73,8 @@ class App extends React.Component {
           />
         )}
         {props.authenticated && <GDPRConsentModal userId={props.userId} />}
-        <Navigation {...props} {...state} />
-        <Grid>
+        <Navigation {...propsToPass} />
+        <Container>
           <Switch>
             <Route exact name="index" path="/" component={Index} />
 
@@ -82,8 +83,7 @@ class App extends React.Component {
               path="/documents"
               component={Documents}
               setAfterLoginPath={setAfterLoginPath}
-              {...props}
-              {...state}
+              {...propsToPass}
             />
             <Route exact path="/documents/:_id" component={ViewDocument} />
             <Authenticated
@@ -91,8 +91,7 @@ class App extends React.Component {
               path="/documents/:_id/edit"
               component={EditDocument}
               setAfterLoginPath={setAfterLoginPath}
-              {...props}
-              {...state}
+              {...propsToPass}
             />
 
             <Authenticated
@@ -100,18 +99,16 @@ class App extends React.Component {
               path="/profile"
               component={Profile}
               setAfterLoginPath={setAfterLoginPath}
-              {...props}
-              {...state}
+              {...propsToPass}
             />
-            <Public path="/signup" component={Signup} {...props} {...state} />
-            <Public path="/login" component={Login} {...props} {...state} />
+            <Public path="/signup" component={Signup} {...propsToPass} />
+            <Public path="/login" component={Login} {...propsToPass} />
             <Route
               path="/logout"
               render={(routeProps) => (
                 <Logout {...routeProps} setAfterLoginPath={setAfterLoginPath} />
               )}
-              {...props}
-              {...state}
+              {...propsToPass}
             />
 
             <Route name="verify-email" path="/verify-email/:token" component={VerifyEmail} />
@@ -129,8 +126,7 @@ class App extends React.Component {
               pathAfterFailure="/"
               component={AdminUsers}
               setAfterLoginPath={setAfterLoginPath}
-              {...props}
-              {...state}
+              {...propsToPass}
             />
             <Authorized
               exact
@@ -139,8 +135,7 @@ class App extends React.Component {
               pathAfterFailure="/"
               component={AdminUserSettings}
               setAfterLoginPath={setAfterLoginPath}
-              {...props}
-              {...state}
+              {...propsToPass}
             />
             <Authorized
               exact
@@ -149,13 +144,12 @@ class App extends React.Component {
               pathAfterFailure="/"
               component={AdminUser}
               setAfterLoginPath={setAfterLoginPath}
-              {...props}
-              {...state}
+              {...propsToPass}
             />
 
             <Route component={NotFound} />
           </Switch>
-        </Grid>
+        </Container>
         <Footer />
       </Styles.App>
     );

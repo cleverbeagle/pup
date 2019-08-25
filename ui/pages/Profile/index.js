@@ -170,7 +170,7 @@ class Profile extends React.Component {
         >
           <Tab eventKey="profile" title="Profile">
             <Row>
-              <Col xs={12} sm={6} md={4}>
+              <Col xs={12} md={6} lg={4}>
                 <Validation
                   rules={{
                     firstName: {

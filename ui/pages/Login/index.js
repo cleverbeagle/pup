@@ -86,8 +86,8 @@ class Login extends React.Component {
                 </FormGroup>
                 <FormGroup>
                   <ControlLabel className="clearfix">
-                    <span className="pull-left">Password</span>
-                    <Link className="pull-right" to="/recover-password">
+                    <span className="float-left">Password</span>
+                    <Link className="float-right" to="/recover-password">
                       Forgot password?
                     </Link>
                   </ControlLabel>

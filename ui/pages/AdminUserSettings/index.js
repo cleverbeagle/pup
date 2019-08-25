@@ -53,10 +53,10 @@ class AdminUserSettings extends React.Component {
     return (
       <div className="AdminUserSettings">
         <div className="page-header clearfix">
-          <h4 className="pull-left">User Settings</h4>
+          <h4 className="float-left">User Settings</h4>
           <Button
             variant="success"
-            className="pull-right"
+            className="float-right"
             onClick={() => this.setState({ showSettingsModal: true, currentSetting: null })}
           >
             Add Setting

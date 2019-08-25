@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Grid } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { year } from '../../../modules/dates';
 import Styles from './styles';
@@ -15,26 +15,26 @@ const copyrightYear = () => {
 
 const Footer = () => (
   <Styles.Footer>
-    <Grid>
-      <p className="pull-left">
+    <Container>
+      <p className="float-left">
         &copy;
         {` ${copyrightYear()} ${productName}`}
       </p>
-      <ul className="pull-right">
+      <ul className="float-right">
         <li>
           <Link to="/terms">
             Terms
-            <span className="hidden-xs"> of Service</span>
+            <span className="d-none d-sm-block"> of Service</span>
           </Link>
         </li>
         <li>
           <Link to="/privacy">
             Privacy
-            <span className="hidden-xs"> Policy</span>
+            <span className="d-none d-sm-block"> Policy</span>
           </Link>
         </li>
       </ul>
-    </Grid>
+    </Container>
   </Styles.Footer>
 );
 

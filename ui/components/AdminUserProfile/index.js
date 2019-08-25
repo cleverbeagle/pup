@@ -119,7 +119,7 @@ class AdminUserProfile extends React.Component {
           >
             {user && (
               <Row>
-                <Col xs={12} md={6}>
+                <Col xs={12} lg={6}>
                   {user && user.name && (
                     <Row>
                       <Col xs={6}>
@@ -204,7 +204,7 @@ class AdminUserProfile extends React.Component {
                             <Checkbox
                               inline
                               checked={showPassword}
-                              className="pull-right"
+                              className="float-right"
                               onChange={() =>
                                 this.setState({
                                   showPassword: !showPassword,
@@ -241,7 +241,11 @@ class AdminUserProfile extends React.Component {
                     {user ? 'Save Changes' : 'Create User'}
                   </Button>
                   {user && (
-                    <Button variant="danger" className="pull-right" onClick={this.handleDeleteUser}>
+                    <Button
+                      variant="danger"
+                      className="float-right"
+                      onClick={this.handleDeleteUser}
+                    >
                       Delete User
                     </Button>
                   )}

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, graphql } from 'react-apollo';
-import { Breadcrumb, Tab } from 'react-bootstrap';
+import { Breadcrumb, Tab, Tabs } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AdminUserProfile from '../../components/AdminUserProfile';
@@ -39,8 +39,9 @@ class AdminUser extends React.Component {
             </span>
           )}
         </Styles.AdminUserHeader>
-        <Styles.AdminUserTabs
-          animation={false}
+        <Tabs
+          className="mb-2"
+          transition={false}
           activeKey={activeTab}
           onSelect={(selectedTab) => this.setState({ activeTab: selectedTab })}
           id="admin-user-tabs"
@@ -65,7 +66,7 @@ class AdminUser extends React.Component {
               updateUser={updateUser}
             />
           </Tab>
-        </Styles.AdminUserTabs>
+        </Tabs>
       </div>
     ) : (
       <div />
