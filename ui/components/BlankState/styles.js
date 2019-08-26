@@ -9,7 +9,7 @@ const BlankState = styled.div`
     margin-bottom: 20px;
   }
 
-  i {
+  svg {
     font-size: 100px;
     color: var(--gray-lighter);
     margin-bottom: 20px;

@@ -11,14 +11,14 @@ export const DocumentEditorHeader = styled.div`
     float: left;
   }
 
-  .dropdown > button i,
-  .dropdown-menu > li > a > i {
+  .dropdown > button svg,
+  .dropdown-menu > button > svg {
     display: inline-block;
     margin-right: 5px;
     color: var(--gray-light);
   }
 
-  .dropdown-menu > li.active > a > i {
+  .dropdown-menu > button.active > svg {
     color: #fff;
   }
 `;
@@ -29,7 +29,7 @@ export const StyledDocumentEditor = styled.div`
   border-radius: 3px;
   margin-top: 20px;
 
-  .control-label {
+  .form-label {
     display: none;
   }
 

@@ -1,10 +1,7 @@
-/* eslint-disable max-len, no-return-assign */
-
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ControlLabel, DropdownButton, MenuItem } from 'react-bootstrap';
+import { DropdownButton, Dropdown, Form } from 'react-bootstrap';
 import { Mutation } from 'react-apollo';
-import autoBind from 'react-autobind';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Icon from '../Icon';
 import { editDocument as editDocumentQuery, documents } from '../../queries/Documents.gql';
@@ -21,13 +18,9 @@ import {
 } from './styles';
 
 class DocumentEditor extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { saving: false, mutation: 'updateDocument' };
-    autoBind(this);
-  }
+  state = { saving: false, mutation: 'updateDocument' };
 
-  handleUpdateDocument(mutate) {
+  handleUpdateDocument = (mutate) => {
     const { doc } = this.props;
     this.setState({ mutation: 'updateDocument', saving: true }, () => {
       delay(() => {
@@ -41,9 +34,9 @@ class DocumentEditor extends React.Component {
         });
       }, 300);
     });
-  }
+  };
 
-  handleSetVisibility(mutate, isPublic) {
+  handleSetVisibility = (mutate, isPublic) => {
     const { doc } = this.props;
     this.setState({ mutation: 'updateDocument', saving: true }, () => {
       mutate({
@@ -53,9 +46,9 @@ class DocumentEditor extends React.Component {
         },
       });
     });
-  }
+  };
 
-  handleRemoveDocument(mutate) {
+  handleRemoveDocument = (mutate) => {
     const { doc } = this.props;
     if (confirm('Are you sure? This is permanent!')) {
       this.setState({ mutation: 'removeDocument' }, () => {
@@ -66,7 +59,7 @@ class DocumentEditor extends React.Component {
         });
       });
     }
-  }
+  };
 
   render() {
     const { doc, history } = this.props;
@@ -74,7 +67,7 @@ class DocumentEditor extends React.Component {
 
     const settingsIcon = (
       <span>
-        <Icon iconStyle="solid" icon="gear" />
+        <Icon iconStyle="solid" icon="cog" />
       </span>
     );
 
@@ -106,48 +99,50 @@ class DocumentEditor extends React.Component {
                 {saving ? (
                   <em>Saving...</em>
                 ) : (
-                  <span>
-                    Last edit was
-                    {timeago(doc.updatedAt)}
-                  </span>
+                  <span>{`Last edit was ${timeago(doc.updatedAt)}`}</span>
                 )}
               </p>
-              <DropdownButton variant="default" title={settingsIcon} id="set-document-public">
-                <MenuItem onClick={() => history.push(`/documents/${doc._id}`)}>
+              <DropdownButton variant="light" title={settingsIcon} id="set-document-public">
+                <Dropdown.Item as="button" onClick={() => history.push(`/documents/${doc._id}`)}>
                   <Icon iconStyle="solid" icon="external-link-alt" />
                   {' View Document'}
-                </MenuItem>
-                <MenuItem divider />
-                <MenuItem header>Visibility</MenuItem>
-                <MenuItem
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Header>Visibility</Dropdown.Header>
+                <Dropdown.Item
                   className={doc.isPublic && 'active'}
+                  as="button"
                   eventKey="1"
                   onClick={() => this.handleSetVisibility(mutate, 'public')}
                 >
                   <Icon iconStyle="solid" icon="unlock" />
                   {' Public'}
-                </MenuItem>
-                <MenuItem
+                </Dropdown.Item>
+                <Dropdown.Item
                   className={!doc.isPublic && 'active'}
+                  as="button"
                   eventKey="2"
                   onClick={() => this.handleSetVisibility(mutate, 'private')}
                 >
                   <Icon iconStyle="solid" icon="lock" />
                   {' Private'}
-                </MenuItem>
-                <MenuItem divider />
-                <MenuItem onClick={() => this.handleRemoveDocument(mutate)}>
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item as="button" onClick={() => this.handleRemoveDocument(mutate)}>
                   <span className="text-danger">Delete Document</span>
-                </MenuItem>
+                </Dropdown.Item>
               </DropdownButton>
             </DocumentEditorHeader>
             <StyledDocumentEditor>
-              <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
+              <Form
+                ref={(form) => {
+                  this.form = form;
+                }}
+                onSubmit={(event) => event.preventDefault()}
+              >
                 <DocumentEditorTitle>
-                  <ControlLabel>Title</ControlLabel>
-                  <input
-                    type="text"
-                    className="form-control"
+                  <Form.Label>Title</Form.Label>
+                  <Form.Control
                     name="title"
                     defaultValue={doc && doc.title}
                     placeholder="Document Title"
@@ -155,16 +150,16 @@ class DocumentEditor extends React.Component {
                   />
                 </DocumentEditorTitle>
                 <DocumentEditorBody>
-                  <ControlLabel>Body</ControlLabel>
-                  <textarea
-                    className="form-control"
+                  <Form.Label>Body</Form.Label>
+                  <Form.Control
+                    as="textarea"
                     name="body"
                     defaultValue={doc && doc.body}
                     placeholder="This is my document. There are many like it, but this one is mine."
                     onChange={() => this.handleUpdateDocument(mutate)}
                   />
                 </DocumentEditorBody>
-              </form>
+              </Form>
             </StyledDocumentEditor>
             <DocumentEditorFooter className="clearfix">
               <span>

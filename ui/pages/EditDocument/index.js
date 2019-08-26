@@ -7,15 +7,13 @@ import NotFound from '../NotFound';
 import { editDocument as editDocumentQuery } from '../../queries/Documents.gql';
 
 const EditDocument = ({ data, history }) => (
-  <React.Fragment>
+  <>
     {!data.loading ? (
-      <React.Fragment>
-        {data.document ? <DocumentEditor doc={data.document} history={history} /> : <NotFound />}
-      </React.Fragment>
+      <>{data.document ? <DocumentEditor doc={data.document} history={history} /> : <NotFound />}</>
     ) : (
       <Loading />
     )}
-  </React.Fragment>
+  </>
 );
 
 EditDocument.propTypes = {
