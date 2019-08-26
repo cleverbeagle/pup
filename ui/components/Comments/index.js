@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Form } from 'react-bootstrap';
 import CommentComposer from '../CommentComposer';
 import { timeago } from '../../../modules/dates';
 
@@ -12,10 +13,10 @@ const Comments = ({ sortBy, onChangeSortBy, documentId, comments }) => (
       <CommentsList>
         <CommentsListHeader>
           <h3>{comments.length === 1 ? '1 Comment' : `${comments.length} Comments`}</h3>
-          <select name="sortBy" className="form-control" value={sortBy} onChange={onChangeSortBy}>
+          <Form.Control as="select" name="sortBy" value={sortBy} onChange={onChangeSortBy}>
             <option value="newestFirst">Newest First</option>
             <option value="oldestFirst">Oldest First</option>
-          </select>
+          </Form.Control>
         </CommentsListHeader>
         {comments.map(({ _id, user, createdAt, comment }) => {
           const name = user && user.name;

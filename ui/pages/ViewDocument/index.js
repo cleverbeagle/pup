@@ -35,7 +35,7 @@ class ViewDocument extends React.Component {
 
     if (!data.loading && data.document) {
       return (
-        <React.Fragment>
+        <>
           <StyledViewDocument>
             <SEO
               title={data.document && data.document.title}
@@ -46,14 +46,14 @@ class ViewDocument extends React.Component {
               updated={data.document && data.document.updatedAt}
               twitter="clvrbgl"
             />
-            <React.Fragment>
+            <>
               <h1>{data.document && data.document.title}</h1>
               <DocumentBody
                 dangerouslySetInnerHTML={{
                   __html: parseMarkdown(data.document && data.document.body),
                 }}
               />
-            </React.Fragment>
+            </>
           </StyledViewDocument>
           <Comments
             documentId={data.document && data.document._id}
@@ -61,7 +61,7 @@ class ViewDocument extends React.Component {
             sortBy={sortBy}
             onChangeSortBy={this.handleChangeCommentSort}
           />
-        </React.Fragment>
+        </>
       );
     }
 

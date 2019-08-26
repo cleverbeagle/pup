@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
-import { Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Validation from '../Validation';
@@ -41,16 +41,12 @@ const CommentComposer = ({ mutate, documentId }) => (
         }
       }}
     >
-      <form onSubmit={(event) => event.preventDefault()}>
-        <textarea
-          className="form-control"
-          name="comment"
-          placeholder="Have a comment about this?"
-        />
+      <Form onSubmit={(event) => event.preventDefault()}>
+        <Form.Control as="textarea" name="comment" placeholder="Have a comment about this?" />
         <Button type="submit" variant="success">
           Post Comment
         </Button>
-      </form>
+      </Form>
     </Validation>
   </StyledCommentComposer>
 );
