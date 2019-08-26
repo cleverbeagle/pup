@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Button, Row, Col, FormGroup, ControlLabel } from 'react-bootstrap';
+import { Modal, Button, Col, Form } from 'react-bootstrap';
 import { camelCase } from 'lodash';
 import Validation from '../Validation';
 import InputHint from '../InputHint';
@@ -77,7 +77,7 @@ class AdminUserSettingsModal extends React.Component {
       <Modal show={show} onHide={onHide}>
         <Modal.Header>
           <Modal.Title>
-            {setting ? 'Edit' : 'Add a'}
+            {setting ? 'Edit ' : 'Add a '}
             User Setting
           </Modal.Title>
         </Modal.Header>
@@ -102,84 +102,70 @@ class AdminUserSettingsModal extends React.Component {
             this.handleSubmit(form);
           }}
         >
-          <form
-            ref={(form) => {
-              this.form = form;
-            }}
-            onSubmit={(event) => event.preventDefault()}
-          >
+          <Form onSubmit={(event) => event.preventDefault()}>
             <Modal.Body>
-              <Row>
-                <Col xs={12} md={6}>
-                  <FormGroup>
-                    <ControlLabel>Key Name</ControlLabel>
-                    <input
-                      type="text"
-                      name="keyName"
-                      className="form-control"
-                      value={keyName}
-                      onChange={this.handleSetKeyName}
-                      placeholder="canWeSendYouMarketingEmails"
-                    />
-                  </FormGroup>
-                </Col>
-                <Col xs={12} md={6}>
-                  <FormGroup>
-                    <ControlLabel>Is this a GDPR setting?</ControlLabel>
-                    <ToggleSwitch
-                      ref={(isGDPRToggle) => {
-                        this.isGDPR = isGDPRToggle;
-                      }}
-                      toggled={isGDPR}
-                      onToggle={(id, toggled) => this.setState({ isGDPR: toggled })}
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-              <FormGroup>
-                <ControlLabel>Label</ControlLabel>
-                <input
-                  type="text"
+              <Form.Row>
+                <Form.Group as={Col} xs={12} md={6}>
+                  <Form.Label>Key Name</Form.Label>
+                  <Form.Control
+                    name="keyName"
+                    value={keyName}
+                    onChange={this.handleSetKeyName}
+                    placeholder="canWeSendYouMarketingEmails"
+                  />
+                </Form.Group>
+                <Form.Group as={Col} xs={12} md={6}>
+                  <Form.Label>Is this a GDPR setting?</Form.Label>
+                  <ToggleSwitch
+                    ref={(isGDPRToggle) => {
+                      this.isGDPR = isGDPRToggle;
+                    }}
+                    toggled={isGDPR}
+                    onToggle={(id, toggled) => this.setState({ isGDPR: toggled })}
+                  />
+                </Form.Group>
+              </Form.Row>
+              <Form.Group>
+                <Form.Label>Label</Form.Label>
+                <Form.Control
                   name="label"
-                  className="form-control"
                   value={label}
                   onChange={(event) => this.setState({ label: event.target.value })}
                   placeholder="Can we send you marketing emails?"
                 />
                 <InputHint>This is what users will see in their settings panel.</InputHint>
-              </FormGroup>
-              <Row>
+              </Form.Group>
+              <Form.Row>
                 <Col xs={12} md={6}>
-                  <ControlLabel>Type</ControlLabel>
-                  <select
+                  <Form.Label>Type</Form.Label>
+                  <Form.Control
+                    as="select"
                     name="type"
                     value={settingType}
                     onChange={(event) => this.setState({ settingType: event.target.value })}
-                    className="form-control"
                   >
                     <option value="boolean">Boolean (true/false)</option>
                     <option value="number">Number</option>
                     <option value="string">String</option>
-                  </select>
+                  </Form.Control>
                 </Col>
                 <Col xs={12} md={6}>
-                  <ControlLabel>Default Value</ControlLabel>
+                  <Form.Label>Default Value</Form.Label>
                   {settingType === 'boolean' && (
-                    <select
+                    <Form.Control
+                      as="select"
                       name="defaultValue"
                       value={value}
                       onChange={(event) => this.setState({ value: event.target.value })}
-                      className="form-control"
                     >
                       <option value="true">true</option>
                       <option value="false">false</option>
-                    </select>
+                    </Form.Control>
                   )}
                   {settingType === 'number' && (
-                    <input
+                    <Form.Control
                       type="number"
                       name="defaultValue"
-                      className="form-control"
                       value={value}
                       onChange={(event) => {
                         this.setState({ value: parseInt(event.target.value, 10) });
@@ -188,17 +174,15 @@ class AdminUserSettingsModal extends React.Component {
                     />
                   )}
                   {settingType === 'string' && (
-                    <input
-                      type="text"
+                    <Form.Control
                       name="defaultValue"
-                      className="form-control"
                       value={value}
                       onChange={(event) => this.setState({ value: event.target.value })}
                       placeholder="Squirrel?!"
                     />
                   )}
                 </Col>
-              </Row>
+              </Form.Row>
             </Modal.Body>
             <Modal.Footer>
               <Button type="submit" variant="success">
@@ -206,7 +190,7 @@ class AdminUserSettingsModal extends React.Component {
                 {' Setting'}
               </Button>
             </Modal.Footer>
-          </form>
+          </Form>
         </Validation>
       </Modal>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, graphql } from 'react-apollo';
 import { Breadcrumb, Tab, Tabs } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AdminUserProfile from '../../components/AdminUserProfile';
 import UserSettings from '../../components/UserSettings';
@@ -13,6 +13,7 @@ import {
 } from '../../mutations/Users.gql';
 
 import Styles from './styles';
+import PageHeader from '../../components/PageHeader';
 
 class AdminUser extends React.Component {
   state = { activeTab: 'profile' };
@@ -24,21 +25,23 @@ class AdminUser extends React.Component {
     const username = data.user && data.user.username;
 
     return data.user ? (
-      <div className="AdminUser">
+      <>
         <Breadcrumb>
-          <li>
-            <Link to="/admin/users">Users</Link>
-          </li>
+          <LinkContainer to="/admin/users">
+            <Breadcrumb.Item>Users</Breadcrumb.Item>
+          </LinkContainer>
           <Breadcrumb.Item active>{name ? `${name.first} ${name.last}` : username}</Breadcrumb.Item>
         </Breadcrumb>
-        <Styles.AdminUserHeader className="page-header">
-          {name ? `${name.first} ${name.last}` : username}
-          {data.user.oAuthProvider && (
-            <span className={`label label-${data.user.oAuthProvider}`}>
-              {data.user.oAuthProvider}
-            </span>
-          )}
-        </Styles.AdminUserHeader>
+        <PageHeader>
+          <h4>
+            {name ? `${name.first} ${name.last}` : username}
+            {data.user.oAuthProvider && (
+              <Styles.ServiceBadge service={data.user.oAuthProvider}>
+                {data.user.oAuthProvider}
+              </Styles.ServiceBadge>
+            )}
+          </h4>
+        </PageHeader>
         <Tabs
           className="mb-2"
           transition={false}
@@ -67,9 +70,9 @@ class AdminUser extends React.Component {
             />
           </Tab>
         </Tabs>
-      </div>
+      </>
     ) : (
-      <div />
+      ''
     );
   }
 }

@@ -1,19 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Form } from 'react-bootstrap';
 import Icon from '../Icon';
 import Styles from './styles';
 
 const SearchInput = ({ placeholder, value, onChange }) => (
-  <Styles.SearchInput className="SearchInput">
+  <Styles.SearchInput className="float-left">
     <Icon iconStyle="solid" icon="search" />
-    <input
-      type="text"
-      name="search"
-      className="form-control"
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-    />
+    <Form.Control name="search" placeholder={placeholder} value={value} onChange={onChange} />
   </Styles.SearchInput>
 );
 

@@ -12,6 +12,7 @@ import {
   updateUserSetting as updateUserSettingMutation,
   removeUserSetting as removeUserSettingMutation,
 } from '../../mutations/UserSettings.gql';
+import PageHeader from '../../components/PageHeader';
 
 const Setting = styled(ListGroupItem)`
   display: flex;
@@ -51,17 +52,17 @@ class AdminUserSettings extends React.Component {
     const { data, addUserSetting, updateUserSetting } = this.props;
     const { showSettingsModal, currentSetting } = this.state;
     return (
-      <div className="AdminUserSettings">
-        <div className="page-header clearfix">
-          <h4 className="float-left">User Settings</h4>
+      <>
+        <PageHeader>
+          <h4>User Settings</h4>
           <Button
             variant="success"
-            className="float-right"
+            className="ml-auto"
             onClick={() => this.setState({ showSettingsModal: true, currentSetting: null })}
           >
             Add Setting
           </Button>
-        </div>
+        </PageHeader>
         {data.userSettings && data.userSettings.length > 0 ? (
           <ListGroup>
             {data.userSettings.map((setting) => (
@@ -85,7 +86,7 @@ class AdminUserSettings extends React.Component {
           </ListGroup>
         ) : (
           <BlankState
-            icon={{ style: 'solid', symbol: 'gear' }}
+            icon={{ style: 'solid', symbol: 'cog' }}
             title="No user settings here, friend."
             subtitle="Add your first setting by clicking the button below."
             action={{
@@ -102,7 +103,7 @@ class AdminUserSettings extends React.Component {
           addUserSetting={addUserSetting}
           updateUserSetting={updateUserSetting}
         />
-      </div>
+      </>
     );
   }
 }

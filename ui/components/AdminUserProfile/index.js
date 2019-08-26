@@ -1,16 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Row,
-  Col,
-  ControlLabel,
-  FormGroup,
-  ListGroup,
-  ListGroupItem,
-  Checkbox,
-  InputGroup,
-  Button,
-} from 'react-bootstrap';
+import { Row, Col, Form, ListGroup, ListGroupItem, InputGroup, Button } from 'react-bootstrap';
 import { capitalize } from 'lodash';
 import { Random } from 'meteor/random';
 import InputHint from '../InputHint';
@@ -77,184 +67,157 @@ class AdminUserProfile extends React.Component {
     const { showPassword, password } = this.state;
 
     return (
-      <div className="AdminUserProfile">
-        <Validation
-          rules={{
-            firstName: {
-              required: true,
-            },
-            lastName: {
-              required: true,
-            },
-            emailAddress: {
-              required: true,
-              email: true,
-            },
-            password: {
-              minlength: 6,
-            },
-          }}
-          messages={{
-            firstName: {
-              required: "What's the user's first name?",
-            },
-            lastName: {
-              required: "What's the user's last name?",
-            },
-            emailAddress: {
-              required: 'Need an email address here.',
-              email: 'Is this email address correct?',
-            },
-            password: {
-              minlength: 'Please use at least six characters.',
-            },
-          }}
-          submitHandler={(form) => this.handleSubmit(form)}
-        >
-          <form
-            ref={(form) => {
-              this.form = form;
-            }}
-            onSubmit={(event) => event.preventDefault()}
-          >
-            {user && (
-              <Row>
-                <Col xs={12} lg={6}>
-                  {user && user.name && (
-                    <Row>
-                      <Col xs={6}>
-                        <FormGroup>
-                          <ControlLabel>First Name</ControlLabel>
-                          <input
-                            disabled={user && user.oAuthProvider}
-                            type="text"
-                            name="firstName"
-                            className="form-control"
-                            defaultValue={user && user.name && user.name.first}
+      <Validation
+        rules={{
+          firstName: {
+            required: true,
+          },
+          lastName: {
+            required: true,
+          },
+          emailAddress: {
+            required: true,
+            email: true,
+          },
+          password: {
+            minlength: 6,
+          },
+        }}
+        messages={{
+          firstName: {
+            required: "What's the user's first name?",
+          },
+          lastName: {
+            required: "What's the user's last name?",
+          },
+          emailAddress: {
+            required: 'Need an email address here.',
+            email: 'Is this email address correct?',
+          },
+          password: {
+            minlength: 'Please use at least six characters.',
+          },
+        }}
+        submitHandler={(form) => this.handleSubmit(form)}
+      >
+        <Form onSubmit={(event) => event.preventDefault()}>
+          {user && (
+            <Row>
+              <Col xs={12} lg={6}>
+                {user && user.name && (
+                  <Form.Row>
+                    <Form.Group as={Col} xs={6}>
+                      <Form.Label>First Name</Form.Label>
+                      <Form.Control
+                        disabled={user && user.oAuthProvider}
+                        name="firstName"
+                        defaultValue={user && user.name && user.name.first}
+                      />
+                    </Form.Group>
+                    <Form.Group as={Col} xs={6}>
+                      <Form.Label>Last Name</Form.Label>
+                      <Form.Control
+                        disabled={user && user.oAuthProvider}
+                        name="lastName"
+                        defaultValue={user && user.name && user.name.last}
+                      />
+                    </Form.Group>
+                  </Form.Row>
+                )}
+                {user && user.username && (
+                  <Form.Row>
+                    <Form.Group as={Col} xs={12}>
+                      <Form.Label>Username</Form.Label>
+                      <Form.Control
+                        disabled={user && user.oAuthProvider}
+                        name="username"
+                        defaultValue={user && user.username}
+                      />
+                    </Form.Group>
+                  </Form.Row>
+                )}
+                <Form.Row>
+                  <Form.Group as={Col} xs={12}>
+                    <Form.Label>Email Address</Form.Label>
+                    <Form.Control
+                      disabled={user && user.oAuthProvider}
+                      name="emailAddress"
+                      autoComplete="off"
+                      defaultValue={user && user.emailAddress}
+                    />
+                  </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                  <Form.Group as={Col} xs={12}>
+                    <Form.Label>Roles</Form.Label>
+                    <ListGroup>
+                      {user.roles.map(({ _id, name, inRole }) => (
+                        <ListGroupItem key={_id}>
+                          <Form.Check
+                            name="role"
+                            value={name}
+                            defaultChecked={inRole}
+                            inline
+                            label={capitalize(name)}
                           />
-                        </FormGroup>
-                      </Col>
-                      <Col xs={6}>
-                        <FormGroup>
-                          <ControlLabel>Last Name</ControlLabel>
-                          <input
-                            disabled={user && user.oAuthProvider}
-                            type="text"
-                            name="lastName"
-                            className="form-control"
-                            defaultValue={user && user.name && user.name.last}
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  )}
-                  {user && user.username && (
-                    <Row>
-                      <Col xs={12}>
-                        <FormGroup>
-                          <ControlLabel>Username</ControlLabel>
-                          <input
-                            disabled={user && user.oAuthProvider}
-                            type="text"
-                            name="username"
-                            className="form-control"
-                            defaultValue={user && user.username}
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  )}
+                        </ListGroupItem>
+                      ))}
+                    </ListGroup>
+                  </Form.Group>
+                </Form.Row>
+                {user && !user.oAuthProvider && (
                   <Row>
-                    <Col xs={12}>
-                      <FormGroup>
-                        <ControlLabel>Email Address</ControlLabel>
-                        <input
-                          disabled={user && user.oAuthProvider}
-                          type="text"
-                          name="emailAddress"
+                    <Form.Group as={Col} xs={12}>
+                      <Form.Row className="justify-content-between no-gutters">
+                        <Form.Label column>Password</Form.Label>
+                        <Col>
+                          <Form.Check
+                            inline
+                            checked={showPassword}
+                            className="float-right p-2"
+                            onChange={() =>
+                              this.setState({
+                                showPassword: !showPassword,
+                              })
+                            }
+                            label="Show Password"
+                          />
+                        </Col>
+                      </Form.Row>
+                      <InputGroup>
+                        <Form.Control
+                          type={showPassword ? 'text' : 'password'}
+                          name="password"
                           autoComplete="off"
-                          className="form-control"
-                          defaultValue={user && user.emailAddress}
+                          value={password}
+                          onChange={(event) => {
+                            this.setState({ password: event.target.value });
+                          }}
                         />
-                      </FormGroup>
-                    </Col>
+                        <InputGroup.Prepend>
+                          <Button variant="light" onClick={this.generatePassword}>
+                            <Icon iconStyle="solid" icon="random" />
+                            {' Generate'}
+                          </Button>
+                        </InputGroup.Prepend>
+                      </InputGroup>
+                      <InputHint>Use at least six characters.</InputHint>
+                    </Form.Group>
                   </Row>
-                  <Row>
-                    <Col xs={12}>
-                      <FormGroup>
-                        <ControlLabel>Roles</ControlLabel>
-                        <ListGroup>
-                          {user.roles.map(({ _id, name, inRole }) => (
-                            <ListGroupItem key={_id}>
-                              <Checkbox name="role" value={name} defaultChecked={inRole} inline>
-                                {capitalize(name)}
-                              </Checkbox>
-                            </ListGroupItem>
-                          ))}
-                        </ListGroup>
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  {user && !user.oAuthProvider && (
-                    <Row>
-                      <Col xs={12}>
-                        <FormGroup>
-                          <ControlLabel>
-                            Password
-                            <Checkbox
-                              inline
-                              checked={showPassword}
-                              className="float-right"
-                              onChange={() =>
-                                this.setState({
-                                  showPassword: !showPassword,
-                                })
-                              }
-                            >
-                              Show Password
-                            </Checkbox>
-                          </ControlLabel>
-                          <InputGroup>
-                            <input
-                              type={showPassword ? 'text' : 'password'}
-                              name="password"
-                              className="form-control"
-                              autoComplete="off"
-                              value={password}
-                              onChange={(event) => {
-                                this.setState({ password: event.target.value });
-                              }}
-                            />
-                            <InputGroup.Button>
-                              <Button variant="light" onClick={this.generatePassword}>
-                                <Icon iconStyle="solid" icon="refresh" />
-                                {' Generate'}
-                              </Button>
-                            </InputGroup.Button>
-                          </InputGroup>
-                          <InputHint>Use at least six characters.</InputHint>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  )}
-                  <Button type="submit" variant="success">
-                    {user ? 'Save Changes' : 'Create User'}
+                )}
+                <Button type="submit" variant="success">
+                  {user ? 'Save Changes' : 'Create User'}
+                </Button>
+                {user && (
+                  <Button variant="danger" className="float-right" onClick={this.handleDeleteUser}>
+                    Delete User
                   </Button>
-                  {user && (
-                    <Button
-                      variant="danger"
-                      className="float-right"
-                      onClick={this.handleDeleteUser}
-                    >
-                      Delete User
-                    </Button>
-                  )}
-                </Col>
-              </Row>
-            )}
-          </form>
-        </Validation>
-      </div>
+                )}
+              </Col>
+            </Row>
+          )}
+        </Form>
+      </Validation>
     );
   }
 }

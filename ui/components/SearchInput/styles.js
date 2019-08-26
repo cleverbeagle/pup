@@ -3,10 +3,10 @@ import styled from 'styled-components';
 const SearchInput = styled.div`
   position: relative;
 
-  i {
+  svg {
     position: absolute;
     left: 12px;
-    top: 10px;
+    top: 12px;
     color: var(--gray-light);
   }
 
