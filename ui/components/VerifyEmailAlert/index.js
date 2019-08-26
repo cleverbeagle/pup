@@ -15,7 +15,7 @@ const VerifyEmailAlert = ({ userId, emailVerified, emailAddress, sendVerificatio
   return userId && !emailVerified ? (
     <Styles.VerifyEmailAlert>
       <Alert className="verify-email text-center">
-        <p>
+        <p className="mb-0">
           {'Hey friend! Can you '}
           <strong>verify your email address</strong>
           {` (${emailAddress}) `}

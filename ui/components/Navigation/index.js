@@ -9,7 +9,7 @@ import AuthenticatedNavigation from '../AuthenticatedNavigation';
 const Navigation = (props) => {
   const { authenticated } = props;
   return (
-    <Navbar collapseOnSelect bg="light" expand="lg">
+    <Navbar collapseOnSelect bg="light" expand="lg" className="mb-3">
       <Container>
         <LinkContainer to="/">
           <Navbar.Brand>{Meteor.settings.public.productName}</Navbar.Brand>
