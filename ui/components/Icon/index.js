@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const getIconStyle = (iconStyle) =>
   ({
@@ -9,7 +10,7 @@ const getIconStyle = (iconStyle) =>
     brand: 'fab',
   }[iconStyle]);
 
-const Icon = ({ icon, iconStyle }) => <i className={`${getIconStyle(iconStyle)} fa-${icon}`} />;
+const Icon = ({ icon, iconStyle }) => <FontAwesomeIcon icon={[getIconStyle(iconStyle), icon]} />;
 
 Icon.defaultProps = {
   iconStyle: 'regular',

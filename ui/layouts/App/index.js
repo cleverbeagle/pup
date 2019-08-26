@@ -5,6 +5,11 @@ import { Container } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+
 import Navigation from '../../components/Navigation';
 
 import Authenticated from '../../components/Authenticated';
@@ -44,6 +49,8 @@ import withTrackerSsr from '../../../modules/withTrackerSsr';
 import getUserName from '../../../modules/getUserName';
 
 import Styles from './styles';
+
+library.add(fas, far, fab);
 
 class App extends React.Component {
   state = { ready: false, afterLoginPath: null };
