@@ -4,11 +4,7 @@ import Icon from '../Icon';
 import Styles from './styles';
 
 class ToggleSwitch extends React.Component {
-  constructor(props) {
-    super(props);
-    const { toggled } = props;
-    this.state = { toggled };
-  }
+  state = { toggled: this.props.toggled };
 
   componentWillReceiveProps(nextProps) {
     this.setState({ toggled: nextProps.toggled });
@@ -32,12 +28,12 @@ class ToggleSwitch extends React.Component {
     const { onLabel, offLabel } = this.props;
     const { toggled } = this.state;
     return (
-      <Styles.ToggleSwitch className="ToggleSwitch" toggled={toggled} onClick={this.toggleSwitch}>
+      <Styles.ToggleSwitch toggled={toggled} onClick={this.toggleSwitch}>
         <div className="handle">
           <span className="handle-label">
             {toggled
               ? onLabel || <Icon iconStyle="solid" icon="check" />
-              : offLabel || <Icon iconStyle="solid" icon="remove" />}
+              : offLabel || <Icon iconStyle="solid" icon="times" />}
           </span>
         </div>
       </Styles.ToggleSwitch>

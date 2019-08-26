@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, Form } from 'react-bootstrap';
 import ToggleSwitch from '../ToggleSwitch';
 import BlankState from '../BlankState';
 import unfreezeApolloCacheValue from '../../../modules/unfreezeApolloCacheValue';
@@ -8,11 +8,7 @@ import delay from '../../../modules/delay';
 import Styles from './styles';
 
 class UserSettings extends React.Component {
-  constructor(props) {
-    super(props);
-    const { settings } = props;
-    this.state = { settings: unfreezeApolloCacheValue([...settings]) };
-  }
+  state = { settings: unfreezeApolloCacheValue([...this.props.settings]) };
 
   handleUpdateSetting = (setting) => {
     const { userId, updateUser } = this.props;
@@ -48,17 +44,14 @@ class UserSettings extends React.Component {
         />
       ),
       number: () => (
-        <input
+        <Form.Control
           type="number"
-          className="form-control"
           value={value}
           onChange={(event) => onChange({ key, value: parseInt(event.target.value, 10) })}
         />
       ),
       string: () => (
-        <input
-          type="text"
-          className="form-control"
+        <Form.Control
           value={value}
           onChange={(event) => onChange({ key, value: event.target.value })}
         />
@@ -69,7 +62,7 @@ class UserSettings extends React.Component {
     const { isAdmin } = this.props;
     const { settings } = this.state;
     return (
-      <div className="UserSettings">
+      <>
         <ListGroup>
           {settings.length > 0 ? (
             settings.map(({ _id, key, label, type, value }) => (
@@ -92,7 +85,7 @@ class UserSettings extends React.Component {
             />
           )}
         </ListGroup>
-      </div>
+      </>
     );
   }
 }

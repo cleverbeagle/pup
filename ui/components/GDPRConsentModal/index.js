@@ -49,40 +49,38 @@ class GDPRConsentModal extends React.Component {
     const { show } = this.state;
 
     return (
-      <div className="GDPRConsentModal">
-        <Styles.GDPRConsentModal
-          backdrop="static"
-          show={show}
-          onHide={() => this.setState({ show: false })}
-        >
-          <Modal.Header>
-            <h4>GDPR Consent</h4>
-          </Modal.Header>
-          <Modal.Body>
-            <p>
-              {"In cooperation with the European Union's (EU) "}
-              <a href="https://www.eugdpr.org/" target="_blank" rel="noopener noreferrer">
-                {'General Data Protection Regulation'}
-              </a>
-              {
-                ' (GDPR), we need to obtain your consent for how we make use of your data. Please review each of the settings below to customize your experience.'
-              }
-            </p>
-            <UserSettings settings={data.user && data.user.settings} updateUser={updateUser} />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="success"
-              onClick={() => {
-                this.handleSaveSettings();
-                this.setState({ show: false });
-              }}
-            >
-              Save Settings
-            </Button>
-          </Modal.Footer>
-        </Styles.GDPRConsentModal>
-      </div>
+      <Styles.GDPRConsentModal
+        backdrop="static"
+        show={show}
+        onHide={() => this.setState({ show: false })}
+      >
+        <Modal.Header>
+          <Modal.Title>GDPR Consent</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            {"In cooperation with the European Union's (EU) "}
+            <a href="https://www.eugdpr.org/" target="_blank" rel="noopener noreferrer">
+              {'General Data Protection Regulation'}
+            </a>
+            {
+              ' (GDPR), we need to obtain your consent for how we make use of your data. Please review each of the settings below to customize your experience.'
+            }
+          </p>
+          <UserSettings settings={data.user && data.user.settings} updateUser={updateUser} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="success"
+            onClick={() => {
+              this.handleSaveSettings();
+              this.setState({ show: false });
+            }}
+          >
+            Save Settings
+          </Button>
+        </Modal.Footer>
+      </Styles.GDPRConsentModal>
     );
   }
 }
