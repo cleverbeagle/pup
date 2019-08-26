@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { compose, graphql, withApollo } from 'react-apollo';
 import FileSaver from 'file-saver';
 import base64ToBlob from 'b64-to-blob';
-import { Row, Col, FormGroup, ControlLabel, Button, Tabs, Tab } from 'react-bootstrap';
+import { Row, Col, Form, Button, Tabs, Tab } from 'react-bootstrap';
 import { capitalize } from 'lodash';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
 import Validation from '../../components/Validation';
+import PageHeader from '../../components/PageHeader';
 import InputHint from '../../components/InputHint';
 import AccountPageFooter from '../../components/AccountPageFooter';
 import UserSettings from '../../components/UserSettings';
@@ -59,92 +60,70 @@ class Profile extends React.Component {
 
     if (form.newPassword.value) {
       Accounts.changePassword(form.currentPassword.value, form.newPassword.value, (error) => {
+        const updateForm = form;
         if (error) {
           Bert.alert(error.reason, 'danger');
         } else {
-          form.currentPassword.value = ''; // eslint-disable-line no-param-reassign
-          form.newPassword.value = ''; // eslint-disable-line no-param-reassign
+          updateForm.currentPassword.value = '';
+          updateForm.newPassword.value = '';
         }
       });
     }
   };
 
   renderOAuthUser = (user) => (
-    <div className="OAuthProfile">
-      <div key={user.oAuthProvider} className={`LoggedInWith ${user.oAuthProvider}`}>
-        <img src={`/${user.oAuthProvider}.svg`} alt={user.oAuthProvider} />
-        <p>
-          {`You're logged in with ${capitalize(user.oAuthProvider)} using the email address ${
-            user.emailAddress
-          }.`}
-        </p>
-        <Button
-          variant="light"
-          className={`btn btn-${user.oAuthProvider}`}
-          href={
-            {
-              facebook: 'https://www.facebook.com/settings',
-              google: 'https://myaccount.google.com/privacy#personalinfo',
-              github: 'https://github.com/settings/profile',
-            }[user.oAuthProvider]
-          }
-          target="_blank"
-        >
-          {'Edit Profile on '}
-          {capitalize(user.oAuthProvider)}
-        </Button>
-      </div>
+    <div key={user.oAuthProvider} className={`LoggedInWith ${user.oAuthProvider}`}>
+      <img src={`/${user.oAuthProvider}.svg`} alt={user.oAuthProvider} />
+      <p>
+        {`You're logged in with ${capitalize(user.oAuthProvider)} using the email address ${
+          user.emailAddress
+        }.`}
+      </p>
+      <Button
+        className={`btn btn-${user.oAuthProvider}`}
+        href={
+          {
+            facebook: 'https://www.facebook.com/settings',
+            google: 'https://myaccount.google.com/privacy#personalinfo',
+            github: 'https://github.com/settings/profile',
+          }[user.oAuthProvider]
+        }
+        target="_blank"
+      >
+        {`Edit Profile on ${capitalize(user.oAuthProvider)}`}
+      </Button>
     </div>
   );
 
   renderPasswordUser = (user) => (
-    <div>
-      <Row>
-        <Col xs={6}>
-          <FormGroup>
-            <ControlLabel>First Name</ControlLabel>
-            <input
-              type="text"
-              name="firstName"
-              defaultValue={user.name.first}
-              className="form-control"
-            />
-          </FormGroup>
-        </Col>
-        <Col xs={6}>
-          <FormGroup>
-            <ControlLabel>Last Name</ControlLabel>
-            <input
-              type="text"
-              name="lastName"
-              defaultValue={user.name.last}
-              className="form-control"
-            />
-          </FormGroup>
-        </Col>
-      </Row>
-      <FormGroup>
-        <ControlLabel>Email Address</ControlLabel>
-        <input
-          type="email"
-          name="emailAddress"
-          defaultValue={user.emailAddress}
-          className="form-control"
-        />
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>Current Password</ControlLabel>
-        <input type="password" name="currentPassword" className="form-control" />
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>New Password</ControlLabel>
-        <input type="password" name="newPassword" className="form-control" />
+    <>
+      <Form.Row>
+        <Form.Group as={Col} xs={6}>
+          <Form.Label>First Name</Form.Label>
+          <Form.Control type="text" name="firstName" defaultValue={user.name.first} />
+        </Form.Group>
+        <Form.Group as={Col} xs={6}>
+          <Form.Label>Last Name</Form.Label>
+          <Form.Control type="text" name="lastName" defaultValue={user.name.last} />
+        </Form.Group>
+      </Form.Row>
+      <Form.Group>
+        <Form.Label>Email Address</Form.Label>
+        <Form.Control type="email" name="emailAddress" defaultValue={user.emailAddress} />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Current Password</Form.Label>
+        <Form.Control type="password" name="currentPassword" />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>New Password</Form.Label>
+        <Form.Control type="password" name="newPassword" />
         <InputHint>Use at least six characters.</InputHint>
-      </FormGroup>
+      </Form.Group>
       <Button type="submit" variant="success">
         Save Profile
       </Button>
-    </div>
+    </>
   );
 
   renderProfileForm = (user) =>
@@ -160,14 +139,16 @@ class Profile extends React.Component {
 
     return data.user ? (
       <Styles.Profile>
-        <h4 className="page-header">
-          {data.user.name ? `${data.user.name.first} ${data.user.name.last}` : data.user.username}
-        </h4>
+        <PageHeader>
+          <h4>
+            {data.user.name ? `${data.user.name.first} ${data.user.name.last}` : data.user.username}
+          </h4>
+        </PageHeader>
         <Tabs
-          animation={false}
+          transition={false}
           activeKey={activeTab}
           onSelect={(newTab) => this.setState({ activeTab: newTab })}
-          id="admin-user-tabs"
+          id="user-tabs"
         >
           <Tab eventKey="profile" title="Profile">
             <Row>
@@ -219,14 +200,9 @@ class Profile extends React.Component {
                   }}
                   submitHandler={(form) => this.handleSubmit(form)}
                 >
-                  <form
-                    ref={(form) => {
-                      this.form = form;
-                    }}
-                    onSubmit={(event) => event.preventDefault()}
-                  >
+                  <Form onSubmit={(event) => event.preventDefault()}>
                     {this.renderProfileForm(data.user)}
-                  </form>
+                  </Form>
                 </Validation>
                 <AccountPageFooter>
                   <p>
@@ -251,7 +227,7 @@ class Profile extends React.Component {
         </Tabs>
       </Styles.Profile>
     ) : (
-      <div />
+      ''
     );
   }
 }

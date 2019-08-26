@@ -12,24 +12,24 @@ const AuthenticatedNavigation = ({ name, userId }) => (
         <Nav.Link>Documents</Nav.Link>
       </LinkContainer>
       {Roles.userIsInRole(userId, 'admin') && (
-        <NavDropdown eventKey={2} title="Admin" id="admin-nav-dropdown">
+        <NavDropdown title="Admin" id="admin-nav-dropdown">
           <LinkContainer exact to="/admin/users">
-            <Nav.Link>Users</Nav.Link>
+            <NavDropdown.Item eventKey="/admin/users">Users</NavDropdown.Item>
           </LinkContainer>
           <LinkContainer exact to="/admin/users/settings">
-            <Nav.Link>User Settings</Nav.Link>
+            <NavDropdown.Item eventKey="/admin/users/settings">User Settings</NavDropdown.Item>
           </LinkContainer>
         </NavDropdown>
       )}
     </Nav>
     <Nav>
-      <NavDropdown alignRight title={name} id="user-nav-dropdown">
+      <NavDropdown alignRight title={name} id="user-nav-dropdown" data-test="user-nav-dropdown">
         <LinkContainer to="/profile">
-          <NavDropdown.Item eventKey={3.1}>Profile</NavDropdown.Item>
+          <NavDropdown.Item eventKey="/profile">Profile</NavDropdown.Item>
         </LinkContainer>
         <Dropdown.Divider />
         <LinkContainer to="/logout">
-          <NavDropdown.Item eventKey={3.2}>Logout</NavDropdown.Item>
+          <NavDropdown.Item eventKey="/logout">Logout</NavDropdown.Item>
         </LinkContainer>
       </NavDropdown>
     </Nav>
