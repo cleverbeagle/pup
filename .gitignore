@@ -1,25 +1,5 @@
 node_modules
 .vscode
-.DS_Store
-
-# ignoring the node_modules folder for all projects
-**/node_modules
-
-# Created by https://www.gitignore.io/api/visualstudiocode
-
-### VisualStudioCode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/.prettierignore
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history
-
-# End of https://www.gitignore.io/api/visualstudiocode
-
-# Lets take out the complete Webstorm project folder
-.idea/
 
 # Created by https://www.gitignore.io/api/macos
 
@@ -51,30 +31,4 @@ Temporary Items
 .apdisk
 
 # End of https://www.gitignore.io/api/macos
-##############################################
-
-##############################################
-# Created by https://www.gitignore.io/api/meteorjs
-### MeteorJS ###
-# default meteor build and local packages
-.meteor/local/
-**/.meteor/local/
-
-# meteor settings file
-settings.json
-settings-demo.json
-settings-staging.json
-settings-production.json
-!**/.deploy/production/settings.json
-!**/.deploy/staging/settings.json
-settings-demo.json
-settings-staging.json
-settings-production.json
-
-# meteor build output files
-*.tar.gz
-
-# general swp files from vim
-*.swp
-
-# End of https://www.gitignore.io/api/meteorjs
+##############################################∫

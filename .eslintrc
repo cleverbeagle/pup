@@ -9,10 +9,9 @@
     "babel",
     "jest",
     "meteor",
-    "react",
     "prettier",
-    "testcafe",
-    "jsdoc"
+    "react",
+    "testcafe"
   ],
   "extends": [
     "airbnb",
@@ -30,75 +29,52 @@
   "globals": {
     "expect": false
   },
-  "settings": {
-    "jsdoc": {
-      "tagNamePreference": {
-        "arg": "param",
-        "argument": "param",
-        "class": "constructor",
-        "return": "returns",
-        "virtual": "abstract"
-      }
-    },
-    "import/resolver": "meteor"
-  },
   "rules": {
-    "prettier/prettier": "error",
-    "indent": ["error", 2, { "SwitchCase": 1 }],
-    "no-tabs": ["error"],
-    "no-mixed-spaces-and-tabs": ["error"],
-    "no-underscore-dangle": [
-      "error",
-      {
-        "allow": ["_id", "_ensureIndex", "_verifyEmailToken", "_resetPasswordToken", "_name"]
-      }
+      "arrow-parens": [
+        2,
+        "always"
     ],
-    // "no-console": [
-    //   "error",
-    //   {
-    //     "allow": ["warn", "error", "info"]
-    //   }
-    // ],
-    "class-methods-use-this": 0,
-    "object-shorthand": ["error", "always", { "avoidQuotes": false }],
     "import/no-unresolved": 0,
     "import/no-extraneous-dependencies": 0,
     "import/extensions": 0,
-    "react/jsx-filename-extension": 0,
-    "react/forbid-prop-types": 0,
-    "react/destructuring-assignment": ["warn", "always", { "ignoreClassFields": true }],
+      "indent": 0,
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
-        "components": ["Link"],
-        "specialLink": ["hrefLeft", "hrefRight", "to"],
-        "aspects": ["noHref", "invalidHref", "preferButton"]
+          "components": [
+            "Link"
+          ],
+          "specialLink": [
+            "to"
+          ]
+        }
+      ],
+      "max-len": 0,
+      "no-alert": 0,
+      "no-console": 0,
+      "no-restricted-globals": 0,
+      "no-return-assign": [
+        "error",
+        "except-parens"
+      ],
+      "no-underscore-dangle": [
+        "error",
+        {
+          "allow": [
+            "_id",
+            "_ensureIndex",
+            "_verifyEmailToken",
+            "_resetPasswordToken",
+            "_name"
+          ]
       }
     ],
-    "jsdoc/check-examples": 2,
-    "jsdoc/check-param-names": 2,
-    "jsdoc/check-tag-names": 2,
-    "jsdoc/check-types": 2,
-    "jsdoc/newline-after-description": 2,
-    "jsdoc/no-undefined-types": 2,
-    "jsdoc/require-description": 0,
-    "jsdoc/require-description-complete-sentence": 2,
-    "jsdoc/require-example": 0,
-    "jsdoc/require-hyphen-before-param-description": 2,
-    "jsdoc/require-param": 2,
-    "jsdoc/require-param-description": 2,
-    "jsdoc/require-param-name": 2,
-    "jsdoc/require-param-type": 2,
-    "jsdoc/require-returns": 0,
-    "jsdoc/require-returns-check": 2,
-    "jsdoc/require-returns-description": 2,
-    "jsdoc/require-returns-type": 2,
-    "jsdoc/valid-types": 2,
-    // Possible new rules
-    "react/state-in-constructor": 0,
-    "react/jsx-props-no-spreading": 0,
-    // Just for migration rules
-    "no-restricted-globals": 1,
-    "no-console": 1
+      "class-methods-use-this": 0,
+      "prettier/prettier": 2,
+      "react/jsx-filename-extension": 0,
+      "react/forbid-prop-types": 0
+    },
+    "settings": {
+      "import/resolver": "meteor"
   }
 }
