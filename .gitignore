@@ -1,4 +1,7 @@
 node_modules
+settings-demo.json
+settings-staging.json
+settings-production.json
 .vscode
 
 # Created by https://www.gitignore.io/api/macos
