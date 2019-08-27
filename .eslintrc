@@ -53,12 +53,12 @@
         "allow": ["_id", "_ensureIndex", "_verifyEmailToken", "_resetPasswordToken", "_name"]
       }
     ],
-    "no-console": [
-      "error",
-      {
-        "allow": ["warn", "error", "info"]
-      }
-    ],
+    // "no-console": [
+    //   "error",
+    //   {
+    //     "allow": ["warn", "error", "info"]
+    //   }
+    // ],
     "class-methods-use-this": 0,
     "object-shorthand": ["error", "always", { "avoidQuotes": false }],
     "import/no-unresolved": 0,
@@ -93,6 +93,12 @@
     "jsdoc/require-returns-check": 2,
     "jsdoc/require-returns-description": 2,
     "jsdoc/require-returns-type": 2,
-    "jsdoc/valid-types": 2
+    "jsdoc/valid-types": 2,
+    // Possible new rules
+    "react/state-in-constructor": 0,
+    "react/jsx-props-no-spreading": 0,
+    // Just for migration rules
+    "no-restricted-globals": 1,
+    "no-console": 1
   }
 }
