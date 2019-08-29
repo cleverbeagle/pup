@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import Icon from '../../components/Icon';
 import Styles from './styles';
 
 const Index = () => (
@@ -15,7 +16,7 @@ const Index = () => (
         Read the Docs
       </Button>
       <Button variant="light" href="https://github.com/cleverbeagle/pup">
-        <i className="fa fa-star" />
+        <Icon iconStyle="solid" icon="star" />
         {' Star on GitHub'}
       </Button>
     </div>

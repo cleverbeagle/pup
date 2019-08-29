@@ -1,8 +1,17 @@
 import styled from 'styled-components';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Badge } from 'react-bootstrap';
 
 export const StyledListGroup = styled(ListGroup)`
   margin-bottom: 0;
+`;
+
+export const ServiceBadge = styled(Badge)`
+  display: inline-block;
+  position: relative;
+  top: -1px;
+  margin-left: 3px;
+  color: #fff;
+  background: ${(props) => `var(--${props.service})`};
 `;
 
 export const StyledListGroupItem = styled(ListGroupItem)`
@@ -43,31 +52,9 @@ export const StyledListGroupItem = styled(ListGroupItem)`
     margin: 0;
     white-space: nowrap;
 
-    span:not(.label) {
+    span:not(.badge) {
       color: var(--gray-light);
       margin-left: 5px;
-    }
-
-    .label {
-      display: inline-block;
-      position: relative;
-      top: -1px;
-      margin-left: 3px;
-    }
-
-    .label-facebook {
-      background: var(--facebook);
-      color: #fff;
-    }
-
-    .label-google {
-      background: var(--google);
-      color: #fff;
-    }
-
-    .label-github {
-      background: var(--github);
-      color: #fff;
     }
   }
 `;

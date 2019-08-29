@@ -9,7 +9,7 @@ const OAuthLoginButton = styled.button`
   background: var(--gray-lighter);
   border-radius: 3px;
 
-  i {
+  svg {
     margin-right: 3px;
     font-size: 18px;
     position: relative;

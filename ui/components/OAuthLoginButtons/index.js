@@ -7,11 +7,11 @@ import oAuthServicesQuery from '../../queries/OAuth.gql';
 import Styles from './styles';
 
 const OAuthLoginButtons = ({ emailMessage, data: { oAuthServices, loading } }) => (
-  <React.Fragment>
+  <>
     {loading ? (
       <Loading />
     ) : (
-      <React.Fragment>
+      <>
         {oAuthServices.length ? (
           <Styles.OAuthLoginButtons emailMessage={emailMessage}>
             {oAuthServices.map((service) => (
@@ -24,11 +24,11 @@ const OAuthLoginButtons = ({ emailMessage, data: { oAuthServices, loading } }) =
             )}
           </Styles.OAuthLoginButtons>
         ) : (
-          <React.Fragment />
+          <></>
         )}
-      </React.Fragment>
+      </>
     )}
-  </React.Fragment>
+  </>
 );
 
 OAuthLoginButtons.propTypes = {

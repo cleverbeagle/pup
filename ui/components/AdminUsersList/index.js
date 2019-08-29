@@ -6,7 +6,7 @@ import { graphql } from 'react-apollo';
 import Loading from '../Loading';
 import { users as usersQuery } from '../../queries/Users.gql';
 
-import { StyledListGroup, StyledListGroupItem } from './styles';
+import { StyledListGroup, StyledListGroupItem, ServiceBadge } from './styles';
 
 const UserPagination = ({ data, perPage, currentPage, onChangePage }) => {
   const pages = [];
@@ -49,7 +49,7 @@ const AdminUsersList = ({ data, search, perPage, currentPage, onChangePage }) =>
                 {name ? `${name.first} ${name.last}` : username}
                 <span>{emailAddress}</span>
                 {oAuthProvider && (
-                  <span className={`label label-${oAuthProvider}`}>{oAuthProvider}</span>
+                  <ServiceBadge service={oAuthProvider}>{oAuthProvider}</ServiceBadge>
                 )}
               </p>
             </StyledListGroupItem>
