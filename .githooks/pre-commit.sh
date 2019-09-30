@@ -21,7 +21,7 @@ for FILE in $STAGED_FILES
 do
   "$ESLINT" --fix "$FILE"
 
-  if [[ "$?" == 0 ]]; then
+  if [ $? -eq 0 ]; then
     printf "\t\033[32mESLint Passed: $FILE\033[0m"
   else
     printf "\t\033[41mESLint Failed: $FILE\033[0m"
