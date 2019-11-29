@@ -53,10 +53,6 @@ const schema = {
       sendVerificationEmail: User
       sendWelcomeEmail: User
     }
-
-    type Subscription {
-      commentAdded(documentId: String!): Comment
-    }
   `,
   resolvers: {
     Query: {
