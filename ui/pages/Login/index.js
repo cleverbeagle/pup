@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Row, Col, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -69,39 +69,36 @@ class Login extends React.Component {
               }}
             >
               <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
-                <FormGroup>
-                  <ControlLabel>Email Address</ControlLabel>
-                  <input
+                <Form.Group>
+                  <Form.Label>Email Address</Form.Label>
+                  <Form.Control
                     type="email"
                     name="emailAddress"
-                    className="form-control"
                     placeholder="Email Address"
                     data-test="emailAddress"
                   />
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel className="clearfix">
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label className="clearfix">
                     <span className="pull-left">Password</span>
                     <Link className="pull-right" to="/recover-password">
                       Forgot password?
                     </Link>
-                  </ControlLabel>
-                  <input
+                  </Form.Label>
+                  <Form.Control
                     type="password"
                     name="password"
-                    className="form-control"
                     placeholder="Password"
                     data-test="password"
                   />
-                </FormGroup>
-                <Button type="submit" bsStyle="success" block>
+                </Form.Group>
+                <Button type="submit" variant="success" block>
                   Log In
                 </Button>
                 <AccountPageFooter>
                   <p>
                     {"Don't have an account? "}
-                    <Link to="/signup">Sign Up</Link>
-                    {'.'}
+                    <Link to="/signup">Sign Up</Link>.
                   </p>
                 </AccountPageFooter>
               </form>

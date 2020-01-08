@@ -11,8 +11,8 @@ const handleResendVerificationEmail = (emailAddress, sendVerificationEmail) => {
   Bert.alert(`Check ${emailAddress} for a verification link!`, 'success');
 };
 
-const VerifyEmailAlert = ({ userId, emailVerified, emailAddress, sendVerificationEmail }) => {
-  return userId && !emailVerified ? (
+const VerifyEmailAlert = ({ userId, emailVerified, emailAddress, sendVerificationEmail }) =>
+  userId && !emailVerified ? (
     <Styles.VerifyEmailAlert>
       <Alert className="verify-email text-center">
         <p>
@@ -21,7 +21,7 @@ const VerifyEmailAlert = ({ userId, emailVerified, emailAddress, sendVerificatio
           {` (${emailAddress}) `}
           for us?
           <Button
-            bsStyle="link"
+            variant="link"
             onClick={() => handleResendVerificationEmail(emailAddress, sendVerificationEmail)}
             href="#"
           >
@@ -31,7 +31,6 @@ const VerifyEmailAlert = ({ userId, emailVerified, emailAddress, sendVerificatio
       </Alert>
     </Styles.VerifyEmailAlert>
   ) : null;
-};
 
 VerifyEmailAlert.propTypes = {
   userId: PropTypes.string.isRequired,

@@ -62,7 +62,7 @@ class GDPRConsentModal extends React.Component {
             <p>
               {"In cooperation with the European Union's (EU) "}
               <a href="https://www.eugdpr.org/" target="_blank" rel="noopener noreferrer">
-                {'General Data Protection Regulation'}
+                General Data Protection Regulation
               </a>
               {
                 ' (GDPR), we need to obtain your consent for how we make use of your data. Please review each of the settings below to customize your experience.'
@@ -72,7 +72,7 @@ class GDPRConsentModal extends React.Component {
           </Modal.Body>
           <Modal.Footer>
             <Button
-              bsStyle="success"
+              variant="success"
               onClick={() => {
                 this.handleSaveSettings();
                 this.setState({ show: false });

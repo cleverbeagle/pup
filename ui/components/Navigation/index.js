@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import PublicNavigation from '../PublicNavigation';
 import AuthenticatedNavigation from '../AuthenticatedNavigation';
@@ -9,14 +8,10 @@ import AuthenticatedNavigation from '../AuthenticatedNavigation';
 const Navigation = (props) => {
   const { authenticated } = props;
   return (
-    <Navbar collapseOnSelect>
-      <Navbar.Header>
-        <Navbar.Brand>
-          <Link to="/">{Meteor.settings.public.productName}</Link>
-        </Navbar.Brand>
-        <Navbar.Toggle />
-      </Navbar.Header>
-      <Navbar.Collapse>
+    <Navbar collapseOnSelect bg="light">
+      <Navbar.Brand href="/">{Meteor.settings.public.productName}</Navbar.Brand>
+      <Navbar.Toggle />
+      <Navbar.Collapse className="justify-content-end">
         {!authenticated ? <PublicNavigation /> : <AuthenticatedNavigation {...props} />}
       </Navbar.Collapse>
     </Navbar>

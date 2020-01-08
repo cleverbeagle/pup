@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Alert, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Row, Col, Alert, Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
@@ -29,7 +29,7 @@ class RecoverPassword extends React.Component {
         <Row>
           <Col xs={12}>
             <h4 className="page-header">Recover Password</h4>
-            <Alert bsStyle="info">
+            <Alert variant="info">
               Enter your email address below to receive a link to reset your password.
             </Alert>
             <Validation
@@ -50,23 +50,17 @@ class RecoverPassword extends React.Component {
               }}
             >
               <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
-                <FormGroup>
-                  <ControlLabel>Email Address</ControlLabel>
-                  <input
-                    type="email"
-                    name="emailAddress"
-                    className="form-control"
-                    placeholder="Email Address"
-                  />
-                </FormGroup>
-                <Button type="submit" bsStyle="success" block>
+                <Form.Group>
+                  <Form.Label>Email Address</Form.Label>
+                  <Form.Control type="email" name="emailAddress" placeholder="Email Address" />
+                </Form.Group>
+                <Button type="submit" variant="success" block>
                   Recover Password
                 </Button>
                 <AccountPageFooter>
                   <p>
                     {'Remember your password? '}
-                    <Link to="/login">Log In</Link>
-                    {'.'}
+                    <Link to="/login">Log In</Link>.
                   </p>
                 </AccountPageFooter>
               </form>

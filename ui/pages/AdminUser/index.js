@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, graphql } from 'react-apollo';
 import { Breadcrumb, Tab } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { Bert } from 'meteor/themeteorchef:bert';
 import AdminUserProfile from '../../components/AdminUserProfile';
 import UserSettings from '../../components/UserSettings';
@@ -26,9 +25,7 @@ class AdminUser extends React.Component {
     return data.user ? (
       <div className="AdminUser">
         <Breadcrumb>
-          <li>
-            <Link to="/admin/users">Users</Link>
-          </li>
+          <Breadcrumb.Item onClick={() => history.push('/admin/users')}>Home</Breadcrumb.Item>
           <Breadcrumb.Item active>{name ? `${name.first} ${name.last}` : username}</Breadcrumb.Item>
         </Breadcrumb>
         <Styles.AdminUserHeader className="page-header">
@@ -40,7 +37,7 @@ class AdminUser extends React.Component {
           )}
         </Styles.AdminUserHeader>
         <Styles.AdminUserTabs
-          animation={false}
+          transition={false}
           activeKey={activeTab}
           onSelect={(selectedTab) => this.setState({ activeTab: selectedTab })}
           id="admin-user-tabs"

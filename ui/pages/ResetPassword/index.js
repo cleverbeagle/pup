@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Alert, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Row, Col, Alert, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -28,7 +28,7 @@ class ResetPassword extends React.Component {
         <Row>
           <Col xs={12}>
             <h4 className="page-header">Reset Password</h4>
-            <Alert bsStyle="info">
+            <Alert variant="info">
               To reset your password, enter a new one below. You will be logged in with your new
               password.
             </Alert>
@@ -59,32 +59,25 @@ class ResetPassword extends React.Component {
               }}
             >
               <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
-                <FormGroup>
-                  <ControlLabel>New Password</ControlLabel>
-                  <input
+                <Form.Group>
+                  <Form.Label>New Password</Form.Label>
+                  <Form.Control type="password" name="newPassword" placeholder="New Password" />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label>Repeat New Password</Form.Label>
+                  <Form.Control
                     type="password"
-                    className="form-control"
-                    name="newPassword"
-                    placeholder="New Password"
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <ControlLabel>Repeat New Password</ControlLabel>
-                  <input
-                    type="password"
-                    className="form-control"
                     name="repeatNewPassword"
                     placeholder="Repeat New Password"
                   />
-                </FormGroup>
-                <Button type="submit" bsStyle="success" block>
+                </Form.Group>
+                <Button type="submit" variant="success" block>
                   Reset Password &amp; Login
                 </Button>
                 <AccountPageFooter>
                   <p>
                     {"Not sure why you're here? "}
-                    <Link to="/login">Log In</Link>
-                    {'.'}
+                    <Link to="/login">Log In</Link>.
                   </p>
                 </AccountPageFooter>
               </form>

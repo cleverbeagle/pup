@@ -1,16 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Row,
-  Col,
-  ControlLabel,
-  FormGroup,
-  ListGroup,
-  ListGroupItem,
-  Checkbox,
-  InputGroup,
-  Button,
-} from 'react-bootstrap';
+import { Row, Col, Form, ListGroup, ListGroupItem, InputGroup, Button } from 'react-bootstrap';
 import { capitalize } from 'lodash';
 import { Random } from 'meteor/random';
 import InputHint from '../InputHint';
@@ -118,125 +108,125 @@ class AdminUserProfile extends React.Component {
                   {user && user.name && (
                     <Row>
                       <Col xs={6}>
-                        <FormGroup>
-                          <ControlLabel>First Name</ControlLabel>
-                          <input
+                        <Form.Group>
+                          <Form.Label>First Name</Form.Label>
+                          <Form.Control
                             disabled={user && user.oAuthProvider}
                             type="text"
                             name="firstName"
-                            className="form-control"
                             defaultValue={user && user.name && user.name.first}
                           />
-                        </FormGroup>
+                        </Form.Group>
                       </Col>
                       <Col xs={6}>
-                        <FormGroup>
-                          <ControlLabel>Last Name</ControlLabel>
-                          <input
+                        <Form.Group>
+                          <Form.Label>Last Name</Form.Label>
+                          <Form.Control
                             disabled={user && user.oAuthProvider}
                             type="text"
                             name="lastName"
-                            className="form-control"
                             defaultValue={user && user.name && user.name.last}
                           />
-                        </FormGroup>
+                        </Form.Group>
                       </Col>
                     </Row>
                   )}
                   {user && user.username && (
                     <Row>
                       <Col xs={12}>
-                        <FormGroup>
-                          <ControlLabel>Username</ControlLabel>
-                          <input
+                        <Form.Group>
+                          <Form.Label>Username</Form.Label>
+                          <Form.Control
                             disabled={user && user.oAuthProvider}
                             type="text"
                             name="username"
-                            className="form-control"
                             defaultValue={user && user.username}
                           />
-                        </FormGroup>
+                        </Form.Group>
                       </Col>
                     </Row>
                   )}
                   <Row>
                     <Col xs={12}>
-                      <FormGroup>
-                        <ControlLabel>Email Address</ControlLabel>
-                        <input
+                      <Form.Group>
+                        <Form.Label>Email Address</Form.Label>
+                        <Form.Control
                           disabled={user && user.oAuthProvider}
                           type="text"
                           name="emailAddress"
                           autoComplete="off"
-                          className="form-control"
                           defaultValue={user && user.emailAddress}
                         />
-                      </FormGroup>
+                      </Form.Group>
                     </Col>
                   </Row>
                   <Row>
                     <Col xs={12}>
-                      <FormGroup>
-                        <ControlLabel>Roles</ControlLabel>
+                      <Form.Group>
+                        <Form.Label>Roles</Form.Label>
                         <ListGroup>
                           {user.roles.map(({ _id, name, inRole }) => (
                             <ListGroupItem key={_id}>
-                              <Checkbox name="role" value={name} defaultChecked={inRole} inline>
-                                {capitalize(name)}
-                              </Checkbox>
+                              <Form.Check
+                                type="checkbox"
+                                name="role"
+                                value={name}
+                                defaultChecked={inRole}
+                                inline
+                                label={capitalize(name)}
+                              />
                             </ListGroupItem>
                           ))}
                         </ListGroup>
-                      </FormGroup>
+                      </Form.Group>
                     </Col>
                   </Row>
                   {user && !user.oAuthProvider && (
                     <Row>
                       <Col xs={12}>
-                        <FormGroup>
-                          <ControlLabel>
+                        <Form.Group>
+                          <Form.Label>
                             Password
-                            <Checkbox
+                            <Form.Check
                               inline
                               checked={showPassword}
                               className="pull-right"
+                              label="Show Password"
+                              type="checkbox"
                               onChange={() =>
                                 this.setState({
                                   showPassword: !showPassword,
                                 })
                               }
-                            >
-                              Show Password
-                            </Checkbox>
-                          </ControlLabel>
+                            />
+                          </Form.Label>
                           <InputGroup>
-                            <input
+                            <Form.Control
                               type={showPassword ? 'text' : 'password'}
                               name="password"
-                              className="form-control"
                               autoComplete="off"
                               value={password}
                               onChange={(event) => {
                                 this.setState({ password: event.target.value });
                               }}
                             />
-                            <InputGroup.Button>
+                            <InputGroup.Append>
                               <Button onClick={this.generatePassword}>
                                 <Icon iconStyle="solid" icon="refresh" />
-                                {' Generate'}
+                                Generate
                               </Button>
-                            </InputGroup.Button>
+                            </InputGroup.Append>
                           </InputGroup>
                           <InputHint>Use at least six characters.</InputHint>
-                        </FormGroup>
+                        </Form.Group>
                       </Col>
                     </Row>
                   )}
-                  <Button type="submit" bsStyle="success">
+                  <Button type="submit" variant="success">
                     {user ? 'Save Changes' : 'Create User'}
                   </Button>
                   {user && (
-                    <Button bsStyle="danger" className="pull-right" onClick={this.handleDeleteUser}>
+                    <Button variant="danger" className="pull-right" onClick={this.handleDeleteUser}>
                       Delete User
                     </Button>
                   )}
