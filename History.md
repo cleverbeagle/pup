@@ -1,4 +1,8 @@
-# v2.2.0, August 26th, 2020
+## v2.2.1, August 26th, 2020
+
+- Bump `bcrypt` to `5.0.0`
+
+## v2.2.0, August 26th, 2020
 
 Yes, I'm still here. Just been focused on other projects :)
 
