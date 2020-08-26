@@ -1,3 +1,11 @@
+# v2.2.0, August 26th, 2020
+
+Yes, I'm still here. Just been focused on other projects :)
+
+- Bump Meteor to 1.11.0
+- Bump NPM dependencies
+- Fix NPM audit warnings
+
 ## v2.1.0, July 29th, 2019
 
 Special thanks to @ayhid, @MichelFloyd, @mrwisu, @h4de5, and @aferreol for help on this release :)
