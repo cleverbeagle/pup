@@ -1,57 +1,9 @@
 import seeder from '@cleverbeagle/seeder';
 import { Meteor } from 'meteor/meteor';
-import Documents from '../../api/Documents/Documents';
-import Comments from '../../api/Comments/Comments';
-
-const commentsSeed = (userId, date, documentId) => {
-  seeder(Comments, {
-    seedIfExistingData: true,
-    environments: ['development', 'staging'],
-    data: {
-      dynamic: {
-        count: 3,
-        seed(commentIteration, faker) {
-          return {
-            userId,
-            documentId,
-            comment: faker.hacker.phrase(),
-            createdAt: date,
-          };
-        },
-      },
-    },
-  });
-};
-
-const documentsSeed = (userId) => {
-  seeder(Documents, {
-    seedIfExistingData: true,
-    environments: ['development', 'staging'],
-    data: {
-      dynamic: {
-        count: 5,
-        seed(iteration) {
-          const date = new Date().toISOString();
-          return {
-            isPublic: false,
-            createdAt: date,
-            updatedAt: date,
-            owner: userId,
-            title: `Document #${iteration + 1}`,
-            body: `This is the body of document #${iteration + 1}`,
-            dependentData(documentId) {
-              commentsSeed(userId, date, documentId);
-            },
-          };
-        },
-      },
-    },
-  });
-};
 
 seeder(Meteor.users, {
   seedIfExistingData: true,
-  environments: ['development', 'staging'],
+  environments: ['development', 'staging', 'production'],
   data: {
     static: [
       {
@@ -64,9 +16,6 @@ seeder(Meteor.users, {
           },
         },
         roles: ['admin'],
-        dependentData(userId) {
-          documentsSeed(userId);
-        },
       },
     ],
     dynamic: {
@@ -83,9 +32,6 @@ seeder(Meteor.users, {
             },
           },
           roles: ['user'],
-          dependentData(userId) {
-            documentsSeed(userId);
-          },
         };
       },
     },
