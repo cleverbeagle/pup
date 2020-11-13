@@ -1,7 +1,7 @@
 {
-  "name": "pup",
-  "version": "2.1.0",
-  "description": "The Ultimate Boilerplate for Products.",
+  "name": "codenerd",
+  "version": "0.0.0",
+  "description": "Code school for kids.",
   "private": true,
   "repository": {
     "url": "git@cleverbeagle:cleverbeagle/pup.git",
@@ -17,14 +17,19 @@
   },
   "scripts": {
     "dev": "meteor --settings settings-development.json",
-    "staging": "DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy pup-staging.cleverbeagle.com --settings settings-staging.json",
-    "production": "DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy pup.cleverbeagle.com --settings settings-production.json",
-    "lint": "eslint .",
-    "lint:all": "eslint --fix .",
-    "lint:file": "eslint --fix",
-    "test": "jest",
-    "test-watch": "jest --watch --verbose false",
-    "test-e2e": "testcafe chrome:headless ui/**/*.e2e.js"
+    "deploy": "node ../.deploy codenerd",
+    "certificates": "cd ~/projects/cleverbeagle/.deploy && kubectl --kubeconfig='kubectl_config' describe certificate",
+    "cluster": "doctl kubernetes cluster get cleverbeagle",
+    "nodepool": "doctl kubernetes cluster node-pool get cleverbeagle codenerd",
+    "settings": "cd ~/projects/cleverbeagle/.deploy && kubectl --kubeconfig='kubectl_config' get secret codenerd-env-vars -o jsonpath=\"{.data.METEOR_SETTINGS}\" | base64 --decode",
+    "deployments": "cd ~/projects/cleverbeagle/.deploy && kubectl --kubeconfig='kubectl_config' get deployments -o wide",
+    "pods": "cd ~/projects/cleverbeagle/.deploy && kubectl --kubeconfig='kubectl_config' get pods -o wide",
+    "pods:describe": "cd ~/projects/cleverbeagle/.deploy && kubectl --kubeconfig='kubectl_config' describe pods",
+    "logs": "cd ~/projects/cleverbeagle/.deploy && kubectl --kubeconfig='kubectl_config' logs -l app=codenerd -f --tail=1000",
+    "version": "chmod +x ../.deploy/setDeploymentVersion && ../.deploy/setDeploymentVersion codenerd",
+    "restart": "cd ~/projects/cleverbeagle/.deploy && kubectl --kubeconfig='kubectl_config' -n default rollout restart deployment codenerd",
+    "backup": "chmod +x .mongodb-backups/dump && ./.mongodb-backups/dump",
+    "restore": "chmod +x .mongodb-backups/restore && ./.mongodb-backups/restore"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
