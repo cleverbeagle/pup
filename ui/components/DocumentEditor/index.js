@@ -50,6 +50,8 @@ class DocumentEditor extends React.Component {
         variables: {
           _id: doc._id,
           isPublic: isPublic === 'public',
+          title: this.form.title.value.trim(),
+          body: this.form.body.value.trim(),
         },
       });
     });
