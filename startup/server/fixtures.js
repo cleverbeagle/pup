@@ -6,7 +6,7 @@ import Comments from '../../api/Comments/Comments';
 const commentsSeed = (userId, date, documentId) => {
   seeder(Comments, {
     seedIfExistingData: true,
-    environments: ['development', 'staging'],
+    environments: ['development', 'staging', 'production'],
     data: {
       dynamic: {
         count: 3,
@@ -26,7 +26,7 @@ const commentsSeed = (userId, date, documentId) => {
 const documentsSeed = (userId) => {
   seeder(Documents, {
     seedIfExistingData: true,
-    environments: ['development', 'staging'],
+    environments: ['development', 'staging', 'production'],
     data: {
       dynamic: {
         count: 5,
@@ -51,7 +51,7 @@ const documentsSeed = (userId) => {
 
 seeder(Meteor.users, {
   seedIfExistingData: true,
-  environments: ['development', 'staging'],
+  environments: ['development', 'staging', 'production'],
   data: {
     static: [
       {
