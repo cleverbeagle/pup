@@ -9,14 +9,12 @@ import AuthenticatedNavigation from '../AuthenticatedNavigation';
 const Navigation = (props) => {
   const { authenticated } = props;
   return (
-    <Navbar collapseOnSelect>
-      <Navbar.Header>
-        <Navbar.Brand>
-          <Link to="/">{Meteor.settings.public.productName}</Link>
-        </Navbar.Brand>
-        <Navbar.Toggle />
-      </Navbar.Header>
-      <Navbar.Collapse>
+    <Navbar collapseOnSelect expand="lg">
+      <Navbar.Brand>
+        <Link to="/">{Meteor.settings.public.productName}</Link>
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
         {!authenticated ? <PublicNavigation /> : <AuthenticatedNavigation {...props} />}
       </Navbar.Collapse>
     </Navbar>

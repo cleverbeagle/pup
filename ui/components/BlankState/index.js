@@ -11,7 +11,7 @@ const BlankState = ({ image, icon, title, subtitle, action }) => (
     <h4>{title}</h4>
     <p>{subtitle}</p>
     {action && (
-      <Button bsStyle={action.style || 'success'} onClick={action.onClick}>
+      <Button variant={action.style || 'success'} onClick={action.onClick}>
         {action.label}
       </Button>
     )}

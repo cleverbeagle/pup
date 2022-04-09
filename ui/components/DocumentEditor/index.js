@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ControlLabel, DropdownButton, MenuItem } from 'react-bootstrap';
+import { FormLabel, DropdownButton, Dropdown } from 'react-bootstrap';
 import { Mutation } from 'react-apollo';
 import autoBind from 'react-autobind';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -114,39 +114,39 @@ class DocumentEditor extends React.Component {
                   </span>
                 )}
               </p>
-              <DropdownButton bsStyle="default" title={settingsIcon} id="set-document-public">
-                <MenuItem onClick={() => history.push(`/documents/${doc._id}`)}>
+              <DropdownButton variant="default" title={settingsIcon} id="set-document-public">
+                <Dropdown.Item onClick={() => history.push(`/documents/${doc._id}`)}>
                   <Icon iconStyle="solid" icon="external-link-alt" />
                   {' View Document'}
-                </MenuItem>
-                <MenuItem divider />
-                <MenuItem header>Visibility</MenuItem>
-                <MenuItem
+                </Dropdown.Item>
+                <Dropdown.Item divider />
+                <Dropdown.Item header>Visibility</Dropdown.Item>
+                <Dropdown.Item
                   className={doc.isPublic && 'active'}
                   eventKey="1"
                   onClick={() => this.handleSetVisibility(mutate, 'public')}
                 >
                   <Icon iconStyle="solid" icon="unlock" />
                   {' Public'}
-                </MenuItem>
-                <MenuItem
+                </Dropdown.Item>
+                <Dropdown.Item
                   className={!doc.isPublic && 'active'}
                   eventKey="2"
                   onClick={() => this.handleSetVisibility(mutate, 'private')}
                 >
                   <Icon iconStyle="solid" icon="lock" />
                   {' Private'}
-                </MenuItem>
-                <MenuItem divider />
-                <MenuItem onClick={() => this.handleRemoveDocument(mutate)}>
+                </Dropdown.Item>
+                <Dropdown.Item divider />
+                <Dropdown.Item onClick={() => this.handleRemoveDocument(mutate)}>
                   <span className="text-danger">Delete Document</span>
-                </MenuItem>
+                </Dropdown.Item>
               </DropdownButton>
             </DocumentEditorHeader>
             <StyledDocumentEditor>
               <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
                 <DocumentEditorTitle>
-                  <ControlLabel>Title</ControlLabel>
+                  <FormLabel>Title</FormLabel>
                   <input
                     type="text"
                     className="form-control"
@@ -157,7 +157,7 @@ class DocumentEditor extends React.Component {
                   />
                 </DocumentEditorTitle>
                 <DocumentEditorBody>
-                  <ControlLabel>Body</ControlLabel>
+                  <FormLabel>Body</FormLabel>
                   <textarea
                     className="form-control"
                     name="body"

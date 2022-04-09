@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Alert, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Row, Col, Alert, FormGroup, FormLabel, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Accounts } from 'meteor/accounts-base';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -28,7 +28,7 @@ class ResetPassword extends React.Component {
         <Row>
           <Col xs={12}>
             <h4 className="page-header">Reset Password</h4>
-            <Alert bsStyle="info">
+            <Alert variant="info">
               To reset your password, enter a new one below. You will be logged in with your new
               password.
             </Alert>
@@ -60,7 +60,7 @@ class ResetPassword extends React.Component {
             >
               <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
                 <FormGroup>
-                  <ControlLabel>New Password</ControlLabel>
+                  <FormLabel>New Password</FormLabel>
                   <input
                     type="password"
                     className="form-control"
@@ -69,7 +69,7 @@ class ResetPassword extends React.Component {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <ControlLabel>Repeat New Password</ControlLabel>
+                  <FormLabel>Repeat New Password</FormLabel>
                   <input
                     type="password"
                     className="form-control"
@@ -77,7 +77,7 @@ class ResetPassword extends React.Component {
                     placeholder="Repeat New Password"
                   />
                 </FormGroup>
-                <Button type="submit" bsStyle="success" block>
+                <Button type="submit" variant="success" block>
                   Reset Password &amp; Login
                 </Button>
                 <AccountPageFooter>

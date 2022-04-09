@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import {
   Row,
   Col,
-  ControlLabel,
+  FormLabel,
   FormGroup,
   ListGroup,
   ListGroupItem,
-  Checkbox,
+  FormCheck,
   InputGroup,
   Button,
 } from 'react-bootstrap';
@@ -119,7 +119,7 @@ class AdminUserProfile extends React.Component {
                     <Row>
                       <Col xs={6}>
                         <FormGroup>
-                          <ControlLabel>First Name</ControlLabel>
+                          <FormLabel>First Name</FormLabel>
                           <input
                             disabled={user && user.oAuthProvider}
                             type="text"
@@ -131,7 +131,7 @@ class AdminUserProfile extends React.Component {
                       </Col>
                       <Col xs={6}>
                         <FormGroup>
-                          <ControlLabel>Last Name</ControlLabel>
+                          <FormLabel>Last Name</FormLabel>
                           <input
                             disabled={user && user.oAuthProvider}
                             type="text"
@@ -147,7 +147,7 @@ class AdminUserProfile extends React.Component {
                     <Row>
                       <Col xs={12}>
                         <FormGroup>
-                          <ControlLabel>Username</ControlLabel>
+                          <FormLabel>Username</FormLabel>
                           <input
                             disabled={user && user.oAuthProvider}
                             type="text"
@@ -162,7 +162,7 @@ class AdminUserProfile extends React.Component {
                   <Row>
                     <Col xs={12}>
                       <FormGroup>
-                        <ControlLabel>Email Address</ControlLabel>
+                        <FormLabel>Email Address</FormLabel>
                         <input
                           disabled={user && user.oAuthProvider}
                           type="text"
@@ -177,13 +177,13 @@ class AdminUserProfile extends React.Component {
                   <Row>
                     <Col xs={12}>
                       <FormGroup>
-                        <ControlLabel>Roles</ControlLabel>
+                        <FormLabel>Roles</FormLabel>
                         <ListGroup>
                           {user.roles.map(({ _id, name, inRole }) => (
                             <ListGroupItem key={_id}>
-                              <Checkbox name="role" value={name} defaultChecked={inRole} inline>
+                              <FormCheck name="role" value={name} defaultChecked={inRole} inline>
                                 {capitalize(name)}
-                              </Checkbox>
+                              </FormCheck>
                             </ListGroupItem>
                           ))}
                         </ListGroup>
@@ -194,9 +194,9 @@ class AdminUserProfile extends React.Component {
                     <Row>
                       <Col xs={12}>
                         <FormGroup>
-                          <ControlLabel>
+                          <FormLabel>
                             Password
-                            <Checkbox
+                            <FormCheck
                               inline
                               checked={showPassword}
                               className="pull-right"
@@ -207,8 +207,8 @@ class AdminUserProfile extends React.Component {
                               }
                             >
                               Show Password
-                            </Checkbox>
-                          </ControlLabel>
+                            </FormCheck>
+                          </FormLabel>
                           <InputGroup>
                             <input
                               type={showPassword ? 'text' : 'password'}
@@ -232,11 +232,11 @@ class AdminUserProfile extends React.Component {
                       </Col>
                     </Row>
                   )}
-                  <Button type="submit" bsStyle="success">
+                  <Button type="submit" variant="success">
                     {user ? 'Save Changes' : 'Create User'}
                   </Button>
                   {user && (
-                    <Button bsStyle="danger" className="pull-right" onClick={this.handleDeleteUser}>
+                    <Button variant="danger" className="pull-right" onClick={this.handleDeleteUser}>
                       Delete User
                     </Button>
                   )}

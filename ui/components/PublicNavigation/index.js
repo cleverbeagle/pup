@@ -1,18 +1,22 @@
 import React from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Nav, NavItem } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 
 const PublicNavigation = () => (
-  <Nav pullRight>
+  <Nav className="justify-content-end">
     <LinkContainer to="/signup">
-      <NavItem eventKey={1} href="/signup">
-        Sign Up
-      </NavItem>
+      <Nav.Item>
+        <Nav.Link eventKey={1} href="/signup">
+          Sign Up
+        </Nav.Link>
+      </Nav.Item>
     </LinkContainer>
     <LinkContainer to="/login">
-      <NavItem eventKey={2} href="/login">
-        Log In
-      </NavItem>
+      <Nav.Item>
+        <Nav.Link eventKey={2} href="/login">
+          Log In
+        </Nav.Link>
+      </Nav.Item>
     </LinkContainer>
   </Nav>
 );
