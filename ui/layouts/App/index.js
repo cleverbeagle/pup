@@ -72,8 +72,8 @@ class App extends React.Component {
           />
         )}
         {props.authenticated && <GDPRConsentModal userId={props.userId} />}
+        <Navigation {...props} {...state} />
         <Container>
-          <Navigation {...props} {...state} />
           <Switch>
             <Route exact name="index" path="/" component={Index} />
 

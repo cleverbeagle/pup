@@ -26,9 +26,11 @@ class AdminUser extends React.Component {
     return data.user ? (
       <div className="AdminUser">
         <Breadcrumb>
-          <li>
-            <Link to="/admin/users">Users</Link>
-          </li>
+          <Breadcrumb.Item>
+            <li>
+              <Link to="/admin/users">Users</Link>
+            </li>
+          </Breadcrumb.Item>
           <Breadcrumb.Item active>{name ? `${name.first} ${name.last}` : username}</Breadcrumb.Item>
         </Breadcrumb>
         <Styles.AdminUserHeader className="page-header">
@@ -40,7 +42,6 @@ class AdminUser extends React.Component {
           )}
         </Styles.AdminUserHeader>
         <Styles.AdminUserTabs
-          animation={false}
           activeKey={activeTab}
           onSelect={(selectedTab) => this.setState({ activeTab: selectedTab })}
           id="admin-user-tabs"

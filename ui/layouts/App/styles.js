@@ -18,7 +18,7 @@ const App = styled.div`
     border-radius: 0;
 
     p {
-      padding: 19px;
+      padding-top: 19px;
     }
 
     .btn {
