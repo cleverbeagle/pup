@@ -12,7 +12,7 @@ const Index = styled.div`
 
   img {
     width: 100px;
-    height: auto;
+    height: 122px;
   }
 
   h1 {

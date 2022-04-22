@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Row, Col, FormGroup, FormLabel, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
@@ -96,7 +96,7 @@ class Signup extends React.Component {
                 <Row>
                   <Col xs={6}>
                     <FormGroup>
-                      <ControlLabel>First Name</ControlLabel>
+                      <FormLabel>First Name</FormLabel>
                       <input
                         type="text"
                         name="firstName"
@@ -107,7 +107,7 @@ class Signup extends React.Component {
                   </Col>
                   <Col xs={6}>
                     <FormGroup>
-                      <ControlLabel>Last Name</ControlLabel>
+                      <FormLabel>Last Name</FormLabel>
                       <input
                         type="text"
                         name="lastName"
@@ -118,7 +118,7 @@ class Signup extends React.Component {
                   </Col>
                 </Row>
                 <FormGroup>
-                  <ControlLabel>Email Address</ControlLabel>
+                  <FormLabel>Email Address</FormLabel>
                   <input
                     type="email"
                     name="emailAddress"
@@ -127,7 +127,7 @@ class Signup extends React.Component {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <ControlLabel>Password</ControlLabel>
+                  <FormLabel>Password</FormLabel>
                   <input
                     type="password"
                     name="password"
@@ -136,7 +136,7 @@ class Signup extends React.Component {
                   />
                   <InputHint>Use at least six characters.</InputHint>
                 </FormGroup>
-                <Button type="submit" bsStyle="success" block>
+                <Button type="submit" variant="success" block>
                   Sign Up
                 </Button>
                 <AccountPageFooter>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ControlLabel, DropdownButton, MenuItem } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { Mutation } from 'react-apollo';
 import autoBind from 'react-autobind';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -110,43 +110,47 @@ class DocumentEditor extends React.Component {
                 ) : (
                   <span>
                     Last edit was
-                    {timeago(doc.updatedAt)}
+                    {` ${timeago(doc.updatedAt)}`}
                   </span>
                 )}
               </p>
-              <DropdownButton bsStyle="default" title={settingsIcon} id="set-document-public">
-                <MenuItem onClick={() => history.push(`/documents/${doc._id}`)}>
-                  <Icon iconStyle="solid" icon="external-link-alt" />
-                  {' View Document'}
-                </MenuItem>
-                <MenuItem divider />
-                <MenuItem header>Visibility</MenuItem>
-                <MenuItem
-                  className={doc.isPublic && 'active'}
-                  eventKey="1"
-                  onClick={() => this.handleSetVisibility(mutate, 'public')}
-                >
-                  <Icon iconStyle="solid" icon="unlock" />
-                  {' Public'}
-                </MenuItem>
-                <MenuItem
-                  className={!doc.isPublic && 'active'}
-                  eventKey="2"
-                  onClick={() => this.handleSetVisibility(mutate, 'private')}
-                >
-                  <Icon iconStyle="solid" icon="lock" />
-                  {' Private'}
-                </MenuItem>
-                <MenuItem divider />
-                <MenuItem onClick={() => this.handleRemoveDocument(mutate)}>
-                  <span className="text-danger">Delete Document</span>
-                </MenuItem>
-              </DropdownButton>
+              <Dropdown id="set-document-public">
+                <Dropdown.Toggle variant="light" size="sm" id="dropdown-basic">
+                  {settingsIcon}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={() => history.push(`/documents/${doc._id}`)}>
+                    <Icon iconStyle="solid" icon="external-link-alt" />
+                    {' View Document'}
+                  </Dropdown.Item>
+                  <Dropdown.Item divider />
+                  <Dropdown.Item header>Visibility</Dropdown.Item>
+                  <Dropdown.Item
+                    className={doc.isPublic && 'active'}
+                    eventKey="1"
+                    onClick={() => this.handleSetVisibility(mutate, 'public')}
+                  >
+                    <Icon iconStyle="solid" icon="unlock" />
+                    {' Public'}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    className={!doc.isPublic && 'active'}
+                    eventKey="2"
+                    onClick={() => this.handleSetVisibility(mutate, 'private')}
+                  >
+                    <Icon iconStyle="solid" icon="lock" />
+                    {' Private'}
+                  </Dropdown.Item>
+                  <Dropdown.Item divider />
+                  <Dropdown.Item onClick={() => this.handleRemoveDocument(mutate)}>
+                    <span className="text-danger">Delete Document</span>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </DocumentEditorHeader>
             <StyledDocumentEditor>
               <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
                 <DocumentEditorTitle>
-                  <ControlLabel>Title</ControlLabel>
                   <input
                     type="text"
                     className="form-control"
@@ -157,7 +161,6 @@ class DocumentEditor extends React.Component {
                   />
                 </DocumentEditorTitle>
                 <DocumentEditorBody>
-                  <ControlLabel>Body</ControlLabel>
                   <textarea
                     className="form-control"
                     name="body"

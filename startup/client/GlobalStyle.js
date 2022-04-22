@@ -50,6 +50,15 @@ const GlobalStyle = createGlobalStyle`
     border-left: none;
     border-right: none;
     border-top: none;
+    margin-bottom: 20px;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+  
+  .navbar-light .navbar-brand {
+    color: #777;
   }
 
   form label {
@@ -70,7 +79,9 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .page-header {
-    margin-top: 0;
+    padding-bottom: 9px;
+    margin: 40px 0 20px;
+    border-bottom: 1px solid #eee;
   }
 
   .table tr td {
@@ -88,7 +99,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     .page-header {
-      margin-top: 20px;
+      margin-top: 40px;
     }
   }
 `;

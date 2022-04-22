@@ -12,6 +12,7 @@ const SearchInput = styled.div`
 
   .form-control {
     padding-left: 30px;
+    font-size: 0.8rem;
   }
 `;
 

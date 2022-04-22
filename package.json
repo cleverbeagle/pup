@@ -60,7 +60,7 @@
     "react": "^16.14.0",
     "react-apollo": "^2.5.8",
     "react-autobind": "^1.0.6",
-    "react-bootstrap": "^0.33.1",
+    "react-bootstrap": "^1.6.4",
     "react-dom": "^16.14.0",
     "react-helmet": "^5.2.1",
     "react-markdown": "^4.3.1",

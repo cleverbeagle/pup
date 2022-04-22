@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
+import { Button, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { compose, graphql } from 'react-apollo';
 import { timeago } from '../../../modules/dates';
@@ -12,7 +12,7 @@ import { addDocument } from '../../mutations/Documents.gql';
 const Documents = ({ data, mutate }) => (
   <StyledDocuments>
     <header className="clearfix">
-      <Button bsStyle="success" onClick={mutate}>
+      <Button variant="success" onClick={mutate} size="sm">
         New Document
       </Button>
     </header>
@@ -23,9 +23,9 @@ const Documents = ({ data, mutate }) => (
             <Link to={`/documents/${_id}/edit`} />
             <header>
               {isPublic ? (
-                <span className="label label-success">Public</span>
+                <Badge variant="success">Public</Badge>
               ) : (
-                <span className="label label-default">Private</span>
+                <Badge variant="secondary">Private</Badge>
               )}
               <h2>{title}</h2>
               <p>{timeago(updatedAt)}</p>

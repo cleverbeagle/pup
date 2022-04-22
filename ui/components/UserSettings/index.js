@@ -69,7 +69,7 @@ class UserSettings extends React.Component {
     const { isAdmin } = this.props;
     const { settings } = this.state;
     return (
-      <div className="UserSettings">
+      <div className="UserSettings" style={{ paddingTop: '1rem' }}>
         <ListGroup>
           {settings.length > 0 ? (
             settings.map(({ _id, key, label, type, value }) => (
