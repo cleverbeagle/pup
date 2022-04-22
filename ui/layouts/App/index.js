@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
-import { Grid } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
 import { Roles } from 'meteor/alanning:roles';
 
@@ -73,7 +73,7 @@ class App extends React.Component {
         )}
         {props.authenticated && <GDPRConsentModal userId={props.userId} />}
         <Navigation {...props} {...state} />
-        <Grid>
+        <Container>
           <Switch>
             <Route exact name="index" path="/" component={Index} />
 
@@ -155,7 +155,7 @@ class App extends React.Component {
 
             <Route component={NotFound} />
           </Switch>
-        </Grid>
+        </Container>
         <Footer />
       </Styles.App>
     );

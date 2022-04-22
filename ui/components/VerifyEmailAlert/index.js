@@ -21,7 +21,7 @@ const VerifyEmailAlert = ({ userId, emailVerified, emailAddress, sendVerificatio
           {` (${emailAddress}) `}
           for us?
           <Button
-            bsStyle="link"
+            variant="link"
             onClick={() => handleResendVerificationEmail(emailAddress, sendVerificationEmail)}
             href="#"
           >

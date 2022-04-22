@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, FormGroup, ControlLabel, Button } from 'react-bootstrap';
+import { Row, Col, FormGroup, FormLabel, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Bert } from 'meteor/themeteorchef:bert';
@@ -70,7 +70,7 @@ class Login extends React.Component {
             >
               <form ref={(form) => (this.form = form)} onSubmit={(event) => event.preventDefault()}>
                 <FormGroup>
-                  <ControlLabel>Email Address</ControlLabel>
+                  <FormLabel>Email Address</FormLabel>
                   <input
                     type="email"
                     name="emailAddress"
@@ -80,12 +80,12 @@ class Login extends React.Component {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <ControlLabel className="clearfix">
+                  <FormLabel className="clearfix">
                     <span className="pull-left">Password</span>
                     <Link className="pull-right" to="/recover-password">
                       Forgot password?
                     </Link>
-                  </ControlLabel>
+                  </FormLabel>
                   <input
                     type="password"
                     name="password"
@@ -94,7 +94,7 @@ class Login extends React.Component {
                     data-test="password"
                   />
                 </FormGroup>
-                <Button type="submit" bsStyle="success" block>
+                <Button type="submit" variant="success" block>
                   Log In
                 </Button>
                 <AccountPageFooter>
